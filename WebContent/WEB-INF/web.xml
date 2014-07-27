@@ -64,25 +64,25 @@
 <!-- 思賢 -->
   <servlet>
     <servlet-name>QueServlet</servlet-name>
-    <servlet-class>com.que.controller.QueServlet</servlet-class>
+    <servlet-class>front.que.controller.QueServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>QueServlet</servlet-name>
     <url-pattern>/que/que.do</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>Test_DataSource</servlet-name>
-    <servlet-class>Test_DataSource</servlet-class>
+   <servlet>
+    <servlet-name>RentServlet</servlet-name>
+    <servlet-class>front.rent.controller.RentServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Test_DataSource</servlet-name>
-    <url-pattern>/Test_DataSource</url-pattern>
+    <servlet-name>RentServlet</servlet-name>
+    <url-pattern>/rent/rent.do</url-pattern>
   </servlet-mapping>
-  
+
 <!-- 彥勳 -->
   <servlet>
     <servlet-name>LocServlet</servlet-name>
-    <servlet-class>com.loc.controller.LocServlet</servlet-class>
+    <servlet-class>back.loc.controller.LocServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LocServlet</servlet-name>
