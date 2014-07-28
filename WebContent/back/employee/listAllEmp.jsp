@@ -28,14 +28,11 @@
 	</div>
 </div>
 
-
 <!-- 修改員工按鈕 -->
-<button class="btn btn-default btn-primary navbar-btn"
-	data-toggle="modal">修改</button>
+<button class="btn btn-default btn-primary navbar-btn" id="updateEmpBtn">修改</button>
 
 <!-- 刪除員工按鈕 -->
-<button class="btn btn-default btn-primary navbar-btn"
-	data-toggle="modal" id="delEmpBtn">刪除</button>
+<button class="btn btn-default btn-primary navbar-btn" id="delEmpBtn">刪除</button>
 
 <!-- 搜尋員工 -->
 <form class="navbar-form navbar-right" role="search">
@@ -47,13 +44,11 @@
 
 
 
-
-
 <div class="table-responsive">
 	<table class="table table-hover" style="white-space: nowrap;">
 		<thead>
 			<tr>
-				<th class="delSubmit" style="display: none;">刪除</th>
+				<th class="delEmpTd" style="display: none;">刪除</th>
 				<th>編號</th>
 				<th>帳號</th>
 				<th>姓名</th>
@@ -73,8 +68,8 @@
 		<tbody>
 			<c:forEach var="empVO" items="${list}">
 				<tr>
-					<td class="delSubmit" style="display: none;">
-						<button type="button" class="btn btn-danger btn-default btn-xs">
+					<td class="delEmpTd" style="display: none;">
+						<button type="button" class="delEmpSubmit btn btn-danger btn-default btn-xs" value="<%=request.getContextPath()%>/employee/employee.do">
 							<span class="glyphicon glyphicon-remove"></span>
 						</button>
 					</td>
@@ -97,12 +92,12 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td class="delSubmit" style="display: none;">
+				<td class="updateEmpTd" style="display: none;">
 					<button type="button" class="btn btn-primary btn-sm">
 						<span class="glyphicon glyphicon-ok-sign"></span>確定
 					</button>
 				</td>
-                <td class="delSubmit" style="display: none;">
+                <td class="updateEmpTd" style="display: none;">
 					<button type="button" class="btn btn-default btn-sm">
 						<span class="glyphicon glyphicon-remove-sign"></span>取消
 					</button>

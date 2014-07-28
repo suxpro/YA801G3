@@ -20,7 +20,7 @@
 		<h4 class="modal-title" id="myModalLabel">新增員工</h4>
 	</div>
 
-    <form class="form-horizontal" role="form" id="addSubmit" value="<%=request.getContextPath()%>/employee/employee.do" >
+    <form class="form-horizontal" role="form" id="addEmpForm" value="<%=request.getContextPath()%>/employee/employee.do" enctype="multipart/form-data">
 <%--     <form class="form-horizontal" role="form" action="<%=request.getContextPath()%>/employee/employee.do" method="post" enctype="multipart/form-data"> --%>
 		<div class="modal-body">
 			<div class="form-group">

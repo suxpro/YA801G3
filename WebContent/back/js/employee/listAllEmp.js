@@ -2,8 +2,8 @@
  * 
  */
 
-// add
-$("#addSubmit").on("submit", function(event) {
+// 新增員工按鈕
+$("#addEmpForm").on("submit", function(event) {
 	event.preventDefault();
 
 	// grab all form data
@@ -23,6 +23,9 @@ $("#addSubmit").on("submit", function(event) {
 			$("#addEmpModel").on("hidden.bs.modal", function(e) {
 				$("#listAllEmp").html(data);
 			}).modal("hide");
+		},
+		error : function() {
+			alert("系統異常!");
 		}
 	});
 
@@ -46,25 +49,56 @@ $("#addSubmit").on("submit", function(event) {
 	// })
 });
 
-$("#addEmpSubmit").click(function() {
-	htmlobj = $.ajax({
-		type : "post",
-		url : "<%=request.getContextPath()%>/employee/employee.do",
-		success : function(data, textStatus) {
-			$("#emp").html(data);
-			// complete: function(msg){
-			// $("#emp").html(htmlobj.responseText);
-			// //console.log(msg);
-		},
-		error : function() {
-			alert("系統異常!");
+// 修改員工按鈕
+$("#updateEmpBtn").on("click",function(event) {
+	$(".updateEmpTd").show();
+	var jsonObj = {};
+	jsonObj["action"] = "update";// 插入action屬性值
+	$("table td").on("click",function() {
+//		console.log($(this).has("img").length);
+		if (!$(this).is('.input') && $(this).attr('class') == undefined && $(this).has("img").length==0) {
+			$(this).html('<input type="text" value="'+ $(this).text() + '" />').find('input').focus().blur(function() {
+				// var thisid =
+				 alert($(this).parent().siblings("td:eq(1)").text());
+				// var thisvalue=$(this).val();
+				// var thisclass =
+				// $(this).parent().attr("class");
+				// alert(thisid+" "+thisvalue+"
+				// "+thisclass);
+				// $.ajax({
+				// type: 'POST',
+				// url: 'update.php',
+				// data:
+				// "thisid="+thisid+"&thisclass="+thisclass+"&thisvalue="+thisvalue
+				// });
+				$(this).parent().html($(this).val() || "");
+				if(!jsonObj.hasOwnProperty($(this).parent().siblings("td:eq(1)").text())){//判斷jsonObj內是否已擁有此emp_id
+					jsonObj[$(this).parent().siblings("td:eq(1)").text()] = [1,2,3];
+				}
+				console.log(jsonObj);
+			});
 		}
 	});
 });
 
-
-// remove
+// 移除員工按鈕
 $("#delEmpBtn").on("click", function(event) {
-	$(".delSubmit").show();
-
+	$(".delEmpTd").show();
+	$(".delEmpSubmit").click(function() {
+		// alert($(this).parent().siblings("td:eq(0)").text());
+		// alert($(this).attr("value"));
+		$.ajax({
+			type : "POST",
+			url : $(this).attr("value"),
+			contentType : "application/x-www-form-urlencoded",
+			data : {
+				action : "delete",
+				emp_no : $(this).parent().siblings("td:eq(0)").text()
+			},
+			dataType : "html",
+			success : function(data) {
+				$("#listAllEmp").html(data);
+			}
+		});
+	});
 });
