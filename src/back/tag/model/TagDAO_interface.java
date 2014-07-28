@@ -1,0 +1,15 @@
+package back.tag.model;
+
+import java.util.*;
+
+
+public interface TagDAO_interface {
+          public void insert(TagVO tagVO);
+          public void update(TagVO tagVO);
+          public void delete(String tag_no);
+          public TagVO findByPrimaryKey(String tag_no);
+          public List<TagVO> getAll();
+          //public TagVO findTag(String tag_no);
+          //�U�νƦX�d��(�ǤJ�Ѽƫ��AMap)(�^�� List)
+//        public List<TagVO> getAll(Map<String, String[]> map); 
+}
