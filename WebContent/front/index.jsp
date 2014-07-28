@@ -30,7 +30,7 @@
 				<!-- Brand -->
 				<!--<a class="navbar-brand" href="#">JustRent!</a>-->
 				<!-- <img src="img/JustRent_Logo6.png"> -->
-				<a class="navbar-brand" href="#"><img width="75" height="70"
+				<a class="navbar-brand" href="<%=request.getContextPath()%>/front/index.jsp"><img width="75" height="70"
 					src="img/JustRent_Logo7.png" width="130px"> </a>
 			</div>
 			<div class="navbar-collapse collapse navbar-form navbar-right">
@@ -61,8 +61,6 @@
 			</div>
 		</div>
 	</div>
-
-
 
 	<!-- ­º­¶½ü¼½ -->
 	<div class="container">
