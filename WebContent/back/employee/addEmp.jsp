@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	
-<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
-<!-- <html> -->
-<!-- <head> -->
-<!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
-<!-- <title>新增員工</title> -->
-<!-- </head> -->
-<!-- <body> -->
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -28,7 +20,8 @@
 		<h4 class="modal-title" id="myModalLabel">新增員工</h4>
 	</div>
 
-	<form class="form-horizontal" role="form" action="<%=request.getContextPath()%>/employee/employee.do" method="post" enctype="multipart/form-data">
+    <form class="form-horizontal" role="form" id="addSubmit" value="<%=request.getContextPath()%>/employee/employee.do" >
+<%--     <form class="form-horizontal" role="form" action="<%=request.getContextPath()%>/employee/employee.do" method="post" enctype="multipart/form-data"> --%>
 		<div class="modal-body">
 			<div class="form-group">
 				<label for="addEmpAccount" class="col-md-2 control-label">帳號:</label>
@@ -130,12 +123,9 @@
 			</div>
 			<div class="form-group modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-<!-- 				<button type="submit" class="btn btn-primary">確定</button> -->
-<!--                 <input type="hidden" name="action" value="addEmp"> -->
-                <button type="button" id="addEmpSubmit" class="btn btn-primary" value="<%=request.getContextPath()%>/employee/employee.do">確定</button>
+				<button type="submit" class="btn btn-primary">確定</button>
+                <input type="hidden" name="action" value="addEmp">
+<%--                 <button type="button" id="addEmp" class="addSubmit btn btn-primary" value="<%=request.getContextPath()%>/employee/employee.do">確定</button> --%>
 			</div>
 		</div>
 	</form>
-
-<!-- </body> -->
-<!-- </html> -->
