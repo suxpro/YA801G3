@@ -11,7 +11,7 @@
 			</ul>
 		</div>
 
-		<div class="col-md-10 col-md-offset-2 main">
+		<div id="listAllEmp" class="col-md-10 col-md-offset-2 main">
 				<%@ include file="/back/employee/listAllEmp.jsp"%>
 		</div>
 	</div>

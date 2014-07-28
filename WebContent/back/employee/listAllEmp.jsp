@@ -104,5 +104,5 @@ a new Emp.
 <button id="updateEmp">修改</button>
 <button id="toggle">Toggle</button>
 <div id="emp">
-	<%--        <%@ include file="employee/listAllEmp.jsp"%> --%>
+	  <%@ include file="/back/employee/addEmp.jsp"%>
 </div>

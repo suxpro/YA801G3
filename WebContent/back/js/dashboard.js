@@ -1,4 +1,50 @@
 $(document).ready(function() {
+//	add
+	$("#addSubmit").on( "submit", function(event) {
+		event.preventDefault();
+		  
+		//grab all form data  
+		var formData = new FormData($(this)[0]);
+		
+		console.log(formData);
+
+    	
+		$.ajax({
+			url:$(this).attr("value"),
+		    type: "POST",
+		    data: formData,
+		    async: false,
+		    cache: false,
+		    contentType: false,
+		    processData: false,
+		    success: function (data) {
+		    	$("#addEmpModel").on("hidden.bs.modal", function (e) {
+			    	$("#listAllEmp").html(data);
+		    	}).modal("hide");
+		    }
+		});
+    	
+    	
+//	$(".addSubmit").on( "click", function(event) {  
+//disable the default form submission
+//		$.ajax({
+//			 type:"POST",
+//			 url:$(this).attr("value"),
+//			 contentType:"multipart/form-data",
+////			 processData:false,
+//			 data:creatQueryString($(this)),
+//			 dataType: "html",
+//			 //dataType:"json",
+//			 success:function (data){
+//				alert("YAAA");
+//				$("#listAllEmp").html(data);
+////				$("#listAllEmp").load("employee/listAllEmp.jsp",function(){$.getScript("js/dashboard.js");});
+//		     },
+//            error:function(){alert("error");}
+//        })
+	})
+	
+//---------------	
 	$(".manage").click(function() {
 		switch($(this).attr("rel")) {
 			case "employee":
@@ -60,3 +106,12 @@ $(document).ready(function() {
     
     
 });
+
+function creatQueryString(addSubmit){
+	var jsonObj = {};
+	jsonObj["action"]=addSubmit.attr("id");//插入action屬性值
+	addSubmit.parent().siblings().find("input").each(function() { //動態新增屬性值
+		jsonObj[$( this ).attr("name")]=$( this ).val();
+	});
+	return jsonObj;
+}

@@ -37,7 +37,7 @@ public class LoginHandler extends HttpServlet {
 			req.setAttribute("dashboard_login_error", "帳號或密碼錯誤,請重新登入!");
 			
 			RequestDispatcher failureView = req
-					.getRequestDispatcher("/dashboard_login.jsp");
+					.getRequestDispatcher("/back/dashboard_login.jsp");
 			failureView.forward(req, res);
 			return;
 			
@@ -56,7 +56,7 @@ public class LoginHandler extends HttpServlet {
 			} catch (Exception ignored) {
 			}
 
-			res.sendRedirect(req.getContextPath()+"/dashboard.jsp"); // *工作3: (-如無: 無來源網頁,
+			res.sendRedirect(req.getContextPath()+"/back/dashboard.jsp"); // *工作3: (-如無: 無來源網頁,
 											// 則重導至index.jsp網頁)
 		}
 	}

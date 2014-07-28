@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>YA801G3bak</display-name>
+  <display-name>YA801G3</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -143,6 +143,31 @@
     <servlet-name>LoginHandlerF</servlet-name>
     <url-pattern>/front/login/LoginHandler</url-pattern>
   </servlet-mapping>
+  <!-- 濾器 -->
+  <filter>
+    <filter-name>setCharacterEncodingBack</filter-name>
+    <filter-class>back.filters.SetCharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>setCharacterEncodingBack</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+<!-- 後端登入 -->
+  <filter>
+    <filter-name>loginFilterBack</filter-name>
+    <filter-class>back.filters.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>loginFilterBack</filter-name>
+    <url-pattern>/back/dashboard.jsp</url-pattern>
+  </filter-mapping>
+
+<!-- 前端登入 -->
   <filter>
     <filter-name>loginFilterF</filter-name>
     <filter-class>front.login.filters.LoginFilterF</filter-class>

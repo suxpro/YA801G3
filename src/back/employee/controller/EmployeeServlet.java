@@ -48,8 +48,10 @@ public class EmployeeServlet extends HttpServlet {
 		String action = null;
 		if (contentType != null
 				&& contentType.startsWith("multipart/form-data")) {
+			System.out.println("test!!!!!!!!");
 			multi = new MultipartRequest(req, getServletContext().getRealPath(
-					"/employee/images"), 5 * 1024 * 1024, "UTF-8");
+					"/back/employee/images"), 5 * 1024 * 1024, "UTF-8");
+			System.out.println("test2!!!!!!!!");
 			action = multi.getParameter("action");
 		} else {
 			action = req.getParameter("action");
@@ -63,7 +65,7 @@ public class EmployeeServlet extends HttpServlet {
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String emp_id_pwd_Reg = "^[(a-zA-Z0-9_)]{2,10}$";
-				
+
 				String emp_id = multi.getParameter("addEmpAccount").trim();
 				if (emp_id == null || emp_id.trim().length() == 0) {
 					errorMsgs.put("emp_id", "帳號: 請勿空白");
@@ -152,7 +154,7 @@ public class EmployeeServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/employee/addEmp.jsp");
+							.getRequestDispatcher("/back/employee/addEmp.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -165,7 +167,7 @@ public class EmployeeServlet extends HttpServlet {
 						emp_format);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/employee/listAllEmp.jsp";
+				String url = "/back/employee/listAllEmp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 
@@ -173,7 +175,7 @@ public class EmployeeServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception", e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/employee/addEmp.jsp");
+						.getRequestDispatcher("/back/employee/addEmp.jsp");
 				failureView.forward(req, res);
 			}
 		}
