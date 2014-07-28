@@ -48,10 +48,10 @@ public class EmployeeServlet extends HttpServlet {
 		String action = null;
 		if (contentType != null
 				&& contentType.startsWith("multipart/form-data")) {
-			System.out.println("test!!!!!!!!");
+			System.out.println("EmployeeServlet.51");
 			multi = new MultipartRequest(req, getServletContext().getRealPath(
 					"/back/employee/images"), 5 * 1024 * 1024, "UTF-8");
-			System.out.println("test2!!!!!!!!");
+			System.out.println("EmployeeServlet.54");
 			action = multi.getParameter("action");
 		} else {
 			action = req.getParameter("action");

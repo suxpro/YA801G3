@@ -125,7 +125,7 @@
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 				<button type="submit" class="btn btn-primary">確定</button>
                 <input type="hidden" name="action" value="addEmp">
-<%--                 <button type="button" id="addEmp" class="addSubmit btn btn-primary" value="<%=request.getContextPath()%>/employee/employee.do">確定</button> --%>
+<%--            <button type="button" id="addEmp" class="addSubmit btn btn-primary" value="<%=request.getContextPath()%>/employee/employee.do">確定</button> --%>
 			</div>
 		</div>
 	</form>
