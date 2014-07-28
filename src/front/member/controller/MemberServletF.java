@@ -562,14 +562,14 @@ public class MemberServletF extends HttpServlet {
 				String mverification = multi.getParameter("mverification")
 						.trim();
 
-				java.sql.Date mdate = null;
-				try {
-					mdate = java.sql.Date.valueOf(multi.getParameter("mdate")
-							.trim());
-				} catch (IllegalArgumentException e) {
-					mdate = new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.put("mdate", "請輸入日期!");
-				}
+//				java.sql.Date mdate = null;
+//				try {
+//					mdate = java.sql.Date.valueOf(multi.getParameter("mdate")
+//							.trim());
+//				} catch (IllegalArgumentException e) {
+//					mdate = new java.sql.Date(System.currentTimeMillis());
+//					errorMsgs.put("mdate", "請輸入日期!");
+//				}
 
 
 				MemberVO memberVO = new MemberVO();
@@ -587,7 +587,7 @@ public class MemberServletF extends HttpServlet {
 				memberVO.setMillegal(milligal);
 				memberVO.setMassess(massess);
 				memberVO.setMverification(mverification);
-				memberVO.setMdate(mdate);
+//				memberVO.setMdate(mdate);
 				memberVO.setMpic_info(mpic_info);
 				memberVO.setMvpic(mvpic);
 				memberVO.setMvpic_info(mvpic_info);
@@ -605,7 +605,7 @@ public class MemberServletF extends HttpServlet {
 				MemberService memberSvc = new MemberService();
 				memberVO = memberSvc.addMember(mid, mpwd, mpic, mname, msex,
 						mcell, mmail, locno, madrs, mlev, mbalance, milligal,
-						massess, mverification, mdate, mpic_info, mvpic,
+						massess, mverification, mpic_info, mvpic,
 						mvpic_info);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/

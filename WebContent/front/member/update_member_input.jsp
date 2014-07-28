@@ -59,7 +59,8 @@
 			</tr>
 			<tr>
 				<td>會員圖片</td>
-				<td><img width="80" height="80" src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=mpic"></td>
+				<td><img width="80" height="80"
+					src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_PIC"></td>
 				<td><input type="file" name="mpic" /></td>
 				<td>${errorMsgs.mpic}</td>
 			</tr>
@@ -100,7 +101,6 @@
 								${(memberVO.locno==locVO.loc_no)? 'selected':'' }>${locVO.loc_desc}
 						</c:forEach>
 				</select></td>
-				<td>${errorMsgs.locno}</td>
 			</tr>
 
 
@@ -171,7 +171,8 @@
 
 			<tr>
 				<td>會員輪播圖片</td>
-				<td><img width="80" height="80" src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=mvpic"></td>
+				<td><img width="80" height="80"
+					src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_VPIC"></td>
 				<td><input type="file" name="mvpic" /></td>
 				<td>${errorMsgs.mvpic}</td>
 			</tr>

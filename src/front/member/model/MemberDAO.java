@@ -26,7 +26,7 @@ public class MemberDAO implements MemberDAO_interface {
 		}
 	}
 
-	private static final String INSERT_STMT = "INSERT INTO member (mem_no, mem_id, mem_pwd, mem_pic, mem_name, mem_sex, mem_cell, mem_mail, loc_no, mem_adrs, mem_lev, mem_mbl, mem_ileg, mem_ases, mem_ver, mem_date, mem_pic_info, mem_vpic, mem_vpic_info) VALUES ('M'||TO_CHAR(member_seq.NEXTVAL), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO member (mem_no, mem_id, mem_pwd, mem_pic, mem_name, mem_sex, mem_cell, mem_mail, loc_no, mem_adrs, mem_lev, mem_mbl, mem_ileg, mem_ases, mem_ver, mem_date, mem_pic_info, mem_vpic, mem_vpic_info) VALUES ('M'||TO_CHAR(member_seq.NEXTVAL), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT mem_no, mem_id, mem_pwd, mem_pic, mem_name, mem_sex, mem_cell, mem_mail, loc_no, mem_adrs, mem_lev, mem_mbl, mem_ileg, mem_ases, mem_ver, to_char(mem_date,'yyyy-mm-dd') mem_date, mem_pic_info, mem_vpic, mem_vpic_info FROM member order by mem_no";
 	private static final String GET_ONE_STMT = "SELECT mem_no, mem_id, mem_pwd, mem_pic, mem_name, mem_sex, mem_cell, mem_mail, loc_no, mem_adrs, mem_lev, mem_mbl, mem_ileg, mem_ases, mem_ver, to_char(mem_date,'yyyy-mm-dd') mem_date, mem_pic_info, mem_vpic, mem_vpic_info FROM member where mem_no = ?";
 	private static final String GET_IDPWD_STMT = "SELECT mem_no, mem_id, mem_pwd, mem_pic, mem_name, mem_sex, mem_cell, mem_mail, loc_no, mem_adrs, mem_lev, mem_mbl, mem_ileg, mem_ases, mem_ver, to_char(mem_date,'yyyy-mm-dd') mem_date, mem_pic_info, mem_vpic, mem_vpic_info FROM member where mem_id = ?";
@@ -138,10 +138,10 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setInt(12, memberVO.getMillegal());
 			pstmt.setInt(13, memberVO.getMassess());
 			pstmt.setString(14, memberVO.getMverification());
-			pstmt.setDate(15, memberVO.getMdate());
-			pstmt.setString(16, memberVO.getMpic_info());
-			pstmt.setBytes(17, memberVO.getMvpic());
-			pstmt.setString(18, memberVO.getMvpic_info());
+//			pstmt.setDate(15, memberVO.getMdate());
+			pstmt.setString(15, memberVO.getMpic_info());
+			pstmt.setBytes(16, memberVO.getMvpic());
+			pstmt.setString(17, memberVO.getMvpic_info());
 
 			pstmt.executeUpdate();
 

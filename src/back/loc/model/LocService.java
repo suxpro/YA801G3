@@ -1,6 +1,7 @@
 ﻿package back.loc.model;
 
 import java.util.List;
+import java.util.Set;
 
 public class LocService {
 	private LocDAO_interface dao;
@@ -51,4 +52,8 @@ public class LocService {
 	public List<LocVO> getAll() {
 		return dao.getAll();
 	}
+	
+//	public Set<MemberVO> getMembersByLocno(String loc_no) {
+//		return dao.getMembersByLocno(loc_no);
+//	}
 }

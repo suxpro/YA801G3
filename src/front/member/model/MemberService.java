@@ -13,8 +13,7 @@ public class MemberService {
 	public MemberVO addMember(String mid, String mpwd, byte[] mpic,
 			String mname, String msex, String mcell, String mmail,
 			String locno, String madrs, String mlev, Double mbalance,
-			Integer milligal, Integer massess, String mverification,
-			java.sql.Date mdate, String mpic_info, byte[] mvpic,
+			Integer milligal, Integer massess, String mverification, String mpic_info, byte[] mvpic,
 			String mvpic_info) {
 		// 新增
 		MemberVO memberVO = new MemberVO();
@@ -33,7 +32,7 @@ public class MemberService {
 		memberVO.setMillegal(milligal);
 		memberVO.setMassess(massess);
 		memberVO.setMverification(mverification);
-		memberVO.setMdate(mdate);
+//		memberVO.setMdate(mdate);
 		memberVO.setMpic_info(mpic_info);
 		memberVO.setMvpic(mvpic);
 		memberVO.setMvpic_info(mvpic_info);

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="BIG5"%>
 <%@ page import="front.member.model.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO"); //MemberServlet.java(Concroller), 存入req的empVO物件
 %>
@@ -47,8 +48,12 @@
 			<td><%=memberVO.getMno()%></td>
 			<td><%=memberVO.getMid()%></td>
 			<td><%=memberVO.getMpwd()%></td>
-			<td><img src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}"></td>
-			<!-- <td><%=memberVO.getMpic()%></td> -->
+			
+			<td><img width="80" height="80"
+					src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_PIC"></td>
+				<!--  <td>${memberVO.mpic}</td>-->
+			<td>${memberVO.mpic_info}</td>
+			
 			<td><%=memberVO.getMname()%></td>
 			<td><%=memberVO.getMsex()%></td>
 			<td><%=memberVO.getMcell()%></td>
@@ -61,10 +66,12 @@
 			<td><%=memberVO.getMassess()%></td>
 			<td><%=memberVO.getMverification()%></td>
 			<td><%=memberVO.getMdate()%></td>
-			<td><%=memberVO.getMpic_info()%></td>
-			<td><img src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}"></td>
-			<!-- <td><%=memberVO.getMvpic()%></td> -->
-			<td><%=memberVO.getMvpic_info()%></td>
+			
+			<td><img width="80" height="80"
+					src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_VPIC"></td>
+				<!-- <td>${memberVO.mvpic}</td> -->
+			<td>${memberVO.mvpic_info}</td>
+			
 		</tr>
 	</table>
 </body>

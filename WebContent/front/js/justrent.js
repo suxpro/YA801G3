@@ -5,7 +5,7 @@
 $(document).ready(
 		function() {
 			
-// ¼s§i½ü¼½	
+// å»£å‘Šè¼ªæ’­	
 			$('#dashboard').hover(function() {
 				$(this).stop().animate({
 					left : '0',
@@ -59,7 +59,7 @@ $(document).ready(
 
 			$('#back-to-top').tooltip('show');
 
-//ÀËµø±K½X
+//æª¢è¦–å¯†ç¢¼
 			$(".reveal").mousedown(function() {
 			    $(".pwd").replaceWith($('.pwd').clone().attr('type', 'text'));
 			})
