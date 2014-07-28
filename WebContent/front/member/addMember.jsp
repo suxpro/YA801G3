@@ -103,7 +103,7 @@
 							<option value="${locVO.loc_no}"
 								${(memberVO.locno==locVO.loc_no)? 'selected':'' }>${locVO.loc_desc}
 						</c:forEach>
-				</select></td><td>${errorMsgs.locno}</td>
+				</select></td>
 			</tr>
 
 

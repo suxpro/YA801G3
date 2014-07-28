@@ -14,7 +14,7 @@ public class LocDAO implements LocDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/renterDB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -252,6 +252,65 @@ public class LocDAO implements LocDAO_interface {
 					}
 		return list;
 	}
+	
+
+//	@Override
+//	public Set<MemberVO> getMembersByLocno(String loc_no) {
+//		Set<MemberVO> set = new LinkedHashSet<MemberVO>();
+//		MemberVO memberVO = null;
+//	
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		
+//		try {
+//			
+//			con = ds.getConnection();
+//			pstmt = con.prepareStatement(GET_Emps_ByDeptno_STMT);
+//			pstmt.setInt(1, deptno);
+//			rs = pstmt.executeQuery();
+//	
+//			while (rs.next()) {
+//				empVO = new EmpVO();
+//				empVO.setEmpno(rs.getInt("empno"));
+//				empVO.setEname(rs.getString("ename"));
+//				empVO.setJob(rs.getString("job"));
+//				empVO.setHiredate(rs.getDate("hiredate"));
+//				empVO.setSal(rs.getDouble("sal"));
+//				empVO.setComm(rs.getDouble("comm"));
+//				empVO.setDeptno(rs.getInt("deptno"));
+//				set.add(empVO); // Store the row in the vector
+//			}
+//	
+//			// Handle any SQL errors
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//		} finally {
+//			if (rs != null) {
+//				try {
+//					rs.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		return set;
+//	}
 
 	public static void main(String[] args) {
 
@@ -282,12 +341,12 @@ public class LocDAO implements LocDAO_interface {
 //		System.out.print(locVO3.getLoc_desc());
 //		System.out.println("---------------------");
 //
-		// 查詢
-		List<LocVO> list = dao.getAll();
-		for (LocVO aLoc : list) {
-			System.out.print(aLoc.getLoc_no() + ",");
-			System.out.print(aLoc.getLoc_desc());
-			System.out.println();
-		}
+//		// 查詢
+//		List<LocVO> list = dao.getAll();
+//		for (LocVO aLoc : list) {
+//			System.out.print(aLoc.getLoc_no() + ",");
+//			System.out.print(aLoc.getLoc_desc());
+//			System.out.println();
+//		}
 	}
 }

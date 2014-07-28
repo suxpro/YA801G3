@@ -68,7 +68,7 @@
 				<td>${memberVO.mid}</td>
 				<td>${memberVO.mpwd}</td>
 				<td><img width="80" height="80"
-					src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=mpic"></td>
+					src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_PIC"></td>
 				<!--  <td>${memberVO.mpic}</td>-->
 				<td>${memberVO.mpic_info}</td>
 				<td>${memberVO.mname}</td>
@@ -85,7 +85,7 @@
 				<td>${memberVO.mdate}</td>
 				
 				<td><img width="80" height="80"
-					src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=mvpic"></td>
+					src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_VPIC"></td>
 				<!-- <td>${memberVO.mvpic}</td> -->
 				<td>${memberVO.mvpic_info}</td>
 
