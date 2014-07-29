@@ -20,7 +20,7 @@
 		<h4 class="modal-title" id="myModalLabel">新增員工</h4>
 	</div>
 
-    <form class="form-horizontal" role="form" id="addSubmit" value="<%=request.getContextPath()%>/employee/employee.do" >
+    <form class="form-horizontal" role="form" id="addEmpForm" value="<%=request.getContextPath()%>/employee/employee.do" enctype="multipart/form-data">
 <%--     <form class="form-horizontal" role="form" action="<%=request.getContextPath()%>/employee/employee.do" method="post" enctype="multipart/form-data"> --%>
 		<div class="modal-body">
 			<div class="form-group">
@@ -125,7 +125,7 @@
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 				<button type="submit" class="btn btn-primary">確定</button>
                 <input type="hidden" name="action" value="addEmp">
-<%--                 <button type="button" id="addEmp" class="addSubmit btn btn-primary" value="<%=request.getContextPath()%>/employee/employee.do">確定</button> --%>
+<%--            <button type="button" id="addEmp" class="addSubmit btn btn-primary" value="<%=request.getContextPath()%>/employee/employee.do">確定</button> --%>
 			</div>
 		</div>
 	</form>

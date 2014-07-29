@@ -8,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import back.employee.model.*;
+import back.member.model.MemberService;
 
 import com.oreilly.servlet.MultipartRequest;
 
@@ -48,10 +49,10 @@ public class EmployeeServlet extends HttpServlet {
 		String action = null;
 		if (contentType != null
 				&& contentType.startsWith("multipart/form-data")) {
-			System.out.println("test!!!!!!!!");
+			System.out.println("EmployeeServlet.51");
 			multi = new MultipartRequest(req, getServletContext().getRealPath(
 					"/back/employee/images"), 5 * 1024 * 1024, "UTF-8");
-			System.out.println("test2!!!!!!!!");
+			System.out.println("EmployeeServlet.54");
 			action = multi.getParameter("action");
 		} else {
 			action = req.getParameter("action");
@@ -153,6 +154,7 @@ public class EmployeeServlet extends HttpServlet {
 				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
+					System.out.println("有errorMsgs");
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/back/employee/addEmp.jsp");
 					failureView.forward(req, res);
@@ -180,7 +182,37 @@ public class EmployeeServlet extends HttpServlet {
 			}
 		}
 		
-		
+		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			String requestURL = "/back/employee/listAllEmp.jsp"; // 送出刪除的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】
+
+			try {
+				/*************************** 1.接收請求參數 ***************************************/
+				String emp_no = new String(req.getParameter("emp_no"));
+
+				System.out.println("EmployeeServlet.198."+emp_no+"刪除!");
+				/*************************** 2.開始刪除資料 ***************************************/
+				EmployeeService empSvc = new EmployeeService();
+				empSvc.deleteEmp(emp_no);
+
+				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+				String url = requestURL;
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.put("Exception", "刪除資料失敗:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher(requestURL);
+				failureView.forward(req, res);
+			}
+		}
 		
 		
 
