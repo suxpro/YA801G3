@@ -333,6 +333,9 @@ public class MemberServletF extends HttpServlet {
 				String locno = multi.getParameter("locno").trim();
 
 				String madrs = multi.getParameter("madrs").trim();
+				if (madrs == null || (madrs.trim()).length() == 0) {
+					errorMsgs.put("madrs", "請輸入地址");
+				}
 
 				String mlev = multi.getParameter("mlev").trim();
 
