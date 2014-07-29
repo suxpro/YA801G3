@@ -57,9 +57,10 @@ $("#updateEmpBtn").on("click",function(event) {
 	$("table td").on("click",function() {
 //		console.log($(this).has("img").length);
 		if (!$(this).is('.input') && $(this).attr('class') == undefined && $(this).has("img").length==0) {
-			$(this).html('<input type="text" value="'+ $(this).text() + '" />').find('input').focus().blur(function() {
+			var tdTextBak=$(this).text();
+			$(this).html('<input type="text" value="'+ $(this).text() + '" />').find('input').focus().bind("blur",{test:tdTextBak},function(event) {
 				// var thisid =
-				 alert($(this).parent().siblings("td:eq(1)").text());
+				// $(this).parent().siblings("td:eq(1)").text();
 				// var thisvalue=$(this).val();
 				// var thisclass =
 				// $(this).parent().attr("class");
@@ -71,9 +72,24 @@ $("#updateEmpBtn").on("click",function(event) {
 				// data:
 				// "thisid="+thisid+"&thisclass="+thisclass+"&thisvalue="+thisvalue
 				// });
-				$(this).parent().html($(this).val() || "");
-				if(!jsonObj.hasOwnProperty($(this).parent().siblings("td:eq(1)").text())){//判斷jsonObj內是否已擁有此emp_id
-					jsonObj[$(this).parent().siblings("td:eq(1)").text()] = [1,2,3];
+//				console.log($(this).parent().siblings("td:eq(1)").text());
+//				$(this).parent().text($(this).val() || "");
+//				console.log(event.data.test);
+//				console.log($(this).parent().siblings("td:eq(1)").text());
+				console.log($(this).val());
+				
+				if($(this).val().trim() != "" || $(this).val().trim() == event.data.test){
+					var tdFirst = $(this).parent().siblings("td:first");//此為hidden的刪除
+					$(this).parent().text($(this).val());//修改td欄位值
+					if(!jsonObj.hasOwnProperty(tdFirst.next().text())){//判斷jsonObj內是否已擁有此emp_id
+						var str = tdFirst.next().text();
+						var array =tdFirst.nextAll().map(function () { return $(this).text();}).toArray();
+						console.log(array);
+						jsonObj[str] = array;
+					}
+				} else {
+					console.log($(this).parent().siblings("td:eq(1)").text());
+					$(this).parent().text(event.data.test);
 				}
 				console.log(jsonObj);
 			});

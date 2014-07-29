@@ -49,20 +49,20 @@
 		<thead>
 			<tr>
 				<th class="delEmpTd" style="display: none;">刪除</th>
-				<th>編號</th>
-				<th>帳號</th>
-				<th>姓名</th>
-				<th>性別</th>
-				<th>電話</th>
-				<th>手機</th>
-				<th>Email</th>
-				<th>地址</th>
-				<th>職位</th>
-				<th>薪水</th>
-				<th>到職日</th>
-				<th>緊急聯絡人</th>
-				<th>聯絡人電話</th>
-				<th>圖片</th>
+				<th title="empNo">編號</th>
+				<th title="empId">帳號</th>
+				<th title="empName">姓名</th>
+				<th title="empSex">性別</th>
+				<th title="empTel">電話</th>
+				<th title="empCell">手機</th>
+				<th title="empMail">Email</th>
+				<th title="empAddr">地址</th>
+				<th title="empJob">職位</th>
+				<th title="empSal">薪水</th>
+				<th title="empTod">到職日</th>
+				<th title="empEcp">緊急聯絡人</th>
+				<th title="empEcell">聯絡人電話</th>
+				<th title="empPic">圖片</th>
 			</tr>
 		</thead>
 		<tbody>
