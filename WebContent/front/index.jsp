@@ -34,16 +34,14 @@
 					src="img/JustRent_Logo7.png" width="130px"> </a>
 			</div>
 			<div class="navbar-collapse collapse navbar-form navbar-right">
-				<button class="btn btn-default" data-toggle="modal"
-					data-target="#myLogin">登入</button>
-				<button class="btn btn-danger"
-					onclick="location.href='<%=request.getContextPath()%>/front/member/addMember.jsp'">註冊</button>
+				<button class="btn btn-default" data-toggle="modal" data-target="#myLogin">登入</button>
+				<button class="btn btn-danger" data-toggle="modal" data-target="#Agreement">註冊</button>
 			</div>
 			<!--/.navbar-collapse -->
 		</div>
 	</div>
 
-	<!-- modal -->
+	<!-- modal login-->
 	<div class="modal fade" id="myLogin" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -56,7 +54,26 @@
 				</div>
 				<!-- login -->
 				<div class="modal-body">
-					<%@ include file="login.jsp"%>
+					<%@ include file="/front/login/login.jsp"%>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- modal agreement-->
+	<div class="modal fade" id="Agreement" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">會員條款</h4>
+				</div>
+				<!-- agreement -->
+				<div class="modal-body">
+					<%@ include file="/front/member/AgreementMember.jsp"%>
 				</div>
 			</div>
 		</div>

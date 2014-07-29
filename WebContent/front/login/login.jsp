@@ -1,34 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="BIG5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<link href="css/dashboard_login.css" rel="stylesheet">
-<title>JustRent!後端登入</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="css/justrent.css" rel="stylesheet">
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.color.js"></script>
+<script src="js/justrent.js"></script>
+<title>Login</title>
 </head>
 <body>
-	<div class="container">
-		<form class="form-signin" role="form"
-			action="<%=request.getContextPath()%>/LoginHandler" method="post">
-			<h2 class="form-signin-heading">員工登入:</h2>
-			<input type="text" class="form-control" placeholder="請輸入帳號"
-				name="account" value="" required autofocus> <input
-				type="password" class="form-control" placeholder="請輸入密碼"
-				name="password" value="" required>
-			<!--         <label class="checkbox"> -->
-			<!--           <input type="checkbox" value="remember-me"> Remember me -->
-			<!--         </label> -->
-			<button class="btn btn-lg btn-primary btn-block" type="submit"
-				value="OK">登入</button>
-		</form>
 
-		<%-- 錯誤表列 --%>
-		<c:if test="${not empty dashboard_login_error}">
-            ${dashboard_login_error}
-        </c:if>
+	<form class="form-horizontal" role="form" METHOD=POST
+		ACTION="<%=request.getContextPath()%>/front/login/LoginHandler"
+		id="login">
+		<div class="form-group">
+		<br>
+			<label class="col-sm-3 control-label">Account</label>
+			<div class="col-sm-7">
+				<input NAME="mid" type="text" class="form-control" placeholder="Account">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-3 control-label">Password</label>
+			<div class="col-xs-7">
+				<input NAME="mpwd" type="password" class="form-control pwd" placeholder="Password">								
+			</div>		
+            <button class="btn btn-default reveal" id="seepwd" type="button"><i class="glyphicon glyphicon-eye-open"></i></button>		
+		</div>
+		<br>
+		<br>				
+		<div class="form-group">
+			<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">����</button>
+					<button type="SUBMIT" class="btn btn-primary">�T�w</button>		
+			</div>
+		</div>
+	</form>
 
-	</div>	<!-- /container -->
-</body>
+</BODY>
 </html>
