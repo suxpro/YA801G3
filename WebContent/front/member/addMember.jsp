@@ -32,8 +32,7 @@ width:600px;
 <script language="JavaScript" src="js/previewImage2.js"></script>
 <body bgcolor='white'>
 
-	<%@ include file="/front/header.jsp"%>
-
+	<%@ include file="/front/header.file"%>
 
 	<h3 align="center">µù¥U·|­û:</h3>
 	<%-- ¿ù»~ªí¦C --%>
