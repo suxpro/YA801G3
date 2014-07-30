@@ -33,9 +33,9 @@
                                     <%=memberVOxx.getMname()%>
                                     <b class="pull-right glyphicon glyphicon-chevron-up"></b>
                                 </li>
-                                <li>
-                                	<FORM METHOD="post"	ACTION="<%=request.getContextPath()%>/front/member/member.do">
-										<button type="SUBMIT" class="btn btn-default btn-sm btn-block" >會員資料修改</button> 
+                                
+                                <li><a href="#" onclick="document.updateMember.submit();">會員資料修改</a>
+                                	<FORM name="updateMember" METHOD="post"	ACTION="<%=request.getContextPath()%>/front/member/member.do">
 										<input type="hidden" name="mno" value="${memberVO.mno}"> 						
 										<input type="hidden" name="action" value="getOne_For_Update">
 									</FORM>
@@ -62,11 +62,11 @@
                   						<li><a href="#">租期通知(0)</a></li>
                 					</ul>
               					</li>
+              					<li class="divider"></li>
                                 <li>
-                                	<li>
-                                	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front/login/LogoutHandler">
+                                	<li><a href="#" onclick="document.logoutMember.submit();"><i class="glyphicon glyphicon-off"></i> 登出</a>
+                                	<FORM name="logoutMember" METHOD="post" ACTION="<%=request.getContextPath()%>/front/login/LogoutHandler">
 										<input type="hidden" name="action" value="logout">
-										<button type="SUBMIT" class="btn btn-default btn-sm btn-block" name="logout"><i class="glyphicon glyphicon-off"></i> 登出</button>
 									</FORM>
 									</li>
 								</li>
