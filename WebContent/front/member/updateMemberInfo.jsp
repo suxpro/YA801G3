@@ -14,33 +14,52 @@
 <title>會員資料修改 - updateMemberInfo.jsp</title>
 
 <style type="text/css">
-#preview{width:100px;height:100px;border:1px solid #000;overflow:hidden;}
-#imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);}
-#preview2{width:100px;height:100px;border:1px solid #000;overflow:hidden;}
-#imghead2 {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);}
-
-#memform { 
-margin: 0 auto; 
-width:700px;
+#preview {
+	width: 100px;
+	height: 100px;
+	border: 1px solid #000;
+	overflow: hidden;
 }
 
+#imghead {
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
+}
+
+#preview2 {
+	width: 100px;
+	height: 100px;
+	border: 1px solid #000;
+	overflow: hidden;
+}
+
+#imghead2 {
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
+}
+
+#memform {
+	margin: 0 auto;
+	width: 700px;
+}
 </style>
 
-<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/front/css/justrent.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css"
+	rel="stylesheet" media="screen">
+<link href="<%=request.getContextPath()%>/front/css/justrent.css"
+	rel="stylesheet">
 <script src="<%=request.getContextPath()%>/front/js/jquery-1.7.2.min.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/bootstrap.min.js"></script>
-<script src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
+<script
+	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/jquery.color.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/justrent.js"></script>
 
 <script language="JavaScript" src="js/previewImage.js"></script>
 <script language="JavaScript" src="js/previewImage2.js"></script>
 </head>
-<body> 
-	
+<body>
+
 	<%@ include file="/front/header.file"%>
-	
+
 	<h3 align="center">會員資料修改</h3>
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -53,8 +72,65 @@ width:700px;
 		</font>
 	</c:if>
 
-	<FORM id="memform" METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/member.do" name="form1"
-		enctype="multipart/form-data">
+	<form id="memform" METHOD="post"
+		ACTION="<%=request.getContextPath()%>/front/member/member.do"
+		name="form1" enctype="multipart/form-data" class="form-horizontal" role="form">
+		<div class="form-group">
+			<label for="inputEmail3" class="col-sm-2 control-label">會員編號</label>
+			<label for="inputEmail3" class="col-sm-10 control-label"><%=memberVO.getMno()%></label>
+		</div>
+		<div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">會員帳號</label>
+			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
+		</div>
+		<div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">會員密碼</label>
+			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
+		</div>
+		<div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">會員圖片</label>
+			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
+		</div>
+		<div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">會員姓名</label>
+			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
+		</div>
+		<div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">會員性別</label>
+			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
+		</div>
+		<div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">會員手機</label>
+			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
+		</div>
+		<div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">會員郵件</label>
+			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
+		</div>
+		<div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">地區</label>
+			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
+		</div>
+		<div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">會員地址</label>
+			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
+		</div>
+		<div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">會員輪播圖片</label>
+			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
+		</div>		
+		
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="submit" class="btn btn-default">修改</button>
+			</div>
+		</div>
+	</form>
+
+
+	<FORM id="memform" METHOD="post"
+		ACTION="<%=request.getContextPath()%>/front/member/member.do"
+		name="form1" enctype="multipart/form-data">
 		<table border="0">
 			<tr>
 				<td>會員編號</td>
@@ -68,7 +144,7 @@ width:700px;
 
 
 			<tr>
-				<td>會員密碼:</td>
+				<td>會員密碼</td>
 				<td><input type="password" name="mpwd" size="45"
 					value="<%=(memberVO == null) ? "Aa1234d" : memberVO.getMpwd()%>" /></td>
 				<td>${errorMsgs.mpwd}</td>
@@ -81,26 +157,26 @@ width:700px;
 				<td>${errorMsgs.mpic}</td>
 			</tr>
 			<tr>
-				<td>會員姓名:</td>
+				<td>會員姓名</td>
 				<td><input type="TEXT" name="mname" size="45"
 					value="<%=(memberVO == null) ? "跳跳虎" : memberVO.getMname()%>" /></td>
 				<td>${errorMsgs.mname}</td>
 			</tr>
 			<tr>
-				<td>會員性別:<font color=red><b>*</b></font></td>
+				<td>會員性別</td>
 				<td>男 <input type="radio" name="msex" value=M checked /> 女 <input
 					type="radio" name="msex" value=F />
 				</td>
 				<td>${errorMsgs.msex}</td>
 			</tr>
 			<tr>
-				<td>會員手機:<font color=red><b>*</b></font></td>
+				<td>會員手機</td>
 				<td><input type="TEXT" name="mcell" size="45"
 					value="<%=(memberVO == null) ? "0911863655" : memberVO.getMcell()%>" /></td>
 				<td>${errorMsgs.mcell}</td>
 			</tr>
 			<tr>
-				<td>會員郵件:<font color=red><b>*</b></font></td>
+				<td>會員郵件</td>
 				<td><input type="TEXT" name="mmail" size="45"
 					value="<%=(memberVO == null) ? "ggininder@gmail.com" : memberVO
 					.getMmail()%>" /></td>
@@ -110,7 +186,7 @@ width:700px;
 			<jsp:useBean id="locSvc" scope="page"
 				class="back.loc.model.LocService" />
 			<tr>
-				<td>地區:<font color=red><b>*</b></font></td>
+				<td>地區</td>
 				<td><select size="1" name="locno">
 						<c:forEach var="locVO" items="${locSvc.all}">
 							<option value="${locVO.loc_no}"
@@ -121,28 +197,30 @@ width:700px;
 
 
 			<tr>
-				<td>會員地址:<font color=red><b>*</b></font></td>
-				<td><input type="TEXT" name="madrs" size="45" value="<%=(memberVO == null) ? "桃園縣大溪鎮勝利路1號" : memberVO.getMadrs()%>" /></td>
+				<td>會員地址</td>
+				<td><input type="TEXT" name="madrs" size="45"
+					value="<%=(memberVO == null) ? "桃園縣大溪鎮勝利路1號" : memberVO.getMadrs()%>" /></td>
 				<td>${errorMsgs.madrs}</td>
 			</tr>
 
-		<c:if test="<%=memberVO.getMlev().equals('V')%>">
-			<tr>
-				<td>會員輪播圖片</td>
-				<td><img width="80" height="80"
-					src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_VPIC"></td>
-				<td><input type="file" name="mvpic" /></td>
-				<td>${errorMsgs.mvpic}</td>
-			</tr>
-		</c:if>
+			<c:if test="${memberVO.mlev == 'V' }">
+				<tr>
+					<td>會員輪播圖片</td>
+					<td><img width="80" height="80"
+						src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_VPIC"></td>
+					<td><input type="file" name="mvpic" /></td>
+					<td>${errorMsgs.mvpic}</td>
+				</tr>
+			</c:if>
 		</table>
-		<br><input type="hidden" name="action" value="updateInfo"> 
-			<input type="hidden" name="mno" value="<%=memberVO.getMno()%>"> 
-			<input type="hidden" name="requestURL" value="<%=request.getAttribute("requestURL")%>"><!--原送出修改的來源網頁路徑,從request取出後,再送給Controller準備轉交之用-->
-			<input type="hidden" name="whichPage" value="<%=request.getAttribute("whichPage")%>">  <!--只用於:istAllEmp.jsp-->
-			<input type="submit" value="送出修改">
+		<br>
+		<input type="hidden" name="action" value="updateInfo"> 
+		<input type="hidden" name="mno" value="<%=memberVO.getMno()%>"> 
+		<input type="hidden" name="requestURL" value="<%=request.getAttribute("requestURL")%>"><!--原送出修改的來源網頁路徑,從request取出後,再送給Controller準備轉交之用-->
+		<input type="hidden" name="whichPage" value="<%=request.getAttribute("whichPage")%>"><!--只用於:istAllEmp.jsp-->
+		<input type="submit" value="送出修改">
 	</FORM>
-	
+
 	<%@ include file="/front/footer.file"%>
 </body>
 </html>
