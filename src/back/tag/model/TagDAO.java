@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 public class TagDAO implements TagDAO_interface {
 
-	// �@�����ε{����,�w��@�Ӹ�Ʈw ,�@�Τ@��DataSource�Y�i
+	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
 	private static DataSource ds = null;
 	static {
 		try {
@@ -219,7 +219,7 @@ public class TagDAO implements TagDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// TagVO �]�٬� Domain objects
+				// TagVO 也稱為 Domain objects
 				tagVO = new TagVO();
 				tagVO.setTag_no(rs.getString("tag_no"));
 				tagVO.setTag_desc(rs.getString("tag_desc"));
@@ -267,7 +267,7 @@ public class TagDAO implements TagDAO_interface {
     	
     	tag.setTag_no("T10001");
     	
-    	//tag.setTag_desc("�䥦");
+    	//tag.setTag_desc("其它");
 
         try {
         	//tagDAO.insert(tag);
