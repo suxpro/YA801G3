@@ -15,14 +15,14 @@
 <h3>資料查詢:</h3>
 
 <ul>
-  <li><a href='listAllQue.jsp'>List</a> all Que. </li> <br>
+  <li><a href='<%=request.getContextPath() %>/front/que/listAllQue.jsp'>List</a> all Que. </li> <br>
 </ul>
 
 
 <h3>租物問題查詢</h3>
 
 <ul>
-  <li><a href='addQue.jsp'>Add</a> a new Que.</li>
+  <li><a href='<%=request.getContextPath() %>/front/que/addQue.jsp'>Add</a> a new Que.</li>
 </ul>
 
 </body>
