@@ -10,7 +10,7 @@ public class RentService {
 	public RentService() {
 		dao = new RentDAO();
 	}
-
+ 
 	public RentVO addRent(String rent_name, String rent_desc, String les_no,
 			String rent_sta, String tag_no, Integer rent_dps,
 			Integer unit_price, Integer reset_days, String loc_no,

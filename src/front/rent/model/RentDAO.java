@@ -24,7 +24,7 @@ public class RentDAO implements RentDAO_interface {
 			e.printStackTrace();
 		}
 	}
-
+ 
 	/*
 	 * RENT_NO, RENT_NAME, RENT_DESC, LES_NO, RENT_STA, TAG_NO, RENT_DPS,
 	 * UNIT_PRICE, RESET_DAYS, LOC_NO, RENT_ADDR, POP_FLAG, PRENT_FLAG,

@@ -21,7 +21,7 @@ public class RentJDBCDAO implements RentDAO_interface {
 	 * LAST_MOD_TIME, PIC1, PIC1_FORMAT, PIC2, PIC2_FORMAT, PIC3, PIC3_FORMAT,
 	 * PIC4, PIC4_FORMAT, PIC5, PIC5_FORMAT
 	 */
-
+ 
 	private static final String INSERT_STMT = "INSERT INTO rent (rent_no, rent_name, rent_desc, les_no, rent_sta, "
 			+ "tag_no, rent_dps, unit_price, reset_days, loc_no, "
 			+ "rent_addr, pop_flag, prent_flag, report_flag, offshelf_flag, "
