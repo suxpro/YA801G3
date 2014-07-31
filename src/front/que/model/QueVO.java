@@ -61,7 +61,4 @@ public class QueVO implements java.io.Serializable{
 		this.ans_desc = ans_desc;
 	}
 
-
-
-    
 }
