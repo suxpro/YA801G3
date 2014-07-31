@@ -7,6 +7,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+
 import front.que.model.*;
 
 public class QueServlet extends HttpServlet {
@@ -83,9 +84,8 @@ public class QueServlet extends HttpServlet {
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					//add rentVO
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/que/addQue.jsp");
+							.getRequestDispatcher("/front/que/addQue.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -98,7 +98,7 @@ public class QueServlet extends HttpServlet {
 //						 ans_time, ans_desc);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/que/listAllQue.jsp";
+				String url = "/front/que/listAllQue.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllQue.jsp
 				successView.forward(req, res);				
 				
@@ -107,13 +107,13 @@ public class QueServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception","other errors");
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/que/addQue.jsp");
+						.getRequestDispatcher("/front/que/addQue.jsp");
 				failureView.forward(req, res);
 			}
 		}
         
         
-		if ("delete".equals(action)) { // 來自listAllQue.jsp
+		if ("delete".equals(action)) { 
 
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -125,12 +125,19 @@ public class QueServlet extends HttpServlet {
 					errorMsgs.put("que_no","問題編號不能為空");
 				}
 				
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front/que/listAllQue.jsp");
+					failureView.forward(req, res);
+					return;
+				}
 				/***************************2.開始刪除資料***************************************/
 				QueService queSvc = new QueService();
 				queSvc.deleteQue(que_no);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/que/listAllQue.jsp";
+				String url = "/front/que/listAllQue.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -138,7 +145,7 @@ public class QueServlet extends HttpServlet {
 			} catch (Exception e) {			
 				errorMsgs.put("Exception","刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("listAllQue.jsp");
+						.getRequestDispatcher("/front/que/listAllQue.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -155,13 +162,20 @@ public class QueServlet extends HttpServlet {
 //					errorMsgs.put("que_no","問題編號不能為空");
 //				}
 				
+				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/front/que/listAllQue.jsp");
+//					failureView.forward(req, res);
+//					return;
+//				}
 				/***************************2.開始查詢資料****************************************/
 				QueService queSvc = new QueService();
 				QueVO queVO = queSvc.getOneQue(que_no);
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("queVO", queVO);         // 資料庫取出的queVO物件,存入req
-				String url = "/que/update_que_input.jsp";
+				String url = "/front/que/update_que_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_que_input.jsp
 				successView.forward(req, res);
 
@@ -169,13 +183,13 @@ public class QueServlet extends HttpServlet {
 			} catch (Exception e) {				
 				errorMsgs.put("Exception","無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("listAllQue.jsp");
+						.getRequestDispatcher("/front/que/listAllQue.jsp");
 				failureView.forward(req, res);
 			}
 		}
 		
 		
-		if ("update".equals(action)) { // 來自update_que_input.jsp的請求
+		if ("update".equals(action)) { 
 			
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -239,9 +253,9 @@ public class QueServlet extends HttpServlet {
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("queVO", queVO); // 含有輸入格式錯誤的queVO物件,也存入req
+					req.setAttribute("queVO", queVO); 
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/que/update_que_input.jsp");
+							.getRequestDispatcher("/front/que/update_que_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -251,16 +265,16 @@ public class QueServlet extends HttpServlet {
 				queSvc.updateQue(que_no,rent_no,que_mem,que_sta, que_time, que_desc,ans_time, ans_desc);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("queVO", queVO); // 資料庫update成功後,正確的的queVO物件,存入req
-				String url = "/que/listAllQue.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneQue.jsp
+				req.setAttribute("queVO", queVO); 
+				String url = "/front/que/listAllQue.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處+理*************************************/
 			} catch (Exception e) {				
 				errorMsgs.put("Exception","修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("update_que_input.jsp");
+						.getRequestDispatcher("/front/que/update_que_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
