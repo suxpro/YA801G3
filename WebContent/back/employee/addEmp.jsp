@@ -27,7 +27,7 @@
 				<label for="addEmpAccount" class="col-md-2 control-label">帳號:</label>
 				<div class="col-md-4">
 					<input type="text" class="form-control" id="addEmpAccount" name="addEmpAccount"
-						placeholder="帳號">
+						placeholder="帳號" required="required" />
 				</div>${errorMsgs.emp_id}
                 <label for="addEmpPic" class="col-md-2 control-label">圖片上傳:</label>
 				<div class="col-md-4">
@@ -38,50 +38,50 @@
 				<label for="addEmpPassword" class="col-md-2 control-label">密碼:</label>
 				<div class="col-md-4">
 					<input type="password" class="form-control" id="addEmpPassword" name="addEmpPassword"
-						placeholder="密碼">
+						placeholder="密碼" required="required" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="addEmpName" class="col-md-2 control-label">姓名:</label>
 				<div class="col-md-4">
 					<input type="text" class="form-control" id="addEmpName" name="addEmpName"
-						placeholder="姓名">
+						placeholder="姓名" required="required" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-md-2 control-label">性別:</label> <label
 					class="radio-inline"> <input type="radio"
-					 name="addEmpSex" value="M"> 男
+					 name="addEmpSex" value="M" /> 男
 				</label> <label class="radio-inline"> <input type="radio"
-					 name="addEmpSex" value="F"> 女
+					 name="addEmpSex" value="F" /> 女
 				</label>
 			</div>
 			<div class="form-group">
 				<label for="addEmpTel" class="col-md-2 control-label">電話:</label>
 				<div class="col-md-4">
 					<input type="tel" class="form-control" id="addEmpTel" name="addEmpTel"
-						placeholder="電話">
+						placeholder="電話" required="required" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="addEmpCell" class="col-md-2 control-label">手機:</label>
 				<div class="col-md-4">
 					<input type="tel" class="form-control" id="addEmpCell" name="addEmpCell"
-						placeholder="手機">
+						placeholder="手機" required="required" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="addEmpEmail" class="col-md-2 control-label">Email:</label>
 				<div class="col-md-4">
 					<input type="email" class="form-control" id="addEmpEmail" name="addEmpEmail"
-						placeholder="Email">
+						placeholder="Email" required="required" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="addEmpAddress" class="col-md-2 control-label">地址:</label>
 				<div class="col-md-4">
 					<input type="text" class="form-control" id="addEmpAddress" name="addEmpAddress"
-						placeholder="地址">
+						placeholder="地址" required="required" />
 				</div>
 			</div>
 			<div class="form-group">
@@ -98,27 +98,27 @@
 				<label for="addEmpSal" class="col-md-2 control-label">薪水</label>
 				<div class="col-md-4">
 					<input type="number" class="form-control" id="addEmpSal" name="addEmpSal"
-						value="22000" max="99999" min="22000">
+						value="22000" max="99999" min="22000" required="required" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="addEmpTOD" class="col-md-2 control-label">到職日</label>
 				<div class="col-md-4">
-					<input type="date" class="form-control" id="addEmpTOD" name="addEmpTOD">
+					<input type="date" class="form-control" id="addEmpTOD" name="addEmpTOD" required="required" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="addEmpECP" class="col-md-2 control-label">緊急聯絡人</label>
 				<div class="col-md-4">
 					<input type="text" class="form-control" id="addEmpECP" name="addEmpECP"
-						placeholder="緊急聯絡人">
+						placeholder="緊急聯絡人" required="required" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="addEmpECell" class="col-md-2 control-label">緊急聯絡人電話</label>
 				<div class="col-md-4">
 					<input type="tel" class="form-control" id="addEmpECell" name="addEmpECell"
-						placeholder="緊急聯絡人電話">
+						placeholder="緊急聯絡人電話" required="required" />
 				</div>
 			</div>
 			<div class="form-group modal-footer">

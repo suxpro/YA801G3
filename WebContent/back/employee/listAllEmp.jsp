@@ -45,10 +45,10 @@
 
 
 <div class="table-responsive">
-	<table class="table table-hover" style="white-space: nowrap;">
+	<table id="listAllEmpTable" class="table table-hover" style="white-space: nowrap;">
 		<thead>
 			<tr>
-				<th class="delEmpTd" style="display: none;">刪除</th>
+				<th class="delEmpTd" style="display: none;" title="empDel">刪除</th>
 				<th title="empNo">編號</th>
 				<th title="empId">帳號</th>
 				<th title="empName">姓名</th>
@@ -93,12 +93,12 @@
 		<tfoot>
 			<tr>
 				<td class="updateEmpTd" style="display: none;">
-					<button type="button" class="btn btn-primary btn-sm">
+					<button type="button" class="btn btn-primary btn-sm" id="updateEmpYes" value="<%=request.getContextPath()%>/employee/employee.do">
 						<span class="glyphicon glyphicon-ok-sign"></span>確定
 					</button>
 				</td>
                 <td class="updateEmpTd" style="display: none;">
-					<button type="button" class="btn btn-default btn-sm">
+					<button type="button" class="btn btn-default btn-sm" id="updateEmpNo">
 						<span class="glyphicon glyphicon-remove-sign"></span>取消
 					</button>
 				</td>
@@ -106,14 +106,3 @@
 		</tfoot>
 	</table>
 </div>
-
-
-<!-- <button id="showEmp">SHOW EMP</button> -->
-<!-- <button id="addEmp">新增</button> -->
-<%-- <a href='<%=request.getContextPath()%>/back/employee/addEmp.jsp'>Add</a> --%>
-<!-- a new Emp. -->
-<!-- <button id="updateEmp">修改</button> -->
-<!-- <button id="toggle">Toggle</button> -->
-<!-- <div id="emp"> -->
-<%-- 	  <%@ include file="/back/employee/addEmp.jsp"%> --%>
-<!-- </div> -->
