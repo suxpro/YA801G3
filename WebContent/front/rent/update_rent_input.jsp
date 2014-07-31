@@ -4,9 +4,6 @@
 <%@ page import="front.rent.model.*"%>
 <%
 	RentVO rentVO = (RentVO) request.getAttribute("rentVO");
-	String[][] staAry = { { "W_RENT", "待出租" }, { "A_RENT", "已出租" },
-		{ "IN_REP", "檢舉中" }, { "W_CHECK", "待審核" },
-		{ "C_RENT", "已下架" } };
 %>
 <html>
 <head>
@@ -21,8 +18,9 @@
 	<table border='1' cellpadding='5' cellspacing='0' width='400'>
 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
 			<td>
-				<h3>租物資料修改 - update_rent_input.jsp</h3> <a href="select_page.jsp"><img
-					src="images/back1.gif" width="100" height="32" border="0">回首頁</a>
+				<h3>租物資料修改 - update_rent_input.jsp</h3> 
+				<a href="<%=request.getContextPath() %>/front/rent/select_page.jsp">
+				<img src="<%=request.getContextPath() %>/front/rent/images/back1.gif" width="100" height="32" border="0">回首頁</a>
 			</td>
 		</tr>
 	</table>
@@ -39,7 +37,7 @@
 		</font>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="rent.do" name="form1" enctype="multipart/form-data">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath() %>/front/rent/rent.do" name="form1" enctype="multipart/form-data">
 		<table border="0">
 
 			<tr>
@@ -54,10 +52,6 @@
 			</tr>
 			<tr>
 				<td valign="top">租物描述:<font color=red><b>*</b></font></td>
-				<!--
-				<td><input type="TEXT" name="rent_desc" size="60"
-					value="<%=rentVO.getRent_desc()%>"/></td>
-				-->
 				<td><textarea name="rent_desc" maxlength="100" cols="40"
 					rows="3" style="resize: none"><%=rentVO.getRent_desc()%></textarea></td>
 			</tr>			
@@ -71,17 +65,6 @@
 				<td><input type="TEXT" name="rent_sta" size="8"
 					value="<%=rentVO.getRent_sta()%>" readonly="readonly"/></td>
 			</tr>
-<!--			
-			<tr>
-				<td>問題狀態:<font color=red><b>*</b></font></td>
-				<td><select size="1" name="que_sta">
-						<c:forEach var="sta" items="<%=staAry%>" varStatus="s">
-							<option value="${sta[0]}"
-								${(queVO.que_sta==sta[0])? 'selected':'' }>${sta[1]}
-						</c:forEach>
-				</select></td>
-			</tr>
--->			
 			<jsp:useBean id="tagSvc" scope="page"
 				class="back.tag.model.TagService" />
 			<tr>
