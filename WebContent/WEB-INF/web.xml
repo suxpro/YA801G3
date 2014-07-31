@@ -67,6 +67,7 @@
 	</servlet-mapping>
 
 	<!-- 鈞彥 -->
+		<!-- 後端 -->
 	<servlet>
 		<servlet-name>MemberServlet</servlet-name>
 		<servlet-class>back.member.controller.MemberServlet</servlet-class>
@@ -107,6 +108,8 @@
 		<servlet-name>PrentServlet</servlet-name>
 		<url-pattern>/back/prent/prent.do</url-pattern>
 	</servlet-mapping>
+	
+	<!-- 前端 -->	
 	<servlet>
 		<servlet-name>MemberServletF</servlet-name>
 		<servlet-class>front.member.controller.MemberServletF</servlet-class>

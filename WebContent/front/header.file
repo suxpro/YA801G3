@@ -30,12 +30,12 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">您好, <%=memberVOxx.getMname()%> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                  <li class="dropdown-plus-title">
-                                    <%=memberVOxx.getMname()%>
+                                    <i class="glyphicon glyphicon-user"></i>		<%=memberVOxx.getMname()%>
                                     <b class="pull-right glyphicon glyphicon-chevron-up"></b>
                                 </li>
                                 
-                                <li><a href="#" onclick="document.updateMember.submit();">會員資料修改</a>
-                                	<FORM name="updateMember" METHOD="post"	ACTION="<%=request.getContextPath()%>/front/member/member.do">
+                                <li><a href="#" onclick="document.updateMemInfo.submit();">會員資料修改</a>
+                                	<FORM name="updateMemInfo" METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/member.do">
 										<input type="hidden" name="mno" value="${memberVO.mno}"> 						
 										<input type="hidden" name="action" value="getOne_For_Update">
 									</FORM>

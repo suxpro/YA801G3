@@ -3,11 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="front.member.model.*"%>
 <%
-	MemberVO memberVOxx = null;
+	MemberVO memberVO = null;
 	if (session.getAttribute("memberVO") != null) {
-		memberVOxx = (MemberVO) session.getAttribute("memberVO");
+		memberVO = (MemberVO) session.getAttribute("memberVO");
 	}
-%>
+%> 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -22,7 +22,7 @@
 <title></title>
 </head>
 <body>
-	<!-- header -->
+		<!-- header -->
 	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
@@ -35,17 +35,23 @@
 			</div>
 			
 		<!-- 登入後 -->
-			<c:if test="<%=memberVOxx != null%>">
+			<c:if test="<%=memberVO != null%>">
 			   <div class="navbar-collapse collapse navbar-right" >				
 				 <ul class="nav navbar-nav ">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">您好, <%=memberVOxx.getMname()%> <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">您好, <%=memberVO.getMname()%> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                  <li class="dropdown-plus-title">
-                                    <%=memberVOxx.getMname()%>
+                                    <i class="glyphicon glyphicon-user"></i>		<%=memberVO.getMname()%>
                                     <b class="pull-right glyphicon glyphicon-chevron-up"></b>
                                 </li>
-                                <li><a href="#">會員資料修改</a></li>
+                                
+                                <li><a href="#" onclick="document.updateMemInfo.submit();">會員資料修改</a>
+                                	<FORM name="updateMemInfo" METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/member.do">
+										<input type="hidden" name="mno" value="${memberVO.mno}"> 						
+										<input type="hidden" name="action" value="getOne_For_Update">
+									</FORM>
+                                </li>
                                 <li><a href="#">會員儲值</a></li>
                                 <li><a href="#">出租管理</a></li>
                                 <li><a href="#">訂單管理</a></li>
@@ -68,20 +74,25 @@
                   						<li><a href="#">租期通知(0)</a></li>
                 					</ul>
               					</li>
-                                <li class="divider"></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-off"></i> 登出</a></li>
+              					<li class="divider"></li>
+                                <li>
+                                	<li><a href="#" onclick="document.logoutMember.submit();"><i class="glyphicon glyphicon-off"></i> 登出</a>
+                                	<FORM name="logoutMember" METHOD="post" ACTION="<%=request.getContextPath()%>/front/login/LogoutHandler">
+										<input type="hidden" name="action" value="logout">
+									</FORM>
+									</li>
+								</li>
+                                
                             </ul>
                         </li>
                     </ul>
                   </div>
 				</c:if>
 		<!-- 登入前 -->
-				<c:if test="${memberVO == null}">
+				<c:if test="${member == null}">
 				<div class="navbar-collapse collapse navbar-form navbar-right" >
-					<button class="btn btn-default" data-toggle="modal"
-						data-target="#myLogin">登入</button>
-					<button class="btn btn-danger" data-toggle="modal"
-						data-target="#Agreement">註冊</button>
+					<button class="btn btn-default" data-toggle="modal"	data-target="#myLogin">登入</button>
+					<button class="btn btn-danger" data-toggle="modal"	data-target="#Agreement">註冊</button>
 				</div><!--/.navbar-collapse -->
 				</c:if>
 			

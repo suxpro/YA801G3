@@ -32,6 +32,7 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String GET_IDPWD_STMT = "SELECT mem_no, mem_id, mem_pwd, mem_pic, mem_name, mem_sex, mem_cell, mem_mail, loc_no, mem_adrs, mem_lev, mem_mbl, mem_ileg, mem_ases, mem_ver, to_char(mem_date,'yyyy-mm-dd') mem_date, mem_pic_info, mem_vpic, mem_vpic_info FROM member where mem_id = ?";
 	private static final String DELETE = "DELETE FROM member where mem_no = ?";
 	private static final String UPDATE = "UPDATE member set mem_id=?, mem_pwd=?, mem_pic=?, mem_name=?, mem_sex=?, mem_cell=?, mem_mail=?, loc_no=?, mem_adrs=?, mem_lev=?, mem_mbl=?, mem_ileg=?, mem_ases=?, mem_ver=?, mem_date=?, mem_pic_info=?, mem_vpic=?, mem_vpic_info=? where mem_no = ?";
+	private static final String UPDATE_INFO = "UPDATE member set mem_pwd=?, mem_pic=?, mem_name=?, mem_sex=?, mem_cell=?, mem_mail=?, loc_no=?, mem_adrs=?, mem_pic_info=?, mem_vpic=?, mem_vpic_info=? where mem_no = ?";
 
 	/*
 	 * (non-Javadoc)
@@ -199,6 +200,58 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setBytes(17, memberVO.getMvpic());
 			pstmt.setString(18, memberVO.getMvpic_info());
 			pstmt.setString(19, memberVO.getMno());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
+	
+	@Override
+	public void updateInfo(MemberVO memberVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_INFO);
+			
+//			pstmt.setString(1, memberVO.getMid());
+			pstmt.setString(1, memberVO.getMpwd());
+			pstmt.setBytes(2, memberVO.getMpic());
+			pstmt.setString(3, memberVO.getMname());
+			pstmt.setString(4, memberVO.getMsex());
+			pstmt.setString(5, memberVO.getMcell());
+			pstmt.setString(6, memberVO.getMmail());
+			pstmt.setString(7, memberVO.getLocno());
+			pstmt.setString(8, memberVO.getMadrs());					
+			pstmt.setString(9, memberVO.getMpic_info());
+			pstmt.setBytes(10, memberVO.getMvpic());
+			pstmt.setString(11, memberVO.getMvpic_info());
+			pstmt.setString(12, memberVO.getMno());
 
 			pstmt.executeUpdate();
 
@@ -464,6 +517,23 @@ public class MemberDAO implements MemberDAO_interface {
 //		 // memberVO2.setMvpic(b1);
 //		 memberVO2.setMvpic_info("png");
 //		 dao.update(memberVO2);
+		
+//		  // 個人修改
+//		 MemberVO memberVO2 = new MemberVO();
+//		 memberVO2.setMno("M10001");
+//		 memberVO2.setMid("BEETALK");
+//		 memberVO2.setMpwd("Aa1211");
+//		 // memberVO2.setMpic(b1);
+//		 memberVO2.setMname("洨詹詹c333");
+//		 memberVO2.setMsex("F");
+//		 memberVO2.setMcell("0915952125");
+//		 memberVO2.setMmail("david7966@gmail.com");
+//		 memberVO2.setLocno("L10002");
+//		 memberVO2.setMadrs("桃園市信義區市府路45號");
+//		 memberVO2.setMpic_info("png");
+//		 // memberVO2.setMvpic(b1);
+//		 memberVO2.setMvpic_info("png");
+//		 dao.updateInfo(memberVO2);
 
 		// // 刪除
 		// dao.delete("M10004");

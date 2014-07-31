@@ -196,7 +196,8 @@ public class MemberServletF extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("memberVO", memberVO); // 資料庫取出的empVO物件,存入req
-				String url = "/front/member/update_member_input.jsp";
+//				String url = "/front/member/update_member_input.jsp";
+				String url = "/front/member/updateMemberInfo.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交
 																				// update_emp_input.jsp
 				successView.forward(req, res);
@@ -432,7 +433,9 @@ public class MemberServletF extends HttpServlet {
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				
-				String url = requestURL+"?whichPage="+whichPage+"&mno="+mno; // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)和修改的是哪一筆
+//				String url = requestURL+"?whichPage="+whichPage+"&mno="+mno; // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)和修改的是哪一筆
+				
+				String url = "/front/member/listAllMember.jsp";
 				
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
@@ -654,6 +657,161 @@ public class MemberServletF extends HttpServlet {
 						.getRequestDispatcher(requestURL);
 				failureView.forward(req, res);
 			}
+		}
+		
+		if ("updateInfo".equals(action)) { // 來自update_member_input.jsp的請求
+
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			String requestURL = multi.getParameter("requestURL"); // 送出修改的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】
+			req.setAttribute("requestURL", requestURL); // 送出修改的來源網頁路徑, 存入req
+			
+			String whichPage = multi.getParameter("whichPage"); // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)
+			req.setAttribute("whichPage", whichPage);   // 送出修改的來源網頁的第幾頁, 存入req(只用於:istAllEmp.jsp)
+
+//			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String mno = multi.getParameter("mno").trim();
+//				String mid = multi.getParameter("mid").trim();
+
+				String mpwd = multi.getParameter("mpwd").trim();
+				String mpwdReg = "^(?=^.{6,10}$)((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.*$";
+				if (mpwd == null || (mpwd.trim()).length() == 0) {
+					errorMsgs.put("mpwd", "請輸入密碼");
+				} else if (!mpwd.trim().matches(mpwdReg)) { // 以下練習正則(規)表示式(regular-expression)
+					errorMsgs.put("mpwd",
+							"密碼必須包含至少一個小寫字母與一個大寫字母和一個數字,長度在6到10之間");
+				}
+				
+//				圖片處理
+				Map pics = new LinkedHashMap<String, byte[]>();
+				Map pics_format = new LinkedHashMap<String, String>();
+				// ArrayList<byte[]> pics = new ArrayList<byte[]>();
+				// ArrayList<String> pics_format = new ArrayList<String>();
+				Enumeration files = multi.getFileNames();
+				int count = 0;
+				// try {
+				while (files.hasMoreElements()) {
+					byte[] pic_byte = null;
+					String name = (String) files.nextElement();
+					String fileName = multi.getFilesystemName(name);
+					// 避免未上傳五張圖時 會異常發生
+					if (fileName != null) {
+						int dotPos = fileName.indexOf('.');
+						String pic_format = fileName.substring(dotPos + 1);
+						// String type = multi.getContentType(name);
+						File file = multi.getFile(name);
+						FileInputStream fis = new FileInputStream(file);
+						int fin = fis.available();
+						pic_byte = new byte[fin];
+						fis.read(pic_byte);
+						fis.close();
+						file.delete(); // 寫入記憶體後 檔案刪除
+						count++;
+						pics.put(name, pic_byte); // hasMoreElements 會將後進先出 所以使用map格式 且key值等於name
+						pics_format.put(name, pic_format); // hasMoreElements會將後進先出所以使用map格式且key值等於 name
+					}
+
+				}
+
+				byte[] mpic = (byte[]) pics.get("mpic");
+				String mpic_info = (String) pics_format.get("mpic");
+				byte[] mvpic = (byte[]) pics.get("mvpic");
+				String mvpic_info = (String) pics_format.get("mvpic");
+
+				if (mpic == null || mvpic == null) {
+					MemberService memberSvc = new MemberService();
+					MemberVO memberVO = new MemberVO();
+					memberVO = memberSvc.getOneMember(mno);
+
+					if (mpic == null) {
+						mpic = memberVO.getMpic();
+						mpic_info = memberVO.getMpic_info();
+					}
+					if (mvpic == null) {
+						mvpic = memberVO.getMvpic();
+						mvpic_info = memberVO.getMvpic_info();
+					}
+				}
+								
+
+				String mname = multi.getParameter("mname").trim();
+				if (mname == null || (mname.trim()).length() == 0) {
+					errorMsgs.put("mname", "請輸入姓名");
+				}
+
+				String msex = multi.getParameter("msex").trim();
+
+				String mcell = multi.getParameter("mcell").trim();
+				if (mcell == null || (mcell.trim()).length() == 0) {
+					errorMsgs.put("mcell", "請輸入手機電話");
+				}
+
+				String mmail = multi.getParameter("mmail").trim();
+				String mmailReg = "^[_a-z0-9-]+([.][_a-z0-9-]+)*@[a-z0-9-]+([.][a-z0-9-]+)*$";
+				if (mmail == null || (mmail.trim()).length() == 0) {
+					errorMsgs.put("mmail", "請輸入Email");
+				} else if (!mmail.trim().matches(mmailReg)) {
+					errorMsgs.put("mmail", "Email格式有誤");
+				}
+
+				String locno = multi.getParameter("locno").trim();
+
+				String madrs = multi.getParameter("madrs").trim();
+				if (madrs == null || (madrs.trim()).length() == 0) {
+					errorMsgs.put("madrs", "請輸入地址");
+				}
+
+				MemberVO memberVO = new MemberVO();
+				memberVO.setMno(mno);
+//				memberVO.setMid(mid);
+				memberVO.setMpwd(mpwd);
+				memberVO.setMpic(mpic);
+				memberVO.setMname(mname);
+				memberVO.setMsex(msex);
+				memberVO.setMcell(mcell);
+				memberVO.setMmail(mmail);
+				memberVO.setLocno(locno);
+				memberVO.setMadrs(madrs);
+				memberVO.setMpic_info(mpic_info);
+				memberVO.setMvpic(mvpic);
+				memberVO.setMvpic_info(mvpic_info);
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front/member/updateMemberInfo.jsp");
+					failureView.forward(req, res);
+					return; // 程式中斷
+				}
+
+				/*************************** 2.開始修改資料 *****************************************/
+				MemberService memberSvc = new MemberService();
+				memberVO = memberSvc.updateMemInfo(mno, mpwd, mpic, mname,
+						msex, mcell, mmail, locno, madrs, mpic_info,
+						mvpic, mvpic_info);
+
+				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
+				
+//				String url = requestURL+"?whichPage="+whichPage+"&mno="+mno; // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)和修改的是哪一筆
+				
+				String url = "/front/member/listAllMember.jsp";
+				
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+//			} catch (Exception e) {
+//				errorMsgs.put("Exception", "修改資料失敗:" + e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front/member/updateMemberInfo.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 	}
 

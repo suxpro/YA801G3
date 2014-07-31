@@ -10,27 +10,7 @@
 	pageContext.setAttribute("list", list);
 %>
 
-<%
-	Map<String, String> sex = new LinkedHashMap<String, String>();
-	sex.put("M", "男");
-	sex.put("F", "女");
-	pageContext.setAttribute("sex", sex);
-%>
 
-<%
-	Map<String, String> lev = new LinkedHashMap<String, String>();
-	lev.put("G", "一般會員");
-	lev.put("S", "停權會員");
-	lev.put("V", "VIP會員");
-	pageContext.setAttribute("lev", lev);
-%>
-
-<%
-	Map<String, String> mver = new LinkedHashMap<String, String>();
-	mver.put("Y", "已驗證");
-	mver.put("N", "未驗證");
-	pageContext.setAttribute("mver", mver);
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -94,16 +74,16 @@
 				<!--  <td>${memberVO.mpic}</td>-->
 				<td>${memberVO.mpic_info}</td>
 				<td>${memberVO.mname}</td>
-				<td>${sex[memberVO.msex]}</td>
+				<td>${mem_staMap[memberVO.msex]}</td>
 				<td>${memberVO.mcell}</td>
 				<td>${memberVO.mmail}</td>
 				<td>${memberVO.locno}</td>
 				<td>${memberVO.madrs}</td>
-				<td>${lev[memberVO.mlev]}</td>
+				<td>${mem_staMap[memberVO.mlev]}</td>
 				<td>${memberVO.mbalance}</td>
 				<td>${memberVO.millegal}</td>
 				<td>${memberVO.massess}</td>
-				<td>${mver[memberVO.mverification]}</td>
+				<td>${mem_staMap[memberVO.mverification]}</td>
 				<td>${memberVO.mdate}</td>
 				
 				<td><img width="80" height="80"

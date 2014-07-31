@@ -16,7 +16,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT mem_no, mem_id, mem_pwd, mem_pic, mem_name, mem_sex, mem_cell, mem_mail, loc_no, mem_adrs, mem_lev, mem_mbl, mem_ileg, mem_ases, mem_ver, to_char(mem_date,'yyyy-mm-dd') mem_date, mem_pic_info, mem_vpic, mem_vpic_info FROM member where mem_no = ?";
 	private static final String DELETE = "DELETE FROM member where mem_no = ?";
 	private static final String UPDATE = "UPDATE member set mem_id=?, mem_pwd=?, mem_pic=?, mem_name=?, mem_sex=?, mem_cell=?, mem_mail=?, loc_no=?, mem_adrs=?, mem_lev=?, mem_mbl=?, mem_ases=?, mem_ver=?, mem_date=?, mem_ileg=?, mem_pic_info=?, mem_vpic=?, mem_vpic_info=? where mem_no=?";
-
+	private static final String UPDATE_INFO = "UPDATE member set mem_id=?, mem_pwd=?, mem_pic=?, mem_name=?, mem_sex=?, mem_cell=?, mem_mail=?, loc_no=?, mem_adrs=?, mem_pic_info=?, mem_vpic=?, mem_vpic_info=? where mem_no = ?";
 
 	/* (non-Javadoc)
 	 * @see com.member.model.MemberDAO_interface#insert(com.member.model.MemberVO)
@@ -85,6 +85,61 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		}
 
 		
+	}
+
+	@Override
+	public void updateInfo(MemberVO memberVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_INFO);
+
+			
+			pstmt.setString(1, memberVO.getMid());
+			pstmt.setString(2, memberVO.getMpwd());
+			pstmt.setBytes(3, memberVO.getMpic());
+			pstmt.setString(4, memberVO.getMname());
+			pstmt.setString(5, memberVO.getMsex());
+			pstmt.setString(6, memberVO.getMcell());
+			pstmt.setString(7, memberVO.getMmail());
+			pstmt.setString(8, memberVO.getLocno());
+			pstmt.setString(9, memberVO.getMadrs());					
+			pstmt.setString(10, memberVO.getMpic_info());
+			pstmt.setBytes(11, memberVO.getMvpic());
+			pstmt.setString(12, memberVO.getMvpic_info());
+			pstmt.setString(13, memberVO.getMno());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
 	}
 
 	@Override

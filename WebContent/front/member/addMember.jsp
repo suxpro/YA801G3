@@ -30,7 +30,7 @@ width:600px;
 <script language="JavaScript" src="js/calendarcode.js"></script>
 <script language="JavaScript" src="js/previewImage.js"></script>
 <script language="JavaScript" src="js/previewImage2.js"></script>
-<body bgcolor='white'>
+<body >
 
 	<%@ include file="/front/header.file"%>
 
@@ -59,7 +59,8 @@ width:600px;
 			<tr>
 				<td><font color=red><b>*</b></font>會員密碼:</td>
 				<td><input type="password" name="mpwd" size="45"
-					value="<%=(memberVO == null) ? "Aa12345" : memberVO.getMpwd()%>" /></td><td>${errorMsgs.mpwd}</td>
+					value="<%=(memberVO == null) ? "Aa12345" : memberVO.getMpwd()%>" /></td>
+				<td>${errorMsgs.mpwd}</td>
 			</tr>
 			<tr>
 				<td><font color=red><b>*</b></font>會員圖片:</td>
