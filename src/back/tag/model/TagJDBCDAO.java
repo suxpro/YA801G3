@@ -162,7 +162,7 @@ public class TagJDBCDAO implements TagDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// TagVO �]�٬� Domain objects
+				// TagVO 也稱為 Domain objects
 				TagVO = new TagVO();
 				TagVO.setTag_no(rs.getString("tag_no"));
 				TagVO.setTag_desc(rs.getString("tag_desc"));
@@ -221,7 +221,7 @@ public class TagJDBCDAO implements TagDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// TagVO �]�٬� Domain objects
+				// TagVO 也稱為 Domain objects
 				TagVO = new TagVO();
 				TagVO.setTag_no(rs.getString("tag_no"));
 				TagVO.setTag_desc(rs.getString("tag_desc"));
@@ -273,7 +273,7 @@ public class TagJDBCDAO implements TagDAO_interface {
     	
     	tag.setTag_no("T10008");
     	
-    	//tag.setTag_desc("�䥦");
+    	//tag.setTag_desc("其它");
 
         try {
         	//tagDAO.insert(tag);
