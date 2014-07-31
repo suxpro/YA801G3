@@ -210,7 +210,7 @@
 	<servlet>
 		<servlet-name>StatusMappingList</servlet-name>
 		<servlet-class>load_on_startup.StatusMappingList</servlet-class>
-		<load-on-startup/>
+		<load-on-startup>10</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>StatusMappingList</servlet-name>

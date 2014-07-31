@@ -210,7 +210,7 @@ public class EmployeeServlet extends HttpServlet {
 				byte[] emp_pic = empVO.getEmp_pic();
 				String emp_format = empVO.getEmp_format();
 				
-				System.out.println(emp_no+","+emp_id+","+emp_pwd+","+emp_name+","+emp_sex+","+
+				System.out.println("EmployeeServlet.213.update前:"+emp_no+","+emp_id+","+emp_pwd+","+emp_name+","+emp_sex+","+
 						emp_tel+","+emp_cell+","+emp_mail+","+emp_addr+","+emp_job+","+emp_sal+","+
 						emp_tod+","+emp_lod+","+emp_ecp+","+emp_ecell);			
 				
@@ -299,7 +299,7 @@ public class EmployeeServlet extends HttpServlet {
 				
 //				emp_format = null;
 				
-				System.out.println(emp_no+","+emp_id+","+emp_pwd+","+emp_name+","+emp_sex+","+
+				System.out.println("EmployeeServlet.302.update後:"+emp_no+","+emp_id+","+emp_pwd+","+emp_name+","+emp_sex+","+
 						emp_tel+","+emp_cell+","+emp_mail+","+emp_addr+","+emp_job+","+emp_sal+","+
 						emp_tod+","+emp_lod+","+emp_ecp+","+emp_ecell);
 				

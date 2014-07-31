@@ -12,10 +12,10 @@
 
 <h3 class="page-header">員工帳號管理</h3>
 
-<!-- BootStrap -->
+<!-- 功能按鈕 -->
+<div class="navbar">
 <!-- 新增員工按鈕 -->
-<!-- Button trigger modal -->
-<button class="btn btn-default btn-primary navbar-btn"
+<button class="btn btn-default btn-primary navbar-btn navbar-left"
 	data-toggle="modal" data-target="#addEmpModel">新增</button>
 
 <!-- Modal -->
@@ -29,10 +29,10 @@
 </div>
 
 <!-- 修改員工按鈕 -->
-<button class="btn btn-default btn-primary navbar-btn" id="updateEmpBtn">修改</button>
+<button class="btn btn-default btn-primary navbar-btn navbar-left" id="updateEmpBtn">修改</button>
 
 <!-- 刪除員工按鈕 -->
-<button class="btn btn-default btn-primary navbar-btn" id="delEmpBtn">刪除</button>
+<button class="btn btn-default btn-primary navbar-btn navbar-left" id="delEmpBtn">刪除</button>
 
 <!-- 搜尋員工 -->
 <form class="navbar-form navbar-right" role="search">
@@ -41,9 +41,18 @@
 	</div>
 	<button type="submit" class="btn btn-default">搜尋</button>
 </form>
+</div>
 
+<!-- 分頁按鈕 -->
+<div class="btn-group">
+  <button type="button" class="btn btn-default" disabled="disabled">1</button>
+<script>
+for(var i=2;i<parseInt('${list.size()}')/5;i++)
+    document.write("<button type=\"button\" class=\"btn btn-default\" >"+i+"</button>");
+</script>
+</div>
 
-
+<!-- 列表 -->
 <div class="table-responsive">
 	<table id="listAllEmpTable" class="table table-hover" style="white-space: nowrap;">
 		<thead>
@@ -66,7 +75,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="empVO" items="${list}">
+			<c:forEach var="empVO" items="${list}" begin="0" end="4">
 				<tr>
 					<td class="delEmpTd" style="display: none;">
 						<button type="button" class="delEmpSubmit btn btn-danger btn-default btn-xs" value="<%=request.getContextPath()%>/employee/employee.do">
