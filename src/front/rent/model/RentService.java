@@ -65,7 +65,7 @@ public class RentService {
 		return rentVO;
 	}
 
-	// �w�d�� Struts 2 �Ϊ�
+	// 預留給 Struts 2 用的
 	public void addRent(RentVO rentVO) {
 		dao.insert(rentVO);
 	}
@@ -129,7 +129,7 @@ public class RentService {
 		return dao.findByPrimaryKey(rent_no);
 	}
 
-	// �w�d�� Struts 2 �Ϊ�
+	// 預留給 Struts 2 用的
 	public void updateRent(RentVO rentVO) {
 		dao.update(rentVO);
 	}

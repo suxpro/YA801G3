@@ -440,9 +440,9 @@ public class RentJDBCDAO implements RentDAO_interface {
 			// rentList = rentDAO.getAll();
             
 			rentVO.setRent_no("R10006");
-//			rentVO.setRent_name("�W�Źq����");
-//			rentVO.setRent_name("�W�Źq����");
-//			rentVO.setRent_desc("�L�?�R���q����");
+//			rentVO.setRent_name("超級電風扇");
+//			rentVO.setRent_name("超級電風扇");
+//			rentVO.setRent_desc("無堅不摧的電風扇");
 //			rentVO.setLes_no("M10003");
 //			rentVO.setRent_sta("W_RENT");
 //			rentVO.setTag_no("T10001");
@@ -450,7 +450,7 @@ public class RentJDBCDAO implements RentDAO_interface {
 //			rentVO.setUnit_price(100);
 //			rentVO.setReset_days(1);
 //			rentVO.setLoc_no("L10005");
-//			rentVO.setRent_addr("��鿤���c��������73��");
+//			rentVO.setRent_addr("桃園縣中壢市中央路73號");
 //			rentVO.setPop_flag("N");
 //			rentVO.setPrent_flag("N");
 //			rentVO.setReport_flag("N");
