@@ -538,7 +538,7 @@ public class RentServlet extends HttpServlet {
 						pic5, pic5_format);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("rentVO", rentVO); // 資料庫update成功後,正確的的rentVO物件,存入req
+//				req.setAttribute("rentVO", rentVO); // 資料庫update成功後,正確的的rentVO物件,存入req
 				String url = "/front/rent/listAllRent.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
