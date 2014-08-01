@@ -60,24 +60,6 @@ $("#updateEmpBtn").on("click",function(event) {
 		var tdTextBak=$(this).text();
 		if (!$(this).is('.input') && $(this).attr('class') == undefined && $(this).has("img").length==0) {
 			$(this).html('<input type="text" value="'+ $(this).text() + '" />').find('input').focus().bind("blur",{test:tdTextBak},function(event) {
-				// var thisid =
-				// $(this).parent().siblings("td:eq(1)").text();
-				// var thisvalue=$(this).val();
-				// var thisclass =
-				// $(this).parent().attr("class");
-				// alert(thisid+" "+thisvalue+"
-				// "+thisclass);
-				// $.ajax({
-				// type: 'POST',
-				// url: 'update.php',
-				// data:
-				// "thisid="+thisid+"&thisclass="+thisclass+"&thisvalue="+thisvalue
-				// });
-//				console.log($(this).parent().siblings("td:eq(1)").text());
-//				$(this).parent().text($(this).val() || "");
-//				console.log(event.data.test);
-//				console.log($(this).parent().siblings("td:eq(1)").text());
-//				console.log($(this).val());
 				
 				if($.trim($(this).val()).length != 0){
 					var tdFirst = $(this).parent().siblings("td:first");//此td為hidden的刪除按鈕
@@ -144,6 +126,11 @@ $("#updateEmpBtn").on("click",function(event) {
 			});
 		}
 	});
+	//按取消update
+	$("#updateEmpNo").on("click",function(event) {
+		$(".updateEmpTd").hide();
+		$("#updateEmpBtn").removeAttr( "disabled","disabled" );
+	});
 });
 
 // 移除員工按鈕
@@ -163,7 +150,26 @@ $("#delEmpBtn").on("click", function(event) {
 			dataType : "html",
 			success : function(data) {
 				$("#listAllEmp").html(data);
+			},
+			error : function() {
+				alert("系統異常!");
 			}
 		});
+	});
+});
+
+//分頁按鈕
+var showPage = 5; //一次要show得筆數
+console.log();
+$("#listAllEmpTable tbody tr:gt("+(showPage-1)+")").hide(); //一開始先將第2頁之後的筆數隱藏
+$(".liListAllEmpPage").on("click",{showPage:showPage}, function(event) {
+	var selectPageBtn = $(this).text(); //取得分頁按鈕的數字
+	$(this).addClass( "disabled" ); //將此按鍵的變成不可按
+	$(this).siblings("li").removeClass( "disabled" ); //將其他變成可按
+	$("#listAllEmpTable tbody tr").each(function(){
+		if(Math.ceil($(this).attr("title")/showPage) == selectPageBtn)
+			$(this).show();
+		else
+			$(this).hide();
 	});
 });
