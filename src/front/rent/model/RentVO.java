@@ -1,7 +1,7 @@
 package front.rent.model;
 
 import java.sql.Timestamp;
-
+ 
 public class RentVO implements java.io.Serializable {
 	private String rent_no;
 	private String rent_name;

@@ -8,9 +8,6 @@
 	RentService rentSvc = new RentService();
 	List<RentVO> list = rentSvc.getAll();
 	pageContext.setAttribute("list", list);
-	String[][] staAry = { { "W_RENT", "待出租" }, { "A_RENT", "已出租" },
-			{ "IN_REP", "檢舉中" }, { "W_CHECK", "待審核" },
-			{ "C_RENT", "已下架" } };
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -22,8 +19,9 @@
 	<b><font color=red>此頁練習採用 EL 的寫法取值:</font></b>
 	<table border='1' cellpadding='5' cellspacing='0' width='1800'>
 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-			<td><h3>所有租物資料 - ListAllRent.jsp</h3> <a href="select_page.jsp"><img
-					src="images/back1.gif" width="100" height="32" border="0">回首頁</a></td>
+			<td><h3>所有租物資料 - ListAllRent.jsp</h3> 
+			<a href="<%=request.getContextPath() %>/front/rent/select_page.jsp">
+			<img src="<%=request.getContextPath() %>/front/rent/images/back1.gif" width="100" height="32" border="0">回首頁</a></td>
 		</tr>
 	</table>
 
@@ -70,8 +68,7 @@
 			<th>圖片5格式</th>
 		</tr>
 		<%@ include file="page1.file"%>
-		<c:forEach var="rentVO" items="${list}" begin="<%=pageIndex%>"
-			end="<%=pageIndex+rowsPerPage-1%>">
+		<c:forEach var="rentVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 			<tr align='center' valign='middle'>
 				<td>${rentVO.rent_no          }</td>
 				<td>${rentVO.rent_name        }</td>
@@ -103,7 +100,7 @@
 				<td>${rentVO.pic5_format      }</td>
 				<td>
 					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/rent/rent.do">
+						ACTION="<%=request.getContextPath()%>/front/rent/rent.do">
 						<input type="submit" value="修改"> <input type="hidden"
 							name="rent_no" value="${rentVO.rent_no}"> <input
 							type="hidden" name="action" value="getOne_For_Update">
@@ -111,7 +108,7 @@
 				</td>
 				<td>
 					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/rent/rent.do">
+						ACTION="<%=request.getContextPath() %>/front/rent/rent.do">
 						<input type="submit" value="刪除"> <input type="hidden"
 							name="rent_no" value="${rentVO.rent_no}"> <input
 							type="hidden" name="action" value="delete">

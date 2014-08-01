@@ -167,6 +167,11 @@ public class StatusMappingList extends HttpServlet {
 		tag_staMap.put("T10008", "其它");
 		
 		context.setAttribute("tag_staMap", tag_staMap);
+		
+		//系統參數
+		//運費
+		String freight = "200";		
+		context.setAttribute("freight", freight);
 
 	}
 
@@ -182,6 +187,8 @@ public class StatusMappingList extends HttpServlet {
 		context.removeAttribute("tra_staMap");
 		context.removeAttribute("loc_staMap");
 		context.removeAttribute("tag_staMap");
+		
+		context.removeAttribute("freight");
 	}
 
 }

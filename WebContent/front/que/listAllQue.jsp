@@ -8,7 +8,6 @@
 	QueService queSvc = new QueService();
     List<QueVO> list = queSvc.getAll();
     pageContext.setAttribute("list",list);
-	String[][] staAry = {{"IN_ASK", "發問中"},{"COM_REPLY","回覆完成 "},{"CC_ASK", "刪除發問"}};
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -21,7 +20,8 @@
 <table border='1' cellpadding='5' cellspacing='0' width='800'>
 	<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
 		<td><h3>所有問題資料 - ListAllQue.jsp</h3>
-		          <a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></td></tr></table>
+		          <a href="<%=request.getContextPath() %>/front/que/select_page.jsp">
+		          <img src="<%=request.getContextPath() %>/front/que/images/back1.gif" width="100" height="32" border="0">回首頁</a></td></tr></table>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -59,13 +59,13 @@
 			<td>${queVO.ans_time}</td>
 			<td>${queVO.ans_desc}</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/que/que.do">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front/que/que.do">
 			     <input type="submit" value="回覆">
 			     <input type="hidden" name="que_no" value="${queVO.que_no}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/que/que.do">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front/que/que.do">
 			    <input type="submit" value="刪除">
 			    <input type="hidden" name="que_no" value="${queVO.que_no}">
 			    <input type="hidden" name="action"value="delete"></FORM>

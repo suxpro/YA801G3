@@ -9,6 +9,6 @@ public interface QueDAO_interface {
           public void delete(String que_no);
           public QueVO findByPrimaryKey(String que_no);
           public List<QueVO> getAll();
-          //�U�νƦX�d��(�ǤJ�Ѽƫ��AMap)(�^�� List)
+          //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //        public List<TagVO> getAll(Map<String, String[]> map); 
 }

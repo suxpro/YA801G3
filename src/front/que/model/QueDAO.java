@@ -296,7 +296,7 @@ public class QueDAO implements QueDAO_interface {
 
 		queVO.setQue_no("Q10015");
 
-		// tag.setTag_desc("�䥦");
+		// tag.setTag_desc("嚙賭它");
 
 		try {
 			// queDAO.insert(queVO);

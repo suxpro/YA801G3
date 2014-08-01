@@ -9,6 +9,7 @@ public interface RentDAO_interface {
           public void delete(String rent_no);
           public RentVO findByPrimaryKey(String rent_no);
           public List<RentVO> getAll();
-          //�U�νƦX�d��(�ǤJ�Ѽƫ��AMap)(�^�� List)
+          //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //        public List<TagVO> getAll(Map<String, String[]> map); 
 }
+  

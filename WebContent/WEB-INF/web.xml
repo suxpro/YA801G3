@@ -45,7 +45,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>QueServlet</servlet-name>
-		<url-pattern>/que/que.do</url-pattern>
+		<url-pattern>/front/que/que.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>RentServlet</servlet-name>
@@ -53,7 +53,15 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>RentServlet</servlet-name>
-		<url-pattern>/rent/rent.do</url-pattern>
+		<url-pattern>/front/rent/rent.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>OrdServlet</servlet-name>
+		<servlet-class>front.ord.controller.OrdServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrdServlet</servlet-name>
+		<url-pattern>/front/ord/ord.do</url-pattern>
 	</servlet-mapping>
 
 	<!-- 彥勳 -->

@@ -15,14 +15,14 @@
 <h3>租物資料查詢:</h3>
 
 <ul>
-  <li><a href='listAllRent.jsp'>List</a> all rent. </li> <br>
+  <li><a href='<%=request.getContextPath() %>/front/rent/listAllRent.jsp'>List</a> all rent. </li> <br>
 </ul>
 
 
 <h3>租物新增</h3>
 
 <ul>
-  <li><a href='addRent.jsp'>Add</a> a new rent.</li>
+  <li><a href='<%=request.getContextPath() %>/front/rent/addRent.jsp'>Add</a> a new rent.</li>
 </ul>
 
 </body>
