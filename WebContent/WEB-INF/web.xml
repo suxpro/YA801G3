@@ -197,6 +197,13 @@
 	<filter-mapping>
 		<filter-name>loginFilterBack</filter-name>
 		<url-pattern>/back/dashboard.jsp</url-pattern>
+        <url-pattern>/back/employee/addEmp.jsp</url-pattern>
+        <url-pattern>/back/employee/indexEmp.jsp</url-pattern>
+        <url-pattern>/back/employee/listAllEmp.jsp</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 
 	<!-- 前端登入 -->
