@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="front.que.model.*"%>
 <%
-	QueVO queVO = (QueVO) request.getAttribute("queVO");
+//	QueVO queVO = (QueVO) request.getAttribute("queVO");
 %>
 
 <html>
@@ -61,9 +61,10 @@
 					java.sql.Timestamp date_SQL = new java.sql.Timestamp(
 							System.currentTimeMillis());
 				%>
+				<c:set scope="page" var="que_time" value="<%=date_SQL%>"></c:set>
 				<td>發問時間:<font color=red><b>*</b></font></td>
 				<td><input type="TEXT" name="que_time" size="20"
-					value="<%=(queVO == null) ? date_SQL : queVO.getQue_time()%>"></td>
+					value="${(param.que_time==null or param.que_time=='')? que_time : param.que_time }"></td>
 			</tr>
 			<tr>
 				<td valign="top">問題描述:<font color=red><b>*</b></font></td>

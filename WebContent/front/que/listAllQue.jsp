@@ -59,13 +59,13 @@
 			<td>${queVO.ans_time}</td>
 			<td>${queVO.ans_desc}</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/que/que.do">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front/que/que.do">
 			     <input type="submit" value="回覆">
 			     <input type="hidden" name="que_no" value="${queVO.que_no}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/que/que.do">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front/que/que.do">
 			    <input type="submit" value="刪除">
 			    <input type="hidden" name="que_no" value="${queVO.que_no}">
 			    <input type="hidden" name="action"value="delete"></FORM>
