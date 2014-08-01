@@ -7,7 +7,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import com.rent.model.*;
+import front.rent.model.*;
 
 import front.ord.model.*;
 
@@ -152,9 +152,8 @@ public class OrdServlet extends HttpServlet {
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					//add rentVO
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/ord/addOrd.jsp");
+							.getRequestDispatcher("/front/ord/addOrd.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -165,7 +164,7 @@ public class OrdServlet extends HttpServlet {
 						      rent_total, ot_days, init_dps, real_dps, tra_total, loc_no, rec_addr);
 
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/ord/listAllOrd.jsp";
+				String url = "/front/ord/listAllOrd.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllQue.jsp
 				successView.forward(req, res);				
 				
@@ -173,7 +172,7 @@ public class OrdServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception","other errors");
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/ord/addOrd.jsp");
+						.getRequestDispatcher("/front/ord/addOrd.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -209,12 +208,20 @@ public class OrdServlet extends HttpServlet {
 //					ordVO.setOrd_cc_cause(ord_cc_cause);
 				}
 				
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front/ord/listAllOrd.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
 				/***************************2.開始刪除資料***************************************/
 
 				ordSvc.deleteOrd(ord_no,ord_cc_cause);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/ord/listAllOrd.jsp";
+				String url = "/front/ord/listAllOrd.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -222,7 +229,7 @@ public class OrdServlet extends HttpServlet {
 			} catch (Exception e) {			
 				errorMsgs.put("Exception","刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("listAllOrd.jsp");
+						.getRequestDispatcher("/front/ord/listAllOrd.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -239,13 +246,21 @@ public class OrdServlet extends HttpServlet {
 					errorMsgs.put("ord_no","訂單編號不能為空");
 				}
 				
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front/ord/listAllOrd.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
 				/***************************2.開始查詢資料****************************************/
 				OrdService ordSvc = new OrdService();
 				OrdVO ordVO = ordSvc.getOneOrd(ord_no);
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("ordVO", ordVO);         // 資料庫取出的ordVO物件,存入req
-				String url = "/ord/update_ord_input.jsp";
+				String url = "/front/ord/update_ord_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_ord_input.jsp
 				successView.forward(req, res);
 
@@ -253,7 +268,7 @@ public class OrdServlet extends HttpServlet {
 			} catch (Exception e) {				
 				errorMsgs.put("Exception","無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("listAllOrd.jsp");
+						.getRequestDispatcher("/front/ord/listAllOrd.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -381,7 +396,7 @@ public class OrdServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("ordVO", ordVO); // 含有輸入格式錯誤的ordVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/prd/update_ord_input.jsp");
+							.getRequestDispatcher("/front/ord/update_ord_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -391,8 +406,8 @@ public class OrdServlet extends HttpServlet {
 //				ordSvc.updateOrd(ord_no,tra_mode,freight,ten_date,exp_date,ten_days,rent_total,tra_total,loc_no,rec_addr);
 				ordSvc.updateOrd(ordVO);
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("ordVO", ordVO); // 資料庫update成功後,正確的的ordVO物件,存入req
-				String url = "/ord/listAllOrd.jsp";
+//				req.setAttribute("ordVO", ordVO); // 資料庫update成功後,正確的的ordVO物件,存入req
+				String url = "/front/ord/listAllOrd.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneOrd.jsp
 				successView.forward(req, res);
 
@@ -400,7 +415,7 @@ public class OrdServlet extends HttpServlet {
 			} catch (Exception e) {				
 				errorMsgs.put("Exception","修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("update_que_input.jsp");
+						.getRequestDispatcher("/front/ord/update_que_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
