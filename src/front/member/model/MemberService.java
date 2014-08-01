@@ -40,7 +40,29 @@ public class MemberService {
 
 		return memberVO;
 	}
+	
+	public MemberVO updateMemInfo(String mno, String mpwd, byte[] mpic, String mname,
+			String msex, String mcell, String mmail,String locno, String madrs, String mpic_info, byte[] mvpic, String mvpic_info){
 
+		MemberVO memberVO = new MemberVO();		
+		memberVO.setMno(mno);
+//		memberVO.setMid(mid);
+		memberVO.setMpwd(mpwd);
+		memberVO.setMpic(mpic);
+		memberVO.setMname(mname);
+		memberVO.setMsex(msex);
+		memberVO.setMcell(mcell);
+		memberVO.setMmail(mmail);
+		memberVO.setLocno(locno);
+		memberVO.setMadrs(madrs);
+		memberVO.setMpic_info(mpic_info);
+		memberVO.setMvpic(mvpic);
+		memberVO.setMvpic_info(mvpic_info);
+		dao.updateInfo(memberVO);
+				
+		return memberVO;
+	}
+	
 	public MemberVO updateMember(String mno, String mid, String mpwd,
 			byte[] mpic, String mname, String msex, String mcell, String mmail,
 			String locno, String madrs, String mlev, Double mbalance,

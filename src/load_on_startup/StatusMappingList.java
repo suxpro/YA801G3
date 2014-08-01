@@ -73,6 +73,12 @@ public class StatusMappingList extends HttpServlet {
 		mem_staMap.put("V", "VIP");
 		mem_staMap.put("S", "停權");
 		
+		mem_staMap.put("M", "男");
+		mem_staMap.put("F", "女");
+		
+		mem_staMap.put("Y", "已驗證");
+		mem_staMap.put("N", "未驗證");
+		
 		context.setAttribute("mem_staMap", mem_staMap);
 
 		// 訂單狀態
