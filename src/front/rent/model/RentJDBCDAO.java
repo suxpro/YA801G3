@@ -21,7 +21,7 @@ public class RentJDBCDAO implements RentDAO_interface {
 	 * LAST_MOD_TIME, PIC1, PIC1_FORMAT, PIC2, PIC2_FORMAT, PIC3, PIC3_FORMAT,
 	 * PIC4, PIC4_FORMAT, PIC5, PIC5_FORMAT
 	 */
-
+ 
 	private static final String INSERT_STMT = "INSERT INTO rent (rent_no, rent_name, rent_desc, les_no, rent_sta, "
 			+ "tag_no, rent_dps, unit_price, reset_days, loc_no, "
 			+ "rent_addr, pop_flag, prent_flag, report_flag, offshelf_flag, "
@@ -440,9 +440,9 @@ public class RentJDBCDAO implements RentDAO_interface {
 			// rentList = rentDAO.getAll();
             
 			rentVO.setRent_no("R10006");
-//			rentVO.setRent_name("�W�Źq����");
-//			rentVO.setRent_name("�W�Źq����");
-//			rentVO.setRent_desc("�L�?�R���q����");
+//			rentVO.setRent_name("超級電風扇");
+//			rentVO.setRent_name("超級電風扇");
+//			rentVO.setRent_desc("無堅不摧的電風扇");
 //			rentVO.setLes_no("M10003");
 //			rentVO.setRent_sta("W_RENT");
 //			rentVO.setTag_no("T10001");
@@ -450,7 +450,7 @@ public class RentJDBCDAO implements RentDAO_interface {
 //			rentVO.setUnit_price(100);
 //			rentVO.setReset_days(1);
 //			rentVO.setLoc_no("L10005");
-//			rentVO.setRent_addr("��鿤���c��������73��");
+//			rentVO.setRent_addr("桃園縣中壢市中央路73號");
 //			rentVO.setPop_flag("N");
 //			rentVO.setPrent_flag("N");
 //			rentVO.setReport_flag("N");
