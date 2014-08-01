@@ -7,6 +7,7 @@
 %>
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,11 +36,6 @@
 #imghead2 {
 	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
 }
-
-#memform {
-	margin: 0 auto;
-	width: 700px;
-}
 </style>
 
 <link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css"
@@ -55,171 +51,214 @@
 
 <script language="JavaScript" src="js/previewImage.js"></script>
 <script language="JavaScript" src="js/previewImage2.js"></script>
+
 </head>
 <body>
 
 	<%@ include file="/front/header.file"%>
 
-	<h3 align="center">會員資料修改</h3>
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font color='red'>請修正以下錯誤:
-			<ul>
-				<c:forEach var="message" items="${errorMsgs}">
-					<li>${message.value}</li>
-				</c:forEach>
-			</ul>
-		</font>
-	</c:if>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<li class="active"><a href="#">會員管理</a></li>
+					<li><a href="#">會員儲值</a></li>
+					<li><a href="#">出租管理</a></li>
+					<li><a href="#">訂單管理</a></li>
+					<li><a href="#">歷史租借查詢</a></li>
+					<li><a href="#">升級會員</a></li>
+					<li class="divider"></li>
+					<li class="dropdown-submenu"><a tabindex="-1" href="#">租務秘書提醒</a>
+						<ul class="dropdown-menu">
+							<li><a tabindex="-1" href="#">成功出租(0)</a></li>
+							<li><a href="#">成功承租(0)</a></li>
+							<li><a href="#">出租確認(0)</a></li>
+							<li><a href="#">預約通知(0)</a></li>
+							<li><a href="#">出租Q&A(0)</a></li>
+							<li><a href="#">承租Q&A(0)</a></li>
+							<li><a href="#">評價通知(0)</a></li>
+							<li><a href="#">檢舉通知(0)</a></li>
+							<li><a href="#">出貨通知(0)</a></li>
+							<li><a href="#">歸期通知(0)</a></li>
+							<li><a href="#">租期通知(0)</a></li>
+						</ul></li>
 
-	<form id="memform" METHOD="post"
-		ACTION="<%=request.getContextPath()%>/front/member/member.do"
-		name="form1" enctype="multipart/form-data" class="form-horizontal" role="form">
-		<div class="form-group">
-			<label for="inputEmail3" class="col-sm-2 control-label">會員編號</label>
-			<label for="inputEmail3" class="col-sm-10 control-label"><%=memberVO.getMno()%></label>
-		</div>
-		<div class="form-group">
-			<label for="inputPassword3" class="col-sm-2 control-label">會員帳號</label>
-			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
-		</div>
-		<div class="form-group">
-			<label for="inputPassword3" class="col-sm-2 control-label">會員密碼</label>
-			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
-		</div>
-		<div class="form-group">
-			<label for="inputPassword3" class="col-sm-2 control-label">會員圖片</label>
-			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
-		</div>
-		<div class="form-group">
-			<label for="inputPassword3" class="col-sm-2 control-label">會員姓名</label>
-			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
-		</div>
-		<div class="form-group">
-			<label for="inputPassword3" class="col-sm-2 control-label">會員性別</label>
-			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
-		</div>
-		<div class="form-group">
-			<label for="inputPassword3" class="col-sm-2 control-label">會員手機</label>
-			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
-		</div>
-		<div class="form-group">
-			<label for="inputPassword3" class="col-sm-2 control-label">會員郵件</label>
-			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
-		</div>
-		<div class="form-group">
-			<label for="inputPassword3" class="col-sm-2 control-label">地區</label>
-			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
-		</div>
-		<div class="form-group">
-			<label for="inputPassword3" class="col-sm-2 control-label">會員地址</label>
-			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
-		</div>
-		<div class="form-group">
-			<label for="inputPassword3" class="col-sm-2 control-label">會員輪播圖片</label>
-			<label for="inputPassword3" class="col-sm-10 control-label"><%=memberVO.getMid()%></label>
-		</div>		
-		
-		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-default">修改</button>
+				</ul>
 			</div>
+
+			<div class="container">
+				<div class="row-fluid">
+					<form class="form-horizontal" id="memform" METHOD="post"
+						ACTION="<%=request.getContextPath()%>/front/member/member.do"
+						name="form1" enctype="multipart/form-data" role="form">
+						<fieldset>
+							<div id="legend">
+								<legend class="">
+									<h2>
+										<b>會員資料修改</b>
+									</h2>
+								</legend>
+							</div>
+
+							<div class="row row-offcanvas row-offcanvas-light">
+								<div class="col-xs-4 col-xs-offset-2">
+									<!-- 排版 -->
+
+									<!-- 會員編號 -->
+									<div class="control-group  ">
+										<label class="control-label" for="username">會員編號</label> <label
+											class="control-label col-xs-offset-1" id="username"><%=memberVO.getMno()%></label>
+									</div>
+
+									<!-- 會員帳號 -->
+									<div class="control-group  ">
+										<label class="control-label" for="mid">會員帳號 </label> <label
+											class="control-label col-xs-offset-1" id="mid">${memberVO.mid}</label>
+									</div>
+
+									<!-- 會員密碼 -->
+									<div class="control-group  ">
+										<label class="control-label" for="mpwd">會員密碼</label> <input
+											type="password" id="mpwd" name="mpwd"
+											value="<%=memberVO.getMpwd()%>" class="col-xs-offset-1"
+											ruquired>
+									</div>
+
+
+									<!-- 會員姓名 -->
+									<div class="control-group  ">
+										<label class="control-label" for="mname">會員姓名</label> <input
+											type="text" id="mname" name="mname"
+											value="<%=memberVO.getMname()%>" class="col-xs-offset-1"
+											ruquired>
+									</div>
+
+									<!-- 會員性別 -->
+									<div class="control-group  ">
+										<label class="control-label" for="msex">會員性別</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<c:if test="${memberVO.msex == 'M' }">
+            									&nbsp;<input type="radio" id="msex" name="msex" value=M	checked class="col-xs-offset-1">&nbsp;男&nbsp;&nbsp;
+            									&nbsp;<input type="radio" id="msex" name="msex" value=F	class="col-xs-offset-1">&nbsp;女
+										</c:if>
+										<c:if test="${memberVO.msex == 'F' }">
+            									&nbsp;<input type="radio" id="msex" name="msex" value=M class="col-xs-offset-1">&nbsp;男&nbsp;&nbsp;
+            									&nbsp;<input type="radio" id="msex" name="msex" value=F	checked class="col-xs-offset-1">&nbsp;女
+										</c:if>
+									</div>
+
+									<!-- 會員手機 -->
+									<div class="control-group  ">
+										<label class="control-label" for="mcell">會員手機</label> <input
+											type="text" id="mcell" name="mcell"
+											value="<%=memberVO.getMcell()%>" class="col-xs-offset-1"
+											ruquired>
+
+									</div>
+
+									<!-- 會員郵件 -->
+									<div class="control-group ">
+										<label class="control-label" for="mmail">會員郵件</label> <input
+											type="email" id="mmail" name="mmail"
+											value="<%=memberVO.getMmail()%>" class="col-xs-offset-1">
+
+									</div>
+
+									<jsp:useBean id="locSvc" scope="page"
+										class="back.loc.model.LocService" />
+
+									<!-- 地區 -->
+									<div class="control-group  ">
+										<label class="control-label" for="password_confirm">地區</label>
+										<select size="1" name="locno" class="col-xs-offset-2">
+											<c:forEach var="locVO" items="${locSvc.all}">
+												<option value="${locVO.loc_no}"
+													${(memberVO.locno==locVO.loc_no)? 'selected':'' }>${locVO.loc_desc}
+											</c:forEach>
+										</select>
+
+									</div>
+
+									<!-- 會員地址 -->
+									<div class="control-group ">
+										<label class="control-label" for="madrs">會員地址</label> <input
+											type="text" id="madrs" name="madrs"
+											value="<%=memberVO.getMadrs()%>" class="col-xs-offset-1"
+											ruquired="ruquired">
+
+									</div>
+
+
+								</div>
+								<!-- 排版 -->
+								<div class="col-xs-offset-0 sidebar-offcanvas ">
+									<!-- 圖片排版 -->
+
+									<!-- 會員圖片 -->
+									<div class="control-group ">
+										<label class="control-label" for="mpic">會員圖片</label>
+										<div class="controls">
+											<img id="mpic" width="80" height="80"
+												src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_PIC">
+											<input type="file" id="mpic" name="mpic"
+												class="col-xs-offset-6" />
+										</div>
+									</div>
+									<c:if test="${memberVO.mlev == 'V' }">
+										<!-- 會員輪播圖片 -->
+										<div class="control-group  ">
+											<label class="control-label" for="password_confirm">會員輪播圖片</label>
+											<div class="controls">
+												<img id="mvpic" width="80" height="80"
+													src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_VPIC">
+												<input type="file" id="mvpic" name="mvpic"
+													class="col-xs-offset-6" />
+											</div>
+										</div>
+									</c:if>
+									 								
+
+								</div>
+								<!-- 圖片排版 -->
+								
+								<div class=" col-xs-offset-0 sidebar-offcanvas">
+									<%-- 錯誤表列 --%>
+									<c:if test="${not empty errorMsgs}">
+										<font color='red'>請修正以下錯誤:
+											<ul>
+												<c:forEach var="message" items="${errorMsgs}">
+													<li>${message.value}</li>
+												</c:forEach>
+											</ul>
+										</font>
+									</c:if>
+								</div>
+							
+
+							</div>
+
+							<br>
+							<br>
+							<!-- Submit -->
+							<div class="control-group col-xs-8 col-xs-offset-8">
+								<div class="controls">
+									<input type="hidden" name="action" value="updateInfo">
+									<input type="hidden" name="mno" value="<%=memberVO.getMno()%>">
+									<input type="hidden" name="requestURL" value="<%=request.getAttribute("requestURL")%>">	<!--原送出修改的來源網頁路徑,從request取出後,再送給Controller準備轉交之用-->
+									<input type="hidden" name="whichPage" value="<%=request.getAttribute("whichPage")%>"> <!--只用於:istAllEmp.jsp-->
+									
+									<button class="btn btn-success">修改</button>
+								</div>
+							</div>
+
+						</fieldset>
+					</form>
+
+				</div>
+			</div>
+
 		</div>
-	</form>
+	</div>
 
-
-	<FORM id="memform" METHOD="post"
-		ACTION="<%=request.getContextPath()%>/front/member/member.do"
-		name="form1" enctype="multipart/form-data">
-		<table border="0">
-			<tr>
-				<td>會員編號</td>
-				<td><%=memberVO.getMno()%></td>
-			</tr>
-
-			<tr>
-				<td>會員帳號</td>
-				<td><%=memberVO.getMid()%></td>
-			</tr>
-
-
-			<tr>
-				<td>會員密碼</td>
-				<td><input type="password" name="mpwd" size="45"
-					value="<%=(memberVO == null) ? "Aa1234d" : memberVO.getMpwd()%>" /></td>
-				<td>${errorMsgs.mpwd}</td>
-			</tr>
-			<tr>
-				<td>會員圖片</td>
-				<td><img width="80" height="80"
-					src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_PIC"></td>
-				<td><input type="file" name="mpic" /></td>
-				<td>${errorMsgs.mpic}</td>
-			</tr>
-			<tr>
-				<td>會員姓名</td>
-				<td><input type="TEXT" name="mname" size="45"
-					value="<%=(memberVO == null) ? "跳跳虎" : memberVO.getMname()%>" /></td>
-				<td>${errorMsgs.mname}</td>
-			</tr>
-			<tr>
-				<td>會員性別</td>
-				<td>男 <input type="radio" name="msex" value=M checked /> 女 <input
-					type="radio" name="msex" value=F />
-				</td>
-				<td>${errorMsgs.msex}</td>
-			</tr>
-			<tr>
-				<td>會員手機</td>
-				<td><input type="TEXT" name="mcell" size="45"
-					value="<%=(memberVO == null) ? "0911863655" : memberVO.getMcell()%>" /></td>
-				<td>${errorMsgs.mcell}</td>
-			</tr>
-			<tr>
-				<td>會員郵件</td>
-				<td><input type="TEXT" name="mmail" size="45"
-					value="<%=(memberVO == null) ? "ggininder@gmail.com" : memberVO
-					.getMmail()%>" /></td>
-				<td>${errorMsgs.mmail}</td>
-			</tr>
-
-			<jsp:useBean id="locSvc" scope="page"
-				class="back.loc.model.LocService" />
-			<tr>
-				<td>地區</td>
-				<td><select size="1" name="locno">
-						<c:forEach var="locVO" items="${locSvc.all}">
-							<option value="${locVO.loc_no}"
-								${(memberVO.locno==locVO.loc_no)? 'selected':'' }>${locVO.loc_desc}
-						</c:forEach>
-				</select></td>
-			</tr>
-
-
-			<tr>
-				<td>會員地址</td>
-				<td><input type="TEXT" name="madrs" size="45"
-					value="<%=(memberVO == null) ? "桃園縣大溪鎮勝利路1號" : memberVO.getMadrs()%>" /></td>
-				<td>${errorMsgs.madrs}</td>
-			</tr>
-
-			<c:if test="${memberVO.mlev == 'V' }">
-				<tr>
-					<td>會員輪播圖片</td>
-					<td><img width="80" height="80"
-						src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_VPIC"></td>
-					<td><input type="file" name="mvpic" /></td>
-					<td>${errorMsgs.mvpic}</td>
-				</tr>
-			</c:if>
-		</table>
-		<br>
-		<input type="hidden" name="action" value="updateInfo"> 
-		<input type="hidden" name="mno" value="<%=memberVO.getMno()%>"> 
-		<input type="hidden" name="requestURL" value="<%=request.getAttribute("requestURL")%>"><!--原送出修改的來源網頁路徑,從request取出後,再送給Controller準備轉交之用-->
-		<input type="hidden" name="whichPage" value="<%=request.getAttribute("whichPage")%>"><!--只用於:istAllEmp.jsp-->
-		<input type="submit" value="送出修改">
-	</FORM>
 
 	<%@ include file="/front/footer.file"%>
 </body>

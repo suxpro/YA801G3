@@ -104,7 +104,7 @@
 				</tr>
 
 				<jsp:useBean id="OrdSvc" scope="page"
-					class="com.ord.model.OrdService" />
+					class="front.ord.model.OrdService" />
 
 				<tr>
 					<td>­q³æ½s¸¹:</td>

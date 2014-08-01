@@ -665,14 +665,14 @@ public class MemberServletF extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			
+
 			String requestURL = multi.getParameter("requestURL"); // 送出修改的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】
 			req.setAttribute("requestURL", requestURL); // 送出修改的來源網頁路徑, 存入req
 			
 			String whichPage = multi.getParameter("whichPage"); // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)
 			req.setAttribute("whichPage", whichPage);   // 送出修改的來源網頁的第幾頁, 存入req(只用於:istAllEmp.jsp)
 
-//			try {
+			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				String mno = multi.getParameter("mno").trim();
 //				String mid = multi.getParameter("mid").trim();
@@ -806,12 +806,13 @@ public class MemberServletF extends HttpServlet {
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 *************************************/
-//			} catch (Exception e) {
-//				errorMsgs.put("Exception", "修改資料失敗:" + e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/front/member/updateMemberInfo.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.put("Exception", "修改資料失敗:" + e.getMessage());
+				
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front/member/updateMemberInfo.jsp");
+				failureView.forward(req, res);
+			}
 		}
 	}
 

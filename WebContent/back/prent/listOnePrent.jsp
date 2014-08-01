@@ -11,7 +11,7 @@
 <jsp:useBean id="memberSvc" scope="page"
 	class="back.member.model.MemberService" />
 <jsp:useBean id="ordSvc" scope="page"
-	class="com.ord.model.OrdService" />
+	class="front.ord.model.OrdService" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
