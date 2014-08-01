@@ -1,29 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="front.ord.model.*"%>
-<%@ page import="com.rent.model.*"%>
-<%@ page import="com.loc.model.*"%>
+<%@ page import="front.rent.model.*"%>
+<%@ page import="back.loc.model.*"%>
 <%@ page import="java.util.*"%>
 <%
-	OrdVO ordVO = (OrdVO) request.getAttribute("ordVO");
-	String[][] staAry = {{"W_APR", "待核准"}, {"W_SHIP", "待出貨"},
-			{"DTBT", "配送中"}, {"REC_COM", "收貨完成"}, {"RENT_EXP", "租約到期"},
-			{"RT", "回收中"}, {"RT_COM", "回收完成"}, {"CLS", "結案"},
-			{"CC_ORD", "取消訂單"}, {"AB_CLS", "異常結案"}};
-
-	String[][] traAry = {{"FORWARDER", "物流配送"}, {"BUNG_OVER", "面交"}};
-	
-//	Map<String, String> staMap = (LinkedHashMap<String, String>)application.getAttribute("staMap");
-	
-//	Enumeration names =  application.getAttributeNames();
-//	pageContext.setAttribute("staMap", staMap);
+//	OrdVO ordVO = (OrdVO) request.getAttribute("ordVO");
 %>
 
 <html>
 <head>
 <title>租物訂單新增 - addOrd.jsp</title>
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script>
@@ -33,7 +21,7 @@
 		$("#ten_date").datepicker({
 			dateFormat : 'yy-mm-dd',
 			showOn : "button",
-			buttonImage : "<%=request.getContextPath()%>/ord/images/calendar.gif",
+			buttonImage : "<%=request.getContextPath()%>/front/ord/images/calendar.gif",
 			buttonImageOnly : true,
 			defaultDate : +1,
 			minDate : +1,
@@ -52,7 +40,7 @@
 		$("#exp_date").datepicker({
 			dateFormat : 'yy-mm-dd',
 			showOn : "button",
-			buttonImage : "<%=request.getContextPath()%>/ord/images/calendar.gif",
+			buttonImage : "<%=request.getContextPath()%>/front/ord/images/calendar.gif",
 							buttonImageOnly : true,
 							defaultDate : +1,
 							minDate : +1,
@@ -83,8 +71,8 @@
 	<table border='1' cellpadding='5' cellspacing='0' width='500'>
 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
 			<td><h3>租物訂單新增 - addOrd.jsp</h3></td>
-			<td><a href="select_page.jsp"><img src="images/tomcat.gif"
-					width="100" height="100" border="1"> 回首頁 </a></td>
+			<td><a href="<%=request.getContextPath()%>/front/ord/select_page.jsp">
+			    <img src="<%=request.getContextPath()%>/front/ord/images/tomcat.gif" width="100" height="100" border="1"> 回首頁 </a></td>
 		</tr>
 	</table>
 
@@ -102,11 +90,11 @@
 		</font>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="ord.do" name="form1">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath() %>/front/ord/ord.do" name="form1">
 		<table border="0">
 
 			<jsp:useBean id="rentSvc" scope="page"
-				class="com.rent.model.RentService" />
+				class="front.rent.model.RentService" />
 			<tr>
 				<td>租物編號:<font color=red><b>*</b></font></td>
 				<td><select size="1" name="rent_no">
@@ -133,48 +121,25 @@
 				<td><input type="TEXT" name="ord_sta" size="10" value="待確認"
 					readonly="readonly" /></td>
 			</tr>
-			<!--  
-			<tr>
-				<td>問題狀態:<font color=red><b>*</b></font></td>
-				<td><select size="1" name="que_sta">
-						<c:forEach var="sta" items="<%=staAry%>" varStatus="s">
-							<option value="${sta[0]}"
-								${(param.que_sta==sta[0])? 'selected':'' }>${sta[1]}
-						</c:forEach>
-				</select></td>
-			</tr>
--->
-
 			<tr>
 				<td>交易方式:<font color=red><b>*</b></font></td>
 				<td><select size="1" id="tra_mode" name="tra_mode">
-						<c:forEach var="tra" items="${staMap.keySet()}">
+						<c:forEach var="tra" items="${tra_staMap.keySet()}">
 							<option value="${tra}"
-								${(param.tra_mode==tra)? 'selected': 0}>${staMap[tra]}
+								${(param.tra_mode==tra)? 'selected': 0}>${tra_staMap[tra]}
 						</c:forEach>
 				</select></td>
 			</tr>
-			
-<!--
-			<tr>
-				<td>交易方式:<font color=red><b>*</b></font></td>
-				<td><select size="1" id="tra_mode" name="tra_mode">
-						<c:forEach var="tra" items="<%=traAry%>">
-							<option value="${tra[0]}"
-								${(param.tra_mode==tra[0])? 'selected': 0}>${staMap[tra[0]]}
-						</c:forEach>
-				</select></td>
-			</tr>
--->	
 			<tr>
 				<td>運費:<font color=red><b>*</b></font></td>
 				<td><input type="TEXT" id="freight" name="freight" size="6"
 					value=0 readonly="readonly" /></td>
 			</tr>
 			<script>
+				var freight = ${freight};		
 				$("#tra_mode").change(function() {
 					if ($("#tra_mode").val() == "FORWARDER")
-						$("#freight").val(100);
+						$("#freight").val(freight);
 					else
 						$("#freight").val(0);
 				}).change();
@@ -247,7 +212,7 @@
 			</tr>
  -->
 			<jsp:useBean id="locSvc" scope="page"
-				class="com.loc.model.LocService" />
+				class="back.loc.model.LocService" />
 			<tr>
 				<td>收貨地區:<font color=red><b>*</b></font></td>
 				<td><select size="1" name="loc_no">

@@ -21,7 +21,7 @@
 		$("#ten_date").datepicker({
 			dateFormat : 'yy-mm-dd',
 			showOn : "button",
-			buttonImage : "<%=request.getContextPath()%>/ord/images/calendar.gif",
+			buttonImage : "<%=request.getContextPath()%>/front/ord/images/calendar.gif",
 			buttonImageOnly : true,
 			defaultDate : +1,
 			minDate : +1,
@@ -40,7 +40,7 @@
 		$("#exp_date").datepicker({
 			dateFormat : 'yy-mm-dd',
 			showOn : "button",
-			buttonImage : "<%=request.getContextPath()%>/ord/images/calendar.gif",
+			buttonImage : "<%=request.getContextPath()%>/front/ord/images/calendar.gif",
 							buttonImageOnly : true,
 							defaultDate : +1,
 							minDate : +1,
@@ -122,9 +122,9 @@
 			<tr>
 				<td>交易方式:<font color=red><b>*</b></font></td>
 				<td><select size="1" id="tra_mode" name="tra_mode">
-						<c:forEach var="tra" items="${staMap.keySet()}">
+						<c:forEach var="tra" items="${tra_staMap.keySet()}">
 							<option value="${tra}"
-								${(param.tra_mode==tra)? 'selected': 0}>${staMap[tra]}
+								${(ordVO.tra_mode==tra)? 'selected': 0}>${tra_staMap[tra]}
 						</c:forEach>
 				</select></td>
 			</tr>
@@ -134,9 +134,10 @@
 					value="0" class="tra_total" readonly="readonly" /></td>
 			</tr>
 			<script>
+				var freight = ${freight};
 				$("#tra_mode").change(function() {
 					if ($("#tra_mode").val() == "FORWARDER")
-						$("#freight").val(100);
+						$("#freight").val(freight);
 					else
 						$("#freight").val(0);
 					var tra_total = Number($("#freight").val()) + Number($("#rent_total").val()) + Number($("#init_dps").val());

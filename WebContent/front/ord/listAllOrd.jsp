@@ -125,7 +125,7 @@
 
 				<td>
 					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/ord/ord.do">
+						ACTION="<%=request.getContextPath() %>/front/ord/ord.do">
 						<input type="submit" value="編輯"> <input type="hidden"
 							name="ord_no" value="${ordVO.ord_no}"> <input
 							type="hidden" name="action" value="getOne_For_Update">
@@ -145,7 +145,7 @@
 					<div id="dialog-form<%=count%>" title="取消訂單[${ordVO.ord_no}]">
 						<p>請輸入取消訂單的原因.</p>
 						<form method="post"
-							action="<%=request.getContextPath()%>/ord/ord.do">
+							action="<%=request.getContextPath() %>/front/ord/ord.do">
 							<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
 							<input type="hidden" name="action" value="delete">
 							<textarea name="ord_cc_cause" rows="4" cols="35" maxlength="100"></textarea>
