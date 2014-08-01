@@ -100,7 +100,7 @@
 				<td>${rentVO.pic5_format      }</td>
 				<td>
 					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/rent/rent.do">
+						ACTION="<%=request.getContextPath()%>/front/rent/rent.do">
 						<input type="submit" value="修改"> <input type="hidden"
 							name="rent_no" value="${rentVO.rent_no}"> <input
 							type="hidden" name="action" value="getOne_For_Update">
@@ -108,7 +108,7 @@
 				</td>
 				<td>
 					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath() %>/rent/rent.do">
+						ACTION="<%=request.getContextPath() %>/front/rent/rent.do">
 						<input type="submit" value="刪除"> <input type="hidden"
 							name="rent_no" value="${rentVO.rent_no}"> <input
 							type="hidden" name="action" value="delete">
