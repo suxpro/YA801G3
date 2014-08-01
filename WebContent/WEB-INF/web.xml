@@ -45,7 +45,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>QueServlet</servlet-name>
-		<url-pattern>/que/que.do</url-pattern>
+		<url-pattern>/front/que/que.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>RentServlet</servlet-name>
@@ -53,7 +53,15 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>RentServlet</servlet-name>
-		<url-pattern>/rent/rent.do</url-pattern>
+		<url-pattern>/front/rent/rent.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>OrdServlet</servlet-name>
+		<servlet-class>front.ord.controller.OrdServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrdServlet</servlet-name>
+		<url-pattern>/front/ord/ord.do</url-pattern>
 	</servlet-mapping>
 
 	<!-- 彥勳 -->
@@ -186,6 +194,13 @@
 	<filter-mapping>
 		<filter-name>loginFilterBack</filter-name>
 		<url-pattern>/back/dashboard.jsp</url-pattern>
+        <url-pattern>/back/employee/addEmp.jsp</url-pattern>
+        <url-pattern>/back/employee/indexEmp.jsp</url-pattern>
+        <url-pattern>/back/employee/listAllEmp.jsp</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 
 	<!-- 前端登入 -->
