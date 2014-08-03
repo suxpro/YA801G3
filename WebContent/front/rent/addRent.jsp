@@ -76,7 +76,7 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 <script language="JavaScript" src="js/calendarcode.js"></script>
 <div id="popupcalendar" class="text"></div>
 
-<body bgcolor='white'align = "center">
+<body bgcolor='white' align='center'>
 
 	<table border='1' cellpadding='5' cellspacing='0' width='800' align = "center">
 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
@@ -101,7 +101,7 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 <%-- 	</c:if> --%>
 	
 	<form method="post" action="<%=request.getContextPath() %>/front/rent/rent.do" name="form1" enctype="multipart/form-data">
-		<table cellpadding='5' cellspacing='5' border="0" align = "center">
+		<table cellpadding='5' cellspacing='5' border="0" align='center'>
 			<tr>
 				<td align="right">租物名稱:<font color=red><b>*</b></font></td>
 				<td><input type="TEXT" name="rent_name" size="30"

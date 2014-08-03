@@ -19,8 +19,8 @@
 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
 			<td>
 				<h3>租物資料修改 - update_rent_input.jsp</h3> 
-				<a href="<%=request.getContextPath() %>/front/rent/select_page.jsp">
-				<img src="<%=request.getContextPath() %>/front/rent/images/back1.gif" width="100" height="32" border="0">回首頁</a>
+				<a href="<%=request.getContextPath() %>/front/rent/listAllRent.jsp">
+				<img src="<%=request.getContextPath() %>/front/rent/images/back1.gif" width="100" height="32" border="0">回租物管理清單</a>
 			</td>
 		</tr>
 	</table>

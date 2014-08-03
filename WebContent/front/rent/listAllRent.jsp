@@ -2,26 +2,44 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="front.rent.model.*"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.sql.Timestamp"%>
 <%-- 此頁採用 JSTL 與 EL 取值 --%>
+<%!static SimpleDateFormat dateformatAll = new SimpleDateFormat(
+			"yyyy-MM-dd HH:mm:ss");//定義返回的日期格式
 
+	//去掉後帶.123時間的毫秒數方法
+	public static String getTimestampString(Timestamp ts) {
+		if (ts != null)
+			return dateformatAll.format(ts);//格式化傳過來的時間就可以去掉毫秒數
+		else
+			return "";
+	}
+%>
 <%
 	RentService rentSvc = new RentService();
 	List<RentVO> list = rentSvc.getAll();
 	pageContext.setAttribute("list", list);
+	//定義返回的日期格式
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta http-equiv="Refresh" content="30">
 <title>所有問題資料 - listAllQue.jsp</title>
 </head>
-<body bgcolor='white'>
+<body bgcolor='white' align='center'>
 	<b><font color=red>此頁練習採用 EL 的寫法取值:</font></b>
-	<table border='1' cellpadding='5' cellspacing='0' width='1800'>
+	<table border='1' cellpadding='5' cellspacing='0' width='1200'
+		align='center'>
 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-			<td><h3>所有租物資料 - ListAllRent.jsp</h3> 
-			<a href="<%=request.getContextPath() %>/front/rent/select_page.jsp">
-			<img src="<%=request.getContextPath() %>/front/rent/images/back1.gif" width="100" height="32" border="0">回首頁</a></td>
+			<td><h3>所有租物資料 - ListAllRent.jsp</h3> <a
+				href="<%=request.getContextPath()%>/front/rent/select_page.jsp">
+					<img
+					src="<%=request.getContextPath()%>/front/rent/images/back1.gif"
+					width="100" height="32" border="0">回首頁
+			</a></td>
 		</tr>
 	</table>
 
@@ -36,80 +54,60 @@
 		</font>
 	</c:if>
 
-	<table border='1' bordercolor='#CCCCFF' width='1500'>
+	<table border='1' bordercolor='#CCCCFF' align='center'>
 		<tr>
-			<th>租物編號</th>
+			<th>圖片</th>
 			<th>租物名稱</th>
-			<th width='60px'>租物描述</th>
-			<th>出租者</th>
-			<th>租物狀態</th>
-			<th>標籤編號</th>
+			<th>租物描述</th>
+			<!-- 			<th width='100px'>租物狀態</th> -->
+			<th>租物分類</th>
 			<th>租物押金</th>
 			<th>租物價格/天</th>
 			<th>重整天數</th>
-			<th>地區編號</th>
-			<th width='60px'>租物地址</th>
-			<th>熱門租物Flag</th>
-			<th>預租Flag</th>
-			<th>檢舉Flag</th>
-			<th>下架Flag</th>
+			<!-- 			<th>地區編號</th> -->
+			<!-- 			<th>租物地址</th> -->
 			<th>最後狀態時間</th>
 			<th>最後上架時間</th>
 			<th>最後修改時間</th>
-			<th>圖片1</th>
-			<th>圖片1格式</th>
-			<th>圖片2</th>
-			<th>圖片2格式</th>
-			<th>圖片3</th>
-			<th>圖片3格式</th>
-			<th>圖片4</th>
-			<th>圖片4格式</th>
-			<th>圖片5</th>
-			<th>圖片5格式</th>
 		</tr>
 		<%@ include file="page1.file"%>
-		<c:forEach var="rentVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+		<c:forEach var="rentVO" items="${list}" begin="<%=pageIndex%>"
+			end="<%=pageIndex+rowsPerPage-1%>">
+			<c:set var="rentVO1" value="${rentVO}" scope="page" />
 			<tr align='center' valign='middle'>
-				<td>${rentVO.rent_no          }</td>
+				<td><img width="100" height="100"
+					src="rent.do?rent_no=${rentVO.rent_no}&pic=pic1"></td>
 				<td>${rentVO.rent_name        }</td>
-				<td width='60px'>${rentVO.rent_desc        }</td>
-				<td>${rentVO.les_no           }</td>
-				<td>${rentVO.rent_sta         }</td>
-				<td>${rentVO.tag_no           }</td>
-				<td>${rentVO.rent_dps         }</td>
-				<td>${rentVO.unit_price       }</td>
-				<td>${rentVO.reset_days       }</td>
-				<td>${rentVO.loc_no           }</td>
-				<td width='60px'>${rentVO.rent_addr        }</td>
-				<td>${rentVO.pop_flag         }</td>
-				<td>${rentVO.prent_flag       }</td>
-				<td>${rentVO.report_flag      }</td>
-				<td>${rentVO.offshelf_flag    }</td>
-				<td>${rentVO.last_sta_time    }</td>
-				<td>${rentVO.last_onshelf_time}</td>
-				<td>${rentVO.last_mod_time    }</td>
-				<td><img width="80" height="80" src="rent.do?rent_no=${rentVO.rent_no}&pic=pic1"></td>
-				<td>${rentVO.pic1_format      }</td>
-				<td><img width="80" height="80" src="rent.do?rent_no=${rentVO.rent_no}&pic=pic2"></td>
-				<td>${rentVO.pic2_format      }</td>
-				<td><img width="80" height="80" src="rent.do?rent_no=${rentVO.rent_no}&pic=pic3"></td>
-				<td>${rentVO.pic3_format      }</td>
-				<td><img width="80" height="80" src="rent.do?rent_no=${rentVO.rent_no}&pic=pic4"></td>
-				<td>${rentVO.pic4_format      }</td>
-				<td><img width="80" height="80" src="rent.do?rent_no=${rentVO.rent_no}&pic=pic5"></td>
-				<td>${rentVO.pic5_format      }</td>
+				<%-- 				<td width='100px'>${rentVO.rent_desc        }</td> --%>
+				<td>${rent_staMap[rentVO.rent_sta]}</td>
+				<td>${tag_staMap[rentVO.tag_no]}</td>
+				<td>${rentVO.rent_dps         }元</td>
+				<td>${rentVO.unit_price       }元</td>
+				<td>${rentVO.reset_days       }天</td>
+				<%-- 				<td>${loc_staMap[rentVO.loc_no]}</td> --%>
+				<%-- 				<td>${rentVO.rent_addr        }</td> --%>
+				<%--  				<td>${rentVO.last_sta_time}</td> --%>
+				<%-- 				<td>${rentVO.last_onshelf_time}</td> --%>
+				<%-- 				<td>${rentVO.last_mod_time    }</td> --%>
+				<td><%=getTimestampString(((RentVO) pageContext
+						.getAttribute("rentVO1")).getLast_sta_time())%></td>
+				<td><%=getTimestampString(((RentVO) pageContext
+						.getAttribute("rentVO1")).getLast_onshelf_time())%></td>
+				<td><%=getTimestampString(((RentVO) pageContext
+						.getAttribute("rentVO1")).getLast_mod_time())%></td>
+
 				<td>
 					<FORM METHOD="post"
 						ACTION="<%=request.getContextPath()%>/front/rent/rent.do">
-						<input type="submit" value="修改"> <input type="hidden"
+						<input type="submit" value="編輯"> <input type="hidden"
 							name="rent_no" value="${rentVO.rent_no}"> <input
 							type="hidden" name="action" value="getOne_For_Update">
 					</FORM>
 				</td>
 				<td>
 					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath() %>/front/rent/rent.do">
-						<input type="submit" value="刪除"> <input type="hidden"
+						ACTION="<%=request.getContextPath()%>/front/rent/rent.do">
+						<input type="submit" value="下架"> <input type="hidden"
 							name="rent_no" value="${rentVO.rent_no}"> <input
 							type="hidden" name="action" value="delete">
 					</FORM>

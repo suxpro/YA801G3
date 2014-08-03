@@ -62,7 +62,7 @@ public class RentServlet extends HttpServlet {
 			rs.close();
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println(e + "	picture not found");
 		}
 	}
 
@@ -173,12 +173,12 @@ public class RentServlet extends HttpServlet {
 						byte[] pic_byte = null;
 						String name = (String) files.nextElement();
 						String fileName = multi.getFilesystemName(name);
+						File file = multi.getFile(name);
 						// 避免未上傳五張圖時 會異常發生
-						if (fileName != null) {
+						if (file != null) {
 							int dotPos = fileName.indexOf('.');
 							String pic_format = fileName.substring(dotPos + 1);
 							// String type = multi.getContentType(name);
-							File file = multi.getFile(name);
 							FileInputStream fis = new FileInputStream(file);
 							int fin = fis.available();
 							pic_byte = new byte[fin];
@@ -196,7 +196,7 @@ public class RentServlet extends HttpServlet {
 						}
 					}
 				} catch (Exception e) {
-					errorMsgs.put("pics", "請上傳租物圖片");
+					errorMsgs.put("pics", "請上傳不重複的租物圖片");
 				}
 				if (count != 5)
 					errorMsgs.put("pics", "請上傳五張不同的租物圖片");
@@ -422,37 +422,37 @@ public class RentServlet extends HttpServlet {
 				// ArrayList<String> pics_format = new ArrayList<String>();
 				Enumeration files = multi.getFileNames();
 				int count = 0;
-				// try {
-				while (files.hasMoreElements()) {
-					byte[] pic_byte = null;
-					String name = (String) files.nextElement();
-					String fileName = multi.getFilesystemName(name);
-					// 避免未上傳五張圖時 會異常發生
-					if (fileName != null) {
-						int dotPos = fileName.indexOf('.');
-						String pic_format = fileName.substring(dotPos + 1);
-						// String type = multi.getContentType(name);
+				try {
+					while (files.hasMoreElements()) {
+						byte[] pic_byte = null;
+						String name = (String) files.nextElement();
+						String fileName = multi.getFilesystemName(name);
 						File file = multi.getFile(name);
-						FileInputStream fis = new FileInputStream(file);
-						int fin = fis.available();
-						pic_byte = new byte[fin];
-						fis.read(pic_byte);
-						fis.close();
-						file.delete(); // 寫入記憶體後 檔案刪除
-						count++;
-						pics.put(name, pic_byte); // hasMoreElements 會將後進先出
-													// 所以使用map格式 且key值等於
-													// name
-						pics_format.put(name, pic_format); // hasMoreElements
+						// 避免未上傳五張圖時 會異常發生
+						if (file != null) {
+							int dotPos = fileName.indexOf('.');
+							String pic_format = fileName.substring(dotPos + 1);
+							// String type = multi.getContentType(name);
+							FileInputStream fis = new FileInputStream(file);
+							int fin = fis.available();
+							pic_byte = new byte[fin];
+							fis.read(pic_byte);
+							fis.close();
+							file.delete(); // 寫入記憶體後 檔案刪除
+							count++;
+							pics.put(name, pic_byte); // hasMoreElements 會將後進先出
+														// 所以使用map格式 且key值等於
+														// name
+							pics_format.put(name, pic_format); // hasMoreElements
 															// 會將後進先出
 															// 所以使用map格式
 															// 且key值等於 name
-					}
+						}
 
+					}
+				} catch (Exception e) {
+					errorMsgs.put("pics", "請上傳不重複的租物圖片");
 				}
-				// } catch (Exception e) {
-				// errorMsgs.put("pics", "請上傳租物圖片");
-				// }
 
 				// if (count != 5)
 				// errorMsgs.put("pics", "請上傳五張不同的租物圖片");
