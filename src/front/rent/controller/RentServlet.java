@@ -392,12 +392,12 @@ public class RentServlet extends HttpServlet {
 				 String rent_sta = multi.getParameter("rent_sta").trim();
 				 if (rent_sta == null || rent_sta.trim().length() == 0) {
 					 errorMsgs.put("rent_sta","租物狀態請勿空白");
-				 }else if(rent_sta != "W_RENT" && rent_sta != "W_CHECK"){
-					 //租物狀態不對
-					 errorMsgs.put("alert","租物狀態只有在待審核或未出租時才可以編輯");
-				 }else{
+				 }else if(rent_sta.equals("W_RENT") || rent_sta.equals("W_CHECK")){
 					 rent_sta = "W_CHECK";
 					 rentVO.setRent_sta(rent_sta);
+				 }else{
+					 //租物狀態不對
+					 errorMsgs.put("alert","租物狀態只有在待審核或未出租時才可以編輯");
 				 }
 //				 String rent_sta = "W_CHECK";
 //				 rentVO.setRent_sta(rent_sta);
