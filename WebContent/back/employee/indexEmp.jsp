@@ -6,8 +6,8 @@
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
-				<li class="active"><a href="#">員工帳號管理</a></li>
-				<li><a href="#">員工權限管理</a></li>
+				<li class="active"><a class="aIndexEmp"  rel="employee" href="#">員工帳號管理</a></li>
+				<li><a class="aIndexEmp" rel="competence" href="#">員工權限管理</a></li>
 			</ul>
 		</div>
 

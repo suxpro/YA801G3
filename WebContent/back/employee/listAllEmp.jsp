@@ -5,13 +5,12 @@
 <%@ page import="back.employee.model.*"%>
 
 <%
-	EmployeeService empSvc = new EmployeeService();
-	List<EmployeeVO> list = empSvc.getAll();
-	pageContext.setAttribute("list", list);
+    EmployeeService empSvc = new EmployeeService();
+    List<EmployeeVO> list = empSvc.getAll();
+    pageContext.setAttribute("empList", list);
 %>
-<script>
-	$.getScript("js/employee/listAllEmp.js");
-</script>
+<script>$.getScript("js/employee/listAllEmp.js");</script>
+
 <div class="container-fluid">
 	<div class="row">
 		<!-- 功能按鈕 -->
@@ -30,26 +29,27 @@
 				</div>
 			</div>
 
+            <!-- 刪除員工按鈕 -->
+            <button class="btn btn-primary navbar-btn navbar-left"
+                id="btnDelEmp">刪除</button>
+                
 			<!-- 修改員工按鈕 -->
 			<button class="btn btn-primary navbar-btn navbar-left"
 				id="updateEmpBtn">修改</button>
 
-			<!-- 刪除員工按鈕 -->
-			<button class="btn btn-primary navbar-btn navbar-left"
-				id="delEmpBtn">刪除</button>
-
 			<!-- 搜尋員工 -->
-			<form class="navbar-form navbar-right" role="search">
+			<form id="formListAllEmpSearch" role="search" class="navbar-form navbar-right" value="<%=request.getContextPath()%>/employee/employee.do" enctype="multipart/form-data">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search 員工編號">
+					<input type="text" id="inputListAllEmpSearch" class="form-control" placeholder="Search By 編號">
+                    <input type="hidden" name="action" value="searchEmp">
 				</div>
-				<button type="submit" class="btn btn-default">搜尋</button>
+				<button type="button" id="btnListAllEmpSubmit" class="btn btn-default">搜尋</button>
 			</form>
 
 			<!-- 分頁按鈕 -->
 			<ul class="nav navbar-nav navbar-right">
 				<li class="liListAllEmpPage disabled"><a href="#" class="navbar-link">1</a></li>
-				<c:forEach var="i" begin="2" end="${list.size()/5+1}" step="1">
+				<c:forEach var="i" begin="2" end="${empList.size()/5+1}" step="1">
 					<li class="liListAllEmpPage"><a href="#" class="navbar-link">${i}</a></li>
 				</c:forEach>
 			</ul>
@@ -80,7 +80,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="empVO" items="${list}" varStatus="status">
+					<c:forEach var="empVO" items="${empList}" varStatus="status">
 						<tr title="${status.count}">
 							<td class="delEmpTd" style="display: none;">
 								<button type="button"

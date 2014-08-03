@@ -17,14 +17,14 @@ public class CompetenceDAO implements CompetenceDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/renterDB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 
 	private static final String INSERT_STMT = "INSERT INTO competence (emp_no, func_no) VALUES (?, ?)";
-	private static final String GET_ALL_STMT = "SELECT emp_no, func_no FROM competence";
+	private static final String GET_ALL_STMT = "SELECT emp_no, func_no FROM competence order by emp_no";
 	private static final String GET_ONE_STMT = "SELECT emp_no, func_no FROM competence where emp_no = ?";
 	
 	private static final String DELETE_ALL = "DELETE FROM competence where emp_no = ?";

@@ -8,10 +8,10 @@
 <meta charset="UTF-8">
 <title>JustRent!後端</title>
 <link rel="stylesheet"
-	href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	href="css/bootstrap.min.css">
 <link href="css/dashboard.css" rel="stylesheet">
-<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script src="js/dashboard.js"></script>
 
 </head>

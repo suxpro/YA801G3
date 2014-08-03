@@ -1,6 +1,6 @@
 $(document).ready(
 		function() {
-//			$.getScript("js/employee/listAllEmp.js");
+			$.getScript("js/employee/listAllEmp.js");
 			
 			//管理按鈕切換div
 			$(".manage").on("click", function(event) {
@@ -27,6 +27,26 @@ $(document).ready(
 					break;
 				default:
 					alert("選擇管理error!");
+					break;
+				}
+			});
+			
+			//員工管理按鈕切換div
+			$(".aIndexEmp").on("click", function(event) {
+				$(this).parent("li").addClass( "active" ).siblings("li").removeClass( "active" );
+				switch ($(this).attr("rel")) {
+				case "employee":
+					$("#listAllEmp").load("employee/listAllEmp.jsp",function() {
+						$.getScript("js/employee/listAllEmp.js");
+					});
+					break;
+				case "competence":
+					$("#listAllEmp").load("employee/listAllCompetence.jsp", function() {
+						$.getScript("js/employee/listAllCompetence.js");
+					});
+					break;
+				default:
+					alert("選擇員工管理error!");
 					break;
 				}
 			});
