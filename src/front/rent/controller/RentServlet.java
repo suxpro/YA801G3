@@ -184,7 +184,7 @@ public class RentServlet extends HttpServlet {
 						String name = (String) files.nextElement();
 						String fileName = multi.getFilesystemName(name);
 						File file = multi.getFile(name);
-						// 避免未上傳五張圖時 會異常發生
+						// 避免未上傳三張圖時 會異常發生
 						if (file != null) {
 							int dotPos = fileName.indexOf('.');
 							String pic_format = fileName.substring(dotPos + 1);
@@ -389,13 +389,12 @@ public class RentServlet extends HttpServlet {
 				}
 
 				// rent_sta
-
-				 String rent_sta = req.getParameter("rent_sta").trim();
+				 String rent_sta = multi.getParameter("rent_sta").trim();
 				 if (rent_sta == null || rent_sta.trim().length() == 0) {
 					 errorMsgs.put("rent_sta","租物狀態請勿空白");
 				 }else if(rent_sta != "W_RENT" && rent_sta != "W_CHECK"){
 					 //租物狀態不對
-					 errorMsgs.put("rent_name","租物狀態只有在待審核或待確認才可以修改");
+					 errorMsgs.put("alert","租物狀態只有在待審核或未出租時才可以編輯");
 				 }else{
 					 rent_sta = "W_CHECK";
 					 rentVO.setRent_sta(rent_sta);

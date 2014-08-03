@@ -27,6 +27,11 @@
 
 	<h3>租物資料修改:</h3>
 	<%-- 錯誤表列 --%>
+	<script>
+	<c:if test="${not empty errorMsgs}">
+		alert("${errorMsgs.alert}");
+	</c:if>
+	</script>
 <%-- 	<c:if test="${not empty errorMsgs}"> --%>
 <!-- 		<font color='red'>請修正以下錯誤: -->
 <!-- 			<ul> -->
