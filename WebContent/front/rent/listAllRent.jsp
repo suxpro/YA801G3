@@ -8,7 +8,7 @@
 <%!static SimpleDateFormat dateformatAll = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");//定義返回的日期格式
 
-	//去掉後帶.123時間的毫秒數方法
+	//去掉時間的毫秒數方法
 	public static String getTimestampString(Timestamp ts) {
 		if (ts != null)
 			return dateformatAll.format(ts);//格式化傳過來的時間就可以去掉毫秒數
@@ -26,8 +26,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Refresh" content="30">
-<title>所有問題資料 - listAllQue.jsp</title>
+<meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/rent/listAllRent.jsp">
+<title>租物管理清單 - listAllQue.jsp</title>
 </head>
 <body bgcolor='white' align='center'>
 	<b><font color=red>此頁練習採用 EL 的寫法取值:</font></b>

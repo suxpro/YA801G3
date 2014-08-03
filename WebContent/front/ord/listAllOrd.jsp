@@ -20,9 +20,9 @@
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 </head>
-<body bgcolor='white'>
+<body bgcolor='white' align = "center">
 	<b><font color=red>此頁練習採用 EL 的寫法取值:</font></b>
-	<table border='1' cellpadding='5' cellspacing='0' width='800'>
+	<table border='1' cellpadding='5' cellspacing='0' width='1900' align = "center">
 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
 			<td><h3>所有訂單資料 - ListAllOrd.jsp</h3> 
 			<a href="<%=request.getContextPath() %>/front/ord/select_page.jsp">

@@ -78,7 +78,7 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 
 <body bgcolor='white' align='center'>
 
-	<table border='1' cellpadding='5' cellspacing='0' width='800' align = "center">
+	<table border='1' cellpadding='5' cellspacing='0' width='800' align='center'>
 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
 			<td><h3>租物新增 - addRent.jsp</h3></td>
 			<td><a href="<%=request.getContextPath() %>/front/rent/select_page.jsp">
@@ -204,24 +204,24 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 					<input type="file" name="pic3" onchange="previewImage(this,'div3','img3')"/>
 				</td>
 			</tr>
-			<tr>
-				<td valign="top" align="right">租物圖片(4):<font color=red><b>*</b></font></td>
-				<td>
-					<div id="div4" class="preview">
-    					<img id="img4" width=100 height=100 border=0 src='' class="imghead">
-					</div>
-					<input type="file" name="pic4" onchange="previewImage(this,'div4','img4')"/>
-				</td>
-			</tr>
-			<tr>
-				<td valign="top" align="right">租物圖片(5):<font color=red><b>*</b></font></td>
-				<td>
-					<div id="div5" class="preview">
-    					<img id="img5" width=100 height=100 border=0 src='' class="imghead">
-					</div>
-					<input type="file" name="pic5" onchange="previewImage(this,'div5','img5')"/>
-				</td>
-			</tr>			
+<!-- 			<tr> -->
+<!-- 				<td valign="top" align="right">租物圖片(4):<font color=red><b>*</b></font></td> -->
+<!-- 				<td> -->
+<!-- 					<div id="div4" class="preview"> -->
+<!--     					<img id="img4" width=100 height=100 border=0 src='' class="imghead"> -->
+<!-- 					</div> -->
+<!-- 					<input type="file" name="pic4" onchange="previewImage(this,'div4','img4')"/> -->
+<!-- 				</td> -->
+<!-- 			</tr> -->
+<!-- 			<tr> -->
+<!-- 				<td valign="top" align="right">租物圖片(5):<font color=red><b>*</b></font></td> -->
+<!-- 				<td> -->
+<!-- 					<div id="div5" class="preview"> -->
+<!--     					<img id="img5" width=100 height=100 border=0 src='' class="imghead"> -->
+<!-- 					</div> -->
+<!-- 					<input type="file" name="pic5" onchange="previewImage(this,'div5','img5')"/> -->
+<!-- 				</td> -->
+<!-- 			</tr>			 -->
 		</table>
 		<br> <input type="hidden" name="action" value="insert" > 
 		<input type="submit" value="送出新增" width="300px">

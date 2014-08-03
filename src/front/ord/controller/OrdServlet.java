@@ -290,7 +290,7 @@ public class OrdServlet extends HttpServlet {
 				String ord_noReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (ord_no == null || ord_no.trim().length() == 0) {
 					errorMsgs.put("ord_no","訂單編號請勿空白");
-				} else if(!ord_no.trim().matches(ord_no)) { //以下練習正則(規)表示式(regular-expression)
+				} else if(!ord_no.trim().matches(ord_noReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.put("ord_no","訂單編號只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 	            } else{
 	                ordVO = ordSvc.getOneOrd(ord_no);		

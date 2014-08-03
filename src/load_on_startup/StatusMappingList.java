@@ -122,7 +122,7 @@ public class StatusMappingList extends HttpServlet {
 		context.setAttribute("trad_staMap", trad_staMap);
 
 		// 租物交易方式
-		tra_staMap.put("FORWARDER", "交由物流");
+		tra_staMap.put("FORWARDER", "宅配");
 		tra_staMap.put("BUNG_OVER", "面交");
 		
 		context.setAttribute("tra_staMap", tra_staMap);
