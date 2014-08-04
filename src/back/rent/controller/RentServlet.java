@@ -1,4 +1,4 @@
-package front.rent.controller;
+package back.rent.controller;
 
 import java.io.*;
 import java.sql.Connection;
@@ -21,7 +21,7 @@ import javax.servlet.UnavailableException;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
 
-import front.rent.model.*;
+import back.rent.model.*;
 
 import com.oreilly.servlet.MultipartRequest;
 

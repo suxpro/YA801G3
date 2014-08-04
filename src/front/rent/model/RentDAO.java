@@ -1,17 +1,12 @@
 package front.rent.model;
 
 import java.util.*;
-import java.io.File;
-import java.io.FileInputStream;
 import java.sql.*;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
-import back.tag.model.TagJDBCDAO;
-import back.tag.model.TagVO;
 
 public class RentDAO implements RentDAO_interface {
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
@@ -408,101 +403,5 @@ public class RentDAO implements RentDAO_interface {
 		}
 		return list;
 	}
-
-//	public static void main(String argv[]) throws Exception {
-//
-//		// List<RentVO> rentList = new ArrayList<RentVO>();
-//		RentDAO rentDAO = new RentDAO();
-//		RentVO rentVO = new RentVO();
-//
-//		File f1 = new File("C:/images/1.jpg");
-//		FileInputStream fins1 = new FileInputStream(f1);
-//		int len1 = fins1.available();
-//		byte[] b1 = new byte[len1];
-//		fins1.read(b1);
-//		fins1.close();
-//
-//		File f2 = new File("C:/images/2.jpg");
-//		FileInputStream fins2 = new FileInputStream(f2);
-//		int len2 = fins2.available();
-//		byte[] b2 = new byte[len2];
-//		fins2.read(b2);
-//		fins2.close();
-//
-//		// rentVO.setRent_no("R10001");
-//
-//		try {
-//			// rentVO = rentDAO.findByPrimaryKey(rentVO.getRent_no());
-//			// rentList = rentDAO.getAll();
-//            
-//			rentVO.setRent_no("R10006");
-////			rentVO.setRent_name("超級電風扇");
-////			rentVO.setRent_name("超級電風扇");
-////			rentVO.setRent_desc("無堅不摧的電風扇");
-////			rentVO.setLes_no("M10003");
-////			rentVO.setRent_sta("W_RENT");
-////			rentVO.setTag_no("T10001");
-////			rentVO.setRent_dps(3000);
-////			rentVO.setUnit_price(100);
-////			rentVO.setReset_days(1);
-////			rentVO.setLoc_no("L10005");
-////			rentVO.setRent_addr("桃園縣中壢市中央路73號");
-////			rentVO.setPop_flag("N");
-////			rentVO.setPrent_flag("N");
-////			rentVO.setReport_flag("N");
-////			rentVO.setOffshelf_flag("N");
-////			rentVO.setLast_sta_time(java.sql.Timestamp
-////					.valueOf("2014-5-3 00:00:01.0"));
-////			rentVO.setLast_onshelf_time(java.sql.Timestamp
-////					.valueOf("2014-5-3 00:00:02.0"));
-////			rentVO.setLast_mod_time(java.sql.Timestamp
-////					.valueOf("2014-5-3 00:00:03.0"));
-////			rentVO.setPic1(b1);
-////			rentVO.setPic1_format("jpg");
-////			rentVO.setPic2(b2);
-////			rentVO.setPic2_format("jpg");
-//			
-//			/*
-//			 * rentVO.setPic3(null) ; rentVO.setPic3_format(null) ;
-//			 * rentVO.setPic4(null) ; rentVO.setPic4_format(null) ;
-//			 * rentVO.setPic5(null) ; rentVO.setPic5_format(null) ;
-//			 */
-//
-//			//rentDAO.insert(rentVO);
-//			//rentDAO.update(rentVO);
-//			rentDAO.delete(rentVO.getRent_no());
-//
-//			// que = queDAO.findTag(que.getQue_no());
-//
-//			/*
-//			 * for(RentVO rentVO : rentList){
-//			 * System.out.print("--new rent-------------------------------------\n"
-//			 * ); System.out.print("1 : " + rentVO.getRent_no() + " \n" + "2 : "
-//			 * + rentVO.getRent_name() + " \n" + "3 : " + rentVO.getRent_desc()
-//			 * + " \n" + "4 : " + rentVO.getLes_no() + " \n" + "5 : " +
-//			 * rentVO.getRent_sta() + " \n" + "6 : " + rentVO.getTag_no() +
-//			 * " \n" + "7 : " + rentVO.getRent_dps() + " \n" + "8 : " +
-//			 * rentVO.getUnit_price() + " \n" + "9 : " + rentVO.getReset_days()
-//			 * + " \n" + "10: " + rentVO.getLoc_no() + " \n" + "11: " +
-//			 * rentVO.getRent_addr() + " \n" + "12: " + rentVO.getPop_flag() +
-//			 * " \n" + "13: " + rentVO.getPrent_flag() + " \n" + "14: " +
-//			 * rentVO.getReport_flag() + " \n" + "15: " +
-//			 * rentVO.getOffshelf_flag() + " \n" + "16: " +
-//			 * rentVO.getLast_sta_time() + " \n" + "17: " +
-//			 * rentVO.getLast_onshelf_time() + " \n" + "18: " +
-//			 * rentVO.getLast_mod_time() + " \n" + "19: " + rentVO.getPic1() +
-//			 * " \n" + "20: " + rentVO.getPic1_format() + " \n" + "21: " +
-//			 * rentVO.getPic2() + " \n" + "22: " + rentVO.getPic2_format() +
-//			 * " \n" + "23: " + rentVO.getPic3() + " \n" + "24: " +
-//			 * rentVO.getPic3_format() + " \n" + "25: " + rentVO.getPic4() +
-//			 * " \n" + "26: " + rentVO.getPic4_format() + " \n" + "27: " +
-//			 * rentVO.getPic5() + " \n" + "28: " + rentVO.getPic5_format() +
-//			 * " \n"); }
-//			 */
-//
-//		} catch (Exception ex) {
-//			System.err.println("Exception: " + ex.getMessage());
-//		}
-//	}
 
 }

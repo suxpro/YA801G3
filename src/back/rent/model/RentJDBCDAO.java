@@ -1,4 +1,4 @@
-package front.rent.model;
+package back.rent.model;
 
 import java.util.*;
 import java.io.File;
