@@ -13,138 +13,180 @@
 <title>JustRent! - 萬物皆可租</title>
 
 <style type="text/css">
-#preview{width:100px;height:100px;border:1px solid #000;overflow:hidden;}
+#preview{width:100px;height:100px;border:0px solid #000;overflow:hidden;}
 #imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);}
 #preview2{width:100px;height:100px;border:1px solid #000;overflow:hidden;}
 #imghead2 {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);}
 
-form { 
-margin: 0 auto; 
-width:600px;
-}
+#memform {width:90%;}
 
 </style>
 
 </head>
 <link rel="stylesheet" type="text/css" href="js/calendar.css">
-<script language="JavaScript" src="js/calendarcode.js"></script>
+
+<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="<%=request.getContextPath()%>/front/css/justrent.css" rel="stylesheet">
+<script src="<%=request.getContextPath()%>/front/js/jquery-1.7.2.min.js"></script>
+<script src="<%=request.getContextPath()%>/front/js/bootstrap.min.js"></script>
+<script	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
+<script src="<%=request.getContextPath()%>/front/js/jquery.color.js"></script>
+<script src="<%=request.getContextPath()%>/front/js/justrent.js"></script>
+
 <script language="JavaScript" src="js/previewImage.js"></script>
 <script language="JavaScript" src="js/previewImage2.js"></script>
 <body >
 
 	<%@ include file="/front/header.file"%>
 
-	<h3 align="center">註冊會員:</h3>
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font color='red'>請修正以下錯誤:
-			<ul>
-				<c:forEach var="message" items="${errorMsgs}">
-					<li>${message.value}</li>
-				</c:forEach>
-			</ul>
-		</font>
-	</c:if>
+			<div class="container">
+				<div class="row-fluid">
+					<form class="form-horizontal" id="memform" METHOD="post"
+						ACTION="<%=request.getContextPath()%>/front/member/member.do"
+						name="form1" enctype="multipart/form-data" role="form">
+						<fieldset>
+							<div id="legend">
+								<legend class="">
+									<h2>
+										<b>註冊會員</b>
+									</h2>
+								</legend>
+							</div>
 
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/member.do" name="form1"
-		enctype="multipart/form-data">
-		<table border="0">
+							<div class="row row-offcanvas row-offcanvas-light">
+								<div class="col-xs-4 col-xs-offset-2">
+									<!-- 排版 -->
 
-			<tr>
-				<td><font color=red><b>*</b></font>會員帳號:</td>
-				<td><input type="TEXT" name="mid" size="45"
-					value="<%=(memberVO == null) ? "hayaha" : memberVO.getMid()%>" /></td><td>${errorMsgs.mid}</td>
-			</tr>
+									<!-- 會員帳號 -->
+									<div class="control-group  ">
+										<label class="control-label" for="mid">會員帳號 </label> 
+										<input type="text" id="mid" name="mid" value="<%=(memberVO == null) ? "" : memberVO.getMid()%>" class="col-xs-offset-1" ruquired/>
+									</div>
 
-			<tr>
-				<td><font color=red><b>*</b></font>會員密碼:</td>
-				<td><input type="password" name="mpwd" size="45"
-					value="<%=(memberVO == null) ? "Aa12345" : memberVO.getMpwd()%>" /></td>
-				<td>${errorMsgs.mpwd}</td>
-			</tr>
-			<tr>
-				<td><font color=red><b>*</b></font>會員圖片:</td>
-				<td><input type="file" name="mpic" onchange="previewImage(this)" /></td>
-				<td id="preview">
-   					 <img id="imghead" width=100 height=100 border=0 src=''>
-				</td>
-				<td>${errorMsgs.mpic}</td>
-			</tr>
-			<tr>
-				<td><font color=red><b>*</b></font>會員姓名:</td>
-				<td><input type="TEXT" name="mname" size="45"
-					value="<%=(memberVO == null) ? "跳跳虎" : memberVO.getMname()%>" /></td><td>${errorMsgs.mname}</td>
-			</tr>
-			<tr>
-				<td><font color=red><b>*</b></font>會員性別:</td>
-				<td>男<input type="radio" name="msex" value=M checked /> 女<input
-					type="radio" name="msex" value=F />
-				</td><td>${errorMsgs.msex}</td>
-			</tr>
-			<tr>
-				<td><font color=red><b>*</b></font>會員手機:</td>
-				<td><input type="TEXT" name="mcell" size="45"
-					value="<%=(memberVO == null) ? "0911863655" : memberVO.getMcell()%>" /></td><td>${errorMsgs.mcell}</td>
-			</tr>
-			<tr>
-				<td><font color=red><b>*</b></font>會員郵件:</td>
-				<td><input type="TEXT" name="mmail" size="45"
-					value="<%=(memberVO == null) ? "ggininder@gmail.com" : memberVO
-					.getMmail()%>" /></td><td>${errorMsgs.mmail}</td>
-			</tr>
-
-			<jsp:useBean id="locSvc" scope="page"
-				class="back.loc.model.LocService" />
-			<tr>
-				<td><font color=red><b>*</b></font>地區:</td>
-				<td><select size="1" name="locno">
-						<c:forEach var="locVO" items="${locSvc.all}">
-							<option value="${locVO.loc_no}"
-								${(memberVO.locno==locVO.loc_no)? 'selected':'' }>${locVO.loc_desc}
-						</c:forEach>
-				</select></td>
-			</tr>
+									<!-- 會員密碼 -->
+									<div class="control-group  ">
+										<label class="control-label" for="mpwd">會員密碼</label> <input
+											type="password" id="mpwd" name="mpwd"
+											value="<%=(memberVO == null) ? "" : memberVO.getMpwd()%>" class="col-xs-offset-1"
+											ruquired/>
+									</div>
 
 
-			<tr>
-				<td><font color=red><b>*</b></font>會員地址:</td>
-				<td><input type="TEXT" name="madrs" size="45"
-					value="<%=(memberVO == null) ? "桃園縣大溪鎮勝利路1號" : memberVO.getMadrs()%>" /></td><td>${errorMsgs.madrs}</td>
-			</tr>
-			
-			<tr>
-				<td><input type="hidden" name="mverification" size="1"
-					value="<%=(memberVO == null) ? "N" : memberVO.getMverification()%>" /></td>
-			</tr>		
-			<tr>
-				<td><input type="hidden" name="mbalance" size="1"
-					value="<%=(memberVO == null) ? "0" : memberVO.getMbalance()%>" /></td>
-			</tr>
-			
-			<tr>
-				<td><input type="hidden" name="mlev" size="1"
-					value="<%=(memberVO == null) ? "G" : memberVO.getMlev()%>" /></td>
-			</tr>
+									<!-- 會員姓名 -->
+									<div class="control-group  ">
+										<label class="control-label" for="mname">會員姓名</label> <input
+											type="text" id="mname" name="mname"
+											value="<%=(memberVO == null) ? "" : memberVO.getMname()%>" class="col-xs-offset-1"
+											ruquired/>
+									</div>
 
-			<tr>
-				<td><input type="hidden" name="millegal" size="1"
-					value="<%=(memberVO == null) ? "0" : memberVO.getMillegal()%>" /></td>
-			</tr>
+									<!-- 會員性別 -->
+									<div class="control-group  ">
+										<label class="control-label" for="msex">會員性別</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										
+            									&nbsp;<input type="radio" id="msex" name="msex" value=M	class="col-xs-offset-1">&nbsp;男&nbsp;&nbsp;
+            									&nbsp;<input type="radio" id="msex" name="msex" value=F	class="col-xs-offset-1">&nbsp;女
+										
+									
+									</div>
 
-			<tr>
-				<td><input type="hidden" name="massess" size="1"
-					value="<%=(memberVO == null) ? "0" : memberVO.getMassess()%>" /></td>
-			</tr>
-			<tr>
-				<td><input type="hidden" name="mverification" size="1"
-					value="<%=(memberVO == null) ? "N" : memberVO.getMverification()%>" /></td>
-			</tr>
-			
+									<!-- 會員手機 -->
+									<div class="control-group  ">
+										<label class="control-label" for="mcell">會員手機</label> <input
+											type="text" id="mcell" name="mcell"
+											value="<%=(memberVO == null) ? "" : memberVO.getMcell()%>" class="col-xs-offset-1"
+											ruquired/>
 
-		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="註冊">
-	</FORM>
+									</div>
+
+									<!-- 會員郵件 -->
+									<div class="control-group ">
+										<label class="control-label" for="mmail">會員郵件</label> 
+										<input type="email" id="mmail" name="mmail"	value="<%=(memberVO == null) ? "" : memberVO.getMmail()%>" class="col-xs-offset-1" required />
+
+									</div>
+
+									<jsp:useBean id="locSvc" scope="page"
+										class="back.loc.model.LocService" />
+
+									<!-- 地區 -->
+									<div class="control-group  ">
+										<label class="control-label" for="password_confirm">地區&nbsp;</label>
+										<select size="1" name="locno" class="col-xs-offset-2">
+											<c:forEach var="locVO" items="${locSvc.all}">
+												<option value="${locVO.loc_no}"
+													${(memberVO.locno==locVO.loc_no)? 'selected':'' }>${locVO.loc_desc}
+											</c:forEach>
+										</select>
+
+									</div>
+
+									<!-- 會員地址 -->
+									<div class="control-group ">
+										<label class="control-label" for="madrs">會員地址</label> 
+										<input type="text" id="madrs" name="madrs" value="<%=(memberVO == null) ? "" : memberVO.getMadrs()%>" class="col-xs-offset-1" ruquired="ruquired"/>
+
+									</div>
+
+
+								</div>
+								<!-- 排版 -->
+								<div class="col-xs-offset-0 sidebar-offcanvas ">
+									<!-- 圖片排版 -->
+
+									<!-- 會員圖片 -->
+									<div class="control-group ">
+										<label class="control-label" for="mpic">會員圖片</label>
+										<div class="controls" >
+											<div id="preview">
+												<img id="imghead" width="100" height="100" src="" border="0">
+											</div>								
+											<input type="file" id="mpic" name="mpic" onchange="previewImage(this)" class="col-xs-offset-6" />
+										</div>
+									</div>					
+
+								</div>
+								<!-- 圖片排版 -->
+								
+								<div class=" col-xs-offset-0 sidebar-offcanvas">
+									<%-- 錯誤表列 --%>
+									<c:if test="${not empty errorMsgs}">
+										<font color='red'>請修正以下錯誤:
+											<ul>
+												<c:forEach var="message" items="${errorMsgs}">
+													<li>${message.value}</li>
+												</c:forEach>
+											</ul>
+										</font>
+									</c:if>
+								</div>
+							
+
+							</div>
+
+							<br>
+							<br>
+							<!-- Submit -->
+							<div class="control-group col-xs-8 col-xs-offset-8">
+								<div class="controls">
+									<input type="hidden" name="action" value="insert">
+									<input type="hidden" name="mverification" value="<%=(memberVO == null) ? "N" : memberVO.getMverification()%>" />
+									<input type="hidden" name="mbalance" value="<%=(memberVO == null) ? "0" : memberVO.getMbalance()%>" />
+									<input type="hidden" name="mlev" value="<%=(memberVO == null) ? "G" : memberVO.getMlev()%>" />
+									<input type="hidden" name="millegal" value="<%=(memberVO == null) ? "0" : memberVO.getMillegal()%>" />
+									<input type="hidden" name="massess" value="<%=(memberVO == null) ? "0" : memberVO.getMassess()%>" />
+									<input type="hidden" name="mverification" value="<%=(memberVO == null) ? "N" : memberVO.getMverification()%>" />
+													
+									<button class="btn btn-danger">註冊</button>
+								</div>
+							</div>
+
+						</fieldset>
+					</form>
+
+				</div>
+			</div>
+
 
 	<%@ include file="/front/footer.jsp"%>
 

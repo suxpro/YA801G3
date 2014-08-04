@@ -47,7 +47,7 @@
                                 <li><a href="#">升級會員</a></li>
                                 <li class="divider"></li>
               					<li class="dropdown-submenu">
-                					<a tabindex="-1" href="#">租務秘書提醒</a>
+                					<a tabindex="-1" href="#">租務秘書提醒 <p class="badge">14</p></a>
                 					<ul class="dropdown-menu">
                   						<li><a tabindex="-1" href="#">成功出租(0)</a></li>
                   						<li><a href="#">成功承租(0)</a></li>
