@@ -55,10 +55,10 @@
 	</c:if>
 
 	<table border='1' bordercolor='#CCCCFF' align='center'>
-		<tr>
+		<tr align='center' valign='middle'>
 			<th>圖片</th>
 			<th>租物名稱</th>
-			<th>租物描述</th>
+			<th>租物狀態</th>
 			<!-- 			<th width='100px'>租物狀態</th> -->
 			<th>租物分類</th>
 			<th>租物押金</th>
@@ -73,10 +73,8 @@
 		<%@ include file="page1.file"%>
 		<c:forEach var="rentVO" items="${list}" begin="<%=pageIndex%>"
 			end="<%=pageIndex+rowsPerPage-1%>">
-			<c:set var="rentVO1" value="${rentVO}" scope="page" />
 			<tr align='center' valign='middle'>
-				<td><img width="100" height="100"
-					src="rent.do?rent_no=${rentVO.rent_no}&pic=pic1"></td>
+				<td><img width="100" height="100" src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=pic1"></td>
 				<td>${rentVO.rent_name        }</td>
 				<%-- 				<td width='100px'>${rentVO.rent_desc        }</td> --%>
 				<td>${rent_staMap[rentVO.rent_sta]}</td>
@@ -90,11 +88,11 @@
 				<%-- 				<td>${rentVO.last_onshelf_time}</td> --%>
 				<%-- 				<td>${rentVO.last_mod_time    }</td> --%>
 				<td><%=getTimestampString(((RentVO) pageContext
-						.getAttribute("rentVO1")).getLast_sta_time())%></td>
+						.getAttribute("rentVO")).getLast_sta_time())%></td>
 				<td><%=getTimestampString(((RentVO) pageContext
-						.getAttribute("rentVO1")).getLast_onshelf_time())%></td>
+						.getAttribute("rentVO")).getLast_onshelf_time())%></td>
 				<td><%=getTimestampString(((RentVO) pageContext
-						.getAttribute("rentVO1")).getLast_mod_time())%></td>
+						.getAttribute("rentVO")).getLast_mod_time())%></td>
 
 				<td>
 					<FORM METHOD="post"

@@ -84,7 +84,7 @@ public class RentServlet extends HttpServlet {
 		String action = null;
 		MultipartRequest multi = null;
 
-		if (ct.startsWith("multipart/form-data")) {
+		if (ct!=null && ct.startsWith("multipart/form-data")) {
 			multi = new MultipartRequest(req, getServletContext().getRealPath(
 					"/front/rent/images"), 5 * 1024 * 1024, "UTF-8");
 			action = multi.getParameter("action");
@@ -262,12 +262,9 @@ public class RentServlet extends HttpServlet {
 						pic1, pic1_format, pic2, pic2_format, pic3,
 						pic3_format, pic4, pic4_format, pic5, pic5_format);
 
-				// queSvc.addQue(rent_no, que_mem, que_sta, que_time, que_desc,
-				// ans_time, ans_desc);
-
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				String url = "/front/rent/listAllRent.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllQue.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 **********************************/
@@ -336,7 +333,7 @@ public class RentServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception", "無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front/rent/listAllQue.jsp");
+						.getRequestDispatcher("/front/rent/listAllRent.jsp");
 				failureView.forward(req, res);
 			}
 		}

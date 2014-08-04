@@ -23,26 +23,35 @@ import com.oreilly.servlet.MultipartRequest;
 @WebServlet("/MemberServlet")
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MemberServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		doPost(req, res);
+	public MemberServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest req, HttpServletResponse res)
+			throws ServletException, IOException {
+
+		// 20140804 - 為了給租物上架審核查詢單一會員資料
+		if (req.getParameter("action") != null
+				&& req.getParameter("action").equals("getOne_For_Display")) {
+			doPost(req, res);
+			return;
+		}
+		// doPost(req, res);
+
 		res.setCharacterEncoding("Big5");
 		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();
 		try {
-			
-			
+
 			MemberService srv = new MemberService();
 			String mno = req.getParameter("mno");
 			MemberVO memberVO = srv.getOneMember(mno);
@@ -57,12 +66,15 @@ public class MemberServlet extends HttpServlet {
 		} catch (Exception e) {
 			// System.out.println("無此圖片！");
 		}
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res)
+			throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
 		String contentType = req.getContentType();
@@ -150,12 +162,19 @@ public class MemberServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			
-			String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】
-			req.setAttribute("requestURL", requestURL); // 送出修改的來源網頁路徑, 存入req (是為了給update_emp_input.jsp)
-			
+
+			String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑:
+																// 可能為【/emp/listAllEmp.jsp】
+																// 或
+																// 【/dept/listEmps_ByDeptno.jsp】
+																// 或 【
+																// /dept/listAllDept.jsp】
+			req.setAttribute("requestURL", requestURL); // 送出修改的來源網頁路徑, 存入req
+														// (是為了給update_emp_input.jsp)
+
 			String whichPage = req.getParameter("whichPage");
-			req.setAttribute("whichPage", whichPage);   // 送出修改的來源網頁的第幾頁, 存入req(只用於:istAllEmp.jsp)
+			req.setAttribute("whichPage", whichPage); // 送出修改的來源網頁的第幾頁,
+														// 存入req(只用於:istAllEmp.jsp)
 
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
@@ -187,12 +206,18 @@ public class MemberServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			
-			String requestURL = multi.getParameter("requestURL"); // 送出修改的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】
+
+			String requestURL = multi.getParameter("requestURL"); // 送出修改的來源網頁路徑:
+																	// 可能為【/emp/listAllEmp.jsp】
+																	// 或
+																	// 【/dept/listEmps_ByDeptno.jsp】
+																	// 或 【
+																	// /dept/listAllDept.jsp】
 			req.setAttribute("requestURL", requestURL); // 送出修改的來源網頁路徑, 存入req
-			
+
 			String whichPage = multi.getParameter("whichPage"); // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)
-			req.setAttribute("whichPage", whichPage);   // 送出修改的來源網頁的第幾頁, 存入req(只用於:istAllEmp.jsp)
+			req.setAttribute("whichPage", whichPage); // 送出修改的來源網頁的第幾頁,
+														// 存入req(只用於:istAllEmp.jsp)
 
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
@@ -340,9 +365,10 @@ public class MemberServlet extends HttpServlet {
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				
-				String url = requestURL+"?whichPage="+whichPage+"&mno="+mno; // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)和修改的是哪一筆
-				
+
+				String url = requestURL + "?whichPage=" + whichPage + "&mno="
+						+ mno; // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)和修改的是哪一筆
+
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 
@@ -528,8 +554,13 @@ public class MemberServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			
-			String requestURL = req.getParameter("requestURL"); // 送出刪除的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】
+
+			String requestURL = req.getParameter("requestURL"); // 送出刪除的來源網頁路徑:
+																// 可能為【/emp/listAllEmp.jsp】
+																// 或
+																// 【/dept/listEmps_ByDeptno.jsp】
+																// 或 【
+																// /dept/listAllDept.jsp】
 
 			try {
 				/*************************** 1.接收請求參數 ***************************************/

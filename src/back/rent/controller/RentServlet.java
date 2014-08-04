@@ -30,14 +30,21 @@ public class RentServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
+
+		// 20140804 - 為了給租物上架審核查詢單一會員資料
+		if (req.getParameter("action") != null
+				&& req.getParameter("action").equals("getOne_For_Display")) {
+			doPost(req, res);
+			return;
+		}
+
 		// doPost(req, res);
 
 		// 用請求參數讀取圖片
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("image/jpeg");
 		ServletOutputStream out = res.getOutputStream();// 推出2進位資料流
-		
-		
+
 		String rent_no = "";
 		try {
 			rent_no = req.getParameter("rent_no");
@@ -46,21 +53,22 @@ public class RentServlet extends HttpServlet {
 			System.out.println("rent_no: " + rent_no + " fail!");
 		}
 		try {
-			
+
 			String pic = req.getParameter("pic");
 			pic = new String(pic.getBytes("ISO-8859-1"), "UTF-8");
-			
+
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT " + pic
 					+ " FROM rent WHERE rent_no = '" + rent_no + "'");
 
 			if (rs.next()) {
-				if(rs.getBinaryStream(pic) != null){
-					BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream(pic));
+				if (rs.getBinaryStream(pic) != null) {
+					BufferedInputStream in = new BufferedInputStream(
+							rs.getBinaryStream(pic));
 					byte[] buf = new byte[4 * 1024]; // 4K buffer
 					int len;
 					while ((len = in.read(buf)) != -1) {
-					out.write(buf, 0, len);
+						out.write(buf, 0, len);
 					}
 					in.close();
 				}
@@ -84,15 +92,15 @@ public class RentServlet extends HttpServlet {
 		String action = null;
 		MultipartRequest multi = null;
 
-		if (ct.startsWith("multipart/form-data")) {
+		if (ct != null && ct.startsWith("multipart/form-data")) {
 			multi = new MultipartRequest(req, getServletContext().getRealPath(
-					"/front/rent/images"), 5 * 1024 * 1024, "UTF-8");
+					"/back/rent/images"), 5 * 1024 * 1024, "UTF-8");
 			action = multi.getParameter("action");
 		} else {
 			action = req.getParameter("action");
 		}
-		
-		if ("insert".equals(action)) { 
+
+		if ("insert".equals(action)) {
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -250,7 +258,7 @@ public class RentServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("rentVO", rentVO); // 含有輸入格式錯誤的rentVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front/rent/addRent.jsp");
+							.getRequestDispatcher("/back/rent/addRent.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -262,19 +270,16 @@ public class RentServlet extends HttpServlet {
 						pic1, pic1_format, pic2, pic2_format, pic3,
 						pic3_format, pic4, pic4_format, pic5, pic5_format);
 
-				// queSvc.addQue(rent_no, que_mem, que_sta, que_time, que_desc,
-				// ans_time, ans_desc);
-
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/front/rent/listAllRent.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllQue.jsp
+				String url = "/back/rent/listAllRent.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.put("Exception", "other errors");
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front/rent/addRent.jsp");
+						.getRequestDispatcher("/back/rent/addRent.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -296,7 +301,7 @@ public class RentServlet extends HttpServlet {
 				rentSvc.deleteRent(rent_no);
 
 				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-				String url = "/front/rent/listAllRent.jsp";
+				String url = "/back/rent/listAllRent.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);//
 				// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
@@ -305,7 +310,7 @@ public class RentServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception", "刪除資料失敗:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front/rent/listAllRent.jsp");
+						.getRequestDispatcher("/back/rent/listAllRent.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -327,7 +332,7 @@ public class RentServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Successview) ************/
 				req.setAttribute("rentVO", rentVO); // 資料庫取出的rentVO物件,存入req
-				String url = "/front/rent/update_rent_input.jsp";
+				String url = "/back/rent/update_rent_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交
 																				// update_rent_input.jsp
 				successView.forward(req, res);
@@ -336,7 +341,7 @@ public class RentServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception", "無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front/rent/listAllQue.jsp");
+						.getRequestDispatcher("/back/rent/listAllRent.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -345,7 +350,7 @@ public class RentServlet extends HttpServlet {
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-		
+
 			RentService rentSvc = new RentService();
 			RentVO rentVO = new RentVO();
 
@@ -356,17 +361,18 @@ public class RentServlet extends HttpServlet {
 				String rent_noReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (rent_no == null || rent_no.trim().length() == 0) {
 					errorMsgs.put("rent_no", "租物編號請勿空白");
-				} else if(!rent_no.trim().matches(rent_noReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.put("rent_no","租物編號只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-	            } else{
-	                rentVO = rentSvc.getOneRent(rent_no);		
-				}	
+				} else if (!rent_no.trim().matches(rent_noReg)) { // 以下練習正則(規)表示式(regular-expression)
+					errorMsgs.put("rent_no",
+							"租物編號只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+				} else {
+					rentVO = rentSvc.getOneRent(rent_no);
+				}
 
 				// rent_name
 				String rent_name = multi.getParameter("rent_name").trim();
 				if (rent_name == null || rent_name.trim().length() == 0) {
 					errorMsgs.put("rent_name", "租物名稱請勿空白");
-				} else{
+				} else {
 					rentVO.setRent_name(rent_name);
 				}
 
@@ -374,7 +380,7 @@ public class RentServlet extends HttpServlet {
 				String rent_desc = multi.getParameter("rent_desc").trim();
 				if (rent_desc == null || rent_desc.trim().length() == 0) {
 					errorMsgs.put("rent_desc", "租物描述請勿空白");
-				} else{
+				} else {
 					rentVO.setRent_desc(rent_desc);
 				}
 
@@ -387,19 +393,20 @@ public class RentServlet extends HttpServlet {
 				}
 
 				// rent_sta
-				 String rent_sta = multi.getParameter("rent_sta").trim();
-				 if (rent_sta == null || rent_sta.trim().length() == 0) {
-					 errorMsgs.put("rent_sta","租物狀態請勿空白");
-				 }else if(rent_sta.equals("W_RENT") || rent_sta.equals("W_CHECK")){
-					 rent_sta = "W_CHECK";
-					 rentVO.setRent_sta(rent_sta);
-				 }else{
-					 //租物狀態不對
-					 errorMsgs.put("alert","租物狀態只有在待審核或未出租時才可以編輯");
-				 }
-//				 String rent_sta = "W_CHECK";
-//				 rentVO.setRent_sta(rent_sta);
-				
+				String rent_sta = multi.getParameter("rent_sta").trim();
+				if (rent_sta == null || rent_sta.trim().length() == 0) {
+					errorMsgs.put("rent_sta", "租物狀態請勿空白");
+				} else if (rent_sta.equals("W_RENT")
+						|| rent_sta.equals("W_CHECK")) {
+					rent_sta = "W_CHECK";
+					rentVO.setRent_sta(rent_sta);
+				} else {
+					// 租物狀態不對
+					errorMsgs.put("alert", "租物狀態只有在待審核或未出租時才可以編輯");
+				}
+				// String rent_sta = "W_CHECK";
+				// rentVO.setRent_sta(rent_sta);
+
 				// tag_no
 				String tag_no = multi.getParameter("tag_no").trim();
 				if (tag_no == null || tag_no.trim().length() == 0) {
@@ -411,7 +418,8 @@ public class RentServlet extends HttpServlet {
 				// rent_dps
 				Integer rent_dps = null;
 				try {
-					rent_dps = Integer.parseInt(multi.getParameter("rent_dps").trim());
+					rent_dps = Integer.parseInt(multi.getParameter("rent_dps")
+							.trim());
 					rentVO.setRent_dps(rent_dps);
 				} catch (NumberFormatException e) {
 					errorMsgs.put("rent_dps", "租物押金請勿空白,或輸入非數字");
@@ -420,7 +428,8 @@ public class RentServlet extends HttpServlet {
 				// unit_price
 				Integer unit_price = null;
 				try {
-					unit_price = Integer.parseInt(multi.getParameter("unit_price").trim());
+					unit_price = Integer.parseInt(multi.getParameter(
+							"unit_price").trim());
 					rentVO.setUnit_price(unit_price);
 				} catch (NumberFormatException e) {
 					errorMsgs.put("unit_price", "每日租金請勿空白,或輸入非數字");
@@ -429,7 +438,8 @@ public class RentServlet extends HttpServlet {
 				// reset_days
 				Integer reset_days = null;
 				try {
-					reset_days = Integer.parseInt(multi.getParameter("reset_days").trim());
+					reset_days = Integer.parseInt(multi.getParameter(
+							"reset_days").trim());
 					rentVO.setReset_days(reset_days);
 				} catch (NumberFormatException e) {
 					errorMsgs.put("reset_days", "重整天數請勿空白,或輸入非數字");
@@ -439,7 +449,7 @@ public class RentServlet extends HttpServlet {
 				String loc_no = multi.getParameter("loc_no").trim();
 				if (loc_no == null || loc_no.trim().length() == 0) {
 					errorMsgs.put("loc_no", "地區請勿空白");
-				} else{
+				} else {
 					rentVO.setLoc_no(loc_no);
 				}
 
@@ -447,10 +457,9 @@ public class RentServlet extends HttpServlet {
 				String rent_addr = multi.getParameter("rent_addr").trim();
 				if (rent_addr == null || rent_addr.trim().length() == 0) {
 					errorMsgs.put("rent_addr", "租物地址請勿空白");
-				} else{
+				} else {
 					rentVO.setRent_addr(rent_addr);
 				}
-
 
 				Enumeration files = multi.getFileNames();
 				try {
@@ -470,16 +479,16 @@ public class RentServlet extends HttpServlet {
 							fis.read(pic_byte);
 							fis.close();
 							file.delete(); // 寫入記憶體後 檔案刪除
-							
-							if(name.equals("pic1")){	
+
+							if (name.equals("pic1")) {
 								rentVO.setPic1(pic_byte);
-								rentVO.setPic1_format(pic_format);						
-							}else if(name.equals("pic2")){
+								rentVO.setPic1_format(pic_format);
+							} else if (name.equals("pic2")) {
 								rentVO.setPic2(pic_byte);
-								rentVO.setPic2_format(pic_format);							
-							}else if(name.equals("pic3")){
+								rentVO.setPic2_format(pic_format);
+							} else if (name.equals("pic3")) {
 								rentVO.setPic3(pic_byte);
-								rentVO.setPic3_format(pic_format);	
+								rentVO.setPic3_format(pic_format);
 							}
 
 						}
@@ -489,53 +498,53 @@ public class RentServlet extends HttpServlet {
 					errorMsgs.put("pics", "請上傳不重複的租物圖片");
 				}
 
+				// RentVO rentVO = new RentVO();
+				// rentVO.setRent_no(rent_no);
+				// rentVO.setRent_name(rent_name);
+				// rentVO.setRent_desc(rent_desc);
+				// rentVO.setLes_no(les_no);
+				// rentVO.setRent_sta(rent_sta);
+				// rentVO.setTag_no(tag_no);
+				// rentVO.setRent_dps(rent_dps);
+				// rentVO.setUnit_price(unit_price);
+				// rentVO.setReset_days(reset_days);
+				// rentVO.setLoc_no(loc_no);
+				// rentVO.setRent_addr(rent_addr);
 
-//				RentVO rentVO = new RentVO();
-//				rentVO.setRent_no(rent_no);
-//				rentVO.setRent_name(rent_name);
-//				rentVO.setRent_desc(rent_desc);
-//				rentVO.setLes_no(les_no);
-//				rentVO.setRent_sta(rent_sta);
-//				rentVO.setTag_no(tag_no);
-//				rentVO.setRent_dps(rent_dps);
-//				rentVO.setUnit_price(unit_price);
-//				rentVO.setReset_days(reset_days);
-//				rentVO.setLoc_no(loc_no);
-//				rentVO.setRent_addr(rent_addr);
-
-//				rentVO.setPic1(pic1);
-//				rentVO.setPic1_format(pic1_format);
-//				rentVO.setPic2(pic2);
-//				rentVO.setPic2_format(pic2_format);
-//				rentVO.setPic3(pic3);
-//				rentVO.setPic3_format(pic3_format);
-//				rentVO.setPic4(pic4);
-//				rentVO.setPic4_format(pic4_format);
-//				rentVO.setPic5(pic5);
-//				rentVO.setPic5_format(pic5_format);
+				// rentVO.setPic1(pic1);
+				// rentVO.setPic1_format(pic1_format);
+				// rentVO.setPic2(pic2);
+				// rentVO.setPic2_format(pic2_format);
+				// rentVO.setPic3(pic3);
+				// rentVO.setPic3_format(pic3_format);
+				// rentVO.setPic4(pic4);
+				// rentVO.setPic4_format(pic4_format);
+				// rentVO.setPic5(pic5);
+				// rentVO.setPic5_format(pic5_format);
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("rentVO", rentVO); 
+					req.setAttribute("rentVO", rentVO);
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front/rent/update_rent_input.jsp");
+							.getRequestDispatcher("/back/rent/update_rent_input.jsp");
 					failureView.forward(req, res);
 					return; // 程式中斷
 				}
 
 				/*************************** 2.開始修改資料 *****************************************/
-//				RentService rentSvc = new RentService();
-//				rentSvc.updateRent(rent_no, rent_name, rent_desc, les_no,
-//						rent_sta, tag_no, rent_dps, unit_price, reset_days,
-//						loc_no, rent_addr, pic1, pic1_format, pic2,
-//						pic2_format, pic3, pic3_format, pic4, pic4_format,
-//						pic5, pic5_format);
-				
+				// RentService rentSvc = new RentService();
+				// rentSvc.updateRent(rent_no, rent_name, rent_desc, les_no,
+				// rent_sta, tag_no, rent_dps, unit_price, reset_days,
+				// loc_no, rent_addr, pic1, pic1_format, pic2,
+				// pic2_format, pic3, pic3_format, pic4, pic4_format,
+				// pic5, pic5_format);
+
 				rentSvc.updateRent(rentVO);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-//				req.setAttribute("rentVO", rentVO); // 資料庫update成功後,正確的的rentVO物件,存入req
-				String url = "/front/rent/listAllRent.jsp";
+				// req.setAttribute("rentVO", rentVO); //
+				// 資料庫update成功後,正確的的rentVO物件,存入req
+				String url = "/back/rent/listAllRent.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
@@ -543,77 +552,42 @@ public class RentServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception", "修改資料失敗:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front/rent/update_rent_input.jsp");
+						.getRequestDispatcher("/back/rent/update_rent_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
 
-		// if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
-		//
-		// List<String> errorMsgs = new LinkedList<String>();
-		// // Store this set in the request scope, in case we need to
-		// // send the ErrorPage view.
-		// req.setAttribute("errorMsgs", errorMsgs);
-		//
-		// try {
-		// /***************************1.接收請求參數 -
-		// 輸入格式的錯誤處理**********************/
-		// String str = req.getParameter("empno");
-		// if (str == null || (str.trim()).length() == 0) {
-		// errorMsgs.add("請輸入員工編號");
-		// }
-		// // Send the use back to the form, if there were errors
-		// if (!errorMsgs.isEmpty()) {
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/emp/select_page.jsp");
-		// failureView.forward(req, res);
-		// return;//程式中斷
-		// }
-		//
-		// Integer empno = null;
-		// try {
-		// empno = new Integer(str);
-		// } catch (Exception e) {
-		// errorMsgs.add("員工編號格式不正確");
-		// }
-		// // Send the use back to the form, if there were errors
-		// if (!errorMsgs.isEmpty()) {
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/emp/select_page.jsp");
-		// failureView.forward(req, res);
-		// return;//程式中斷
-		// }
-		//
-		// /***************************2.開始查詢資料*****************************************/
-		// EmpService empSvc = new EmpService();
-		// EmpVO empVO = empSvc.getOneEmp(empno);
-		// if (empVO == null) {
-		// errorMsgs.add("查無資料");
-		// }
-		// // Send the use back to the form, if there were errors
-		// if (!errorMsgs.isEmpty()) {
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/emp/select_page.jsp");
-		// failureView.forward(req, res);
-		// return;//程式中斷
-		// }
-		//
-		// /***************************3.查詢完成,準備轉交(Send the Success
-		// view)*************/
-		// req.setAttribute("empVO", empVO); // 資料庫取出的empVO物件,存入req
-		// String url = "/emp/listOneEmp.jsp";
-		// RequestDispatcher successView = req.getRequestDispatcher(url); //
-		// 成功轉交 listOneEmp.jsp
-		// successView.forward(req, res);
-		//
-		// /***************************其他可能的錯誤處理*************************************/
-		// } catch (Exception e) {
-		// errorMsgs.add("無法取得資料:" + e.getMessage());
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/emp/select_page.jsp");
-		// failureView.forward(req, res);
-		// }
-		// }
+		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String rent_no = req.getParameter("rent_no");
+				// if (que_no == null || que_no.trim().length() == 0) {
+				// errorMsgs.put("que_no","問題編號不能為空");
+				// }
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				RentService rentSvc = new RentService();
+				RentVO rentVO = rentSvc.getOneRent(rent_no);
+
+				/*************************** 3.查詢完成,準備轉交(Send the Successview) ************/
+				req.setAttribute("rentVO", rentVO); // 資料庫取出的rentVO物件,存入req
+				String url = "/back/rent/listOneRent.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交
+																				// update_rent_input.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.put("Exception", "無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back/rent/waiting_onShelf_rent.jsp");
+				failureView.forward(req, res);
+			}
+		}
 
 	}
 

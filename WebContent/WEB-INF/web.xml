@@ -64,6 +64,14 @@
 		<url-pattern>/front/rent/rent.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>RentServlet2</servlet-name>
+		<servlet-class>back.rent.controller.RentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RentServlet2</servlet-name>
+		<url-pattern>/back/rent/rent.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>OrdServlet</servlet-name>
 		<servlet-class>front.ord.controller.OrdServlet</servlet-class>
 	</servlet>

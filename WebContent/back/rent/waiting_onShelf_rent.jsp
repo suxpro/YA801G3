@@ -27,7 +27,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/back/rent/listAllRent.jsp">
+<meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/back/rent/waiting_onShelf_rent.jsp">
 <title>租物上架審核 - listAllQue.jsp</title>
 </head>
 <body bgcolor='white' align='center'>
@@ -35,11 +35,11 @@
 	<table border='1' cellpadding='5' cellspacing='0' width='1200'
 		align='center'>
 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-			<td><h3>所有租物資料 - ListAllRent.jsp</h3> <a
+			<td><h3>待上架租物資料 - ListAllRent.jsp</h3> <a
 				href="<%=request.getContextPath()%>/back/rent/select_page.jsp">
 					<img
 					src="<%=request.getContextPath()%>/back/rent/images/back1.gif"
-					width="100" height="32" border="0">回首頁
+					width="100" height="32" border="0">回租物管理
 			</a></td>
 		</tr>
 	</table>
@@ -56,51 +56,41 @@
 	</c:if>
 
 	<table border='1' bordercolor='#CCCCFF' align='center'>
-		<tr>
-			<th>圖片</th>
+		<tr align='center' valign='middle'>
+			<th>租物編號</th>
 			<th>租物名稱</th>
-			<th>租物描述</th>
-			<!-- 			<th width='100px'>租物狀態</th> -->
+			<th>出租人</th>
 			<th>租物分類</th>
 			<th>租物押金</th>
 			<th>租物價格/天</th>
 			<th>重整天數</th>
-			<!-- 			<th>地區編號</th> -->
-			<!-- 			<th>租物地址</th> -->
 			<th>最後狀態時間</th>
 			<th>最後上架時間</th>
 			<th>最後修改時間</th>
+			<th>圖片</th>
 		</tr>
 		<%@ include file="page1.file"%>
-		<c:forEach var="rentVO" items="${list}" begin="<%=pageIndex%>"
-			end="<%=pageIndex+rowsPerPage-1%>">
-			<c:set var="rentVO1" value="${rentVO}" scope="page" />
+		<c:forEach var="rentVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
 			<tr align='center' valign='middle'>
-				<td><img width="100" height="100"
-					src="rent.do?rent_no=${rentVO.rent_no}&pic=pic1"></td>
-				<td>${rentVO.rent_name        }</td>
-				<%-- 				<td width='100px'>${rentVO.rent_desc        }</td> --%>
-				<td>${rent_staMap[rentVO.rent_sta]}</td>
+                <td><a href="javascript:presses${s.index}()">${rentVO.rent_no}</a></td>
+				<td>${rentVO.rent_name}</td>
+<%-- 				<td>${rentVO.les_no}</td> --%>
+				<td><a href="javascript:presses2${s.index}()">${rentVO.les_no}</a></td>
 				<td>${tag_staMap[rentVO.tag_no]}</td>
-				<td>${rentVO.rent_dps         }元</td>
-				<td>${rentVO.unit_price       }元</td>
-				<td>${rentVO.reset_days       }天</td>
-				<%-- 				<td>${loc_staMap[rentVO.loc_no]}</td> --%>
-				<%-- 				<td>${rentVO.rent_addr        }</td> --%>
-				<%--  				<td>${rentVO.last_sta_time}</td> --%>
-				<%-- 				<td>${rentVO.last_onshelf_time}</td> --%>
-				<%-- 				<td>${rentVO.last_mod_time    }</td> --%>
+				<td>${rentVO.rent_dps}元</td>
+				<td>${rentVO.unit_price}元</td>
+				<td>${rentVO.reset_days}天</td>
 				<td><%=getTimestampString(((RentVO) pageContext
-						.getAttribute("rentVO1")).getLast_sta_time())%></td>
+						.getAttribute("rentVO")).getLast_sta_time())%></td>
 				<td><%=getTimestampString(((RentVO) pageContext
-						.getAttribute("rentVO1")).getLast_onshelf_time())%></td>
+						.getAttribute("rentVO")).getLast_onshelf_time())%></td>
 				<td><%=getTimestampString(((RentVO) pageContext
-						.getAttribute("rentVO1")).getLast_mod_time())%></td>
-
+						.getAttribute("rentVO")).getLast_mod_time())%></td>
+                <td><img width="100" height="100" src="<%=request.getContextPath()%>/back/rent/rent.do?rent_no=${rentVO.rent_no}&pic=pic1&action=xxx"></td>
 				<td>
 					<FORM METHOD="post"
 						ACTION="<%=request.getContextPath()%>/back/rent/rent.do">
-						<input type="submit" value="編輯"> <input type="hidden"
+						<input type="submit" value="通過"> <input type="hidden"
 							name="rent_no" value="${rentVO.rent_no}"> <input
 							type="hidden" name="action" value="getOne_For_Update">
 					</FORM>
@@ -108,12 +98,25 @@
 				<td>
 					<FORM METHOD="post"
 						ACTION="<%=request.getContextPath()%>/back/rent/rent.do">
-						<input type="submit" value="下架"> <input type="hidden"
+						<input type="submit" value="不通過"> <input type="hidden"
 							name="rent_no" value="${rentVO.rent_no}"> <input
 							type="hidden" name="action" value="delete">
 					</FORM>
 				</td>
 			</tr>
+			
+			<script>
+				//超連結至該租物
+         		function presses${s.index}(){
+        	 		document.open("<%=request.getContextPath()%>/back/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+         		}
+				//超連結至該出租人
+         		function presses2${s.index}(){
+        	 		document.open("<%=request.getContextPath()%>/back/member/member.do?mno=${rentVO.les_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+         		}
+         		
+        	</script>
+			
 		</c:forEach>
 	</table>
 	<%@ include file="page2.file"%>
