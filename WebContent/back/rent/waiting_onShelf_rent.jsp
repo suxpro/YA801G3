@@ -58,8 +58,8 @@
 	<table border='1' bordercolor='#CCCCFF' align='center'>
 		<tr align='center' valign='middle'>
 			<th>租物編號</th>
+			<th>出租人編號</th>
 			<th>租物名稱</th>
-			<th>出租人</th>
 			<th>租物分類</th>
 			<th>租物押金</th>
 			<th>租物價格/天</th>
@@ -73,9 +73,8 @@
 		<c:forEach var="rentVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
 			<tr align='center' valign='middle'>
                 <td><a href="javascript:presses${s.index}()">${rentVO.rent_no}</a></td>
-				<td>${rentVO.rent_name}</td>
-<%-- 				<td>${rentVO.les_no}</td> --%>
 				<td><a href="javascript:presses2${s.index}()">${rentVO.les_no}</a></td>
+				<td>${rentVO.rent_name}</td>
 				<td>${tag_staMap[rentVO.tag_no]}</td>
 				<td>${rentVO.rent_dps}元</td>
 				<td>${rentVO.unit_price}元</td>
@@ -92,7 +91,7 @@
 						ACTION="<%=request.getContextPath()%>/back/rent/rent.do">
 						<input type="submit" value="通過"> <input type="hidden"
 							name="rent_no" value="${rentVO.rent_no}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
+							type="hidden" name="action" value="pass">
 					</FORM>
 				</td>
 				<td>
@@ -100,7 +99,7 @@
 						ACTION="<%=request.getContextPath()%>/back/rent/rent.do">
 						<input type="submit" value="不通過"> <input type="hidden"
 							name="rent_no" value="${rentVO.rent_no}"> <input
-							type="hidden" name="action" value="delete">
+							type="hidden" name="action" value="fail">
 					</FORM>
 				</td>
 			</tr>
