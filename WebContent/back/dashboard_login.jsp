@@ -10,6 +10,9 @@
 </head>
 <body>
 	<div class="container">
+        <div style="position:fixed;left:-50px;bottom:-50px;z-index:1001;">
+            <img src="<%=request.getContextPath()%>/back/img/JustRent_Logo.png" height="275" width="275" class="img-responsive"/>
+        </div>
 		<form class="form-signin" role="form"
 			action="<%=request.getContextPath()%>/LoginHandler" method="post">
 			<h2 class="form-signin-heading">員工登入:</h2>

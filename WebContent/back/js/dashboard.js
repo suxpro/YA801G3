@@ -145,3 +145,32 @@ function creatQueryString(addSubmit) {
 	});
 	return jsonObj;
 }
+
+function initDashboard() {
+    //判斷登入帳號的職位顯示Manage
+    $(".ulDashboardEmpManage li").show();
+    switch ($(".pDashboardAccount").attr("title")) {
+        case "administrator":
+            $("#indexMain").load("employee/indexEmp.jsp", function() {
+				$.getScript("js/dashboard.js");
+			});
+            break;
+        case "employee":
+            $(".ulDashboardEmpManage li a[rel='employee']").hide();
+            $("#indexMain").load("member/indexMem.jsp", function() {
+				$.getScript("js/dashboard.js");
+			});
+            break;
+        case "logistics":
+            $(".ulDashboardEmpManage li a[rel='employee']").hide();
+            $(".ulDashboardEmpManage li a[rel='member']").hide();
+            $(".ulDashboardEmpManage li a[rel='rent']").hide();
+            $("#indexMain").load("trade/indexTrade.jsp", function() {
+				$.getScript("js/dashboard.js");
+			});
+            break;
+        default:
+            alert("登入帳號職位error!");
+            break;
+    }
+}

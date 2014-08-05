@@ -20,35 +20,12 @@ setInterval(function(){
      angle+=1;
      $(".imgDashboardJustRent").css("transform","rotate(" + angle + "deg)");
 },50);
-
-function initDashboard() {
-    //判斷登入帳號的職位顯示Manage
-    $(".ulDashboardEmpManage li").show();
-    switch ($(".pDashboardAccount").attr("title")) {
-        case "administrator":
-            $("#indexMain").load("employee/indexEmp.jsp");
-            break;
-        case "employee":
-            $(".ulDashboardEmpManage li a[rel='employee']").hide();
-            $("#indexMain").load("member/indexMem.jsp");
-            break;
-        case "logistics":
-            $(".ulDashboardEmpManage li a[rel='employee']").hide();
-            $(".ulDashboardEmpManage li a[rel='member']").hide();
-            $(".ulDashboardEmpManage li a[rel='rent']").hide();
-            $("#indexMain").load("trade/indexTrade.jsp");
-            break;
-        default:
-            alert("登入帳號職位error!");
-            break;
-    }
-}
 </script>
 
 </head>
 <body onload="initDashboard()">
     <div style="position:fixed;left:-50px;bottom:-50px;z-index:1001;">
-        <img src="<%=request.getContextPath()%>/back/img/JustRent_Logo.png" class="imgDashboardJustRent" height="275" width="275" class="img-responsive"/>
+        <img src="<%=request.getContextPath()%>/back/img/JustRent_Logo.png" class="imgDashboardJustRent img-responsive" height="275" width="275" />
     </div>
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
@@ -75,7 +52,6 @@ function initDashboard() {
 			</div>
 		</div>
 	</div>
-	<div id="indexMain">
-    </div>
+	<div id="indexMain"></div>
 </body>
 </html>
