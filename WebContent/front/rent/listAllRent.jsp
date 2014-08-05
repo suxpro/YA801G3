@@ -5,7 +5,9 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.sql.Timestamp"%>
 <%-- 此頁採用 JSTL 與 EL 取值 --%>
-<%!static SimpleDateFormat dateformatAll = new SimpleDateFormat(
+<%!
+	//定義返回的日期格式
+	static SimpleDateFormat dateformatAll = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");//定義返回的日期格式
 
 	//去掉時間的毫秒數方法
@@ -20,14 +22,13 @@
 	RentService rentSvc = new RentService();
 	List<RentVO> list = rentSvc.getAll();
 	pageContext.setAttribute("list", list);
-	//定義返回的日期格式
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/rent/listAllRent.jsp">
-<title>租物管理清單 - listAllQue.jsp</title>
+<title>租物管理清單 - listAllRent.jsp</title>
 </head>
 <body bgcolor='white' align='center'>
 	<b><font color=red>此頁練習採用 EL 的寫法取值:</font></b>

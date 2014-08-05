@@ -79,6 +79,14 @@
 		<servlet-name>OrdServlet</servlet-name>
 		<url-pattern>/front/ord/ord.do</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>CartServlet</servlet-name>
+		<servlet-class>front.cart.controller.CartServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CartServlet</servlet-name>
+		<url-pattern>/front/cart/cart.do</url-pattern>
+	</servlet-mapping>
 
 	<!-- 彥勳 -->
 	<servlet>
