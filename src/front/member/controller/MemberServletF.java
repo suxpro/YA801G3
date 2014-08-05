@@ -830,8 +830,11 @@ public class MemberServletF extends HttpServlet {
 				if (madrs == null || (madrs.trim()).length() == 0) {
 					errorMsgs.put("madrs", "請輸入地址");
 				}
-
-				MemberVO memberVO = new MemberVO();
+				
+				//20140806 - modified by Barnett Wan
+				MemberService memberSVC = new MemberService();
+				MemberVO memberVO = memberSVC.getOneMember(mno);
+				
 				memberVO.setMno(mno);
 //				memberVO.setMid(mid);
 				memberVO.setMpwd(mpwd);
