@@ -10,13 +10,16 @@
 </head>
 <body>
 	<div class="container">
+        <div style="position:fixed;left:-50px;bottom:-50px;z-index:1001;">
+            <img src="<%=request.getContextPath()%>/back/img/JustRent_Logo.png" height="275" width="275" class="img-responsive"/>
+        </div>
 		<form class="form-signin" role="form"
 			action="<%=request.getContextPath()%>/LoginHandler" method="post">
 			<h2 class="form-signin-heading">員工登入:</h2>
 			<input type="text" class="form-control" placeholder="請輸入帳號"
-				name="account" value="" required autofocus> <input
+				name="accountBack" value="" required autofocus> <input
 				type="password" class="form-control" placeholder="請輸入密碼"
-				name="password" value="" required>
+				name="passwordBack" value="" required>
 			<!--         <label class="checkbox"> -->
 			<!--           <input type="checkbox" value="remember-me"> Remember me -->
 			<!--         </label> -->

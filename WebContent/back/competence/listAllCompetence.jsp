@@ -15,7 +15,7 @@
     pageContext.setAttribute("comEmpSvc", empSvc);
     pageContext.setAttribute("comFuncSvc", funcSvc);
 %>
-<script>$.getScript("js/employee/listAllCompetence.js");</script>
+<script>$.getScript("js/competence/listAllCompetence.js");</script>
 
 <div class="container-fluid">
 	<div class="row">
@@ -51,7 +51,7 @@
 			<!-- 分頁按鈕 -->
 			<ul class="nav navbar-nav navbar-right">
 				<li class="liListAllComPage disabled"><a href="#" class="navbar-link">1</a></li>
-				<c:forEach var="i" begin="2" end="${comList.size()/5+1}" step="1">
+				<c:forEach var="i" begin="2" end="${comList.size()/8+1}" step="1">
 					<li class="liListAllComPage"><a href="#" class="navbar-link">${i}</a></li>
 				</c:forEach>
 			</ul>

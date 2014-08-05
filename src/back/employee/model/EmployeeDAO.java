@@ -28,7 +28,7 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT emp_no, emp_id, emp_pwd, emp_name, emp_sex, emp_tel, emp_cell, emp_mail, emp_addr, emp_job, emp_sal, to_char(emp_tod,'yyyy-mm-dd') emp_tod, to_char(emp_lod,'yyyy-mm-dd') emp_lod, emp_ecp, emp_ecell, emp_pic, emp_format FROM employee where emp_no = ?";
 	private static final String DELETE = "DELETE FROM employee where emp_no = ?";
 	private static final String UPDATE = "UPDATE employee set emp_id=?, emp_pwd=?, emp_name=?, emp_sex=?, emp_tel=?, emp_cell=?, emp_mail=?, emp_addr=?, emp_job=?, emp_sal=?, emp_tod=?, emp_lod=?, emp_ecp=?, emp_ecell=?, emp_pic=?, emp_format=? where emp_no = ?";
-	private static final String GET_PWD_STMT = "SELECT emp_pwd FROM employee where emp_id = ?";
+	private static final String GET_ONE_STMT_ById = "SELECT emp_no, emp_id, emp_pwd, emp_name, emp_sex, emp_tel, emp_cell, emp_mail, emp_addr, emp_job, emp_sal, to_char(emp_tod,'yyyy-mm-dd') emp_tod, to_char(emp_lod,'yyyy-mm-dd') emp_lod, emp_ecp, emp_ecell, emp_pic, emp_format FROM employee where emp_id = ?";
 
 	@Override
 	public void insert(EmployeeVO employeeVO) {
@@ -390,8 +390,9 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 	}
 
 	@Override
-	public String findPwdByEmpno(String emp_no) {
+	public EmployeeVO findPwdByEmpId(String emp_id) {
 		// TODO Auto-generated method stub
+		EmployeeVO employeeVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -400,17 +401,34 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_PWD_STMT);
+			pstmt = con.prepareStatement(GET_ONE_STMT_ById);
 
-			pstmt.setString(1, emp_no);
+			pstmt.setString(1, emp_id);
 
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) {
-				return rs.getString("emp_pwd");
-			} else {
-				return "";
+			while (rs.next()) {
+				// EmployeeVo 也稱為 Domain objects
+				employeeVO = new EmployeeVO();
+				employeeVO.setEmp_no(rs.getString("emp_no"));
+				employeeVO.setEmp_id(rs.getString("emp_id"));
+				employeeVO.setEmp_pwd(rs.getString("emp_pwd"));
+				employeeVO.setEmp_name(rs.getString("emp_name"));
+				employeeVO.setEmp_sex(rs.getString("emp_sex"));
+				employeeVO.setEmp_tel(rs.getString("emp_tel"));
+				employeeVO.setEmp_cell(rs.getString("emp_cell"));
+				employeeVO.setEmp_mail(rs.getString("emp_mail"));
+				employeeVO.setEmp_addr(rs.getString("emp_addr"));
+				employeeVO.setEmp_job(rs.getString("emp_job"));
+				employeeVO.setEmp_sal(rs.getInt("emp_sal"));
+				employeeVO.setEmp_tod(rs.getDate("emp_tod"));
+				employeeVO.setEmp_lod(rs.getDate("emp_lod"));
+				employeeVO.setEmp_ecp(rs.getString("emp_ecp"));
+				employeeVO.setEmp_ecell(rs.getString("emp_ecell"));
+				employeeVO.setEmp_pic(rs.getBytes("emp_pic"));
+				employeeVO.setEmp_format(rs.getString("emp_format"));
 			}
+
 			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -439,5 +457,6 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 				}
 			}
 		}
+		return employeeVO;
 	}
 }

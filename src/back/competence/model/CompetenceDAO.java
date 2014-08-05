@@ -46,6 +46,7 @@ public class CompetenceDAO implements CompetenceDAO_interface {
 			pstmt.setString(1, competenceVO.getEmp_no());
 			pstmt.setString(2, competenceVO.getFunc_no());
 
+			System.out.println("competenceDAO.49."+competenceVO.getEmp_no()+"."+competenceVO.getFunc_no());
 			pstmt.executeUpdate();
 
 			// Handle any SQL errors

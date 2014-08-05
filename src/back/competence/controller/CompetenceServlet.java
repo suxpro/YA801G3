@@ -37,10 +37,10 @@ public class CompetenceServlet extends HttpServlet {
 		String action = null;
 		if (contentType != null
 				&& contentType.startsWith("multipart/form-data")) {
-			System.out.println("competenceServlet.51");
+			System.out.println("competenceServlet.40");
 			multi = new MultipartRequest(req, getServletContext().getRealPath(
 					"/back/competence/images"), 5 * 1024 * 1024, "UTF-8");
-			System.out.println("competenceServlet.54");
+			System.out.println("competenceServlet.43");
 			action = multi.getParameter("action");
 		} else {
 			action = req.getParameter("action");
@@ -56,7 +56,9 @@ public class CompetenceServlet extends HttpServlet {
 				String emp_no = multi.getParameter("addComEmpNo").trim();
 				
 				String func_no = multi.getParameter("addComFuncNo").trim();
-				
+
+				System.out.println("competenceServlet.60."+emp_no);
+				System.out.println("competenceServlet.61."+func_no);
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					System.out.println("有errorMsgs");
@@ -84,53 +86,53 @@ public class CompetenceServlet extends HttpServlet {
 			}
 		}
 		
-		if ("update".equals(action)) { // 來自listAllEmp.jsp
-
-			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			
-			CompetenceVO empVO = new CompetenceService().getOneCompetence(multi.getParameter("empNo"));
-			
-			try {
-				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-				//先從資料庫取值以防出錯
-				String emp_no = empVO.getEmp_no();
-				String func_no = empVO.getFunc_no();
-				
-				System.out.println("competenceServlet.100.update前:"+emp_no+","+func_no);
-				
-				emp_no = multi.getParameter("addComEmpNo").trim();
-				
-				func_no = multi.getParameter("addComFuncNo").trim();
-				
-				System.out.println("competenceServlet.106.update後:"+emp_no+","+func_no);
-				
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					System.out.println("有errorMsgs");
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back/competence/addCom.jsp");
-					failureView.forward(req, res);
-					return;
-				}
-
-				/*************************** 2.開始新增資料 ***************************************/
-				CompetenceService comSvc = new CompetenceService();
-				comSvc.updateCompetence(emp_no, func_no);
-
-				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/back/competence/listAllCompetence.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllCompetence.jsp
-				successView.forward(req, res);
-
-				/*************************** 其他可能的錯誤處理 **********************************/
-			} catch (Exception e) {
-				errorMsgs.put("Exception", e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back/competence/addCom.jsp");
-				failureView.forward(req, res);
-			}
-		}
+//		if ("update".equals(action)) { // 來自listAllEmp.jsp
+//
+//			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+//			req.setAttribute("errorMsgs", errorMsgs);
+//			
+//			CompetenceVO empVO = new CompetenceService().getOneCompetence(multi.getParameter("empNo"));
+//			
+//			try {
+//				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+//				//先從資料庫取值以防出錯
+//				String emp_no = empVO.getEmp_no();
+//				String func_no = empVO.getFunc_no();
+//				
+//				System.out.println("competenceServlet.100.update前:"+emp_no+","+func_no);
+//				
+//				emp_no = multi.getParameter("addComEmpNo").trim();
+//				
+//				func_no = multi.getParameter("addComFuncNo").trim();
+//				
+//				System.out.println("competenceServlet.106.update後:"+emp_no+","+func_no);
+//				
+//				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					System.out.println("有errorMsgs");
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/back/competence/addCom.jsp");
+//					failureView.forward(req, res);
+//					return;
+//				}
+//
+//				/*************************** 2.開始新增資料 ***************************************/
+//				CompetenceService comSvc = new CompetenceService();
+//				comSvc.updateCompetence(emp_no, func_no);
+//
+//				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+//				String url = "/back/competence/listAllCompetence.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllCompetence.jsp
+//				successView.forward(req, res);
+//
+//				/*************************** 其他可能的錯誤處理 **********************************/
+//			} catch (Exception e) {
+//				errorMsgs.put("Exception", e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/back/competence/addCom.jsp");
+//				failureView.forward(req, res);
+//			}
+//		}
 		
 		if ("delete".equals(action)) { // 來自listAllCompetence.jsp
 
@@ -144,11 +146,12 @@ public class CompetenceServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 ***************************************/
 				String emp_no = new String(req.getParameter("emp_no"));
+				String func_no = new String(req.getParameter("func_no"));
 
-				System.out.println("competenceServlet.148."+emp_no+"刪除!");
+				System.out.println("competenceServlet.151."+emp_no+"刪除!");
 				/*************************** 2.開始刪除資料 ***************************************/
-				CompetenceService empSvc = new CompetenceService();
-				empSvc.deleteCompetence(emp_no);
+				CompetenceService comSvc = new CompetenceService();
+				comSvc.deleteCompetence(emp_no, func_no);
 
 				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
 				String url = requestURL;
