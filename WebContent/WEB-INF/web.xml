@@ -29,6 +29,7 @@
 		<servlet-name>EmpServlet</servlet-name>
 		<url-pattern>/employee/employee.do</url-pattern>
 	</servlet-mapping>
+	
 	<servlet>
         <servlet-name>ComServlet</servlet-name>
         <servlet-class>back.competence.controller.CompetenceServlet</servlet-class>
@@ -37,6 +38,7 @@
         <servlet-name>ComServlet</servlet-name>
         <url-pattern>/competence/competence.do</url-pattern>
     </servlet-mapping>
+    
 	<servlet>
 		<servlet-name>LoginHandler</servlet-name>
 		<servlet-class>back.employee.controller.LoginHandler</servlet-class>
@@ -46,6 +48,15 @@
 		<url-pattern>/LoginHandler</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+        <servlet-name>LogoutHandler</servlet-name>
+        <servlet-class>back.employee.controller.LogoutHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutHandler</servlet-name>
+        <url-pattern>/LogoutHandler</url-pattern>
+    </servlet-mapping>
+    
 	<!-- 思賢 -->
 	<servlet>
 		<servlet-name>QueServlet</servlet-name>
@@ -142,6 +153,16 @@
 		<servlet-name>MemberServletF</servlet-name>
 		<url-pattern>/front/member/member.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>updateVIP</servlet-name>
+		<servlet-class>front.member.controller.updateVIP</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>updateVIP</servlet-name>
+		<url-pattern>/front/member/memberVIP.do</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>TradeServletF</servlet-name>
 		<servlet-class>front.trade.controller.TradeServletF</servlet-class>

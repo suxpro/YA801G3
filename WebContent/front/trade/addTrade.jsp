@@ -60,25 +60,6 @@
 				</tr>
 
 				<tr>
-					<%
-						java.sql.Date date_SQL = new java.sql.Date(
-								System.currentTimeMillis());
-					%>
-					<td>交易日期:</td>
-					<td bgcolor="#CCCCFF"><input class="cal-TextBox"
-						onFocus="this.blur()" size="9" readonly type="text" name="tdate"
-						value="<%=(tradeVO == null) ? date_SQL : tradeVO.getTdate()%>">
-						<a class="so-BtnLink" href="javascript:calClick();return false;"
-						onmouseover="calSwapImg('BTN_date', 'img_Date_OVER',true);"
-						onmouseout="calSwapImg('BTN_date', 'img_Date_UP',true);"
-						onclick="calSwapImg('BTN_date', 'img_Date_DOWN');showCalendar('form1','tdate','BTN_date');return false;">
-							<img align="middle" border="0" name="BTN_date"
-							src="images/btn_date_up.gif" width="22" height="17" alt="開始日期">
-					</a></td>
-					<td>${errorMsgs.tdate}</td>
-				</tr>
-
-				<tr>
 					<td>會員金融紀錄狀態:<font color=red><b>*</b></font></td>
 					<td><select size="1" name="tstas">
 							<option value="金錢匯入" selected>金錢匯入</option>

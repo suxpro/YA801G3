@@ -119,6 +119,7 @@ public class StatusMappingList extends HttpServlet {
 		trad_staMap.put("P_REFD", "點數退還");
 		trad_staMap.put("P_OT_INCM", "點數逾期收入");
 		trad_staMap.put("P_OT_OTLY", "點數逾期支出");
+		trad_staMap.put("P_VIP_OTLY", "VIP點數支出");
 		
 		context.setAttribute("trad_staMap", trad_staMap);
 

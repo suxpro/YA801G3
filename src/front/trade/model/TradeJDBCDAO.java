@@ -314,6 +314,14 @@ public class TradeJDBCDAO implements TradeDAO_interface{
 
 
 
+	@Override
+	public void insertWithVIP(TradeVO tradeVO, Connection con) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 	public static void main(String[] args) {
 
 		TradeJDBCDAO dao = new TradeJDBCDAO();

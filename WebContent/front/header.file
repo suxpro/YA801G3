@@ -44,7 +44,12 @@
                                 <li><a href="#">出租管理</a></li>
                                 <li><a href="#">訂單管理</a></li>
                                 <li><a href="#">歷史租借查詢</a></li>
-                                <li><a href="#">升級會員</a></li>
+                                <li><a href="#" onclick="document.updateVIP.submit();">升級會員</a>
+                                	<FORM name="updateVIP" METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/memberVIP.do">
+										<input type="hidden" name="mno" value="${memberVO.mno}"> 						
+										<input type="hidden" name="action" value="getOne_For_Update">
+									</FORM>
+                                </li>
                                 <li class="divider"></li>
               					<li class="dropdown-submenu">
                 					<a tabindex="-1" href="#">租務秘書提醒 <p class="badge">14</p></a>
