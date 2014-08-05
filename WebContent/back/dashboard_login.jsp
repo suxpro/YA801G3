@@ -14,9 +14,9 @@
 			action="<%=request.getContextPath()%>/LoginHandler" method="post">
 			<h2 class="form-signin-heading">員工登入:</h2>
 			<input type="text" class="form-control" placeholder="請輸入帳號"
-				name="account" value="" required autofocus> <input
+				name="accountBack" value="" required autofocus> <input
 				type="password" class="form-control" placeholder="請輸入密碼"
-				name="password" value="" required>
+				name="passwordBack" value="" required>
 			<!--         <label class="checkbox"> -->
 			<!--           <input type="checkbox" value="remember-me"> Remember me -->
 			<!--         </label> -->

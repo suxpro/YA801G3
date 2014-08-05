@@ -15,7 +15,7 @@ public class CompetenceService {
 		CompetenceVO competenceVO = new CompetenceVO();
 
 		competenceVO.setEmp_no(emp_no);
-		competenceVO.setEmp_no(func_no);
+		competenceVO.setFunc_no(func_no);
 		dao.insert(competenceVO);
 
 		return competenceVO;
@@ -31,7 +31,7 @@ public class CompetenceService {
 		CompetenceVO competenceVO = new CompetenceVO();
 
 		competenceVO.setEmp_no(emp_no);
-		competenceVO.setEmp_no(func_no);
+		competenceVO.setFunc_no(func_no);
 		dao.update(competenceVO);
 
 		return dao.findByPrimaryKey(emp_no);
@@ -42,8 +42,8 @@ public class CompetenceService {
 		dao.update(competenceVO);
 	}
 
-	public void deleteCompetence(String emp_no) {
-		dao.delete(emp_no);
+	public void deleteCompetence(String emp_no, String func_no) {
+		dao.delete(emp_no, func_no);
 	}
 
 	public CompetenceVO getOneCompetence(String emp_no) {

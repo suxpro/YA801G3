@@ -7,17 +7,19 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import back.employee.model.EmployeeDAO;
+import back.employee.model.EmployeeVO;
 
 public class LoginHandler extends HttpServlet {
 	// 【檢查使用者輸入的帳號(account) 密碼(password)是否有效】
 	// 【實際上應至資料庫搜尋比對】
-	protected boolean allowUser(String account, String password) {
-			String getPwd = new EmployeeDAO().findPwdByEmpno(account);
-
-		    if (getPwd.equals(password))
-		        return true;
+	protected String allowUser(String account, String password) {
+			EmployeeVO getEmpVo = new EmployeeDAO().findPwdByEmpId(account);
+			System.out.println("LoginHandler.16."+getEmpVo.getEmp_pwd());
+			System.out.println("LoginHandler.17."+getEmpVo.getEmp_pwd().equals(password));
+		    if (getEmpVo.getEmp_pwd().equals(password))
+		        return getEmpVo.getEmp_job();
 		      else
-		        return false;
+		        return "false";
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
@@ -29,21 +31,27 @@ public class LoginHandler extends HttpServlet {
 		PrintWriter out = res.getWriter();
 
 		// 【取得使用者 帳號(account) 密碼(password)】
-		String account = req.getParameter("account");
-		String password = req.getParameter("password");
-
+		String accountBack = req.getParameter("accountBack");
+		String passwordBack = req.getParameter("passwordBack");
+		String allowUser = allowUser(accountBack, passwordBack);
+		System.out.println("LoginHandler.34."+accountBack);
+		System.out.println("LoginHandler.35."+passwordBack);
+		System.out.println("LoginHandler.35."+allowUser);
+		
 		// 【檢查該帳號 , 密碼是否有效】
-		if (!allowUser(account, password)) { // 【帳號 , 密碼無效時】
+		if ("false".equals(allowUser)) { // 【帳號 , 密碼無效時】
 			req.setAttribute("dashboard_login_error", "帳號或密碼錯誤,請重新登入!");
 			
 			RequestDispatcher failureView = req
 					.getRequestDispatcher("/back/dashboard_login.jsp");
 			failureView.forward(req, res);
+//			res.sendRedirect(req.getContextPath()+"/back/dashboard_login.jsp");
 			return;
 			
 		} else { // 【帳號 , 密碼有效時, 才做以下工作】
 			HttpSession session = req.getSession();
-			session.setAttribute("account", account); // *工作1:
+			session.setAttribute("accountBack", accountBack); // *工作1:
+			session.setAttribute("accountBackJob", allowUser); // *工作1:
 														// 才在session內做已經登入過的標識
 
 			try { // *工作2: 看看有無來源網頁 (-如有:則重導之)

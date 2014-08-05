@@ -1,8 +1,10 @@
 $(document).ready(
 		function() {
-			$.getScript("js/employee/listAllEmp.js");
+//			$.getScript("js/employee/listAllEmp.js");
+//			$.getScript("js/competence/listAllCompetence.js");
 			
 			//管理按鈕切換div
+			$(".manage").off();
 			$(".manage").on("click", function(event) {
 				switch ($(this).attr("rel")) {
 				case "employee":
@@ -11,17 +13,17 @@ $(document).ready(
 					});
 					break;
 				case "member":
-					$("#indexMain").load("employee/listAllEmp.jsp", function() {
+					$("#indexMain").load("member/indexMem.jsp", function() {
 						$.getScript("js/dashboard.js");
 					});
 					break;
 				case "rent":
-					$("#indexMain").load("employee/indexEmp.jsp", function() {
+					$("#indexMain").load("rent/indexRent.jsp", function() {
 						$.getScript("js/dashboard.js");
 					});
 					break;
 				case "trade":
-					$("#indexMain").load("employee/listAllEmp.jsp", function() {
+					$("#indexMain").load("trade/indexTrade.jsp", function() {
 						$.getScript("js/dashboard.js");
 					});
 					break;
@@ -32,6 +34,7 @@ $(document).ready(
 			});
 			
 			//員工管理按鈕切換div
+			$(".aIndexEmp").off();
 			$(".aIndexEmp").on("click", function(event) {
 				$(this).parent("li").addClass( "active" ).siblings("li").removeClass( "active" );
 				switch ($(this).attr("rel")) {
@@ -41,8 +44,8 @@ $(document).ready(
 					});
 					break;
 				case "competence":
-					$("#listAllEmp").load("employee/listAllCompetence.jsp", function() {
-						$.getScript("js/employee/listAllCompetence.js");
+					$("#listAllEmp").load("competence/listAllCompetence.jsp", function() {
+						$.getScript("js/competence/listAllCompetence.js");
 					});
 					break;
 				default:
@@ -50,6 +53,88 @@ $(document).ready(
 					break;
 				}
 			});
+			
+			//會員管理按鈕切換div
+			$(".aIndexMem").off();
+			$(".aIndexMem").on("click", function(event) {
+				$(this).parent("li").addClass( "active" ).siblings("li").removeClass( "active" );
+				switch ($(this).attr("rel")) {
+				case "member":
+					$("#listAllMem").load("member/listAllMem.jsp",function() {
+//						此區看是否有後續動作要做
+//						$.getScript("js/member/listAllMem.js");
+					});
+					break;
+				case "temp1":
+					$("#listAllMem").load("member/temp1.jsp", function() {
+//						此區看是否有後續動作要做
+					});
+					break;
+				case "temp2":
+					$("#listAllMem").load("member/temp2.jsp", function() {
+//						此區看是否有後續動作要做
+					});
+					break;
+				case "temp3":
+					$("#listAllMem").load("member/temp3.jsp", function() {
+//						此區看是否有後續動作要做
+					});
+					break;
+				default:
+					alert("選擇員工管理error!");
+					break;
+				}
+			});
+			
+			//租物管理按鈕切換div
+			$(".aIndexRent").off();
+			$(".aIndexRent").on("click", function(event) {
+				$(this).parent("li").addClass( "active" ).siblings("li").removeClass( "active" );
+				switch ($(this).attr("rel")) {
+				case "rent":
+					$("#listAllRent").load("rent/listAllRent.jsp",function() {
+//						此區看是否有後續動作要做
+//						$.getScript("js/rent/listAllRent.js");
+					});
+					break;
+				case "temp1":
+					$("#listAllRent").load("rent/temp1.jsp", function() {
+//						此區看是否有後續動作要做
+					});
+					break;
+				case "temp2":
+					$("#listAllRent").load("rent/temp2.jsp", function() {
+//						此區看是否有後續動作要做
+					});
+					break;
+				default:
+					alert("選擇員工管理error!");
+					break;
+				}
+			});
+			
+			//物流管理按鈕切換div
+			$(".aIndexTrade").off();
+			$(".aIndexTrade").on("click", function(event) {
+				$(this).parent("li").addClass( "active" ).siblings("li").removeClass( "active" );
+				switch ($(this).attr("rel")) {
+				case "trade":
+					$("#listAllTrade").load("trade/listAllTrade.jsp",function() {
+//						此區看是否有後續動作要做
+//						$.getScript("js/trade/listAllTrade.js");
+					});
+					break;
+				case "temp1":
+					$("#listAllTrade").load("trade/temp1.jsp", function() {
+//						此區看是否有後續動作要做
+					});
+					break;
+				default:
+					alert("選擇員工管理error!");
+					break;
+				}
+			});
+			
 		});
 
 function creatQueryString(addSubmit) {
