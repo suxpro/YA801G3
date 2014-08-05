@@ -492,7 +492,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 	}
 
 	@Override
-	public String findPwdByEmpno(String emp_no) {
+	public EmployeeVO findPwdByEmpId(String emp_id) {
 		// TODO Auto-generated method stub
 		
 		Connection con = null;
@@ -505,11 +505,16 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 			con=DriverManager.getConnection(url,userid,password);
 			pstmt = con.prepareStatement(GET_PWD_STMT);
 
-			pstmt.setString(1, emp_no);
+			pstmt.setString(1, emp_id);
 
 			rs = pstmt.executeQuery();
 			
-			return rs.getString("emp_pwd");
+			if (rs.next()) {
+				return (EmployeeVO)rs;
+			} else {
+				return null;
+			}
+//			return rs.getString("emp_pwd");
 			
 			// Handle any driver errors
 		} catch (SQLException | ClassNotFoundException se) {

@@ -21,7 +21,7 @@ public class RentDAO implements RentDAO_interface {
 		}
 	}
  
-	/*
+	/*all fields
 	 * RENT_NO, RENT_NAME, RENT_DESC, LES_NO, RENT_STA, TAG_NO, RENT_DPS,
 	 * UNIT_PRICE, RESET_DAYS, LOC_NO, RENT_ADDR, POP_FLAG, PRENT_FLAG,
 	 * REPORT_FLAG, OFFSHELF_FLAG, LAST_STA_TIME, LAST_ONSHELF_TIME,
@@ -29,71 +29,23 @@ public class RentDAO implements RentDAO_interface {
 	 * PIC4, PIC4_FORMAT, PIC5, PIC5_FORMAT
 	 */
 
-	private static final String INSERT_STMT = "INSERT INTO rent (rent_no, rent_name, rent_desc, les_no, rent_sta, "
-			+ "tag_no, rent_dps, unit_price, reset_days, loc_no, "
-			+ "rent_addr, pop_flag, prent_flag, report_flag, offshelf_flag, "
-			+ "last_sta_time, last_onshelf_time, last_mod_time, pic1, pic1_format, "
-			+ "pic2, pic2_format, pic3, pic3_format, pic4, pic4_format, pic5, pic5_format) "
-			+ " VALUES ('R'||TO_CHAR(RENT_SEQ.NEXTVAL),?,?,?,?,?,?,?,?,?,?,'N','N','N','N',SYSDATE,?,?,?,lower(?),?,lower(?),?,lower(?),?,lower(?),?,lower(?))";
-	private static final String UPDATE_STMT = "UPDATE rent SET rent_name=?, rent_desc=?, les_no=?, rent_sta=?, "
-			+ "tag_no=?, rent_dps=?, unit_price=?, reset_days=?, loc_no=?, "
-			+ "rent_addr=?, pop_flag=?, prent_flag=?, report_flag=?, offshelf_flag=?, "
-			+ "last_sta_time=SYSDATE, last_onshelf_time=?, last_mod_time=SYSDATE, pic1=?, pic1_format=lower(?), "
-			+ "pic2=?, pic2_format=lower(?), pic3=?, pic3_format=lower(?), pic4=?, pic4_format=lower(?), pic5=?, pic5_format=lower(?) "
-			+ "WHERE rent_no =? ";
-//	private static final String UPDATE_STMT = "UPDATE rent SET rent_name=?, rent_desc=?, les_no=?, rent_sta=?, "
-//			+ "tag_no=?, rent_dps=?, unit_price=?, reset_days=?, loc_no=?, "
-//			+ "rent_addr=?, pop_flag=?, prent_flag=?, report_flag=?, offshelf_flag=?, "
-//			+ "last_sta_time=?, last_onshelf_time=?, last_mod_time=?, pic1=?, pic1_format=?, "
-//			+ "pic2=?, pic2_format=?, pic3=?, pic3_format=?, pic4=?, pic4_format=?, pic5=?, pic5_format=? "
-//			+ "WHERE rent_no =? ";
-	private static final String DELETE_STMT = "UPDATE rent SET rent_sta = 'C_RENT', offshelf_flag = 'Y' WHERE rent_no = ?";
-//	private static final String DELETE_STMT = "DELETE FROM rent WHERE rent_no = ?";
-	private static final String GET_ALL_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' order by rent_no";
-	private static final String GET_ONE_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' and rent_no = ?";
+
+	private static final String UPDATE_PASS_STMT = "UPDATE rent SET rent_sta = 'W_RENT', last_sta_time = SYSDATE, last_onshelf_time = SYSDATE WHERE rent_no = ?";
+	private static final String UPDATE_FAIL_STMT = "UPDATE rent SET rent_sta = 'W_REVIEW', last_sta_time = SYSDATE WHERE rent_no = ?";
+	private static final String GET_ALL_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' and rent_sta = 'W_CHECK' order by rent_no";
+	private static final String GET_ONE_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' and rent_sta = 'W_CHECK' and rent_no = ?";
 
 	@Override
-	public void insert(RentVO rentVO) {
+	public void update_pass(String rent_no) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt = con.prepareStatement(UPDATE_PASS_STMT);
 
-			pstmt.setString(1, rentVO.getRent_name());
-			pstmt.setString(2, rentVO.getRent_desc());
-			pstmt.setString(3, rentVO.getLes_no());
-			pstmt.setString(4, rentVO.getRent_sta());
-			pstmt.setString(5, rentVO.getTag_no());
-
-			pstmt.setInt(6, rentVO.getRent_dps());
-			pstmt.setInt(7, rentVO.getUnit_price());
-			pstmt.setInt(8, rentVO.getReset_days());
-			pstmt.setString(9, rentVO.getLoc_no());
-			pstmt.setString(10, rentVO.getRent_addr());
-
-//			pstmt.setString(11, rentVO.getPop_flag());
-//			pstmt.setString(12, rentVO.getPrent_flag());
-//			pstmt.setString(13, rentVO.getReport_flag());
-//			pstmt.setString(14, rentVO.getOffshelf_flag());
-//			pstmt.setTimestamp(15, rentVO.getLast_sta_time());
-
-			pstmt.setTimestamp(11, rentVO.getLast_onshelf_time());
-			pstmt.setTimestamp(12, rentVO.getLast_mod_time());
-			pstmt.setBytes(13, rentVO.getPic1());
-			pstmt.setString(14, rentVO.getPic1_format());
-			pstmt.setBytes(15, rentVO.getPic2());
-
-			pstmt.setString(16, rentVO.getPic2_format());
-			pstmt.setBytes(17, rentVO.getPic3());
-			pstmt.setString(18, rentVO.getPic3_format());
-			pstmt.setBytes(19, rentVO.getPic4());
-			pstmt.setString(20, rentVO.getPic4_format());
-
-			pstmt.setBytes(21, rentVO.getPic5());
-			pstmt.setString(22, rentVO.getPic5_format());
+			pstmt.setString(1, rent_no);
 
 			pstmt.executeUpdate();
 
@@ -122,84 +74,14 @@ public class RentDAO implements RentDAO_interface {
 	}	
 
 	@Override
-	public void update(RentVO rentVO) {
+	public void update_fail(String rent_no) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE_STMT);
-
-			pstmt.setString(1, rentVO.getRent_name());
-			pstmt.setString(2, rentVO.getRent_desc());
-			pstmt.setString(3, rentVO.getLes_no());
-			pstmt.setString(4, rentVO.getRent_sta());
-			pstmt.setString(5, rentVO.getTag_no());
-
-			pstmt.setInt(6, rentVO.getRent_dps());
-			pstmt.setInt(7, rentVO.getUnit_price());
-			pstmt.setInt(8, rentVO.getReset_days());
-			pstmt.setString(9, rentVO.getLoc_no());
-			pstmt.setString(10, rentVO.getRent_addr());
-
-			pstmt.setString(11, rentVO.getPop_flag());
-			pstmt.setString(12, rentVO.getPrent_flag());
-			pstmt.setString(13, rentVO.getReport_flag());
-			pstmt.setString(14, rentVO.getOffshelf_flag());
-			//pstmt.setTimestamp(15, rentVO.getLast_sta_time());
-
-			pstmt.setTimestamp(15, rentVO.getLast_onshelf_time());
-			//pstmt.setTimestamp(17, rentVO.getLast_mod_time());
-			pstmt.setBytes(16, rentVO.getPic1());
-			pstmt.setString(17, rentVO.getPic1_format());
-			pstmt.setBytes(18, rentVO.getPic2());
-
-			pstmt.setString(19, rentVO.getPic2_format());
-			pstmt.setBytes(20, rentVO.getPic3());
-			pstmt.setString(21, rentVO.getPic3_format());
-			pstmt.setBytes(22, rentVO.getPic4());
-			pstmt.setString(23, rentVO.getPic4_format());
-
-			pstmt.setBytes(24, rentVO.getPic5());
-			pstmt.setString(25, rentVO.getPic5_format());
-			pstmt.setString(26, rentVO.getRent_no());
-
-			pstmt.executeUpdate();
-
-			// Handle any driver errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-
-	}		
-
-	@Override
-	public void delete(String rent_no) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(DELETE_STMT);
+			pstmt = con.prepareStatement(UPDATE_FAIL_STMT);
 
 			pstmt.setString(1, rent_no);
 
