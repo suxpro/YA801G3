@@ -121,7 +121,7 @@
 								data-src="js/holder.js/450x450"
 								src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
 								<div class='text-right'>
-									<small class='text-muted'>${rentVO.rent_name}</small>
+									<small class='text-muted'>${rentVO.rent_name}</small><span id="rentStateSpan" class="label label-primary" data-rentState="${rentVO.rent_sta}">${rent_staMap[rentVO.rent_sta]}</span>
 								</div> <!-- text-right / end -->
 							</a>
 						</div>

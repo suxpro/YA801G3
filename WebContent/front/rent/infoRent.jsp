@@ -4,9 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="front.member.model.*"%>
+<%@ page import="front.ord.model.*"%>
 
 <%
     MemberService memSvc = new MemberService();
+    OrdService ordSvc = new OrdService();
     pageContext.setAttribute("memSvcInfoRent", memSvc);
 %>
 
@@ -22,7 +24,7 @@
 </c:if>
 
 <div class="modal-header">
-	<h4 class="modal-title">${rentVO.rent_name}</h4>
+	<h4 class="modal-title">${rentVO.rent_name}</h4><span id="rentStateSpan" class="label label-primary" data-rent-state="${rentVO.rent_sta}">${rent_staMap[rentVO.rent_sta]}</span>
 </div>
 
 <div class="modal-body">

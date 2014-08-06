@@ -27,10 +27,11 @@ $(".divRentItem").on("click", function(event) {
 
 
 $('#infoRentModel').on('shown.bs.modal', function (e) {
+	console.log($(this).find("#rentStateSpan").data("rentState"));
+//	console.log($(this).find("#rentStateSpan").data().rentState);
+//	console.log($(this).find("#rentStateSpan").data()["rentState"]);
 	//google地圖
-	console.log("map!");
-	var map = $('#map');
-	map.tinyMap({
+	$('#map').tinyMap({
 	    'center': "桃園縣中壢市中央路72號",
 	    'zoom':  8,
 	    'marker': [
