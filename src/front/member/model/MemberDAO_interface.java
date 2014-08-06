@@ -10,6 +10,8 @@ public interface MemberDAO_interface {
     public void updateInfo(MemberVO memberVO);
     // 同時新增交易紀錄與升級會員
     public void updateVIP(MemberVO memberVO , List<TradeVO> list);
+    // 同時(新增交易紀錄)與儲值金額
+    public void storedMoney(MemberVO memberVO);
     public void delete(String mno);
     public MemberVO findByPrimaryKey(String mno);
     public MemberVO findByAccount(String mid);

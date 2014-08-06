@@ -6,12 +6,12 @@
 
 <script>
 function agree() {
-	var Agree = document.getElementById("Agree");;
+	var Agree = document.getElementById("Agree");
 
 	if (Agree.checked) {
 		return true;
 	} else {
-		alert("閱讀並同意會員條款才可進行註冊");
+		alert("閱讀並同意會員條款才可進行註冊。");
 		return false;
 	}
 }

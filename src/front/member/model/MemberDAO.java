@@ -35,6 +35,7 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String UPDATE = "UPDATE member set mem_id=?, mem_pwd=?, mem_pic=?, mem_name=?, mem_sex=?, mem_cell=?, mem_mail=?, loc_no=?, mem_adrs=?, mem_lev=?, mem_mbl=?, mem_ileg=?, mem_ases=?, mem_ver=?, mem_date=?, mem_pic_info=?, mem_vpic=?, mem_vpic_info=? where mem_no = ?";
 	private static final String UPDATE_INFO = "UPDATE member set mem_pwd=?, mem_pic=?, mem_name=?, mem_sex=?, mem_cell=?, mem_mail=?, loc_no=?, mem_adrs=?, mem_pic_info=?, mem_vpic=?, mem_vpic_info=? where mem_no = ?";
 	private static final String UPDATE_VIP = "UPDATE member set mem_lev=? , mem_mbl=? where mem_no = ?";
+	private static final String STORED_MOMEY = "UPDATE member set mem_mbl=? where mem_no=?";
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -227,7 +228,6 @@ public class MemberDAO implements MemberDAO_interface {
 		}
 
 	}
-
 	
 	@Override
 	public void updateInfo(MemberVO memberVO) {
@@ -279,9 +279,7 @@ public class MemberDAO implements MemberDAO_interface {
 		}
 
 	}
-
-	
-	
+		
 	@Override
 	public void updateVIP(MemberVO memberVO , List<TradeVO> list) {
 
@@ -347,6 +345,47 @@ public class MemberDAO implements MemberDAO_interface {
 							+ excep.getMessage());
 				}
 			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
+	
+	@Override
+	public void storedMoney(MemberVO memberVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(STORED_MOMEY);
+			
+			pstmt.setDouble(1, memberVO.getMbalance());
+			pstmt.setString(2, memberVO.getMno());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources

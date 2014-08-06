@@ -77,7 +77,7 @@
 			<div class="container">
 				<div class="row-fluid">
 					<form class="form-horizontal" id="memform" METHOD="post"
-						ACTION="<%=request.getContextPath()%>/front/member/member.do"
+						ACTION="<%=request.getContextPath()%>/front/member/memberVIP.do"
 						name="form1" enctype="multipart/form-data" role="form">
 						<fieldset>
 							<div id="legend">

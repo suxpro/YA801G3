@@ -66,6 +66,19 @@ public class MemberService {
 	}
 
 	
+	public MemberVO storedMoney(String mno, Double mbalance){
+
+		MemberVO memberVO = new MemberVO();
+		
+		memberVO.setMno(mno);
+		memberVO.setMbalance(mbalance);
+		
+		dao.storedMoney(memberVO);
+
+		return memberVO;
+	
+	}
+	
 	public MemberVO updateVIP(String mno, String mlev, Double mbalance){
 		MemberVO memberVO = new MemberVO();
 		
