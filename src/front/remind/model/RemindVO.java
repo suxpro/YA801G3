@@ -7,7 +7,15 @@ public class RemindVO implements java.io.Serializable{
 	private String rtno;
 	private Date rtime;
 	private String rstas;
+	private String rdes;
 	private String rflag;
+	
+	public String getRdes() {
+		return rdes;
+	}
+	public void setRdes(String rdes) {
+		this.rdes = rdes;
+	}
 	public String getRno() {
 		return rno;
 	}

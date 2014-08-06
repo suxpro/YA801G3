@@ -11,13 +11,14 @@ public class RemindService {
 		dao = new RemindDAO();
 	}
 
-	public RemindVO addRemind(String mno, String rtno, java.sql.Date rtime, String rstas, String rflag) {
+	public RemindVO addRemind(String mno, String rtno, java.sql.Date rtime, String rstas, String rdes, String rflag) {
 		// 新增
 		RemindVO remindVO = new RemindVO();
 		remindVO.setMno(mno);
 		remindVO.setRtno(rtno);
 		remindVO.setRtime(rtime);
 		remindVO.setRstas(rstas);
+		remindVO.setRdes(rdes);
 		remindVO.setRflag(rflag);
 		
 		dao.insert(remindVO);
@@ -25,7 +26,7 @@ public class RemindService {
 		return remindVO;
 	}
 	
-	public RemindVO updateRemind(String rno , String mno, String rtno, java.sql.Date rtime, String rstas, String rflag) {
+	public RemindVO updateRemind(String rno , String mno, String rtno, java.sql.Date rtime, String rstas, String rdes, String rflag) {
 		
 		RemindVO remindVO = new RemindVO();
 		remindVO.setRno(rno);
@@ -33,6 +34,7 @@ public class RemindService {
 		remindVO.setRtno(rtno);
 		remindVO.setRtime(rtime);
 		remindVO.setRstas(rstas);
+		remindVO.setRdes(rdes);
 		remindVO.setRflag(rflag);
 		
 		dao.update(remindVO);

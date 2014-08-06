@@ -49,6 +49,7 @@
 			<th>租物編號</th>
 			<th>提醒時間</th>
 			<th>提醒狀態</th>
+			<th>提醒內容</th>
 			<th>提醒結果</th>
 
 		</tr>
@@ -71,6 +72,7 @@
 
 				<td>${remindVO.rtime}</td>
 				<td>${remindVO.rstas}</td>
+				<td>${remindVO.rdes}</td>
 				<td>${remindVO.rflag}</td>
 				
 

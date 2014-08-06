@@ -183,6 +183,7 @@ public class RemindServletF extends HttpServlet {
 					errorMsgs.put("rtime","請輸入日期!");
 				}
 				String rstas = multi.getParameter("rstas").trim();
+				String rdes = multi.getParameter("rdes").trim();
 				String rflag = multi.getParameter("rflag").trim();
 
 				RemindVO remindVO = new RemindVO();
@@ -191,6 +192,7 @@ public class RemindServletF extends HttpServlet {
 				remindVO.setRtno(rtno);
 				remindVO.setRtime(rtime);
 				remindVO.setRstas(rstas);
+				remindVO.setRdes(rdes);
 				remindVO.setRflag(rflag);
 
 				// Send the use back to the form, if there were errors
@@ -204,7 +206,7 @@ public class RemindServletF extends HttpServlet {
 
 				/*************************** 2.開始修改資料 *****************************************/
 				RemindService remindSvc = new RemindService();
-				remindVO = remindSvc.updateRemind(rno, mno, rtno, rtime, rstas,
+				remindVO = remindSvc.updateRemind(rno, mno, rtno, rtime, rstas, rdes,
 						rflag);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
@@ -243,6 +245,7 @@ public class RemindServletF extends HttpServlet {
 					errorMsgs.put("rtime","請輸入日期!");
 				}
 				String rstas = multi.getParameter("rstas").trim();
+				String rdes = multi.getParameter("rdes").trim();
 				String rflag = multi.getParameter("rflag").trim();
 
 				RemindVO remindVO = new RemindVO();
@@ -251,6 +254,7 @@ public class RemindServletF extends HttpServlet {
 				remindVO.setRtno(rtno);
 				remindVO.setRtime(rtime);
 				remindVO.setRstas(rstas);
+				remindVO.setRdes(rdes);
 				remindVO.setRflag(rflag);
 
 				// Send the use back to the form, if there were errors
@@ -264,7 +268,7 @@ public class RemindServletF extends HttpServlet {
 
 				/*************************** 2.開始新增資料 ***************************************/
 				RemindService remindSvc = new RemindService();
-				remindVO = remindSvc.addRemind(mno, rtno, rtime, rstas,
+				remindVO = remindSvc.addRemind(mno, rtno, rtime, rstas, rdes,
 						rflag);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/

@@ -1,7 +1,6 @@
 package front.remind.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,11 +24,11 @@ public class RemindDAO implements RemindDAO_interface{
 		}
 	}
 	
-	private static final String INSERT_STMT = "INSERT INTO remind (rem_no, mem_no, rent_no, rem_time, rem_stas, rem_flag) VALUES ('D'||TO_CHAR(remind_seq.NEXTVAL), ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT rem_no, mem_no, rent_no, to_char(rem_time,'yyyy-mm-dd') rem_time, rem_stas, rem_flag FROM remind order by rem_no";
-	private static final String GET_ONE_STMT = "SELECT rem_no, mem_no, rent_no, to_char(rem_time,'yyyy-mm-dd') rem_time, rem_stas, rem_flag FROM remind where rem_no = ?";
+	private static final String INSERT_STMT = "INSERT INTO remind (rem_no, mem_no, rent_no, rem_time, rem_stas, rem_des, rem_flag) VALUES ('D'||TO_CHAR(remind_seq.NEXTVAL), ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT rem_no, mem_no, rent_no, to_char(rem_time,'yyyy-mm-dd') rem_time, rem_stas, rem_des, rem_flag FROM remind order by rem_no";
+	private static final String GET_ONE_STMT = "SELECT rem_no, mem_no, rent_no, to_char(rem_time,'yyyy-mm-dd') rem_time, rem_stas, rem_des, rem_flag FROM remind where rem_no = ?";
 	private static final String DELETE = "DELETE FROM remind where rem_no = ?";
-	private static final String UPDATE = "UPDATE remind set mem_no=?, rent_no=?, rem_time=?, rem_stas=?, rem_flag=? where rem_no=?";
+	private static final String UPDATE = "UPDATE remind set mem_no=?, rent_no=?, rem_time=?, rem_stas=?, rem_des=?, rem_flag=? where rem_no=?";
 
 	
 
@@ -48,7 +47,8 @@ public class RemindDAO implements RemindDAO_interface{
 			pstmt.setString(2, remindVO.getRtno());
 			pstmt.setDate(3, remindVO.getRtime());
 			pstmt.setString(4, remindVO.getRstas());
-			pstmt.setString(5, remindVO.getRflag());
+			pstmt.setString(5, remindVO.getRdes());
+			pstmt.setString(6, remindVO.getRflag());
 
 			pstmt.executeUpdate();
 
@@ -93,8 +93,9 @@ public class RemindDAO implements RemindDAO_interface{
 			pstmt.setString(2, remindVO.getRtno());
 			pstmt.setDate(3, remindVO.getRtime());
 			pstmt.setString(4, remindVO.getRstas());
-			pstmt.setString(5, remindVO.getRflag());
-			pstmt.setString(6, remindVO.getRno());
+			pstmt.setString(5, remindVO.getRdes());
+			pstmt.setString(6, remindVO.getRflag());
+			pstmt.setString(7, remindVO.getRno());
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -190,6 +191,7 @@ public class RemindDAO implements RemindDAO_interface{
 				remindVO.setRtno(rs.getString("rent_no"));
 				remindVO.setRtime(rs.getDate("rem_time"));
 				remindVO.setRstas(rs.getString("rem_stas"));
+				remindVO.setRdes(rs.getString("rem_des"));
 				remindVO.setRflag(rs.getString("rem_flag"));								
 			}
 
@@ -247,6 +249,7 @@ public class RemindDAO implements RemindDAO_interface{
 				remindVO.setRtno(rs.getString("rent_no"));
 				remindVO.setRtime(rs.getDate("rem_time"));
 				remindVO.setRstas(rs.getString("rem_stas"));
+				remindVO.setRdes(rs.getString("rem_des"));
 				remindVO.setRflag(rs.getString("rem_flag"));	
 				list.add(remindVO);				
 			}

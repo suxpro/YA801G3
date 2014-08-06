@@ -103,6 +103,12 @@
 				</tr>
 				
 				<tr>
+					<td>提醒內容:<font color=red><b>*</b></font></td>
+					<td><input type="TEXT" name="rdes" size="45"
+						value="<%=(remindVO == null) ? "逾期通知','租期快到了喔，請盡快歸還。" : remindVO.getRdes()%>" /></td><td>${errorMsgs.rdes}</td>
+				</tr>
+				
+				<tr>
 					<td>提醒結果:<font color=red><b>*</b></font></td>
 					<td><select size="1" name="rflag">
 							<option value="Y">提醒確認</option>
