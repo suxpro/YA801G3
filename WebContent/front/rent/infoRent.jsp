@@ -55,7 +55,9 @@
 	             src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
          </div>
 		<!-- 租物日期 -->
-		<div class="col-md-3"></div>
+		<div class="col-md-3">
+		  <div id="datepicker">!datepicker</div>
+		</div>
 	</div>
 	<!-- /row -->
 	<div class="row">

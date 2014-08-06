@@ -25,6 +25,7 @@ $(".divRentItem").on("click", function(event) {
 
 
 $('#infoRentModel').on('shown.bs.modal', function (e) {
+	//google地圖
 	console.log("map!");
 	var map = $('#map');
 	map.tinyMap({
@@ -33,10 +34,13 @@ $('#infoRentModel').on('shown.bs.modal', function (e) {
 	    'marker': [
 	        /* 給予每個標記唯一的 id 值 */
 	        {'addr': "桃園縣中壢市中央路72號", 'text': '桃園縣中壢市中央路72號', 'id': '桃園縣中壢市中央路72號'},
-	        {'addr': ['24.163292', '120.647961'], 'text': '臺中市政府', 'id': '臺中市政府'},
+	        {'addr': "臺中市政府", 'text': '臺中市政府', 'id': '臺中市政府'},
 	        {'addr': ['25.037520', '121.563728'], 'text': '台北市政府', 'id': '台北市政府'}
 	    ]
 	});
+	//日曆
+//	$( "#datepicker" ).datepicker({ minDate: -5, maxDate: "+1M +10D" });
+	$( "#datepicker" ).datepicker({ minDate: -5, maxDate: +5 });
 });
 
 
