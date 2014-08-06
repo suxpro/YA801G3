@@ -369,7 +369,7 @@ public class MemberDAO implements MemberDAO_interface {
 
 	
 	@Override
-	public void storedMoney(MemberVO memberVO) {
+	public void storedMoney(MemberVO memberVO , List<TradeVO> list) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -377,15 +377,36 @@ public class MemberDAO implements MemberDAO_interface {
 		try {
 
 			con = ds.getConnection();
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+    		
 			pstmt = con.prepareStatement(STORED_MOMEY);
 			
 			pstmt.setDouble(1, memberVO.getMbalance());
 			pstmt.setString(2, memberVO.getMno());
 
 			pstmt.executeUpdate();
+			
+			TradeDAO trade_dao = new TradeDAO();
+			TradeVO tradeVO = list.get(0);
+			trade_dao.insertWithVIP(tradeVO, con);
+			
+			con.commit();
+			con.setAutoCommit(true);
 
 			// Handle any driver errors
 		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-member");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources

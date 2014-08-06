@@ -117,17 +117,17 @@
 										</h4>
 										
 										<div class="col-xs-offset-2">		
-            									<input type="radio" id="mbalance" name="mbalance" value="<%=memberVO.getMbalance() + 500%>" checked >
+            									<input type="radio" id="mbalance" name="mbalance" value="500" checked >
             									&nbsp;&nbsp;$&nbsp;500 NT<br/>
-            									<input type="radio" id="mbalance" name="mbalance" value="<%=memberVO.getMbalance() + 1000%>"	>
+            									<input type="radio" id="mbalance" name="mbalance" value="1000"	>
             									&nbsp;&nbsp;$&nbsp;1000 NT<br/>
-            									<input type="radio" id="mbalance" name="mbalance" value="<%=memberVO.getMbalance() + 2000%>"	>
+            									<input type="radio" id="mbalance" name="mbalance" value="2000"	>
             									&nbsp;&nbsp;$&nbsp;2000 NT<br/>
-            									<input type="radio" id="mbalance" name="mbalance" value="<%=memberVO.getMbalance() + 3000%>"	>
+            									<input type="radio" id="mbalance" name="mbalance" value="3000"	>
             									&nbsp;&nbsp;$&nbsp;3000 NT<br/>
-            									<input type="radio" id="mbalance" name="mbalance" value="<%=memberVO.getMbalance() + 5000%>"	>
+            									<input type="radio" id="mbalance" name="mbalance" value="5000"	>
             									&nbsp;&nbsp;$&nbsp;5000 NT<br/>
-            									<input type="radio" id="mbalance" name="mbalance" value="<%=memberVO.getMbalance() + 10000%>"	>
+            									<input type="radio" id="mbalance" name="mbalance" value="10000"	>
             									&nbsp;&nbsp;$&nbsp;10000 NT<br/>
             							</div>		
 										<br/>																		

@@ -95,11 +95,15 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 
 
+
+
 	@Override
-	public void storedMoney(MemberVO memberVO) {
+	public void storedMoney(MemberVO memberVO, List<TradeVO> list) {
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 
 
