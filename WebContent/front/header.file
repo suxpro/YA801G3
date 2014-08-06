@@ -40,7 +40,13 @@
 										<input type="hidden" name="action" value="getOne_For_Update">
 									</FORM>
                                 </li>
-                                <li><a href="#">會員儲值</a></li>
+                                <li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a>
+                                	<FORM name="storedMoney" METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/memberStored.do">
+										<input type="hidden" name="mno" value="${memberVO.mno}"> 						
+										<input type="hidden" name="action" value="getOne_For_Update">
+									</FORM>
+                                
+                                </li>
                                 <li><a href="#">出租管理</a></li>
                                 <li><a href="#">訂單管理</a></li>
                                 <li><a href="#">歷史租借查詢</a></li>

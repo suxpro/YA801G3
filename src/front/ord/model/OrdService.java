@@ -137,4 +137,9 @@ public class OrdService {
 	public List<OrdVO> getAll() {
 		return dao.getAll();
 	}
+
+	//小豬加,找尋訂單資料是否該筆ord_no是否有人正在租
+	public String hasLiveOrd(String rent_no) {
+		return dao.findLiveOrdByRentNo(rent_no);
+	}
 }

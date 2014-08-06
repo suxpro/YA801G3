@@ -7,8 +7,10 @@
 
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/justrent.css" rel="stylesheet">
-<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<link href="jquery-ui-1.11.0.custom/jquery-ui.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="jquery-ui-1.11.0.custom/jquery-ui.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/jquery.color.js"></script>

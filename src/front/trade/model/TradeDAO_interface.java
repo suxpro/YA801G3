@@ -12,4 +12,6 @@ public interface TradeDAO_interface {
     
     //同時新增交易紀錄與升級會員
     public void insertWithVIP(TradeVO tradeVO , java.sql.Connection con);
+    //同時新增交易紀錄與會員儲值
+    public void insertWithMoney(TradeVO tradeVO , java.sql.Connection con);
 }

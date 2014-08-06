@@ -35,6 +35,7 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String UPDATE = "UPDATE member set mem_id=?, mem_pwd=?, mem_pic=?, mem_name=?, mem_sex=?, mem_cell=?, mem_mail=?, loc_no=?, mem_adrs=?, mem_lev=?, mem_mbl=?, mem_ileg=?, mem_ases=?, mem_ver=?, mem_date=?, mem_pic_info=?, mem_vpic=?, mem_vpic_info=? where mem_no = ?";
 	private static final String UPDATE_INFO = "UPDATE member set mem_pwd=?, mem_pic=?, mem_name=?, mem_sex=?, mem_cell=?, mem_mail=?, loc_no=?, mem_adrs=?, mem_pic_info=?, mem_vpic=?, mem_vpic_info=? where mem_no = ?";
 	private static final String UPDATE_VIP = "UPDATE member set mem_lev=? , mem_mbl=? where mem_no = ?";
+	private static final String STORED_MOMEY = "UPDATE member set mem_mbl=? where mem_no=?";
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -227,7 +228,6 @@ public class MemberDAO implements MemberDAO_interface {
 		}
 
 	}
-
 	
 	@Override
 	public void updateInfo(MemberVO memberVO) {
@@ -279,9 +279,7 @@ public class MemberDAO implements MemberDAO_interface {
 		}
 
 	}
-
-	
-	
+		
 	@Override
 	public void updateVIP(MemberVO memberVO , List<TradeVO> list) {
 
@@ -333,6 +331,68 @@ public class MemberDAO implements MemberDAO_interface {
 //			System.out.println("list.size()-B="+list.size());
 //			System.out.println("新增部門編號" + next_mno + "時,共有員工" + list.size()+ "人同時被新增");
 
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-member");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
+	
+	@Override
+	public void storedMoney(MemberVO memberVO , List<TradeVO> list) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+    		
+			pstmt = con.prepareStatement(STORED_MOMEY);
+			
+			pstmt.setDouble(1, memberVO.getMbalance());
+			pstmt.setString(2, memberVO.getMno());
+
+			pstmt.executeUpdate();
+			
+			TradeDAO trade_dao = new TradeDAO();
+			TradeVO tradeVO = list.get(0);
+			trade_dao.insertWithVIP(tradeVO, con);
+			
+			con.commit();
+			con.setAutoCommit(true);
 
 			// Handle any driver errors
 		} catch (SQLException se) {

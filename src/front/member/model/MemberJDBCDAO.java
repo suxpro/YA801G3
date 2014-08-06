@@ -20,7 +20,8 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	private static final String UPDATE = "UPDATE member set mem_id=?, mem_pwd=?, mem_pic=?, mem_name=?, mem_sex=?, mem_cell=?, mem_mail=?, loc_no=?, mem_adrs=?, mem_lev=?, mem_mbl=?, mem_ases=?, mem_ver=?, mem_date=?, mem_ileg=?, mem_pic_info=?, mem_vpic=?, mem_vpic_info=? where mem_no=?";
 	private static final String UPDATE_INFO = "UPDATE member set mem_id=?, mem_pwd=?, mem_pic=?, mem_name=?, mem_sex=?, mem_cell=?, mem_mail=?, loc_no=?, mem_adrs=?, mem_pic_info=?, mem_vpic=?, mem_vpic_info=? where mem_no = ?";
 	private static final String UPDATE_VIP = "UPDATE member set mem_lev=? , mem_mbl=? where mem_no = ?";
-
+	private static final String STORED_MOMEY = "UPDATE member set mem_mbl=? where mem_no=?";
+	
 	/* (non-Javadoc)
 	 * @see com.member.model.MemberDAO_interface#insert(com.member.model.MemberVO)
 	 */
@@ -91,6 +92,18 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 		
 	}
+
+
+
+
+
+	@Override
+	public void storedMoney(MemberVO memberVO, List<TradeVO> list) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 
 

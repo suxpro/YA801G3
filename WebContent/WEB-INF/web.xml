@@ -29,7 +29,7 @@
 		<servlet-name>EmpServlet</servlet-name>
 		<url-pattern>/employee/employee.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
         <servlet-name>ComServlet</servlet-name>
         <servlet-class>back.competence.controller.CompetenceServlet</servlet-class>
@@ -151,7 +151,7 @@
 		<servlet-name>PrentServlet</servlet-name>
 		<url-pattern>/back/prent/prent.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- 前端 -->	
 	<servlet>
 		<servlet-name>MemberServletF</servlet-name>
@@ -161,7 +161,7 @@
 		<servlet-name>MemberServletF</servlet-name>
 		<url-pattern>/front/member/member.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>updateVIP</servlet-name>
 		<servlet-class>front.member.controller.updateVIP</servlet-class>
@@ -171,6 +171,15 @@
 		<url-pattern>/front/member/memberVIP.do</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>storedMoney</servlet-name>
+		<servlet-class>front.member.controller.storedMoney</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>storedMoney</servlet-name>
+		<url-pattern>/front/member/memberStored.do</url-pattern>
+	</servlet-mapping>
+
 	<servlet>
 		<servlet-name>TradeServletF</servlet-name>
 		<servlet-class>front.trade.controller.TradeServletF</servlet-class>

@@ -1,6 +1,8 @@
 /**
  * 
  */
+$(document).ready(function(){ 
+
 //選擇租物
 $(".divRentItem").off();
 $(".divRentItem").on("click", function(event) {
@@ -25,21 +27,47 @@ $(".divRentItem").on("click", function(event) {
 
 
 $('#infoRentModel').on('shown.bs.modal', function (e) {
-	console.log("map!");
-	var map = $('#map');
-	map.tinyMap({
+	console.log($(this).find("#rentStateSpan").data("rentState"));
+//	console.log($(this).find("#rentStateSpan").data().rentState);
+//	console.log($(this).find("#rentStateSpan").data()["rentState"]);
+	//google地圖
+	$('#map').tinyMap({
 	    'center': "桃園縣中壢市中央路72號",
 	    'zoom':  8,
 	    'marker': [
 	        /* 給予每個標記唯一的 id 值 */
 	        {'addr': "桃園縣中壢市中央路72號", 'text': '桃園縣中壢市中央路72號', 'id': '桃園縣中壢市中央路72號'},
-	        {'addr': ['24.163292', '120.647961'], 'text': '臺中市政府', 'id': '臺中市政府'},
+	        {'addr': "臺中市政府", 'text': '臺中市政府', 'id': '臺中市政府'},
 	        {'addr': ['25.037520', '121.563728'], 'text': '台北市政府', 'id': '台北市政府'}
 	    ]
 	});
+	//日曆
+//	$( "#datepicker" ).datepicker({ minDate: -5, maxDate: "+1M +10D" });
+	var optDatepicker={
+			   dayNames:["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],
+			   dayNamesMin:["日","一","二","三","四","五","六"],
+			   monthNames:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+			   monthNamesShort:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+			   prevText:"上月",
+			   nextText:"次月",
+			   weekHeader:"週",
+			   showMonthAfterYear:true,
+			   dateFormat:"yy-mm-dd",
+//			   minDate:-10,
+//			   maxDate:+10,
+			   create:function(event, ui){
+			          console.log("test");
+			   		}
+			   };
+	$("#datepicker").datepicker(optDatepicker);
+    $("#datepicker").datepicker("setDate",+50);
+    $("#datepicker").datepicker("option", "minDate" , new Date($("#datepicker").datepicker("getDate").getTime()-5*24*60*60*1000) );
+    $("#datepicker").datepicker("option", "maxDate" , new Date($("#datepicker").datepicker("getDate").getTime()+5*24*60*60*1000) );
+//	console.log($("#datepicker").datepicker('getDate').getFullYear());
 });
 
 
+});
 
 
 

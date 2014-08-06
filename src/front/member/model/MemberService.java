@@ -66,6 +66,30 @@ public class MemberService {
 	}
 
 	
+	public MemberVO storedMoney(String mno, Double mbalance , Double newM){
+
+		MemberVO memberVO = new MemberVO();
+		
+		memberVO.setMno(mno);
+		memberVO.setMbalance(mbalance);
+		
+		List<TradeVO> VIPList = new ArrayList<TradeVO>(); // 準備置入員工數人
+		TradeVO tradeVOxx = new TradeVO();   // 員工POJO1
+		
+		tradeVOxx.setMno(mno);
+//		tradeVOxx.setTmid(tmid);
+		tradeVOxx.setTstas("金錢匯入");
+		tradeVOxx.setTfunds(newM);
+//		tradeVOxx.setTin("Y");
+		
+		VIPList.add(tradeVOxx);
+		
+		dao.storedMoney(memberVO, VIPList);
+
+		return memberVO;
+	
+	}
+	
 	public MemberVO updateVIP(String mno, String mlev, Double mbalance){
 		MemberVO memberVO = new MemberVO();
 		

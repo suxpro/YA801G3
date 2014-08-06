@@ -4,10 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="front.member.model.*"%>
+<%@ page import="front.ord.model.*"%>
 
 <%
     MemberService memSvc = new MemberService();
+    OrdService ordSvc = new OrdService();
     pageContext.setAttribute("memSvcInfoRent", memSvc);
+    pageContext.setAttribute("ordSvcInfoRent", ordSvc);
 %>
 
 <%-- 錯誤表列 --%>
@@ -22,7 +25,8 @@
 </c:if>
 
 <div class="modal-header">
-	<h4 class="modal-title">${rentVO.rent_name}</h4>
+	<h4 class="modal-title">${rentVO.rent_name} | ${ordSvcInfoRent.hasLiveOrd(rentVO.rent_no)}</h4>
+	<span id="rentStateSpan" class="label label-primary" data-rent-state="${rentVO.rent_sta}">${rent_staMap[rentVO.rent_sta]}</span>
 </div>
 
 <div class="modal-body">
@@ -55,7 +59,9 @@
 	             src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
          </div>
 		<!-- 租物日期 -->
-		<div class="col-md-3"></div>
+		<div class="col-md-3">
+		  <div id="datepicker" style="font-size: 60%;"></div>
+		</div>
 	</div>
 	<!-- /row -->
 	<div class="row">
