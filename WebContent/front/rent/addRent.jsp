@@ -7,7 +7,7 @@
 <%RentVO rentVO = (RentVO) request.getAttribute("rentVO"); %>
 
 <html>
-<head>
+<head> 
 <title>租物新增 - addRent.jsp</title>
 <style type="text/css">
 .preview{width:100px;height:100px;float:right;border:1px solid #000;overflow:hidden;display:none}

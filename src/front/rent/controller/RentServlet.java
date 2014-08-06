@@ -32,7 +32,7 @@ public class RentServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// doPost(req, res); 
 
-		// 20140804 - 為了給租物上架審核查詢單一會員資料
+		// 20140804 - 為了給租物上架審核查詢單一會員資料 
 		if (req.getParameter("action") != null
 				&& req.getParameter("action").equals("getOne_For_Display")) {
 			doPost(req, res);

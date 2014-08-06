@@ -13,7 +13,7 @@
 		if (ts != null)
 			return dateformatAll.format(ts);//格式化傳過來的時間就可以去掉毫秒數
 		else
-			return "";
+			return ""; 
 	}
 %>
 <%
