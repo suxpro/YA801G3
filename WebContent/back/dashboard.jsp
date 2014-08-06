@@ -10,7 +10,7 @@
 <link rel="stylesheet"
 	href="css/bootstrap.min.css">
 <link href="css/dashboard.css" rel="stylesheet">
-<script src="js/jquery-1.7.2.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/dashboard.js"></script>
 <script>            
