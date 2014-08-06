@@ -8,4 +8,5 @@ public interface OrdDAO_interface {
           public void delete(String ord_no, String ord_cc_cause);
           public OrdVO findByPrimaryKey(String ord_no);
           public List<OrdVO> getAll();
+          public String findLiveOrdByRentNo(String rent_no);
 }

@@ -3,6 +3,7 @@
  */
 
 // 新增員工按鈕
+$("#addEmpForm").off();
 $("#addEmpForm").on("submit", function(event) {
 	event.preventDefault();
 
@@ -50,6 +51,7 @@ $("#addEmpForm").on("submit", function(event) {
 });
 
 // 修改員工按鈕
+$("#updateEmpBtn").off();
 $("#updateEmpBtn").on("click",function(event) {
 	$("#updateEmpBtn").attr( "disabled","disabled" );
 	$(".updateEmpTd").show();
@@ -87,6 +89,7 @@ $("#updateEmpBtn").on("click",function(event) {
 //				});
 				
 				//按確定update
+				$("#updateEmpYes").off();
 				$("#updateEmpYes").on("click",{jsonObj:jsonObj},function(event) {
 					event.preventDefault();
 					var ajaxUrl = $(this).attr("value");
@@ -127,6 +130,7 @@ $("#updateEmpBtn").on("click",function(event) {
 		}
 	});
 	//按取消update
+	$("#updateEmpNo").off();
 	$("#updateEmpNo").on("click",function(event) {
 		$(".updateEmpTd").hide();
 		$("#updateEmpBtn").removeAttr( "disabled","disabled" );
@@ -134,6 +138,7 @@ $("#updateEmpBtn").on("click",function(event) {
 });
 
 // 移除員工按鈕
+$("#btnDelEmp").off();
 $("#btnDelEmp").on("click", function(event) {
 	$(".delEmpTd").fadeToggle();
 	$(".delEmpSubmit").click(function() {
@@ -162,6 +167,7 @@ $("#btnDelEmp").on("click", function(event) {
 var showPage = 5; //一次要show得筆數
 console.log();
 $("#listAllEmpTable tbody tr:gt("+(showPage-1)+")").hide(); //一開始先將第2頁之後的筆數隱藏
+$(".liListAllEmpPage").off();
 $(".liListAllEmpPage").on("click",{showPage:showPage}, function(event) {
 	var selectPageBtn = $(this).text(); //取得分頁按鈕的數字
 	console.log(selectPageBtn);
@@ -176,6 +182,7 @@ $(".liListAllEmpPage").on("click",{showPage:showPage}, function(event) {
 });
 
 //搜尋員工按鈕
+$("#btnListAllEmpSubmit").off();
 $("#btnListAllEmpSubmit").on("click", function(event) {
 	if($.trim($("#inputListAllEmpSearch").val()).length != 0){
 		$("#listAllEmpTable tbody tr").fadeOut("fast", function() { //一開始先將所有的筆數隱藏
