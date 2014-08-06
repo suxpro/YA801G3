@@ -32,6 +32,13 @@ public class RentServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// doPost(req, res); 
 
+		// 20140804 - 為了給租物上架審核查詢單一會員資料
+		if (req.getParameter("action") != null
+				&& req.getParameter("action").equals("getOne_For_Display")) {
+			doPost(req, res);
+			return;
+		}
+
 		// 用請求參數讀取圖片
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("image/jpeg");
@@ -545,72 +552,37 @@ public class RentServlet extends HttpServlet {
 			}
 		}
 
-		// if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
-		//
-		// List<String> errorMsgs = new LinkedList<String>();
-		// // Store this set in the request scope, in case we need to
-		// // send the ErrorPage view.
-		// req.setAttribute("errorMsgs", errorMsgs);
-		//
-		// try {
-		// /***************************1.接收請求參數 -
-		// 輸入格式的錯誤處理**********************/
-		// String str = req.getParameter("empno");
-		// if (str == null || (str.trim()).length() == 0) {
-		// errorMsgs.add("請輸入員工編號");
-		// }
-		// // Send the use back to the form, if there were errors
-		// if (!errorMsgs.isEmpty()) {
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/emp/select_page.jsp");
-		// failureView.forward(req, res);
-		// return;//程式中斷
-		// }
-		//
-		// Integer empno = null;
-		// try {
-		// empno = new Integer(str);
-		// } catch (Exception e) {
-		// errorMsgs.add("員工編號格式不正確");
-		// }
-		// // Send the use back to the form, if there were errors
-		// if (!errorMsgs.isEmpty()) {
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/emp/select_page.jsp");
-		// failureView.forward(req, res);
-		// return;//程式中斷
-		// }
-		//
-		// /***************************2.開始查詢資料*****************************************/
-		// EmpService empSvc = new EmpService();
-		// EmpVO empVO = empSvc.getOneEmp(empno);
-		// if (empVO == null) {
-		// errorMsgs.add("查無資料");
-		// }
-		// // Send the use back to the form, if there were errors
-		// if (!errorMsgs.isEmpty()) {
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/emp/select_page.jsp");
-		// failureView.forward(req, res);
-		// return;//程式中斷
-		// }
-		//
-		// /***************************3.查詢完成,準備轉交(Send the Success
-		// view)*************/
-		// req.setAttribute("empVO", empVO); // 資料庫取出的empVO物件,存入req
-		// String url = "/emp/listOneEmp.jsp";
-		// RequestDispatcher successView = req.getRequestDispatcher(url); //
-		// 成功轉交 listOneEmp.jsp
-		// successView.forward(req, res);
-		//
-		// /***************************其他可能的錯誤處理*************************************/
-		// } catch (Exception e) {
-		// errorMsgs.add("無法取得資料:" + e.getMessage());
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/emp/select_page.jsp");
-		// failureView.forward(req, res);
-		// }
-		// }
+		if ("getOne_For_Display".equals(action)) { 
+
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String rent_no = req.getParameter("rent_no");
+				// if (que_no == null || que_no.trim().length() == 0) {
+				// errorMsgs.put("que_no","問題編號不能為空");
+				// }
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				RentService rentSvc = new RentService();
+				RentVO rentVO = rentSvc.getOneRent(rent_no);
+
+				/*************************** 3.查詢完成,準備轉交(Send the Successview) ************/
+				req.setAttribute("rentVO", rentVO); // 資料庫取出的rentVO物件,存入req
+				String url = "/front/rent/listOneRent.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交
+																				
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.put("Exception", "無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front/rent/waiting_onShelf_rent.jsp");
+				failureView.forward(req, res);
+			}
+		}
 
 	}
 

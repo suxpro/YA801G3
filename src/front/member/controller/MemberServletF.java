@@ -52,6 +52,12 @@ public class MemberServletF extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 //		doPost(req, res);
 		
+		// 20140804 - 為了給租物上架審核查詢單一會員資料
+		if (req.getParameter("action") != null
+				&& req.getParameter("action").equals("getOne_For_Display")) {
+			doPost(req, res);
+			return;
+		}
 		
 		//用請求參數讀取圖片
 		res.setCharacterEncoding("UTF-8");
