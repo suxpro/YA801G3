@@ -388,11 +388,11 @@ public class OrdDAO implements OrdDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
+//		System.out.println("OrdDAO.391."+rent_no);
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_STMT);
+			pstmt = con.prepareStatement(GET_LIVE_ORD_STMT);
 
 			pstmt.setString(1, rent_no);
 
@@ -401,6 +401,7 @@ public class OrdDAO implements OrdDAO_interface {
 			while (rs.next()) {
 				// empVo �]�٬� Domain objects
 				ord_no = rs.getString("ord_no");
+//				System.out.println("OrdDAO.404."+ord_no);
 			}
 
 			// Handle any driver errors

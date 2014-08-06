@@ -10,6 +10,7 @@
     MemberService memSvc = new MemberService();
     OrdService ordSvc = new OrdService();
     pageContext.setAttribute("memSvcInfoRent", memSvc);
+    pageContext.setAttribute("ordSvcInfoRent", ordSvc);
 %>
 
 <%-- 錯誤表列 --%>
@@ -24,7 +25,8 @@
 </c:if>
 
 <div class="modal-header">
-	<h4 class="modal-title">${rentVO.rent_name}</h4><span id="rentStateSpan" class="label label-primary" data-rent-state="${rentVO.rent_sta}">${rent_staMap[rentVO.rent_sta]}</span>
+	<h4 class="modal-title">${rentVO.rent_name} | ${ordSvcInfoRent.hasLiveOrd(rentVO.rent_no)}</h4>
+	<span id="rentStateSpan" class="label label-primary" data-rent-state="${rentVO.rent_sta}">${rent_staMap[rentVO.rent_sta]}</span>
 </div>
 
 <div class="modal-body">
