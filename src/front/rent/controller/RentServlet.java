@@ -30,7 +30,7 @@ public class RentServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		// doPost(req, res);
+		// doPost(req, res); 
 
 		// 用請求參數讀取圖片
 		req.setCharacterEncoding("UTF-8");
