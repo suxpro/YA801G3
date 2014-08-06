@@ -56,7 +56,7 @@
          </div>
 		<!-- 租物日期 -->
 		<div class="col-md-3">
-		  <div id="datepicker">!datepicker</div>
+		  <div id="datepicker" style="font-size: 60%;"></div>
 		</div>
 	</div>
 	<!-- /row -->
