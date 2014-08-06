@@ -28,9 +28,9 @@
 	Vector<String> rentList = (Vector<String>)session.getAttribute("rentList");
 	if(rentList == null){
 		rentList = new Vector<String>();  
-		rentList.add("R10004");
-		rentList.add("R10005");
-		rentList.add("R10016");
+		rentList.add("R10001");
+		rentList.add("R10002");
+		rentList.add("R10003");
 	
 		session.setAttribute("rentList",rentList);
 	}
@@ -110,7 +110,7 @@
 <%-- 						.getAttribute("rentVO")).getLast_mod_time())%></td> --%>
 
 				<td>
-					<FORM method="post" action="<%=request.getContextPath()%>/front/ord/ord.do">
+					<FORM method="post" action="<%=request.getContextPath()%>/front/cart/cartToOrd.jsp">
 						<input type="submit" value="前往結帳"> <input type="hidden"
 							name="rent_no" value="${rentVO.rent_no}"> <input
 							type="hidden" name="action" value="getOne_For_Update">
