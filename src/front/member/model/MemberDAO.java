@@ -2,7 +2,6 @@ package front.member.model;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +12,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import front.trade.model.*;
 
 public class MemberDAO implements MemberDAO_interface {
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
@@ -33,7 +34,7 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String DELETE = "DELETE FROM member where mem_no = ?";
 	private static final String UPDATE = "UPDATE member set mem_id=?, mem_pwd=?, mem_pic=?, mem_name=?, mem_sex=?, mem_cell=?, mem_mail=?, loc_no=?, mem_adrs=?, mem_lev=?, mem_mbl=?, mem_ileg=?, mem_ases=?, mem_ver=?, mem_date=?, mem_pic_info=?, mem_vpic=?, mem_vpic_info=? where mem_no = ?";
 	private static final String UPDATE_INFO = "UPDATE member set mem_pwd=?, mem_pic=?, mem_name=?, mem_sex=?, mem_cell=?, mem_mail=?, loc_no=?, mem_adrs=?, mem_pic_info=?, mem_vpic=?, mem_vpic_info=? where mem_no = ?";
-
+	private static final String UPDATE_VIP = "UPDATE member set mem_lev=? , mem_mbl=? where mem_no = ?";
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -279,6 +280,95 @@ public class MemberDAO implements MemberDAO_interface {
 
 	}
 
+	
+	
+	@Override
+	public void updateVIP(MemberVO memberVO , List<TradeVO> list) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+    		
+    		// 先新增部門
+//    		String cols[] = {"MNO"};
+			pstmt = con.prepareStatement(UPDATE_VIP);
+			
+			pstmt.setString(1, memberVO.getMlev());
+			pstmt.setDouble(2, memberVO.getMbalance());
+			pstmt.setString(3, memberVO.getMno());
+
+			pstmt.executeUpdate();
+			
+			TradeDAO trade_dao = new TradeDAO();
+			TradeVO tradeVO = list.get(0);
+			trade_dao.insertWithVIP(tradeVO, con);
+			
+//			//掘取對應的自增主鍵值
+//			String next_mno = null;
+//			ResultSet rs = pstmt.getGeneratedKeys();
+//			if (rs.next()) {
+//				next_mno = rs.getString(1);
+//				System.out.println("自增主鍵值= " + next_mno +"(剛新增成功的部門編號)");
+//			} else {
+//				System.out.println("未取得自增主鍵值");
+//			}
+//			rs.close();
+//			
+//			// 再同時新增員工
+//			TradeDAO dao = new TradeDAO();
+//			System.out.println("list.size()-A="+list.size());
+//			for (TradeVO aTrade : list) {
+//				aTrade.setMno(next_mno) ;
+//				dao.insertWithVIP(aTrade, con);
+//			}
+//			
+//			// 2●設定於 pstm.executeUpdate()之後
+			con.commit();
+			con.setAutoCommit(true);
+//			System.out.println("list.size()-B="+list.size());
+//			System.out.println("新增部門編號" + next_mno + "時,共有員工" + list.size()+ "人同時被新增");
+
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-member");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
 	@Override
 	public void delete(String mno) {
 
@@ -464,7 +554,7 @@ public class MemberDAO implements MemberDAO_interface {
 
 	public static void main(String[] args) throws IOException {
 
-		MemberJDBCDAO dao = new MemberJDBCDAO();
+//		MemberDAO dao = new MemberDAO();
 
 		// File pic = new File("C:\\Users\\cuser\\Desktop\\CpuPJV6.jpg");
 		// FileInputStream fins1 = new FileInputStream(pic);
@@ -472,7 +562,24 @@ public class MemberDAO implements MemberDAO_interface {
 		// byte[] b1= new byte[len1];
 		// fins1.read(b1);
 		// fins1.close();
-
+		
+		 // 新增 自增值
+//		 MemberVO memberVO1 = new MemberVO();
+//		 memberVO1.setMlev("V");
+//		 memberVO1.setMbalance(new Double(88888));
+//		 
+//			List<TradeVO> VIPList = new ArrayList<TradeVO>(); // 準備置入員工數人
+//			TradeVO tradeVOxx = new TradeVO();   // 員工POJO1
+//			tradeVOxx.setMno("M10005");
+//			tradeVOxx.setTmid("1596258445612365");
+//			tradeVOxx.setTstas("VIP點數支出");
+//			tradeVOxx.setTfunds(new Double(3000));
+//			tradeVOxx.setTin("Y");
+//			
+//			VIPList.add(tradeVOxx);
+//			
+//			dao.updateVIP(memberVO1 , VIPList);
+		
 		// // 新增
 		// MemberVO memberVO1 = new MemberVO();
 		// memberVO1.setMid("hahadamn");

@@ -2,6 +2,8 @@ package front.member.model;
 
 import java.util.*;
 
+import front.trade.model.TradeVO;
+
 public class MemberService {
 
 	private MemberDAO_interface dao;
@@ -60,6 +62,29 @@ public class MemberService {
 		memberVO.setMvpic_info(mvpic_info);
 		dao.updateInfo(memberVO);
 				
+		return memberVO;
+	}
+
+	
+	public MemberVO updateVIP(String mno, String mlev, Double mbalance){
+		MemberVO memberVO = new MemberVO();
+		
+		memberVO.setMno(mno);
+		memberVO.setMlev(mlev);
+		memberVO.setMbalance(mbalance);
+		
+		List<TradeVO> VIPList = new ArrayList<TradeVO>(); // 準備置入員工數人
+		TradeVO tradeVOxx = new TradeVO();   // 員工POJO1
+		tradeVOxx.setMno(mno);
+//		tradeVOxx.setTmid("1596258445612365");
+		tradeVOxx.setTstas("VIP點數支出");
+		tradeVOxx.setTfunds(new Double(3000));
+//		tradeVOxx.setTin("Y");
+		
+		VIPList.add(tradeVOxx);
+		
+		dao.updateVIP(memberVO , VIPList);
+
 		return memberVO;
 	}
 	

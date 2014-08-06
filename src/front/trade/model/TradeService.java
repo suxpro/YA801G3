@@ -11,12 +11,12 @@ public class TradeService {
 		dao = new TradeDAO();
 	}
 
-	public TradeVO addTrade(String mno, String tmid, java.sql.Date tdate, String tstas, Double tfunds, String tin) {
+	public TradeVO addTrade(String mno, String tmid, String tstas, Double tfunds, String tin) {
 		// 新增
 		TradeVO tradeVO = new TradeVO();
 		tradeVO.setMno(mno);
 		tradeVO.setTmid(tmid);
-		tradeVO.setTdate(tdate);
+//		tradeVO.setTdate(tdate);
 		tradeVO.setTstas(tstas);
 		tradeVO.setTfunds(tfunds);
 		tradeVO.setTin(tin);

@@ -161,6 +161,16 @@
 		<servlet-name>MemberServletF</servlet-name>
 		<url-pattern>/front/member/member.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>updateVIP</servlet-name>
+		<servlet-class>front.member.controller.updateVIP</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>updateVIP</servlet-name>
+		<url-pattern>/front/member/memberVIP.do</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>TradeServletF</servlet-name>
 		<servlet-class>front.trade.controller.TradeServletF</servlet-class>

@@ -659,6 +659,72 @@ public class MemberServletF extends HttpServlet {
 			}
 		}
 		
+		if ("updateVIP".equals(action)){ // 來自update_member_input.jsp的請求
+
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			String requestURL = multi.getParameter("requestURL"); // 送出修改的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】
+			req.setAttribute("requestURL", requestURL); // 送出修改的來源網頁路徑, 存入req
+			
+			String whichPage = multi.getParameter("whichPage"); // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)
+			req.setAttribute("whichPage", whichPage);   // 送出修改的來源網頁的第幾頁, 存入req(只用於:istAllEmp.jsp)
+
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String mno = multi.getParameter("mno").trim();
+				
+				String mlev = multi.getParameter("mlev").trim();
+
+				Double mbalance = null;
+				try {
+					mbalance = new Double(multi.getParameter("mbalance").trim());
+				} catch (NumberFormatException e) {
+					mbalance = 0.0;
+					errorMsgs.put("mbalance", "帳戶餘額請填數字.");
+				}
+
+				MemberVO memberVO = new MemberVO();
+				memberVO.setMno(mno);
+				memberVO.setMlev(mlev);
+				memberVO.setMbalance(mbalance);			
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front/member/updateVIP.jsp");
+					failureView.forward(req, res);
+					return; // 程式中斷
+				}
+
+				/*************************** 2.開始修改資料 *****************************************/
+				MemberService memberSvc = new MemberService();
+				memberVO = memberSvc.updateVIP(mno, mlev, mbalance);
+
+				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
+				
+//				String url = requestURL+"?whichPage="+whichPage+"&mno="+mno; // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)和修改的是哪一筆
+				
+				String url = "/front/member/listAllMember.jsp";
+				
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.put("Exception", "修改資料失敗:" + e.getMessage());
+				
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front/member/updateVIP.jsp");
+				failureView.forward(req, res);
+			}
+		
+		}
+		
 		if ("updateInfo".equals(action)) { // 來自update_member_input.jsp的請求
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
@@ -764,8 +830,11 @@ public class MemberServletF extends HttpServlet {
 				if (madrs == null || (madrs.trim()).length() == 0) {
 					errorMsgs.put("madrs", "請輸入地址");
 				}
-
-				MemberVO memberVO = new MemberVO();
+				
+				//20140806 - modified by Barnett Wan
+				MemberService memberSVC = new MemberService();
+				MemberVO memberVO = memberSVC.getOneMember(mno);
+				
 				memberVO.setMno(mno);
 //				memberVO.setMid(mid);
 				memberVO.setMpwd(mpwd);

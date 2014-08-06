@@ -77,7 +77,7 @@
 				<td>${mem_staMap[memberVO.msex]}</td>
 				<td>${memberVO.mcell}</td>
 				<td>${memberVO.mmail}</td>
-				<td>${memberVO.locno}</td>
+				<td>${loc_staMap[memberVO.locno]}</td>
 				<td>${memberVO.madrs}</td>
 				<td>${mem_staMap[memberVO.mlev]}</td>
 				<td>${memberVO.mbalance}</td>

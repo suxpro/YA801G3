@@ -249,14 +249,7 @@ public class TradeServletF extends HttpServlet {
 				if (tmid == null || (tmid.trim()).length() == 0) {
 					errorMsgs.put("tmid", "請輸入金融會員帳號16個數字");
 				}
-				java.sql.Date tdate = null;
-				try {
-					tdate = java.sql.Date.valueOf(multi.getParameter("tdate")
-							.trim());
-				} catch (IllegalArgumentException e) {
-					tdate = new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.put("tdate", "請輸入日期!");
-				}
+				
 				String tstas = multi.getParameter("tstas").trim();
 				Double tfunds = null;
 				try {
@@ -271,7 +264,7 @@ public class TradeServletF extends HttpServlet {
 				TradeVO tradeVO = new TradeVO();
 				tradeVO.setMno(mno);
 				tradeVO.setTmid(tmid);
-				tradeVO.setTdate(tdate);
+//				tradeVO.setTdate(tdate);
 				tradeVO.setTstas(tstas);
 				tradeVO.setTfunds(tfunds);
 				tradeVO.setTin(tin);
@@ -287,7 +280,7 @@ public class TradeServletF extends HttpServlet {
 
 				/*************************** 2.開始新增資料 ***************************************/
 				TradeService tradeSvc = new TradeService();
-				tradeVO = tradeSvc.addTrade(mno, tmid, tdate, tstas, tfunds,
+				tradeVO = tradeSvc.addTrade(mno, tmid, tstas, tfunds,
 						tin);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/

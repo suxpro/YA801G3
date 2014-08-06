@@ -1,7 +1,6 @@
 package front.trade.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +11,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
 
 public class TradeDAO implements TradeDAO_interface {
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
@@ -25,7 +25,7 @@ public class TradeDAO implements TradeDAO_interface {
 		}
 	}
 	
-	private static final String INSERT_STMT = "INSERT INTO trade (tra_no, mem_no, tra_mem_id, tra_time, tra_stas, tra_funds, tra_in) VALUES ('T'||TO_CHAR(trade_seq.NEXTVAL), ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO trade (tra_no, mem_no, tra_mem_id, tra_time, tra_stas, tra_funds, tra_in) VALUES ('T'||TO_CHAR(trade_seq.NEXTVAL), ?, ?, SYSDATE, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT tra_no, mem_no, tra_mem_id, to_char(tra_time,'yyyy-mm-dd') tra_time, tra_stas, tra_funds, tra_in FROM trade order by tra_no";
 	private static final String GET_ONE_STMT = "SELECT tra_no, mem_no, tra_mem_id, to_char(tra_time,'yyyy-mm-dd') tra_time, tra_stas, tra_funds, tra_in FROM trade where tra_no = ?";
 	private static final String DELETE = "DELETE FROM trade where tra_no = ?";
@@ -46,10 +46,10 @@ public class TradeDAO implements TradeDAO_interface {
 
 			pstmt.setString(1, tradeVO.getMno());
 			pstmt.setString(2, tradeVO.getTmid());
-			pstmt.setDate(3, tradeVO.getTdate());
-			pstmt.setString(4, tradeVO.getTstas());
-			pstmt.setDouble(5, tradeVO.getTfunds());
-			pstmt.setString(6, tradeVO.getTin());
+//			pstmt.setDate(3, tradeVO.getTdate());
+			pstmt.setString(3, tradeVO.getTstas());
+			pstmt.setDouble(4, tradeVO.getTfunds());
+			pstmt.setString(5, tradeVO.getTin());
 
 
 
@@ -129,7 +129,6 @@ public class TradeDAO implements TradeDAO_interface {
 	
 		
 	}
-
 
 
 	@Override
@@ -297,12 +296,64 @@ public class TradeDAO implements TradeDAO_interface {
 		}
 		return list;
 	}
+	
+
+
+	@Override
+	public void insertWithVIP(TradeVO tradeVO, Connection con) {
+
+		PreparedStatement pstmt = null;
+
+		try {
+
+//			con = ds.getConnection();
+			pstmt = con.prepareStatement(INSERT_STMT);
+
+			pstmt.setString(1, tradeVO.getMno());
+			pstmt.setString(2, tradeVO.getTmid());
+//			pstmt.setDate(3, tradeVO.getTdate());
+			pstmt.setString(3, tradeVO.getTstas());
+			pstmt.setDouble(4, tradeVO.getTfunds());
+			pstmt.setString(5, tradeVO.getTin());
+
+
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-trade");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+
+		
+	}
 
 
 
 	public static void main(String[] args) {
 
-		TradeJDBCDAO dao = new TradeJDBCDAO();
+//		TradeJDBCDAO dao = new TradeJDBCDAO();
 
 //		// 新增
 //		TradeVO tradeVO1 = new TradeVO();
