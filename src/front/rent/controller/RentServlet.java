@@ -583,7 +583,35 @@ public class RentServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+//		小豬加,租物區show租物資料
+		if ("show".equals(action)) {
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
 
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String rent_no = req.getParameter("rent_no");
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				RentService rentSvc = new RentService();
+				RentVO rentVO = rentSvc.getOneRent(rent_no);
+
+				/*************************** 3.查詢完成,準備轉交(Send the Successview) ************/
+				req.setAttribute("rentVO", rentVO); // 資料庫取出的rentVO物件,存入req
+				String url = "/front/rent/infoRent.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交
+																				// update_rent_input.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.put("Exception", "無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front/rent/infoRent.jsp");
+				failureView.forward(req, res);
+			}
+		}
 	}
 
 	public void init() throws ServletException {
