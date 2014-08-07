@@ -619,6 +619,59 @@ public class RentServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+//		小豬加,使用者增加租物至Cart,存session
+		if ("addRentToCart".equals(action)) {
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			// 【取得 session】
+			HttpSession session = req.getSession();
+		    
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String rent_no = req.getParameter("rent_no");
+				/*************************** 2.開始判斷與塞資料 ****************************************/
+			    Vector<String> rentList = (Vector<String>)session.getAttribute("rentList");
+				if(rentList == null)
+					rentList = new Vector<String>();
+				
+				Boolean hasRent = false;
+				for (String rentStr : rentList)
+				    if(rentStr.equals(rent_no))
+				    	hasRent = true;
+				
+				if(!hasRent){
+					rentList.add(rent_no);
+					System.out.println("RentServlet.639.增加租物"+rent_no+"存session");
+				} else 
+					System.out.println("RentServlet.641.已有租物"+rent_no+"在session");
+				
+				/*************************** 3.塞資料完成,準備轉交(Send the Successview) ************/
+				session.setAttribute("rentList", rentList);
+				
+				/*************************** 4.json測試,前端AJAX console.log接 ****************************/
+				String resJson = "{\"resJson\" : [";
+				for (String rentStr : rentList) {
+					resJson += "\""+rentStr+"\",";
+				}
+				resJson = resJson.substring(0,resJson.length() - 1) + "]}";
+//			    System.out.println("RentServlet.642."+resJson);
+			    PrintWriter out = res.getWriter();
+			    out.write(resJson);
+			    out.flush();
+			    out.close();
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.put("Exception", "無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front/rent/infoRent.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		
+		
 	}
 
 	public void init() throws ServletException {

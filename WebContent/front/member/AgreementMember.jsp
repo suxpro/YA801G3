@@ -22,7 +22,7 @@ function agree() {
 <style>
 textarea {
 	margin: 15px;
-	width: 560px;
+	width: 540px;
 	height: 350px;
 	overflow: auto;
 	border: 0;

@@ -1,0 +1,168 @@
+@CHARSET "UTF-8";
+/* 容器 */
+/* 刪除所有外邊框、內填充和邊框 */
+.ui-datepicker,
+.ui-datepicker table,
+.ui-datepicker tr,
+.ui-datepicker td,
+.ui-datepicker th {
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-spacing: 0;
+}
+
+/* 定義日曆容器的樣式，首先添加背景顏色、圓角和陰影，我們將字體設為“Tahoma”並設置字體大小。 */
+.ui-datepicker {
+    display: none;
+    width: 294px;
+    padding: 35px;
+    cursor: default;
+ 
+    text-transform: uppercase;
+    font-family: Tahoma;
+    font-size: 12px;
+ 
+    background: #141517;
+ 
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+ 
+    -webkit-box-shadow: 0px 1px 1px rgba(255,255,255, .1), inset 0px 1px 1px rgb(0,0,0);
+    -moz-box-shadow: 0px 1px 1px rgba(255,255,255, .1), inset 0px 1px 1px rgb(0,0,0);
+    box-shadow: 0px 1px 1px rgba(255,255,255, .1), inset 0px 1px 1px rgb(0,0,0);
+}
+
+/* 頭部 */
+/* 為了定義日曆頭部（月和年）樣式，我們需要改變字體顏色、添加一個底部邊框以及更多的基本樣式 */
+.ui-datepicker-header {
+    position: relative;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d6d6d6;
+}
+ 
+.ui-datepicker-title { text-align: center; }
+ 
+.ui-datepicker-month {
+    position: relative;
+    padding-right: 15px;
+    color: #565656;
+}
+ 
+.ui-datepicker-year {
+    padding-left: 8px;
+    color: #a8a8a8;
+}
+
+/* 我們將使用:before偽類選擇器來添加綠色小圓點，這將允許我們在“月份”元素後插入內容，然後定義它的樣式和位置。 */
+.ui-datepicker-month:before {
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: 0;
+    width: 5px;
+    height: 5px;
+    content: '';
+ 
+    background: #a5cd4e;
+    background: -moz-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a5cd4e), color-stop(100%,#6b​​8f1a));
+    background: -webkit-linear-gradient(top, #a5cd4e 0%,#6b​​8f1a 100%);
+    background: -o-linear-gradient(top, #a5cd4e 0%,#6b​​8f1a 100%);
+    background: -ms-linear-gradient(top, #a5cd4e 0%,#6b​​8f1a 100%);
+    background: linear-gradient(top, #a5cd4e 0%,#6b​​8f1a 100%);
+ 
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+/* 上個月和下個月 */
+/* 我們將使用一個背景圖像定義前一個和下一個箭頭的樣式，然後我們定位一個在左邊，一個在右邊。 */
+.ui-datepicker-prev,
+.ui-datepicker-next {
+    position: absolute;
+    top: -2px;
+    padding: 5px;
+    cursor: pointer;
+}
+ 
+.ui-datepicker-prev {
+    left: 0;
+    padding-left: 0;
+}
+ 
+.ui-datepicker-next {
+    right: 0;
+    padding-right: 0;
+}
+ 
+.ui-datepicker-prev span,
+.ui-datepicker-next span{
+    display: block;
+    width: 5px;
+    height: 10px;
+    text-indent: -9999px;
+ 
+    background-image: url(../img/arrows.png);
+}
+ 
+.ui-datepicker-prev span { background-position: 0px 0px; }
+ 
+.ui-datepicker-next span { background-position: -5px 0px; }
+ 
+.ui-datepicker-prev-hover span { background-position: 0px -10px; }
+ 
+.ui-datepicker-next-hover span { background-position: -5px -10px; }
+
+/* 日曆樣式 */
+/* 定義星期中每個日期的樣式，我們將添加一個頂部和底部的內填充，並且改變它的顏色。 */
+.ui-datepicker-calendar th {
+    padding-top: 15px;
+    padding-bottom: 10px;
+ 
+    text-align: center;
+    font-weight: normal;
+    color: #a8a8a8;
+}
+
+/* 然後我們將通過添加一些內填充，改變顏色以及給每個數字添加一個透明邊框來定義“日期網格”的樣式。有必要給激活日期添加一個邊框，當我們點擊一個日期時我們需要給它添加一個透明邊框，以避免跳轉。 */
+.ui-datepicker-calendar td {
+    padding: 0 7px;
+ 
+    text-align: center;
+    line-height: 26px;
+}
+ 
+.ui-datepicker-calendar .ui-state-default {
+    display: block;
+    width: 26px;
+    outline: none;
+ 
+    text-decoration: none;
+    color: #a8a8a8;
+ 
+    border: 1px solid transparent;
+}
+
+/* 在激活狀態下我們將改變文字和邊框顏色為綠色，對於月份中的其它日期將改變為比較暗的顏色。 */
+.ui-datepicker-calendar .ui-state-active {
+    color: #6a9113;
+    border: 1px solid #6a9113;
+}
+ 
+.ui-datepicker-other-month .ui-state-default { color: #565656; }
+
+
+
+
+
+
+
+
+
+
+
+
+

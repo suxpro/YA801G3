@@ -72,13 +72,13 @@
 				<td><c:forEach var="rentVO" items="${rentSvc.all}">
 						<c:if test="${reportVO.rr_no==rentVO.rent_no}">
 	                    ${rentVO.rent_no}¡i${rentVO.rent_name}¡j
-                    </c:if>
+                    	</c:if>
 					</c:forEach></td>
 				
 				<td><c:forEach var="memberVO" items="${memberSvc.all}">
 						<c:if test="${reportVO.rm_byp==memberVO.mno}">
 	                    ${memberVO.mno}¡i${memberVO.mname}¡j
-                    </c:if>
+                   		 </c:if>
 					</c:forEach></td>
 
 				<td>${reportVO.rtime}</td>

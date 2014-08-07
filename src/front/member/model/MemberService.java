@@ -66,7 +66,7 @@ public class MemberService {
 	}
 
 	
-	public MemberVO storedMoney(String mno, Double mbalance , Double newM){
+	public MemberVO storedMoney(String mno, Double mbalance , Double cash){
 
 		MemberVO memberVO = new MemberVO();
 		
@@ -79,7 +79,7 @@ public class MemberService {
 		tradeVOxx.setMno(mno);
 //		tradeVOxx.setTmid(tmid);
 		tradeVOxx.setTstas("金錢匯入");
-		tradeVOxx.setTfunds(newM);
+		tradeVOxx.setTfunds(cash);
 //		tradeVOxx.setTin("Y");
 		
 		VIPList.add(tradeVOxx);

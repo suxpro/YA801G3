@@ -109,16 +109,15 @@ public class updateVIP extends HttpServlet {
 				String mno = multi.getParameter("mno").trim();
 				
 				String mlev = multi.getParameter("mlev").trim();
+				
+				MemberService memberSvcxx = new MemberService();
+				MemberVO memberVO = memberSvcxx.getOneMember(mno);
 
-				Double mbalance = null;
-				try {
-					mbalance = new Double(multi.getParameter("mbalance").trim());
-				} catch (NumberFormatException e) {
-					mbalance = 0.0;
-					errorMsgs.put("mbalance", "帳戶餘額請填數字.");
-				}
+				Double mbalance = memberVO.getMbalance();
+				Double vip = new Double(multi.getParameter("vip"));
+				mbalance -= vip ;
 
-				MemberVO memberVO = new MemberVO();
+//				MemberVO memberVO = new MemberVO();
 				memberVO.setMno(mno);
 				memberVO.setMlev(mlev);
 				memberVO.setMbalance(mbalance);			

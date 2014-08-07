@@ -106,27 +106,18 @@ public class storedMoney extends HttpServlet {
 
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String mno = multi.getParameter("mno").trim();
-				
-
-				Double mbalance = null;
-				try {
-					mbalance = new Double(multi.getParameter("mbalance").trim());
-				} catch (NumberFormatException e) {
-					mbalance = 0.0;
-					errorMsgs.put("mbalance", "帳戶餘額請填數字.");
-				}
+				String mno = multi.getParameter("mno").trim();				
 				
 				MemberService memberSvcxx = new MemberService();
 				MemberVO memberVO = memberSvcxx.getOneMember(mno);
 				
-				Double a = memberVO.getMbalance();
-				Double newM = new Double(multi.getParameter("mbalance"));
-				a += newM;
+				Double mbalance = memberVO.getMbalance();
+				Double cash = new Double(multi.getParameter("cash"));
+				mbalance += cash;
 				
 //				MemberVO memberVO = new MemberVO();
 				memberVO.setMno(mno);
-				memberVO.setMbalance(a);			
+				memberVO.setMbalance(mbalance);			
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -139,7 +130,7 @@ public class storedMoney extends HttpServlet {
 
 				/*************************** 2.開始修改資料 *****************************************/
 				MemberService memberSvc = new MemberService();
-				memberVO = memberSvc.storedMoney(mno, a,newM);
+				memberVO = memberSvc.storedMoney(mno, mbalance, cash);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
