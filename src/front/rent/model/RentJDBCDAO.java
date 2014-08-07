@@ -506,4 +506,10 @@ public class RentJDBCDAO implements RentDAO_interface {
 		}
 	}
 
+	@Override
+	public void updateRent_sta(RentVO rentVO, Connection con) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -169,50 +169,50 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		//return updateCount;
 	}
 
-	@Override
-	public void delete(String ord_no, String ord_cc_cause) {
-		int updateCount = 0;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(DELETE);
-			
-			pstmt.setString(1, ord_cc_cause);
-			pstmt.setString(2, ord_no);
-			
-			pstmt.executeUpdate();
-
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		//return updateCount;
-	}
+//	@Override
+//	public void delete(String ord_no, String ord_cc_cause) {
+//		int updateCount = 0;
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//
+//		try {
+//
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			pstmt = con.prepareStatement(DELETE);
+//			
+//			pstmt.setString(1, ord_cc_cause);
+//			pstmt.setString(2, ord_no);
+//			
+//			pstmt.executeUpdate();
+//
+//			// Handle any driver errors
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//			// Handle any SQL errors
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//			// Clean up JDBC resources
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		//return updateCount;
+//	}
 
 	@Override
 	public OrdVO findByPrimaryKey(String ord_no) {
@@ -595,5 +595,11 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		    System.out.print(aOrd.getOrd_cc_cause());						
 			System.out.println();
 		}
+	}
+
+	@Override
+	public void delete(OrdVO ordVO) {
+		// TODO Auto-generated method stub
+		
 	}
 }

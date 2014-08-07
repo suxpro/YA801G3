@@ -95,8 +95,8 @@
 	
 			<tr align='center' valign='middle'>
 				<td><img width="100" height="100" src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=pic1"></td>		
-                <td><a href="javascript:presses${s.index}()">${rentVO.rent_name}</a></td>
-				<td><a href="javascript:presses2${s.index}()">${memberVO.mname}</a></td>			
+                <td><a href="javascript:pressesA${s.index}()">${rentVO.rent_name}</a></td>
+				<td><a href="javascript:pressesB${s.index}()">${memberVO.mname}</a></td>			
 				<td>${rentVO.rent_dps         }元</td>
 				<td>${rentVO.unit_price       }元</td>
 				<td>${loc_staMap[rentVO.loc_no]}</td>
@@ -128,11 +128,11 @@
 			
 			<script>
 				//超連結至該租物
-         		function presses${s.index}(){
+         		function pressesA${s.index}(){
         	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
          		}
 				//超連結至該出租人
-         		function presses2${s.index}(){
+         		function pressesB${s.index}(){
         	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${rentVO.les_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
          		}
          		

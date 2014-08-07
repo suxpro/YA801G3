@@ -8,6 +8,15 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import front.member.model.MemberDAO;
+import front.member.model.MemberVO;
+import front.remind.model.RemindDAO;
+import front.remind.model.RemindVO;
+import front.rent.model.RentDAO;
+import front.rent.model.RentVO;
+import front.trade.model.TradeDAO;
+import front.trade.model.TradeVO;
+
 public class OrdDAO implements OrdDAO_interface {
 
 	private static DataSource ds = null;
@@ -36,7 +45,7 @@ public class OrdDAO implements OrdDAO_interface {
 	// "VALUES ('O'||TO_CHAR(ord_seq.NEXTVAL), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
 	// + "?, ?, ?, ?, SYSDATE, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-	private static final String GET_ALL_STMT = "SELECT * FROM ord ORDER BY ord_no";
+	private static final String GET_ALL_STMT = "SELECT * FROM ord WHERE ord_sta NOT IN ('CC_ORD','CLS','AB_CLS') ORDER BY ord_no";
 	private static final String GET_ONE_STMT = "SELECT * FROM ord WHERE ord_no = ?";
 	// private static final String DELETE =
 	// "DELETE FROM ord where ord_no = ?";
@@ -52,6 +61,9 @@ public class OrdDAO implements OrdDAO_interface {
 		try {
 
 			con = ds.getConnection();
+			// 1●設定於 pstm.executeUpdate()之前
+			con.setAutoCommit(false);
+
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, ordVO.getRent_no());
@@ -69,25 +81,57 @@ public class OrdDAO implements OrdDAO_interface {
 			pstmt.setInt(13, ordVO.getTra_total());
 			pstmt.setString(14, ordVO.getLoc_no());
 			pstmt.setString(15, ordVO.getRec_addr());
-			// pstmt.setInt(16, ordVO.getLes_ases());
-			// pstmt.setString(17, ordVO.getLes_ases_ct());
-			// pstmt.setInt(18, ordVO.getTen_ases());
-			// pstmt.setString(19, ordVO.getTen_ases_ct());
-			// pstmt.setTimestamp(20, ordVO.getW_apr_time());
-			// pstmt.setTimestamp(20, ordVO.getW_ship_time());
-			// pstmt.setTimestamp(21, ordVO.getDtbt_time());
-			// pstmt.setTimestamp(22, ordVO.getRec_com_time());
-			// pstmt.setTimestamp(23, ordVO.getRent_exp_time());
-			// pstmt.setTimestamp(24, ordVO.getRt_time());
-			// pstmt.setTimestamp(25, ordVO.getRt_com_time());
-			// pstmt.setTimestamp(26, ordVO.getCls_time());
-			// pstmt.setTimestamp(27, ordVO.getCc_ord_time());
-			// pstmt.setString(28, ordVO.getOrd_cc_cause());
 
 			pstmt.executeUpdate();
 
+			// 修改租物狀態
+			RentDAO rentDAO = new RentDAO();
+			RentVO rentVO = rentDAO.findByPrimaryKey(ordVO.getRent_no());
+			rentVO.setRent_sta("A_RENT"); // 更改租物狀態為已出租
+			rentDAO.updateRent_sta(rentVO, con);
+
+			// 扣除會員帳戶餘額
+			MemberDAO memberDAO = new MemberDAO();
+			MemberVO memberVO = memberDAO.findByPrimaryKey(ordVO.getTen_no());
+			Double mbalance = memberVO.getMbalance();
+			mbalance = mbalance - ordVO.getTra_total(); // 餘額扣除訂單費用
+			memberVO.setMbalance(mbalance);
+			memberDAO.updateMem_mbl(memberVO, con);
+
+			// 新增交易紀錄
+			TradeDAO tradeDAO = new TradeDAO();
+			TradeVO tradeVO = new TradeVO();
+			tradeVO.setMno(memberVO.getMno());
+			tradeVO.setTstas("點數支出");
+			tradeVO.setTfunds(ordVO.getTra_total().doubleValue());
+			tradeDAO.insertForOrd(tradeVO, con);
+
+			// 新增提醒記錄
+			RemindDAO remindDAO = new RemindDAO();
+			RemindVO remindVO = new RemindVO();
+			remindVO.setMno(rentVO.getLes_no());// 注意:該提醒的是出租方
+			remindVO.setRno(ordVO.getRent_no());
+			remindVO.setRstas("出租確認");
+			remindVO.setRdes("您有一筆新的訂單需確認(" + rentVO.getRent_name() + ") !");
+			remindDAO.insertForOrd(remindVO, con);
+
+			// 完成所有資料修改
+			con.commit();
+			con.setAutoCommit(true);
+
 			// Handle any driver errors
 		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-member");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
@@ -112,88 +156,138 @@ public class OrdDAO implements OrdDAO_interface {
 
 	@Override
 	public void update(OrdVO ordVO) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE);
-
-			pstmt.setString(1, ordVO.getRent_no());
-			pstmt.setString(2, ordVO.getTen_no());
-			pstmt.setString(3, ordVO.getOrd_sta());
-			pstmt.setString(4, ordVO.getTra_mode());
-			pstmt.setInt(5, ordVO.getFreight());
-			pstmt.setDate(6, ordVO.getTen_date());
-			pstmt.setDate(7, ordVO.getExp_date());
-			pstmt.setInt(8, ordVO.getTen_days());
-			pstmt.setInt(9, ordVO.getRent_total());
-			pstmt.setInt(10, ordVO.getOt_days());
-			pstmt.setInt(11, ordVO.getInit_dps());
-			pstmt.setInt(12, ordVO.getReal_dps());
-			pstmt.setInt(13, ordVO.getTra_total());
-			pstmt.setString(14, ordVO.getLoc_no());
-			pstmt.setString(15, ordVO.getRec_addr());
-			pstmt.setInt(16, ordVO.getLes_ases());
-			pstmt.setString(17, ordVO.getLes_ases_ct());
-			pstmt.setInt(18, ordVO.getTen_ases());
-			pstmt.setString(19, ordVO.getTen_ases_ct());
-			pstmt.setTimestamp(20, ordVO.getW_apr_time());
-			pstmt.setTimestamp(21, ordVO.getW_ship_time());
-			pstmt.setTimestamp(22, ordVO.getDtbt_time());
-			pstmt.setTimestamp(23, ordVO.getRec_com_time());
-			pstmt.setTimestamp(24, ordVO.getRent_exp_time());
-			pstmt.setTimestamp(25, ordVO.getRt_time());
-			pstmt.setTimestamp(26, ordVO.getRt_com_time());
-			pstmt.setTimestamp(27, ordVO.getCls_time());
-			pstmt.setTimestamp(28, ordVO.getCc_ord_time());
-			pstmt.setString(29, ordVO.getOrd_cc_cause());
-			pstmt.setString(30, ordVO.getOrd_no());
-
-			pstmt.executeUpdate();
-
-			// Handle any driver errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
+		// Connection con = null;
+		// PreparedStatement pstmt = null;
+		//
+		// try {
+		//
+		// con = ds.getConnection();
+		// pstmt = con.prepareStatement(UPDATE);
+		//
+		// pstmt.setString(1, ordVO.getRent_no());
+		// pstmt.setString(2, ordVO.getTen_no());
+		// pstmt.setString(3, ordVO.getOrd_sta());
+		// pstmt.setString(4, ordVO.getTra_mode());
+		// pstmt.setInt(5, ordVO.getFreight());
+		// pstmt.setDate(6, ordVO.getTen_date());
+		// pstmt.setDate(7, ordVO.getExp_date());
+		// pstmt.setInt(8, ordVO.getTen_days());
+		// pstmt.setInt(9, ordVO.getRent_total());
+		// pstmt.setInt(10, ordVO.getOt_days());
+		// pstmt.setInt(11, ordVO.getInit_dps());
+		// pstmt.setInt(12, ordVO.getReal_dps());
+		// pstmt.setInt(13, ordVO.getTra_total());
+		// pstmt.setString(14, ordVO.getLoc_no());
+		// pstmt.setString(15, ordVO.getRec_addr());
+		// pstmt.setInt(16, ordVO.getLes_ases());
+		// pstmt.setString(17, ordVO.getLes_ases_ct());
+		// pstmt.setInt(18, ordVO.getTen_ases());
+		// pstmt.setString(19, ordVO.getTen_ases_ct());
+		// pstmt.setTimestamp(20, ordVO.getW_apr_time());
+		// pstmt.setTimestamp(21, ordVO.getW_ship_time());
+		// pstmt.setTimestamp(22, ordVO.getDtbt_time());
+		// pstmt.setTimestamp(23, ordVO.getRec_com_time());
+		// pstmt.setTimestamp(24, ordVO.getRent_exp_time());
+		// pstmt.setTimestamp(25, ordVO.getRt_time());
+		// pstmt.setTimestamp(26, ordVO.getRt_com_time());
+		// pstmt.setTimestamp(27, ordVO.getCls_time());
+		// pstmt.setTimestamp(28, ordVO.getCc_ord_time());
+		// pstmt.setString(29, ordVO.getOrd_cc_cause());
+		// pstmt.setString(30, ordVO.getOrd_no());
+		//
+		// pstmt.executeUpdate();
+		//
+		// // Handle any driver errors
+		// } catch (SQLException se) {
+		// throw new RuntimeException("A database error occured. "
+		// + se.getMessage());
+		// // Clean up JDBC resources
+		// } finally {
+		// if (pstmt != null) {
+		// try {
+		// pstmt.close();
+		// } catch (SQLException se) {
+		// se.printStackTrace(System.err);
+		// }
+		// }
+		// if (con != null) {
+		// try {
+		// con.close();
+		// } catch (Exception e) {
+		// e.printStackTrace(System.err);
+		// }
+		// }
+		// }
 
 	}
 
 	@Override
-	public void delete(String ord_no, String ord_cc_cause) {
+	public void delete(OrdVO ordVO) {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 
 			con = ds.getConnection();
+			// 1●設定於 pstm.executeUpdate()之前
+			con.setAutoCommit(false);
+
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setString(1, ord_cc_cause);
-			pstmt.setString(2, ord_no);
+			pstmt.setString(1, ordVO.getOrd_cc_cause());
+			pstmt.setString(2, ordVO.getOrd_no());
 
 			pstmt.executeUpdate();
 
+			// 修改租物狀態
+			RentDAO rentDAO = new RentDAO();
+			RentVO rentVO = rentDAO.findByPrimaryKey(ordVO.getRent_no());
+			rentVO.setRent_sta("W_RENT"); // 更改租物狀態為待出租
+			rentDAO.updateRent_sta(rentVO, con);
+
+			// 回復會員帳戶餘額
+			MemberDAO memberDAO = new MemberDAO();
+			MemberVO memberVO = memberDAO.findByPrimaryKey(ordVO.getTen_no());
+			Double mbalance = memberVO.getMbalance();
+			mbalance = mbalance + ordVO.getTra_total(); // 餘額加回被訂單扣除費用
+			memberVO.setMbalance(mbalance);
+			memberDAO.updateMem_mbl(memberVO, con);
+
+			// 新增交易紀錄
+			TradeDAO tradeDAO = new TradeDAO();
+			TradeVO tradeVO = new TradeVO();
+			tradeVO.setMno(memberVO.getMno());
+			tradeVO.setTstas("點數退還");
+			tradeVO.setTfunds(ordVO.getTra_total().doubleValue());
+			tradeDAO.insertForOrd(tradeVO, con);
+
+			// 新增提醒記錄
+			RemindDAO remindDAO = new RemindDAO();
+			RemindVO remindVO = new RemindVO();
+			remindVO.setMno(rentVO.getLes_no());// 注意:該提醒的是出租方
+			remindVO.setRno(ordVO.getRent_no());
+			remindVO.setRstas("取消訂單");
+			remindVO.setRdes("您有一筆訂單已被取消(" + rentVO.getRent_name() + ") !");
+			remindDAO.insertForOrd(remindVO, con);
+
+			// 完成所有資料修改
+			con.commit();
+			con.setAutoCommit(true);
+
 			// Handle any driver errors
 		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-member");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
@@ -380,7 +474,7 @@ public class OrdDAO implements OrdDAO_interface {
 		return list;
 	}
 
-	//小豬加,找尋訂單資料是否該筆ord_no是否有人正在租
+	// 小豬加,找尋訂單資料是否該筆ord_no是否有人正在租
 	@Override
 	public String findLiveOrdByRentNo(String rent_no) {
 
@@ -388,7 +482,7 @@ public class OrdDAO implements OrdDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-//		System.out.println("OrdDAO.391."+rent_no);
+		// System.out.println("OrdDAO.391."+rent_no);
 		try {
 
 			con = ds.getConnection();
@@ -401,7 +495,7 @@ public class OrdDAO implements OrdDAO_interface {
 			while (rs.next()) {
 				// empVo �]�٬� Domain objects
 				ord_no = rs.getString("ord_no");
-//				System.out.println("OrdDAO.404."+ord_no);
+				// System.out.println("OrdDAO.404."+ord_no);
 			}
 
 			// Handle any driver errors
@@ -434,165 +528,5 @@ public class OrdDAO implements OrdDAO_interface {
 		}
 		return ord_no;
 	}
-	
-	// public static void main(String[] args) {
-	//
-	// OrdDAO dao = new OrdDAO();
-	//
-	// //�s�W
-	// // OrdVO ordVO1 = new OrdVO();
-	// // ordVO1.setRent_no("R10034");
-	// // ordVO1.setTen_no("T10034");
-	// // ordVO1.setOrd_sta("w_ship");
-	// // ordVO1.setTra_mode("����");
-	// // ordVO1.setFreight(new Integer(200));
-	// // ordVO1.setTen_date(java.sql.Date.valueOf("2013-01-08"));
-	// // ordVO1.setExp_date(java.sql.Date.valueOf("2013-01-15"));
-	// // ordVO1.setTen_days(new Integer(7));
-	// // ordVO1.setRent_total(new Integer(900));
-	// // ordVO1.setOt_days(new Integer(0));
-	// // ordVO1.setInit_dps(new Integer(1000));
-	// // ordVO1.setReal_dps(new Integer(1000));
-	// // ordVO1.setTra_total(new Integer(1900));
-	// // ordVO1.setLes_ases(new Integer(101));
-	// // ordVO1.setLoc_no("L10034");
-	// // ordVO1.setRec_addr("���c�����j��300��");
-	// // ordVO1.setLes_ases_ct("������t�ȱo����");
-	// // ordVO1.setTen_ases(new Integer(201));
-	// // ordVO1.setTen_ases_ct("������t�ȱo����");
-	// //
-	// ordVO1.setW_apr_time(java.sql.Timestamp.valueOf("2013-01-03 22:37:16"));
-	// //
-	// ordVO1.setW_ship_time(java.sql.Timestamp.valueOf("2013-01-06 22:37:16"));
-	// //
-	// ordVO1.setDtbt_time(java.sql.Timestamp.valueOf("2013-01-07 22:37:16"));
-	// // ordVO1.setRec_com_time(java.sql.Timestamp.valueOf("2013-01-15v"));
-	// //
-	// ordVO1.setRent_exp_time(java.sql.Timestamp.valueOf("2013-01-15 22:37:16"));
-	// // ordVO1.setRt_time(java.sql.Timestamp.valueOf("2013-01-15 22:37:16"));
-	// //
-	// ordVO1.setRt_com_time(java.sql.Timestamp.valueOf("2013-01-15 22:37:16"));
-	// // ordVO1.setCls_time(java.sql.Timestamp.valueOf("2013-01-15 22:37:16"));
-	// // ordVO1.setCc_ord_time(null);
-	// // ordVO1.setOrd_cc_cause(null);
-	// // int updateCount_insert = dao.insert(ordVO1);
-	// // System.out.println(updateCount_insert);
-	//
-	//
-	// // �ק�
-	// // OrdVO ordVO2 = new OrdVO();
-	// // ordVO2.setOrd_no("O10001");
-	// // ordVO2.setRent_no("R10035");
-	// // ordVO2.setTen_no("T10035");
-	// // ordVO2.setOrd_sta("w_ship");
-	// // ordVO2.setTra_mode("����");
-	// // ordVO2.setFreight(new Integer(200));
-	// // ordVO2.setTen_date(java.sql.Date.valueOf("2013-01-08"));
-	// // ordVO2.setExp_date(java.sql.Date.valueOf("2013-01-15"));
-	// // ordVO2.setTen_days(new Integer(7));
-	// // ordVO2.setRent_total(new Integer(900));
-	// // ordVO2.setOt_days(new Integer(0));
-	// // ordVO2.setInit_dps(new Integer(1000));
-	// // ordVO2.setReal_dps(new Integer(1000));
-	// // ordVO2.setTra_total(new Integer(1900));
-	// // ordVO2.setLes_ases(new Integer(101));
-	// // ordVO2.setLoc_no("L10035");
-	// // ordVO2.setRec_addr("���c�����j��300��");
-	// // ordVO2.setLes_ases_ct("������t�ȱo����");
-	// // ordVO2.setTen_ases(new Integer(201));
-	// // ordVO2.setTen_ases_ct("������t�ȱo����");
-	// //
-	// ordVO2.setW_apr_time(java.sql.Timestamp.valueOf("2014-06-08 22:37:16"));
-	// //
-	// ordVO2.setW_ship_time(java.sql.Timestamp.valueOf("2013-01-06 22:37:16"));
-	// //
-	// ordVO2.setDtbt_time(java.sql.Timestamp.valueOf("2013-01-07 22:37:16"));
-	// //
-	// ordVO2.setRec_com_time(java.sql.Timestamp.valueOf("2013-01-15 22:37:16"));
-	// //
-	// ordVO2.setRent_exp_time(java.sql.Timestamp.valueOf("2013-01-15 22:37:16"));
-	// // ordVO2.setRt_time(java.sql.Timestamp.valueOf("2013-01-15 22:37:16"));
-	// //
-	// ordVO2.setRt_com_time(java.sql.Timestamp.valueOf("2013-01-15 22:37:16"));
-	// // ordVO2.setCls_time(java.sql.Timestamp.valueOf("2013-01-15 22:37:16"));
-	// // ordVO2.setCc_ord_time(null);
-	// // ordVO2.setOrd_cc_cause(null);
-	// // int updateCount_update = dao.update(ordVO2);
-	// // System.out.println(updateCount_update);
-	//
-	//
-	// //�R��
-	// // int updateCount_delete = dao.delete("O10002");
-	// // System.out.println(updateCount_delete);
-	//
-	// // // �d��
-	// // OrdVO ordVO3 = dao.findByPrimaryKey("O10001");
-	// // System.out.print(ordVO3.getOrd_no() + ",");
-	// // System.out.print(ordVO3.getRent_no() + ",");
-	// // System.out.print(ordVO3.getTen_no() + ",");
-	// // System.out.print(ordVO3.getOrd_sta() + ",");
-	// // System.out.print(ordVO3.getTra_mode() + ",");
-	// // System.out.print(ordVO3.getFreight() + ",");
-	// // System.out.print(ordVO3.getTen_date() + ",");
-	// // System.out.print(ordVO3.getExp_date() + ",");
-	// // System.out.print(ordVO3.getTen_days() + ",");
-	// // System.out.print(ordVO3.getRent_total() + ",");
-	// // System.out.print(ordVO3.getOt_days() + ",");
-	// // System.out.print(ordVO3.getInit_dps() + ",");
-	// // System.out.print(ordVO3.getReal_dps() + ",");
-	// // System.out.print(ordVO3.getTra_total() + ",");
-	// // System.out.print(ordVO3.getLes_ases() + ",");
-	// // System.out.print(ordVO3.getLoc_no() + ",");
-	// // System.out.print(ordVO3.getRec_addr() + ",");
-	// // System.out.print(ordVO3.getLes_ases_ct() + ",");
-	// // System.out.print(ordVO3.getTen_ases() + ",");
-	// // System.out.print(ordVO3.getTen_ases_ct() + ",");
-	// // System.out.print(ordVO3.getW_apr_time() + ",");
-	// // System.out.print(ordVO3.getW_ship_time() + ",");
-	// // System.out.print(ordVO3.getDtbt_time() + ",");
-	// // System.out.print(ordVO3.getRec_com_time() + ",");
-	// // System.out.print(ordVO3.getRent_exp_time() + ",");
-	// // System.out.print(ordVO3.getRt_time() + ",");
-	// // System.out.print(ordVO3.getRt_com_time() + ",");
-	// // System.out.print(ordVO3.getCls_time() + ",");
-	// // System.out.print(ordVO3.getCc_ord_time() + ",");
-	// // System.out.print(ordVO3.getOrd_cc_cause());
-	//
-	// //
-	// // // �d��
-	// List<OrdVO> list = dao.getAll();
-	// for (OrdVO aOrd : list) {
-	// System.out.print(aOrd.getOrd_no() + ",");
-	// System.out.print(aOrd.getRent_no() + ",");
-	// System.out.print(aOrd.getTen_no() + ",");
-	// System.out.print(aOrd.getOrd_sta() + ",");
-	// System.out.print(aOrd.getTra_mode() + ",");
-	// System.out.print(aOrd.getFreight() + ",");
-	// System.out.print(aOrd.getTen_date() + ",");
-	// System.out.print(aOrd.getExp_date() + ",");
-	// System.out.print(aOrd.getTen_days() + ",");
-	// System.out.print(aOrd.getRent_total() + ",");
-	// System.out.print(aOrd.getOt_days() + ",");
-	// System.out.print(aOrd.getInit_dps() + ",");
-	// System.out.print(aOrd.getReal_dps() + ",");
-	// System.out.print(aOrd.getTra_total() + ",");
-	// System.out.print(aOrd.getLes_ases() + ",");
-	// System.out.print(aOrd.getLoc_no() + ",");
-	// System.out.print(aOrd.getRec_addr() + ",");
-	// System.out.print(aOrd.getLes_ases_ct() + ",");
-	// System.out.print(aOrd.getTen_ases() + ",");
-	// System.out.print(aOrd.getTen_ases_ct() + ",");
-	// System.out.print(aOrd.getW_apr_time() + ",");
-	// System.out.print(aOrd.getW_ship_time() + ",");
-	// System.out.print(aOrd.getDtbt_time() + ",");
-	// System.out.print(aOrd.getRec_com_time() + ",");
-	// System.out.print(aOrd.getRent_exp_time() + ",");
-	// System.out.print(aOrd.getRt_time() + ",");
-	// System.out.print(aOrd.getRt_com_time() + ",");
-	// System.out.print(aOrd.getCls_time() + ",");
-	// System.out.print(aOrd.getCc_ord_time() + ",");
-	// System.out.print(aOrd.getOrd_cc_cause());
-	// System.out.println();
-	// }
-	// }
+
 }

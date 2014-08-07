@@ -12,7 +12,7 @@
 	request.setAttribute("rentVO", rentVO);
 	//取得承租會員資料(取得登入帳號)
 	MemberService memberSVC = new MemberService();
-	MemberVO memberVO = memberSVC.getOneMember("M10001");
+	MemberVO memberVO = memberSVC.getOneMember("M10001"); 
 	//承接錯誤回傳的ordVO
 	OrdVO ordVO = (OrdVO) request.getAttribute("ordVO");
 	if (ordVO == null) {
@@ -37,8 +37,8 @@
 			showOn : "button",
 			buttonImage : "<%=request.getContextPath()%>/front/ord/images/calendar.gif",
 			buttonImageOnly : true,
-			defaultDate : +1,
-			minDate : +1,
+			defaultDate : +<%=rentVO.getReset_days() %>,
+			minDate : +<%=rentVO.getReset_days() %>,
 			numberOfMonths : 2,
 			changeYear : true,
 			changeMonth : true,
@@ -56,8 +56,8 @@
 			showOn : "button",
 			buttonImage : "<%=request.getContextPath()%>/front/ord/images/calendar.gif",
 							buttonImageOnly : true,
-							defaultDate : +1,
-							minDate : +1,
+							defaultDate : +<%=rentVO.getReset_days() %>,
+							minDate : +<%=rentVO.getReset_days() %>,
 							numberOfMonths : 2,
 							changeYear : true,
 							changeMonth : true,
@@ -75,6 +75,12 @@
 						});
 	});
 	//-------------------------------------------------------------------------------
+
+	//超連結至會員儲值頁面
+    function presses(){
+    	document.open("<%=request.getContextPath()%>/front/member/memberStored.do?mno=<%=memberVO.getMno()%>&action=getOne_For_Update", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+    }
+	
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="js/calendar.css">
@@ -143,7 +149,7 @@
 			<tr>
 				<td>運費:<font color=red></font></td>
 				<td><input type="TEXT" id="freight" name="freight" size="10"
-					value="0" class="tra_total" readonly="readonly" />元</td>
+					value="0" readonly="readonly" />元</td>
 			</tr>
 			<script>
 				var freight = ${freight};
@@ -211,19 +217,12 @@
 			<tr>
 				<td>租金總額:<font color=red></font></td>
 				<td><input type="TEXT" name="rent_total" id="rent_total"
-					class="tra_total" value="${ordVO.rent_total}" readonly="readonly" />元</td>
+					value="${ordVO.rent_total}" readonly="readonly" />元</td>
 			</tr>
 			<tr>
 				<td>租物押金:<font color=red></font></td>
 				<td><input type="TEXT" name="init_dps" id="init_dps"
 					value="<%=rentVO.getRent_dps()%>" readonly="readonly" />元</td>
-			</tr>
-			<tr>
-				<td valign="top">費用總金額:<font color=red></font></td>
-				<td><label style="color:red" > 交易總額  = 運費 + 租金總額(租金*承租天數) + 租物押金 </label><br>
-					<input type="TEXT" name="tra_total" id="tra_total"
-					value="0" style="color:red"  readonly="readonly" />元</td>
-				<%-- 					value="${ordVO.tra_total}" readonly="readonly" /></td> --%>
 			</tr>
 			<jsp:useBean id="locSvc" scope="page"
 				class="back.loc.model.LocService" />
@@ -240,6 +239,14 @@
 				<td>收貨地址:<font color=red><b>*</b></font></td>
 				<td><input type="TEXT" name="rec_addr" size="45"
 					value="${ordVO.rec_addr}" /></td>
+			</tr>
+			<tr>
+				<td valign="top">費用總金額:<font color=red></font></td>
+				<td><label style="color:red" >   =   運費 + 租金總額(租金*承租天數) + 租物押金 </label><br>
+					<input type="TEXT" name="tra_total" id="tra_total"
+					value="${ordVO.tra_total}" style="color:red"  readonly="readonly" />元 <br>
+					<a href="javascript:presses()">餘額不足?  前往會員儲值</a></td>
+				<%-- 					value="${ordVO.tra_total}" readonly="readonly" /></td> --%>
 			</tr>
 		</table>
 		<br> <input type="hidden" name="action" value="insert"> <input

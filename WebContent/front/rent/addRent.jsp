@@ -151,7 +151,7 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 				<td><font color="red">${errorMsgs.unit_price}</font></td>
 			</tr>
 			<tr>
-				<td align="right">出貨/回收緩衝時間:<font color=red><b>*</b></font></td>
+				<td align="right">出貨/回收緩衝:<font color=red><b>*</b></font></td>
 				<td><input type="TEXT" name="reset_days" size="3"
 					value="${rentVO.reset_days}" /> 天</td>
 				<td><font color="red">${errorMsgs.reset_days}</font></td>

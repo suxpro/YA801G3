@@ -26,6 +26,8 @@ public class TradeDAO implements TradeDAO_interface {
 	}
 	
 	private static final String INSERT_STMT = "INSERT INTO trade (tra_no, mem_no, tra_mem_id, tra_time, tra_stas, tra_funds, tra_in) VALUES ('T'||TO_CHAR(trade_seq.NEXTVAL), ?, ?, SYSDATE, ?, ?, ?)";
+	//insert for Ord using
+	private static final String INSERT_forORD_STMT = "INSERT INTO trade (tra_no, mem_no, tra_mem_id, tra_time, tra_stas, tra_funds, tra_in) VALUES ('T'||TO_CHAR(trade_seq.NEXTVAL), ?, null, SYSDATE, ?, ?, 'Y')";
 	private static final String GET_ALL_STMT = "SELECT tra_no, mem_no, tra_mem_id, to_char(tra_time,'yyyy-mm-dd') tra_time, tra_stas, tra_funds, tra_in FROM trade order by tra_no";
 	private static final String GET_ONE_STMT = "SELECT tra_no, mem_no, tra_mem_id, to_char(tra_time,'yyyy-mm-dd') tra_time, tra_stas, tra_funds, tra_in FROM trade where tra_no = ?";
 	private static final String DELETE = "DELETE FROM trade where tra_no = ?";
@@ -456,6 +458,48 @@ public class TradeDAO implements TradeDAO_interface {
 //
 //		System.out.println("");
 //		}		
+	}
+
+
+
+	@Override
+	public void insertForOrd(TradeVO tradeVO, Connection con) {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(INSERT_forORD_STMT);
+
+			pstmt.setString(1, tradeVO.getMno());
+			pstmt.setString(2, tradeVO.getTstas());
+			pstmt.setDouble(3, tradeVO.getTfunds());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-trade");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
 	}
 
 

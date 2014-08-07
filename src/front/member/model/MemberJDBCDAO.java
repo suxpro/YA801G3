@@ -643,5 +643,15 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 //		System.out.println("");
 //		}		
 	}
+
+
+
+
+
+	@Override
+	public void updateMem_mbl(MemberVO memberVO, Connection con) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

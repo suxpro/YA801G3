@@ -123,14 +123,14 @@
 				<td>${ordVO.cc_ord_time    }</td>
 				<td>${ordVO.ord_cc_cause   }</td>
 
-				<td>
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath() %>/front/ord/ord.do">
-						<input type="submit" value="編輯"> <input type="hidden"
-							name="ord_no" value="${ordVO.ord_no}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
-					</FORM>
-				</td>
+<!-- 				<td> -->
+<!-- 					<FORM METHOD="post" -->
+<%-- 						ACTION="<%=request.getContextPath() %>/front/ord/ord.do"> --%>
+<!-- 						<input type="submit" value="編輯"> <input type="hidden" -->
+<%-- 							name="ord_no" value="${ordVO.ord_no}"> <input --%>
+<!-- 							type="hidden" name="action" value="getOne_For_Update"> -->
+<!-- 					</FORM> -->
+<!-- 				</td> -->
 				<td>
 					<!--
 					<FORM METHOD="post"

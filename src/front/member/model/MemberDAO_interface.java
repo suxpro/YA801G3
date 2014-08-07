@@ -1,5 +1,6 @@
 package front.member.model;
 
+import java.sql.Connection;
 import java.util.*;
 
 import front.trade.model.TradeVO;
@@ -16,5 +17,6 @@ public interface MemberDAO_interface {
     public MemberVO findByPrimaryKey(String mno);
     public MemberVO findByAccount(String mid);
     public List<MemberVO> getAll();
-
+    //更新會員餘額 - by思賢
+    public void updateMem_mbl(MemberVO memberVO , Connection con);
 }

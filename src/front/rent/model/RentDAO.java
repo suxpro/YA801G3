@@ -50,7 +50,9 @@ public class RentDAO implements RentDAO_interface {
 //	private static final String DELETE_STMT = "DELETE FROM rent WHERE rent_no = ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' order by rent_no";
 	private static final String GET_ONE_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' and rent_no = ?";
-
+    //修改租物狀態
+	private static final String UPDATE_STA_STMT = "UPDATE rent SET rent_sta = ?, last_sta_time=SYSDATE, last_mod_time=SYSDATE WHERE rent_no = ?";
+	
 	@Override
 	public void insert(RentVO rentVO) {
 		Connection con = null;
@@ -402,6 +404,43 @@ public class RentDAO implements RentDAO_interface {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void updateRent_sta(RentVO rentVO, Connection con) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(UPDATE_STA_STMT);
+			pstmt.setString(1, rentVO.getRent_sta());
+			pstmt.setString(2, rentVO.getRent_no());
+			pstmt.executeUpdate();
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-member");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}	
+		
 	}
 
 }

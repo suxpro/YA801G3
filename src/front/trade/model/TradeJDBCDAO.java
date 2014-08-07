@@ -385,4 +385,12 @@ public class TradeJDBCDAO implements TradeDAO_interface{
 		}		
 	}
 
+
+
+	@Override
+	public void insertForOrd(TradeVO tradeVO, Connection con) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -67,7 +67,6 @@ public class OrdService {
 		return ordVO;
 	}
 
-	// �w�d�� Struts 2 �Ϊ�
 	public void addOrd(OrdVO ordVO) {
 		dao.insert(ordVO);
 	}
@@ -121,13 +120,13 @@ public class OrdService {
 		return dao.findByPrimaryKey(ord_no);
 	}
 
-	// �w�d�� Struts 2 �Ϊ�
+
 	public void updateOrd(OrdVO ordVO) {
 		dao.update(ordVO);
 	}
 
-	public void deleteOrd(String ord_no, String ord_cc_cause) {
-		dao.delete(ord_no,ord_cc_cause);
+	public void deleteOrd(OrdVO ordVO) {
+		dao.delete(ordVO);
 	}
 
 	public OrdVO getOneOrd(String ord_no) {

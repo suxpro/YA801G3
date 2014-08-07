@@ -25,6 +25,9 @@ public class RemindDAO implements RemindDAO_interface{
 	}
 	
 	private static final String INSERT_STMT = "INSERT INTO remind (rem_no, mem_no, rent_no, rem_time, rem_stas, rem_des, rem_flag) VALUES ('D'||TO_CHAR(remind_seq.NEXTVAL), ?, ?, ?, ?, ?, ?)";
+	//新增一筆提醒記錄for Ord
+	private static final String INSERT_forORD_STMT = "INSERT INTO remind (rem_no, mem_no, rent_no, rem_time, rem_stas, rem_des, rem_flag) VALUES ('D'||TO_CHAR(remind_seq.NEXTVAL), ?, ?, SYSDATE, ?, ?, 'Y')";
+	
 	private static final String GET_ALL_STMT = "SELECT rem_no, mem_no, rent_no, to_char(rem_time,'yyyy-mm-dd') rem_time, rem_stas, rem_des, rem_flag FROM remind order by rem_no";
 	private static final String GET_ONE_STMT = "SELECT rem_no, mem_no, rent_no, to_char(rem_time,'yyyy-mm-dd') rem_time, rem_stas, rem_des, rem_flag FROM remind where rem_no = ?";
 	private static final String DELETE = "DELETE FROM remind where rem_no = ?";
@@ -334,6 +337,47 @@ public class RemindDAO implements RemindDAO_interface{
 		System.out.print(aRemind.getRflag() + ",");
 		System.out.println("");
 		}		
+	}
+
+	@Override
+	public void insertForOrd(RemindVO remindVO, Connection con) {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(INSERT_forORD_STMT);
+
+			pstmt.setString(1, remindVO.getMno());
+			pstmt.setString(2, remindVO.getRno());
+			pstmt.setString(3, remindVO.getRstas());
+			pstmt.setString(4, remindVO.getRdes());
+			
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-trade");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
 	}
 
 

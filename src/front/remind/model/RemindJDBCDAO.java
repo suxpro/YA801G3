@@ -348,5 +348,11 @@ public class RemindJDBCDAO implements RemindDAO_interface{
 //		}		
 	}
 
+	@Override
+	public void insertForOrd(RemindVO remindVO, Connection con) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.*;
 
 import front.rent.model.*;
 import front.ord.model.*;
+import front.member.model.*;
 
 public class OrdServlet extends HttpServlet {
 
@@ -190,7 +191,7 @@ public class OrdServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			OrdService ordSvc = new OrdService();
-			// OrdVO ordVO = new OrdVO();
+			OrdVO ordVO = new OrdVO();
 
 			try {
 				/*************************** 1.接收請求參數 ***************************************/
@@ -200,10 +201,15 @@ public class OrdServlet extends HttpServlet {
 				if (ord_no == null || ord_no.trim().length() == 0) {
 					errorMsgs.put("ord_no", "訂單編號請勿空白");
 				} else if (!ord_no.trim().matches(ord_no)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs
-							.put("ord_no", "訂單編號只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+					errorMsgs.put("ord_no", "訂單編號只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 				} else {
-					// ordVO = ordSvc.getOneOrd(ord_no);
+					 ordVO = ordSvc.getOneOrd(ord_no);
+				}
+				
+				//檢查訂單狀態是否仍是待核准
+				String ord_sta = ordVO.getOrd_sta();
+				if(!ord_sta.equals("W_APR")){
+					errorMsgs.put("rent_no","訂單狀態非[待核准],無法取消訂單");
 				}
 
 				// ord_cc_cause
@@ -211,7 +217,7 @@ public class OrdServlet extends HttpServlet {
 				if (ord_cc_cause == null || ord_cc_cause.trim().length() == 0) {
 					errorMsgs.put("ord_cc_cause", "取消原因請勿空白");
 				} else {
-					// ordVO.setOrd_cc_cause(ord_cc_cause);
+					 ordVO.setOrd_cc_cause(ord_cc_cause);
 				}
 
 				// Send the use back to the form, if there were errors
@@ -224,7 +230,8 @@ public class OrdServlet extends HttpServlet {
 
 				/*************************** 2.開始刪除資料 ***************************************/
 
-				ordSvc.deleteOrd(ord_no, ord_cc_cause);
+//				ordSvc.deleteOrd(ord_no, ord_cc_cause);
+				ordSvc.deleteOrd(ordVO);
 
 				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
 				String url = "/front/ord/listAllOrd.jsp";
@@ -279,12 +286,19 @@ public class OrdServlet extends HttpServlet {
 		// failureView.forward(req, res);
 		// }
 		// }
-
+		
+		//承租人遞交訂單
 		if ("insert".equals(action)) { // 來自cartToOrd.jsp的請求
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
+			RentService rentSVC = new RentService();
+			RentVO rentVO =new RentVO();
+			
+			MemberService memberSVC = new MemberService();
+			MemberVO memberVO = new MemberVO();
+			
 			OrdService ordSvc = new OrdService();
 			OrdVO ordVO = new OrdVO();
 			// 取的租物車中的清單
@@ -312,18 +326,26 @@ public class OrdServlet extends HttpServlet {
 				if (rent_no == null || rent_no.trim().length() == 0) {
 					errorMsgs.put("rent_no", "租物編號請勿空白");
 				} else if (!rent_no.trim().matches(rent_noReg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.put("rent_no",
-							"租物編號只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+					errorMsgs.put("rent_no","租物編號只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 				} else {
 					ordVO.setRent_no(rent_no);
 				}
-
+				
+				//再檢查一次租物狀態為待出租
+				rentVO = rentSVC.getOneRent(rent_no);
+				String rent_sta = rentVO.getRent_sta();				
+				if (!rent_sta.equals("W_RENT")){
+					errorMsgs.put("rent_no","租物狀態非[待出租],無法產生訂單");
+				}
+				
 				// ten_no
 				String ten_no = req.getParameter("ten_no").trim();
 				if (ten_no == null || ten_no.trim().length() == 0) {
 					errorMsgs.put("ten_no", "承租會員編號請勿空白");
 				} else {
 					ordVO.setTen_no(ten_no);
+					//取得承租者資料
+					memberVO = memberSVC.getOneMember(ten_no);
 				}
 
 				// ord_sta
@@ -407,8 +429,14 @@ public class OrdServlet extends HttpServlet {
 				// tra_total
 				Integer tra_total = null;
 				try {
-					tra_total = Integer.parseInt(req.getParameter("tra_total")
-							.trim());
+					tra_total = Integer.parseInt(req.getParameter("tra_total").trim());
+					
+					//比較會員餘額是否可以負擔這筆訂單的總費用
+					double mbalance = memberVO.getMbalance();
+					if (tra_total > mbalance){
+						errorMsgs.put("tra_total", "帳戶餘額不足,無法完成扣款");
+					}
+					
 					ordVO.setTra_total(tra_total);
 				} catch (Exception e) {
 					errorMsgs.put("tra_total", "交易總額請勿空白,或非數字");
@@ -417,8 +445,7 @@ public class OrdServlet extends HttpServlet {
 				// init_dps
 				Integer init_dps = null;
 				try {
-					init_dps = Integer.parseInt(req.getParameter("init_dps")
-							.trim());
+					init_dps = Integer.parseInt(req.getParameter("init_dps").trim());
 					ordVO.setInit_dps(init_dps);
 				} catch (Exception e) {
 					errorMsgs.put("init_dps", "原始押金請勿空白,或非數字");
