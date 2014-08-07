@@ -838,8 +838,8 @@ public class MemberServletF extends HttpServlet {
 				}
 				
 				//20140806 - modified by Barnett Wan
-				MemberService memberSVC = new MemberService();
-				MemberVO memberVO = memberSVC.getOneMember(mno);
+				MemberService memberSvcxx = new MemberService();
+				MemberVO memberVO = memberSvcxx.getOneMember(mno);
 				
 				memberVO.setMno(mno);
 //				memberVO.setMid(mid);

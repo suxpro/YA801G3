@@ -99,13 +99,32 @@
 										</h3>
 										<br/>
 										<label class="control-label" for="mbalance">&nbsp;&nbsp;3000 NT 永久VIP會員</label> 										
-										<a href="#" class="control-label" for="mbalance">VIP有何好處?</a>  
-										<input type="hidden" id="mbalance" name="mbalance" value="<%=memberVO.getMbalance() - 3000%>" class="col-xs-offset-1" />
+										<a href="#" class="control-label" for="mbalance" data-toggle="modal" data-target="#VIP">VIP有何好處?</a>  
+										<input type="hidden" id="mbalance" name="vip" value="3000" class="col-xs-offset-1" />
 										<br/>
 										<br/>
 									</div>
 								</div>
 								<!-- 排版 -->
+								
+	<!-- modal VIP-->
+	<div class="modal fade" id="VIP" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">VIP黃金會員是什麼?</h4>
+				</div>
+				<!-- agreement -->
+				<div class="modal-body">
+					<%@ include file="/front/member/whatVIP.jsp"%>
+				</div>
+			</div>
+		</div>
+	</div>
 							
 							</div>
 							<br/>
