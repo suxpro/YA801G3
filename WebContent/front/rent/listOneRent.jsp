@@ -92,7 +92,7 @@
 				<td><%=rentVO.getUnit_price()%>元</td>
 			</tr>
 			<tr>
-				<td>重整天數:<font color=red></font></td>
+				<td>出貨/回收緩衝時間:<font color=red></font></td>
 				<td><%=rentVO.getReset_days()%>天</td>
 			</tr>						
 			<tr>

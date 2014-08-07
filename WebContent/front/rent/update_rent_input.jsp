@@ -102,7 +102,7 @@
 				<td><font color="red">${errorMsgs.unit_price}</font></td>
 			</tr>
 			<tr>
-				<td>重整天數:<font color=red><b>*</b></font></td>
+				<td>出貨/回收緩衝時間:<font color=red><b>*</b></font></td>
 				<td><input type="text" name="reset_days" size="8"
 					value="<%=rentVO.getReset_days()%>"/></td>
 				<td><font color="red">${errorMsgs.reset_days}</font></td>
