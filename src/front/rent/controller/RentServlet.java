@@ -686,7 +686,7 @@ public class RentServlet extends HttpServlet {
 			throw new UnavailableException("Couldn't get db connection");
 		}
 	}
-
+ 
 	public void destroy() {
 		try {
 			if (con != null)
