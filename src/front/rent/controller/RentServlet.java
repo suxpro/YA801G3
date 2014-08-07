@@ -161,8 +161,11 @@ public class RentServlet extends HttpServlet {
 				try {
 					reset_days = Integer.parseInt(multi.getParameter(
 							"reset_days").trim());
+					if(reset_days < 0){
+						errorMsgs.put("reset_days", "出貨/回收緩衝請輸入大於零的數字");
+					}
 				} catch (NumberFormatException e) {
-					errorMsgs.put("reset_days", "重整天數請勿空白,或非數字");
+					errorMsgs.put("reset_days", "出貨/回收緩衝請勿空白,或非數字");
 				}
 
 				// loc_no
@@ -434,9 +437,12 @@ public class RentServlet extends HttpServlet {
 				Integer reset_days = null;
 				try {
 					reset_days = Integer.parseInt(multi.getParameter("reset_days").trim());
+					if(reset_days < 0){
+						errorMsgs.put("reset_days", "出貨/回收緩衝請輸入大於零的數字");
+					}
 					rentVO.setReset_days(reset_days);
 				} catch (NumberFormatException e) {
-					errorMsgs.put("reset_days", "重整天數請勿空白,或輸入非數字");
+					errorMsgs.put("reset_days", "出貨/回收緩衝請勿空白,或輸入非數字");
 				}
 
 				// loc_no
