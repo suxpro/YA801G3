@@ -32,8 +32,10 @@ $(document).ready(
 //				console.log("bodyRent.rentState:"+$(this).find("#rentStateSpan").data("rentState"));
 				//按鈕顯示承租/預租
 				$.trim($(this).find("#rentStateSpan").data("liveOrd")).length != 0? $("#btnAddRentToCart").text("預租").addClass("btn-warning") : $("#btnAddRentToCart").text("承租").addClass("btn-primary");
-				
+
 				$("#btnAddRentToCart").click(function(e) {
+					console.log($(this).data("servlet"));
+					console.log($(this).data("rentNo"));
 					$.ajax({
 						type : "POST",
 						url : $(this).data("servlet"),

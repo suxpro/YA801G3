@@ -57,6 +57,7 @@ $("#updateEmpBtn").on("click",function(event) {
 	$(".updateEmpTd").show();
 	var jsonObj = {};
 	jsonObj["action"] = "update";// 插入action屬性值
+	$("table td").off();
 	$("table td").on("click",function() {
 //		console.log($(this).has("img").length);
 		var tdTextBak=$(this).text();
