@@ -58,13 +58,13 @@
                 <dt>地址:</dt>
                 <dd>${rentVO.rent_addr}</dd>
             </dl>
-            <div id="map" class="panel panel-primary" style="width:200px;height:200px;">map!</div>
+            <div id="map" class="panel panel-primary" style="width:200px;height:200px;" data-map-rent-addr="${rentVO.rent_addr}">!map</div>
           </div>
           <!-- /row -->
 		</div>
 		<!-- 租物圖片 -->
 		<div class="col-md-6">
-			<img height="100%" width="100%"
+			<img class="imgMainShow" height="100%" width="100%"
 	             src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
          </div>
 		<!-- 租物日期 -->
@@ -76,9 +76,20 @@
 	<!-- /row -->
 	<div class="row">
 		<!-- 租物小圖片 -->
-		<div class="col-md-10"></div>
+		<div class="col-md-5 col-md-offset-3">
+            <img class="imgPreview" height="50px" width="50px"
+                 src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
+            <img class="imgPreview" height="50px" width="50px"
+                 src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC2" />
+            <img class="imgPreview" height="50px" width="50px"
+                 src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC3" />
+            <img class="imgPreview" height="50px" width="50px"
+                 src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC4" />
+            <img class="imgPreview" height="50px" width="50px"
+                 src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC5" />
+        </div>
 		<!-- 租物按鈕 -->
-		<div class="col-md-offset-10">
+		<div class="col-md-offset-2 col-md-2">
             <div style="position:relative;top:-10px">$ ${rentVO.unit_price}/day</div>
             <button type="button" class="btn" id="btnAddRentToCart" data-servlet="<%=request.getContextPath()%>/front/rent/rent.do" data-rent-no="${rentVO.rent_no}"></button>
 			<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
