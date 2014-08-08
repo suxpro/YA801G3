@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 public class OrdVO implements java.io.Serializable {
 	private String ord_no;
 	private String rent_no;
+	private String les_no;
 	private String ten_no;
 	private String ord_sta;
 	private String tra_mode;
@@ -34,7 +35,6 @@ public class OrdVO implements java.io.Serializable {
 	private Timestamp cls_time;
 	private Timestamp cc_ord_time;
 	private String ord_cc_cause;
-	
 	public String getOrd_no() {
 		return ord_no;
 	}
@@ -46,6 +46,12 @@ public class OrdVO implements java.io.Serializable {
 	}
 	public void setRent_no(String rent_no) {
 		this.rent_no = rent_no;
+	}
+	public String getLes_no() {
+		return les_no;
+	}
+	public void setLes_no(String les_no) {
+		this.les_no = les_no;
 	}
 	public String getTen_no() {
 		return ten_no;
@@ -215,6 +221,7 @@ public class OrdVO implements java.io.Serializable {
 	public void setOrd_cc_cause(String ord_cc_cause) {
 		this.ord_cc_cause = ord_cc_cause;
 	}
+	
 
 
 }

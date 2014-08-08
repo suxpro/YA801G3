@@ -49,6 +49,11 @@ public class OrdServlet extends HttpServlet {
 		// rentVO = rentSvc.getOneRent(rent_no);
 		// }
 		//
+		// //les_no
+		// String ten_no = req.getParameter("ten_no").trim();
+		// if (ten_no == null || ten_no.trim().length() == 0) {
+		// errorMsgs.put("ten_no","承租會員編號請勿空白");
+		// }
 		// //ten_no
 		// String ten_no = req.getParameter("ten_no").trim();
 		// if (ten_no == null || ten_no.trim().length() == 0) {
@@ -338,6 +343,14 @@ public class OrdServlet extends HttpServlet {
 					errorMsgs.put("rent_no","租物狀態非[待出租],無法產生訂單");
 				}
 				
+				// les_no
+				String les_no = req.getParameter("les_no").trim();
+				if (les_no == null || les_no.trim().length() == 0) {
+					errorMsgs.put("les_no", "出租會員編號請勿空白");
+				} else {
+					ordVO.setLes_no(les_no);
+				}
+				
 				// ten_no
 				String ten_no = req.getParameter("ten_no").trim();
 				if (ten_no == null || ten_no.trim().length() == 0) {
@@ -346,6 +359,11 @@ public class OrdServlet extends HttpServlet {
 					ordVO.setTen_no(ten_no);
 					//取得承租者資料
 					memberVO = memberSVC.getOneMember(ten_no);
+				}
+				
+				//避免自己承租到自己出租的租物
+				if(les_no.equals(ten_no)){
+					errorMsgs.put("ten_no", "請注意不要出租與承租同一租物!");
 				}
 
 				// ord_sta
