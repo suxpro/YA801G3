@@ -12,7 +12,7 @@ public class OrdService {
 		dao = new OrdDAO();
 	}
 
-	public OrdVO addOrd(String rent_no, String ten_no, String ord_sta,
+	public OrdVO addOrd(String rent_no, String les_no, String ten_no, String ord_sta,
 			String tra_mode, Integer freight, Date ten_date, Date exp_date,
 			Integer ten_days, Integer rent_total, Integer ot_days,
 			Integer init_dps, Integer real_dps, Integer tra_total,
@@ -33,6 +33,7 @@ public class OrdService {
 		OrdVO ordVO = new OrdVO();
 
 		ordVO.setRent_no(rent_no);
+		ordVO.setLes_no(les_no);
 		ordVO.setTen_no(ten_no);
 		ordVO.setOrd_sta(ord_sta);
 		ordVO.setTra_mode(tra_mode);
@@ -71,7 +72,7 @@ public class OrdService {
 		dao.insert(ordVO);
 	}
 
-	public OrdVO updateOrd(String ord_no, String rent_no, String ten_no,
+	public OrdVO updateOrd(String ord_no, String rent_no, String les_no, String ten_no,
 			String ord_sta, String tra_mode, Integer freight, Date ten_date,
 			Date exp_date, Integer ten_days, Integer rent_total,
 			Integer ot_days, Integer init_dps, Integer real_dps,
@@ -86,6 +87,7 @@ public class OrdService {
 
 		ordVO.setOrd_no(ord_no);
 		ordVO.setRent_no(rent_no);
+		ordVO.setLes_no(les_no);
 		ordVO.setTen_no(ten_no);
 		ordVO.setOrd_sta(ord_sta);
 		ordVO.setTra_mode(tra_mode);
