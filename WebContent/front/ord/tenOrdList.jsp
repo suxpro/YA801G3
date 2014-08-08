@@ -48,6 +48,11 @@
 		</font>
 	</c:if>
 
+	<%-- 一般提示 --%>
+ 	<c:if test="${not empty alertMsgs}">
+ 		<script>alert("${alertMsgs.alert}");</script>
+ 	</c:if>
+ 	
 	<table border='1' bordercolor='#CCCCFF'  align='center'>
 		<tr>
 			<th>訂單編號</th>
@@ -83,23 +88,18 @@
 				<td>${ordVO.ord_no         }</td>
 				<td><img width="100" height="100" src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${ordVO.rent_no}&pic=pic1"></td>	
 				<td><a href="javascript:pressesA${s.index}()">${rentVO.rent_name}</a></td>
-				
 				<td>${ord_staMap[ordVO.ord_sta]}</td>
 				<td>${tra_staMap[ordVO.tra_mode]}</td>
-
 				<td>${ordVO.ten_date       }<br>
 				             ~              <br>
 				    ${ordVO.exp_date       }</td>
-
 				<td>${ordVO.ten_days       }天</td>
 				<td>${ordVO.ot_days        }天</td>
-				<td><%=lesVO.getMname() %></td>
+				<td><a href="javascript:pressesB${s.index}()"><%=lesVO.getMname() %></a></td>
 				<td align='left'>
 					Mail : <%=lesVO.getMmail() %><br>
 				    phone: <%=lesVO.getMcell() %></td>
-				
-			
-				
+								
 				
 <%-- 				<td>${ordVO.freight        }</td> --%>
 <%-- 				<td>${ordVO.rent_total     }</td> --%>
@@ -142,7 +142,7 @@
 <!-- 					</FORM> -->
 					
 
-					<button id="cc_ord<%=count%>" width="20px" height="20px">Cancel</button>
+					<button id="cc_ord<%=count%>" >刪除訂單</button>
 					<div id="dialog-form<%=count%>" title="取消訂單[${ordVO.ord_no}]">
 						<p>請輸入取消訂單的原因.</p>
 						<form method="post"
@@ -152,7 +152,8 @@
 							<textarea name="ord_cc_cause" rows="4" cols="35" maxlength="100"></textarea>
 							<input id="cancel<%=count%>" type="submit" value="取消訂單">
 						</form>
-					</div> <script>
+					</div> 
+					<script>
 		 				$("#dialog-form<%=count%>").dialog({
 						autoOpen : false,
 						height : 300,
@@ -174,10 +175,7 @@
 
 						$("#cc_ord<%=count%>").button().on("click", function() {
 	     					$("#dialog-form<%=count%>").dialog( "open" );
-	  						$("#dialog-form<%=count%>
-						").find(
-											"[type=submit]").hide();
-								});
+	  						$("#dialog-form<%=count%>").find("[type=submit]").hide();});
 					</script>
 				</td>
 			</tr>
@@ -187,9 +185,9 @@
         	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
          		}
 				//超連結至該出租人
-//          		function pressesB${s.index}(){
-<%--         	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${rentVO.les_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes"); --%>
-//          		}
+         		function pressesB${s.index}(){
+        	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${rentVO.les_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+         		}
          		
 			</script>
 		</c:forEach>

@@ -287,6 +287,7 @@ public class RentServlet extends HttpServlet {
 			}
 		}
 
+		//租物下架
 		if ("delete".equals(action)) {
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
@@ -298,9 +299,20 @@ public class RentServlet extends HttpServlet {
 				if (rent_no == null || rent_no.trim().length() == 0) {
 					errorMsgs.put("rent_no", "租物編號不能為空");
 				}
+				
+				RentService rentSvc = new RentService();
+				RentVO rentVO = rentSvc.getOneRent(rent_no);
+				String rent_sta = rentVO.getRent_sta();
+				if(rent_sta.equals("A_RENT")){
+					//租物狀態不對
+					errorMsgs.put("alert","租物狀態[已出租]無法進行下架!");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front/rent/listAllRent.jsp");
+					failureView.forward(req, res);
+					return;		 
+				}	
 
 				/*************************** 2.開始刪除資料 ***************************************/
-				RentService rentSvc = new RentService();
+//				RentService rentSvc = new RentService();
 				rentSvc.deleteRent(rent_no);
 
 				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
@@ -332,7 +344,14 @@ public class RentServlet extends HttpServlet {
 				/*************************** 2.開始查詢資料 ****************************************/
 				RentService rentSvc = new RentService();
 				RentVO rentVO = rentSvc.getOneRent(rent_no);
-
+				String rent_sta = rentVO.getRent_sta();
+				if(!rent_sta.equals("W_RENT") && !rent_sta.equals("W_CHECK")){
+					//租物狀態不對
+					errorMsgs.put("alert","租物狀態只有在待審核或未出租時才可以編輯");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front/rent/listAllRent.jsp");
+					failureView.forward(req, res);
+					return;		 
+				}				
 				/*************************** 3.查詢完成,準備轉交(Send the Successview) ************/
 				req.setAttribute("rentVO", rentVO); // 資料庫取出的rentVO物件,存入req
 				String url = "/front/rent/update_rent_input.jsp";

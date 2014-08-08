@@ -69,6 +69,11 @@
 		</font>
 	</c:if>
 
+	<%-- 一般提示 --%>
+ 	<c:if test="${not empty alertMsgs}">
+ 		<script>alert("${alertMsgs.alert}");</script>
+ 	</c:if>
+
 	<table border='1' bordercolor='#CCCCFF' align='center'>
 		<tr align='center' valign='middle'>
 			<th>租物圖片</th>

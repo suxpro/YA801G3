@@ -194,6 +194,9 @@ public class OrdServlet extends HttpServlet {
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			
+			Map<String, String> alertMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("alertMsgs", alertMsgs);
 
 			OrdService ordSvc = new OrdService();
 			OrdVO ordVO = new OrdVO();
@@ -214,7 +217,8 @@ public class OrdServlet extends HttpServlet {
 				//檢查訂單狀態是否仍是待核准
 				String ord_sta = ordVO.getOrd_sta();
 				if(!ord_sta.equals("W_APR")){
-					errorMsgs.put("rent_no","訂單狀態非[待核准],無法取消訂單");
+					//errorMsgs.put("ord_sta","訂單狀態非[待核准],無法取消訂單");
+					errorMsgs.put("alert","訂單狀態非[待核准],無法取消訂單");
 				}
 
 				// ord_cc_cause
@@ -228,18 +232,23 @@ public class OrdServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front/ord/listAllOrd.jsp");
+							.getRequestDispatcher("/front/ord/tenOrdList.jsp");
 					failureView.forward(req, res);
 					return;
 				}
-
+//				// Send the use back to the form, if there were errors
+//				if (!alertMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/front/ord/tenOrdList.jsp");
+//					failureView.forward(req, res);
+//					return;
+//				}
 				/*************************** 2.開始刪除資料 ***************************************/
-
 //				ordSvc.deleteOrd(ord_no, ord_cc_cause);
 				ordSvc.deleteOrd(ordVO);
-
+				alertMsgs.put("alert", "訂單[" + ord_no + "]刪除成功");
 				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-				String url = "/front/ord/listAllOrd.jsp";
+				String url = "/front/ord/tenOrdList.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 
@@ -247,7 +256,7 @@ public class OrdServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception", "刪除資料失敗:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front/ord/listAllOrd.jsp");
+						.getRequestDispatcher("/front/ord/tenOrdList.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -297,6 +306,9 @@ public class OrdServlet extends HttpServlet {
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			
+			Map<String, String> alertMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("alertMsgs", alertMsgs);
 
 			RentService rentSVC = new RentService();
 			RentVO rentVO =new RentVO();
@@ -512,7 +524,6 @@ public class OrdServlet extends HttpServlet {
 				// 移除租物車中該筆租物編號
 				int index = 0;
 				int del = 0;
-
 				for (String rent : rentList) {
 					if (rent_no.equals(rent)) {
 						del = index;
@@ -521,7 +532,8 @@ public class OrdServlet extends HttpServlet {
 				}
 				rentList.removeElementAt(del);
 				session.setAttribute("rentList", rentList);
-
+				//成功提示
+				alertMsgs.put("alert", "訂單產生成功");
 				// req.setAttribute("ordVO", ordVO); //
 				// 資料庫update成功後,正確的的ordVO物件,存入req
 				String url = "/front/cart/cart.jsp";
