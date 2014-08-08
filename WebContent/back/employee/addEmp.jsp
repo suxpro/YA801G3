@@ -35,13 +35,6 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="addEmpPassword" class="col-md-2 control-label">密碼:</label>
-				<div class="col-md-4">
-					<input type="password" class="form-control" id="addEmpPassword" name="addEmpPassword"
-						placeholder="密碼" required="required" />
-				</div>
-			</div>
-			<div class="form-group">
 				<label for="addEmpName" class="col-md-2 control-label">姓名:</label>
 				<div class="col-md-4">
 					<input type="text" class="form-control" id="addEmpName" name="addEmpName"

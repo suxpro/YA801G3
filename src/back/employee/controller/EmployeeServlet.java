@@ -37,7 +37,7 @@ public class EmployeeServlet extends HttpServlet {
 		
 //		doPost(req, res);
 	}
-
+	
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 
@@ -65,24 +65,29 @@ public class EmployeeServlet extends HttpServlet {
 
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-				String emp_id_pwd_Reg = "^[(a-zA-Z0-9_)]{2,10}$";
+				String emp_id_Reg = "^[(a-zA-Z0-9_)]{2,10}$";
 
 				String emp_id = multi.getParameter("addEmpAccount").trim();
 				if (emp_id == null || emp_id.trim().length() == 0) {
 					errorMsgs.put("emp_id", "帳號: 請勿空白");
 					System.out.println("帳號: 請勿空白");
-				} else if (!emp_id.trim().matches(emp_id_pwd_Reg)) { // 以下正則(規)表示式(regular-expression)
+				} else if (!emp_id.trim().matches(emp_id_Reg)) { // 以下正則(規)表示式(regular-expression)
 					errorMsgs.put("emp_id",
 							"帳號: 只能是英文字母、數字和_ , 且長度必需在2到10之間");
 				}
 				
-				String emp_pwd = multi.getParameter("addEmpPassword").trim();
-				if (emp_pwd == null || emp_pwd.trim().length() == 0) {
-					errorMsgs.put("emp_pwd", "密碼: 請勿空白");
-				} else if (!emp_pwd.trim().matches(emp_id_pwd_Reg)) { // 以下正則(規)表示式(regular-expression)
-					errorMsgs.put("emp_pwd",
-							"密碼: 只能是英文字母、數字和_ , 且長度必需在2到10之間");
-				}
+				String emp_pwd = "";
+				int pwlength = 8;     //密碼長度設定
+			    String[] RegSNContent = {
+			        "0","1","2","3","4","5","6","7","8","9",
+			        "A","B","C","D","E","F","G","H","I","J",
+			        "K","L","M","N","O","P","Q","R","S","T",
+			        "U","V","W","X","Y","Z","a","b","c","d",
+			        "e","f","g","h","i","j","k","l","m","n","o",
+			        "p","q","r","s","t","u","v","w","x","y","z"};
+			    for(int i=0;i<pwlength;i++) //隨機產生密碼
+			    	emp_pwd += RegSNContent[(int)(Math.random()*RegSNContent.length)];
+				System.out.println("EmployeeServlet.90."+emp_pwd);
 
 				String emp_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				String emp_name = multi.getParameter("addEmpName").trim();
@@ -163,11 +168,17 @@ public class EmployeeServlet extends HttpServlet {
 
 				/*************************** 2.開始新增資料 ***************************************/
 				EmployeeService empSvc = new EmployeeService();
-				empSvc.addEmployee(emp_id, emp_pwd, emp_name, emp_sex, emp_tel,
+				EmployeeVO employeeVO = empSvc.addEmployee(emp_id, emp_pwd, emp_name, emp_sex, emp_tel,
 						emp_cell, emp_mail, emp_addr, emp_job, emp_sal,
 						emp_tod, emp_lod, emp_ecp, emp_ecell, emp_pic,
 						emp_format);
 
+				req.setAttribute("ch_name", employeeVO.getEmp_name());
+				req.setAttribute("passRandom", employeeVO.getEmp_pwd());
+				String urlMail = "/back/employee/JavaMailProccess.jsp";
+				RequestDispatcher successViewMail = req.getRequestDispatcher(urlMail); // include JavaMailProccess.jsp
+				successViewMail.include(req, res);
+				
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				String url = "/back/employee/listAllEmp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
