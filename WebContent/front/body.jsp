@@ -13,20 +13,20 @@
 	$.getScript("js/bodyRent/bodyRent.js");
 </script>
 
-<div class="container">
+<div class="container-fluid">
 	<!-- MENU -->
 	<nav class="animate">
 		<h4>Menu</h4>
-		<ul>
-			<li class="active"><a href="#">全部租物</a></li>
-			<li><a href="#">電腦、平板與周邊</a></li>
-			<li><a href="#">相機、攝影與周邊</a></li>
-			<li><a href="#">手機、配件與通訊</a></li>
-			<li><a href="#">家電、影音視聽</a></li>
-			<li><a href="#">居家、家具與園藝</a></li>
-			<li><a href="#">運動、戶外與休閒</a></li>
-			<li><a href="#">玩具、模型與公仔</a></li>
-			<li><a href="#">其他</a></li>
+		<ul id="bodyRentMenu">
+			<li class="active" data-data-rent-tag-no="T10000"><a>全部租物</a></li>
+			<li data-rent-tag-no="T10001"><a>${tag_staMap["T10001"]}</a></li>
+            <li data-rent-tag-no="T10002"><a>${tag_staMap["T10002"]}</a></li>
+            <li data-rent-tag-no="T10003"><a>${tag_staMap["T10003"]}</a></li>
+            <li data-rent-tag-no="T10004"><a>${tag_staMap["T10004"]}</a></li>
+            <li data-rent-tag-no="T10005"><a>${tag_staMap["T10005"]}</a></li>
+            <li data-rent-tag-no="T10006"><a>${tag_staMap["T10006"]}</a></li>
+            <li data-rent-tag-no="T10007"><a>${tag_staMap["T10007"]}</a></li>
+            <li data-rent-tag-no="T10008"><a>${tag_staMap["T10008"]}</a></li>
 		</ul>
 	</nav>
 	<div class="nav-controller">
@@ -38,32 +38,24 @@
 
 	<div class="row">
 		<!-- 分頁 -->
-		<div class="col-xs-4">
-			<ul class="pagination pagination-sm">
-				<li><a href="#">&laquo;</a></li>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#">&raquo;</a></li>
-			</ul>
+		<div class="col-md-5">
+            <ul class="nav navbar-nav navbar-left">
+                <li class="liBodyRentPage disabled"><a class="navbar-link">1</a></li>
+                <c:forEach var="i" begin="2" end="${rentBodyList.size()/12+1}" step="1">
+                    <li class="liBodyRentPage"><a class="navbar-link">${i}</a></li>
+                </c:forEach>
+            </ul>
 		</div>
 
 		<!-- 搜尋 -->
-		<div class="col-xs-4 col-xs-offset-1">
-			<div class="span12">
-				<form id="custom-search-form"
-					class="form-search form-horizontal pull-left">
-					<div class="input-append span12">
-						<input type="text" class="search-query mac-style"
-							placeholder="Search">
-						<button type="submit" class="btn btn-default">
-							<i class="glyphicon glyphicon-search"></i>
-						</button>
-					</div>
-				</form>
-			</div>
+		<div class="col-md-4 col-md-offset-1">
+            <form id="formBodyRentSearch" role="search" class="navbar-form navbar-right" value="<%=request.getContextPath()%>/employee/employee.do" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="text" id="inputBodyRentSearch" class="form-control" placeholder="Search By 關鍵字">
+                    <input type="hidden" name="action" value="searchEmp">
+                </div>
+                <button type="button" id="btnBodyRentSubmit" class="btn btn-default">搜尋</button>
+            </form>
 		</div>
 		<!-- search -->
 	</div>
@@ -71,7 +63,7 @@
 
 	<div class="row row-offcanvas row-offcanvas-light">
 		<!-- SOS/熱門 -->
-		<div class="col-xs-6 col-xs-3 sidebar-offcanvas navbar-right"
+		<div class="col-md-2 sidebar-offcanvas navbar-right"
 			id="sidebar" role="navigation">
 			<div class="list-group">
 				<a href="#" class="list-group-item active">即時SOS訊息</a> <a
@@ -110,18 +102,16 @@
 		</div>
 
 		<!-- 商品 -->
-		<div class="col-xs-12 col-xs-9">
+		<div class="col-md-10">
 			<div class="row">
 				<div class='list-group gallery'>
 
 					<c:forEach var="rentVO" items="${rentBodyList}" varStatus="status">
-						<div id="${rentVO.rent_no}" class='divRentItem col-sm-4 col-xs-6 col-md-3 col-lg-3' value="<%=request.getContextPath()%>/front/rent/rent.do">
-							<a class="thumbnail" rel="ligthbox" data-toggle="modal"
-								data-target="#infoRentModel"> <img
-								data-src="js/holder.js/450x450"
-								src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
+						<div id="${rentVO.rent_no}" class='divRentItem col-md-3' value="<%=request.getContextPath()%>/front/rent/rent.do" data-rent-list-no="${status.count}" data-rent-tag-no="${rentVO.tag_no}">
+						    <a class="thumbnail" rel="ligthbox" data-toggle="modal" data-target="#infoRentModel">
+							    <img height="300px" width="300px" src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
 								<div class='text-right'>
-									<small class='text-muted'>${rentVO.rent_name}</small><span id="rentStateSpan" class="label label-primary" data-rentState="${rentVO.rent_sta}">${rent_staMap[rentVO.rent_sta]}</span>
+									<small class='bodyRentName text-muted'>${rentVO.rent_name} | <span id="rentStateSpan" class="label label-primary" data-rentState="${rentVO.rent_sta}">${rent_staMap[rentVO.rent_sta]}</span> |</small>
 								</div> <!-- text-right / end -->
 							</a>
 						</div>

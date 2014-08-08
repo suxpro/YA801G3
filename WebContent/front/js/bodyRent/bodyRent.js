@@ -105,7 +105,7 @@ $(document).ready(
 				if($.trim($(this).find("#rentStateSpan").data("liveOrd")).length != 0 ){
 					var ordTenDate = new Date($(this).find("#rentStateSpan").data("ordTenDate")).getTime(); //承租日
 					var ordExpDate = new Date($(this).find("#rentStateSpan").data("ordExpDate")).getTime(); //到期日
-					var bufferDate = 0*24*60*60*1000; //緩衝的天數
+					var bufferDate = $("#datepicker").data("resetDays")*24*60*60*1000; //緩衝的天數
 					console.log("bodyRent.liveOrd:"+$(this).find("#rentStateSpan").data("liveOrd"));
 					console.log("bodyRent.ordTenDate:"+$(this).find("#rentStateSpan").data("ordTenDate"));
 					console.log("bodyRent.ordExpDate:"+$(this).find("#rentStateSpan").data("ordExpDate"));
@@ -125,12 +125,43 @@ $(document).ready(
 				}
 			});
 			
-			
-			// 選擇租物承租/預租
-			$("btnAddRentToCart").off();
-			$("btnAddRentToCart").on("click", function(event) {
-				
-				
+			//分頁按鈕
+			var showPage = 12; //一次要show得筆數
+			$(".divRentItem:gt("+(showPage-1)+")").hide(); //一開始先將第2頁之後的筆數隱藏
+			$(".liBodyRentPage").off();
+			$(".liBodyRentPage").on("click",{showPage:showPage}, function(event) {
+				var selectPageBtn = $(this).text(); //取得分頁按鈕的數字
+				//console.log(selectPageBtn);
+				$(this).addClass( "disabled" ); //將此按鍵的變成不可按
+				$(this).siblings("li").removeClass( "disabled" ); //將其他變成可按
+				$(".divRentItem").each(function(){
+					if(Math.ceil($(this).data("rentListNo")/showPage) == selectPageBtn)
+						$(this).show();
+					else
+						$(this).hide();
+				});
 			});
 
+			//搜尋租物按鈕
+			$("#btnBodyRentSubmit").off();
+			$("#btnBodyRentSubmit").on("click", function(event) {
+				if($.trim($("#inputBodyRentSearch").val()).length != 0){
+					$(".divRentItem").fadeOut("fast", function() { //一開始先將所有的筆數隱藏
+						$(".bodyRentName:contains("+$("#inputBodyRentSearch").val()+")").parents(".divRentItem").fadeIn("fast");
+					});
+				} else {
+					var selectPage = $(".liBodyRentPage.disabled").text();
+					console.log(selectPage);
+					$(".divRentItem").fadeOut("fast").slice(showPage*(selectPage-1),showPage*selectPage).fadeIn("fast");
+				}
+			});
+			
+			//搜尋租物分類按鈕
+			$("#bodyRentMenu > li").off();
+			$("#bodyRentMenu > li").on("click", function(event) {
+//				console.log($(this).data("rentTagNo"));
+//				console.log($(".divRentItem[data-rent-tag-no="+$(this).data("rentTagNo")+"]"));
+				$(".divRentItem").fadeOut("fast").filter("[data-rent-tag-no="+$(this).data("rentTagNo")+"]").fadeIn("fast");
+			});
+			
 		});
