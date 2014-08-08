@@ -82,7 +82,8 @@
 <!-- 			<th>最後上架時間</th> -->
 <!-- 			<th>最後修改時間</th> -->
 		</tr>
-<%-- 		<%@ include file="page1.file"%> --%>
+
+		<%@ include file="page1.file"%>
 		<c:forEach var="rent_no" items="${rentList}"  varStatus="s">
 			<% 
 		    	RentVO rentVO = rentSVC.getOneRent((String)pageContext.getAttribute("rent_no"));
@@ -139,7 +140,7 @@
         	</script>
 		</c:forEach>
 	</table>
-<%-- 	<%@ include file="page2.file"%> --%>
+	<%@ include file="page2.file"%>
 
 </body>
 </html>
