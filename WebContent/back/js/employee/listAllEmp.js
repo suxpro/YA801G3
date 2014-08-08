@@ -166,7 +166,6 @@ $("#btnDelEmp").on("click", function(event) {
 
 //分頁按鈕
 var showPage = 5; //一次要show得筆數
-console.log();
 $("#listAllEmpTable tbody tr:gt("+(showPage-1)+")").hide(); //一開始先將第2頁之後的筆數隱藏
 $(".liListAllEmpPage").off();
 $(".liListAllEmpPage").on("click",{showPage:showPage}, function(event) {
@@ -190,14 +189,15 @@ $("#btnListAllEmpSubmit").on("click", function(event) {
 			$("#listAllEmpTable tbody tr td:contains("+$("#inputListAllEmpSearch").val()+")").parent("tr").fadeIn("fast");
 		});
 	} else {
-		$("#listAllEmpTable tbody tr").hide(function() { 
-			var selectPage = $(".liListAllEmpPage.disabled").text();
-			console.log(selectPage);
+		var selectPage = $(".liListAllEmpPage.disabled").text();
+		console.log(selectPage);
+		$("#listAllEmpTable tbody tr").fadeOut("fast").slice(showPage*(selectPage-1),showPage*selectPage).fadeIn("fast");
+//		$("#listAllEmpTable tbody tr").hide(function() { 
 //			$("#listAllEmpTable tbody tr:gt("+(showPage-1)+")").fadeIn("fast"); //顯示第一頁筆數
-			$("#listAllEmpTable tbody tr").each(function(){
-				if(Math.ceil($(this).attr("title")/showPage) == selectPage)
-					$(this).fadeIn("fast");
-			});
-		});
+//			$("#listAllEmpTable tbody tr").each(function(){
+//				if(Math.ceil($(this).attr("title")/showPage) == selectPage)
+//					$(this).fadeIn("fast");
+//			});
+//		});
 	}
 });

@@ -69,7 +69,7 @@
          </div>
 		<!-- 租物日期 -->
 		<div class="col-md-3">
-		    <div id="datepicker" style="font-size: 40%;"></div>
+		    <div id="datepicker" style="font-size: 40%;" data-reset-days="${rentVO.reset_days}"></div>
 		    <div id="hasRent"></div>
 		</div>
 	</div>

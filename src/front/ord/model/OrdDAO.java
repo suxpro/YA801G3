@@ -29,11 +29,11 @@ public class OrdDAO implements OrdDAO_interface {
 		}
 	}
 
-	private static final String INSERT_STMT = "INSERT INTO ord (ord_no, rent_no, ten_no, ord_sta, tra_mode, "
+	private static final String INSERT_STMT = "INSERT INTO ord (ord_no, rent_no, les_no, ten_no, ord_sta, tra_mode, "
 			+ "freight, ten_date, exp_date, ten_days, rent_total, "
 			+ "ot_days, init_dps, real_dps, tra_total, loc_no, "
 			+ "rec_addr, w_apr_time) "
-			+ "VALUES ('O'||TO_CHAR(ord_seq.NEXTVAL), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE)";
+			+ "VALUES ('O'||TO_CHAR(ord_seq.NEXTVAL), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE)";
 	// Old
 	// "INSERT INTO ord (ord_no, rent_no, ten_no, ord_sta, tra_mode, "
 	// + "freight, ten_date, exp_date, ten_days, rent_total, "
@@ -67,20 +67,21 @@ public class OrdDAO implements OrdDAO_interface {
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, ordVO.getRent_no());
-			pstmt.setString(2, ordVO.getTen_no());
-			pstmt.setString(3, ordVO.getOrd_sta());
-			pstmt.setString(4, ordVO.getTra_mode());
-			pstmt.setInt(5, ordVO.getFreight());
-			pstmt.setDate(6, ordVO.getTen_date());
-			pstmt.setDate(7, ordVO.getExp_date());
-			pstmt.setInt(8, ordVO.getTen_days());
-			pstmt.setInt(9, ordVO.getRent_total());
-			pstmt.setInt(10, ordVO.getOt_days());
-			pstmt.setInt(11, ordVO.getInit_dps());
-			pstmt.setInt(12, ordVO.getReal_dps());
-			pstmt.setInt(13, ordVO.getTra_total());
-			pstmt.setString(14, ordVO.getLoc_no());
-			pstmt.setString(15, ordVO.getRec_addr());
+			pstmt.setString(2, ordVO.getLes_no());
+			pstmt.setString(3, ordVO.getTen_no());
+			pstmt.setString(4, ordVO.getOrd_sta());
+			pstmt.setString(5, ordVO.getTra_mode());
+			pstmt.setInt(6, ordVO.getFreight());
+			pstmt.setDate(7, ordVO.getTen_date());
+			pstmt.setDate(8, ordVO.getExp_date());
+			pstmt.setInt(9, ordVO.getTen_days());
+			pstmt.setInt(10, ordVO.getRent_total());
+			pstmt.setInt(11, ordVO.getOt_days());
+			pstmt.setInt(12, ordVO.getInit_dps());
+			pstmt.setInt(13, ordVO.getReal_dps());
+			pstmt.setInt(14, ordVO.getTra_total());
+			pstmt.setString(15, ordVO.getLoc_no());
+			pstmt.setString(16, ordVO.getRec_addr());
 
 			pstmt.executeUpdate();
 
@@ -332,6 +333,7 @@ public class OrdDAO implements OrdDAO_interface {
 				ordVO = new OrdVO();
 				ordVO.setOrd_no(rs.getString("ord_no"));
 				ordVO.setRent_no(rs.getString("rent_no"));
+				ordVO.setLes_no(rs.getString("les_no"));
 				ordVO.setTen_no(rs.getString("ten_no"));
 				ordVO.setOrd_sta(rs.getString("ord_sta"));
 				ordVO.setTra_mode(rs.getString("tra_mode"));
@@ -411,6 +413,7 @@ public class OrdDAO implements OrdDAO_interface {
 			while (rs.next()) {
 				ordVO = new OrdVO();
 				ordVO.setRent_no(rs.getString("rent_no"));
+				ordVO.setLes_no(rs.getString("les_no"));
 				ordVO.setTen_no(rs.getString("ten_no"));
 				ordVO.setOrd_sta(rs.getString("ord_sta"));
 				ordVO.setTra_mode(rs.getString("tra_mode"));

@@ -125,6 +125,7 @@
 			<!-- 				<td>租物編號:<font color=red><b>*</b></font></td> -->
 			<!-- 				<td> -->
 			<input type="hidden" name="rent_no" size="10" value="<%=rentVO.getRent_no()%>" readonly="readonly" />
+			<input type="hidden" name="les_no" size="6" value="<%=rentVO.getLes_no()%>" readonly="readonly" />
 			<!-- 				</td> -->
 			<!-- 			</tr> -->
 			<tr>
@@ -134,7 +135,7 @@
 			<!-- 			<tr> -->
 			<!-- 				<td>承租會員(編號):<font color=red><b>*</b></font></td> -->
 			<!-- 				<td> -->
-			<input type="hidden" name="ten_no" size="10" value="<%=memberVO.getMno()%>" readonly="readonly" />
+			<input type="hidden" name="ten_no" size="6" value="<%=memberVO.getMno()%>" readonly="readonly" />
 			<!-- 				</td> -->
 			<!-- 			</tr> -->
 

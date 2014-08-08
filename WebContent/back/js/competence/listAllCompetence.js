@@ -187,14 +187,17 @@ $("#btnListAllComSubmit").on("click", function(event) {
 			$("#listAllComTable tbody tr td:contains("+$("#inputListAllComSearch").val()+")").parent("tr").fadeIn("fast");
 		});
 	} else {
-		$("#listAllComTable tbody tr").hide(function() { 
-			var selectPage = $(".liListAllComPage.disabled").text();
-			console.log(selectPage);
-//			$("#listAllComTable tbody tr:gt("+(showPage-1)+")").fadeIn("fast"); //顯示第一頁筆數
-			$("#listAllComTable tbody tr").each(function(){
-				if(Math.ceil($(this).attr("title")/showPage) == selectPage)
-					$(this).fadeIn("fast");
-			});
-		});
+		var selectPage = $(".listAllComTable.disabled").text();
+		console.log(selectPage);
+		$("#listAllComTable tbody tr").fadeOut("fast").slice(showPage*(selectPage-1),showPage*selectPage).fadeIn("fast");
+//		$("#listAllComTable tbody tr").hide(function() { 
+//			var selectPage = $(".liListAllComPage.disabled").text();
+//			console.log(selectPage);
+////			$("#listAllComTable tbody tr:gt("+(showPage-1)+")").fadeIn("fast"); //顯示第一頁筆數
+//			$("#listAllComTable tbody tr").each(function(){
+//				if(Math.ceil($(this).attr("title")/showPage) == selectPage)
+//					$(this).fadeIn("fast");
+//			});
+//		});
 	}
 });
