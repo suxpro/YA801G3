@@ -22,12 +22,12 @@
 
 </head>
 <body>
-	<%@ include file="/front/header.file"%>
+	<%@ include file="/front/header.jsp"%>
 
 	<!-- ¯²ª«°Ï -->
     <%@ include file="/front/body.jsp"%>
 
-	<%@ include file="/front/footer.file"%>
+	<%@ include file="/front/footer.jsp"%>
 	
 </body>
 </html>

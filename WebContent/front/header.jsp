@@ -3,26 +3,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="front.member.model.*"%>
 <%
-	MemberVO memberVO = null;
+	MemberVO memberVOxx = null;
 	if (session.getAttribute("memberVO") != null) {
-		memberVO = (MemberVO) session.getAttribute("memberVO");
+		memberVOxx = (MemberVO) session.getAttribute("memberVO");
 	}
 %> 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css"rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/front/css/justrent.css"rel="stylesheet">
-<script src="<%=request.getContextPath()%>/front/js/jquery-1.7.2.min.js"></script>
-<script src="<%=request.getContextPath()%>/front/js/bootstrap.min.js"></script>
-<script	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
-<script src="<%=request.getContextPath()%>/front/js/jquery.color.js"></script>
-<script src="<%=request.getContextPath()%>/front/js/justrent.js"></script>
+
 <title></title>
 </head>
 <body>
-		<!-- header -->
+	<!-- header -->
 	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
@@ -35,14 +29,38 @@
 			</div>
 			
 		<!-- 登入後 -->
-			<c:if test="<%=memberVO != null%>">
-			   <div class="navbar-collapse collapse navbar-right" >				
+			<c:if test="<%=memberVOxx != null%>">
+			   <div class="navbar-collapse collapse navbar-right" >	
 				 <ul class="nav navbar-nav ">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">您好, <%=memberVO.getMname()%> <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">租務 <front class="badge">14</front><b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                  <li class="dropdown-plus-title">
-                                    <i class="glyphicon glyphicon-user"></i>		<%=memberVO.getMname()%>
+                                    <i class="glyphicon glyphicon-envelope"></i>		租務秘書提醒
+                                    <b class="pull-right glyphicon glyphicon-chevron-up"></b>
+                                </li>
+                                
+                  						<li><a href="#">&nbsp;&nbsp;&nbsp;成功出租&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
+                  						<li><a href="#">&nbsp;&nbsp;&nbsp;成功承租&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
+                  						<li><a href="#">&nbsp;&nbsp;&nbsp;出租確認&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
+                  						<li><a href="#">&nbsp;&nbsp;&nbsp;預約通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">4</front></a></li>
+                  						<li><a href="#">&nbsp;&nbsp;&nbsp;出租Q&A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
+                  						<li><a href="#">&nbsp;&nbsp;&nbsp;承租Q&A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">3</front></a></li>
+                  						<li><a href="#">&nbsp;&nbsp;&nbsp;評價通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">1</front></a></li>
+                  						<li><a href="#">&nbsp;&nbsp;&nbsp;檢舉通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">3</front></a></li>
+                  						<li><a href="#">&nbsp;&nbsp;&nbsp;出貨通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">2</front></a></li>
+                  						<li><a href="#">&nbsp;&nbsp;&nbsp;歸期通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
+                  						<li><a href="#">&nbsp;&nbsp;&nbsp;租期通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">2</front></a></li>                                                                
+                                
+                            </ul>
+                        </li>
+                 </ul>			
+				 <ul class="nav navbar-nav ">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%=memberVOxx.getMname()%> <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                 <li class="dropdown-plus-title">
+                                    <i class="glyphicon glyphicon-user"></i>		<%=memberVOxx.getMname()%>
                                     <b class="pull-right glyphicon glyphicon-chevron-up"></b>
                                 </li>
                                 
@@ -52,28 +70,23 @@
 										<input type="hidden" name="action" value="getOne_For_Update">
 									</FORM>
                                 </li>
-                                <li><a href="#">會員儲值</a></li>
+                                <li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a>
+                                	<FORM name="storedMoney" METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/memberStored.do">
+										<input type="hidden" name="mno" value="${memberVO.mno}"> 						
+										<input type="hidden" name="action" value="getOne_For_Update">
+									</FORM>
+                                
+                                </li>
                                 <li><a href="#">出租管理</a></li>
                                 <li><a href="#">訂單管理</a></li>
                                 <li><a href="#">歷史租借查詢</a></li>
-                                <li><a href="#">升級會員</a></li>
-                                <li class="divider"></li>
-              					<li class="dropdown-submenu">
-                					<a tabindex="-1" href="#">租務秘書提醒</a>
-                					<ul class="dropdown-menu">
-                  						<li><a tabindex="-1" href="#">成功出租(0)</a></li>
-                  						<li><a href="#">成功承租(0)</a></li>
-                  						<li><a href="#">出租確認(0)</a></li>
-                  						<li><a href="#">預約通知(0)</a></li>
-                  						<li><a href="#">出租Q&A(0)</a></li>
-                  						<li><a href="#">承租Q&A(0)</a></li>
-                  						<li><a href="#">評價通知(0)</a></li>
-                  						<li><a href="#">檢舉通知(0)</a></li>
-                  						<li><a href="#">出貨通知(0)</a></li>
-                  						<li><a href="#">歸期通知(0)</a></li>
-                  						<li><a href="#">租期通知(0)</a></li>
-                					</ul>
-              					</li>
+                                <li><a href="#" onclick="document.updateVIP.submit();">升級會員</a>
+                                	<FORM name="updateVIP" METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/memberVIP.do">
+										<input type="hidden" name="mno" value="${memberVO.mno}"> 						
+										<input type="hidden" name="action" value="getOne_For_Update">
+									</FORM>
+                                </li>
+
               					<li class="divider"></li>
                                 <li>
                                 	<li><a href="#" onclick="document.logoutMember.submit();"><i class="glyphicon glyphicon-off"></i> 登出</a>
@@ -85,11 +98,11 @@
                                 
                             </ul>
                         </li>
-                    </ul>
-                  </div>
-				</c:if>
+                 </ul>
+               </div>
+			</c:if>
 		<!-- 登入前 -->
-				<c:if test="${member == null}">
+				<c:if test="${memberVO == null}">
 				<div class="navbar-collapse collapse navbar-form navbar-right" >
 					<button class="btn btn-default" data-toggle="modal"	data-target="#myLogin">登入</button>
 					<button class="btn btn-danger" data-toggle="modal"	data-target="#Agreement">註冊</button>
@@ -192,6 +205,7 @@
 			</div>
 		</div>
 	</div>
+
 
 </BODY>
 </html>

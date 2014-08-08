@@ -90,7 +90,7 @@ public class MemberService {
 	
 	}
 	
-	public MemberVO updateVIP(String mno, String mlev, Double mbalance){
+	public MemberVO updateVIP(String mno, String mlev, Double mbalance, Double vip ){
 		MemberVO memberVO = new MemberVO();
 		
 		memberVO.setMno(mno);
@@ -102,7 +102,7 @@ public class MemberService {
 		tradeVOxx.setMno(mno);
 //		tradeVOxx.setTmid("1596258445612365");
 		tradeVOxx.setTstas("VIP點數支出");
-		tradeVOxx.setTfunds(new Double(3000));
+		tradeVOxx.setTfunds(vip);
 //		tradeVOxx.setTin("Y");
 		
 		VIPList.add(tradeVOxx);

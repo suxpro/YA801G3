@@ -58,7 +58,7 @@
 </head>
 <body>
 
-	<%@ include file="/front/header.file"%>
+	<%@ include file="/front/header.jsp"%>
 
 	<div class="container-fluid">
 		<div class="row">
@@ -197,6 +197,6 @@
 	</div>
 
 
-	<%@ include file="/front/footer.file"%>
+	<%@ include file="/front/footer.jsp"%>
 </body>
 </html>

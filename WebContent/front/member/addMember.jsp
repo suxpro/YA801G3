@@ -37,7 +37,7 @@
 <script language="JavaScript" src="js/previewImage2.js"></script>
 <body >
 
-	<%@ include file="/front/header.file"%>
+	<%@ include file="/front/header.jsp"%>
 
 			<div class="container">
 				<div class="row-fluid">

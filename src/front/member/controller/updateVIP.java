@@ -35,7 +35,7 @@ public class updateVIP extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		doPost(request, response);
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class updateVIP extends HttpServlet {
 
 				/*************************** 2.開始修改資料 *****************************************/
 				MemberService memberSvc = new MemberService();
-				memberVO = memberSvc.updateVIP(mno, mlev, mbalance);
+				memberVO = memberSvc.updateVIP(mno, mlev, mbalance, vip);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
