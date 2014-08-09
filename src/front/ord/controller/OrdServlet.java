@@ -190,7 +190,7 @@ public class OrdServlet extends HttpServlet {
 		// }
 		// }
 
-		if ("delete".equals(action)) { // 來自listAllQue.jsp
+		if ("delete".equals(action)) {
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -200,7 +200,8 @@ public class OrdServlet extends HttpServlet {
 
 			OrdService ordSvc = new OrdService();
 			OrdVO ordVO = new OrdVO();
-
+			String url = null;
+			
 			try {
 				/*************************** 1.接收請求參數 ***************************************/
 				// ord_no
@@ -228,11 +229,24 @@ public class OrdServlet extends HttpServlet {
 				} else {
 					 ordVO.setOrd_cc_cause(ord_cc_cause);
 				}
+				
+				// role 判斷是出租者還是承租者取消的
+				String role = req.getParameter("role").trim();
+				if (role == null || role.trim().length() == 0) {
+					errorMsgs.put("role", "角色請勿空白");
+				} 
 
+				//判定原先頁面
+				if(role.equals("les")){
+					url = "/front/ord/lesOrdList.jsp";
+				}
+				else{
+					url = "/front/ord/tenOrdList.jsp";
+				}
+				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front/ord/tenOrdList.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher(url);
 					failureView.forward(req, res);
 					return;
 				}
@@ -245,10 +259,9 @@ public class OrdServlet extends HttpServlet {
 //				}
 				/*************************** 2.開始刪除資料 ***************************************/
 //				ordSvc.deleteOrd(ord_no, ord_cc_cause);
-				ordSvc.deleteOrd(ordVO);
+				ordSvc.deleteOrd(ordVO, role);
 				alertMsgs.put("alert", "訂單[" + ord_no + "]刪除成功");
 				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-				String url = "/front/ord/tenOrdList.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 
@@ -256,50 +269,109 @@ public class OrdServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception", "刪除資料失敗:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front/ord/tenOrdList.jsp");
+						.getRequestDispatcher(url);
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("update".equals(action)) {
 
-		// if ("getOne_For_Update".equals(action)) {
-		// Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
-		// req.setAttribute("errorMsgs", errorMsgs);
-		//
-		// try {
-		// /***************************1.接收請求參數****************************************/
-		// String ord_no= req.getParameter("ord_no");
-		// if (ord_no == null || ord_no.trim().length() == 0) {
-		// errorMsgs.put("ord_no","訂單編號不能為空");
-		// }
-		//
-		// // Send the use back to the form, if there were errors
-		// if (!errorMsgs.isEmpty()) {
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/front/ord/listAllOrd.jsp");
-		// failureView.forward(req, res);
-		// return;
-		// }
-		//
-		// /***************************2.開始查詢資料****************************************/
-		// OrdService ordSvc = new OrdService();
-		// OrdVO ordVO = ordSvc.getOneOrd(ord_no);
-		//
-		// /***************************3.查詢完成,準備轉交(Send the Success
-		// view)************/
-		// req.setAttribute("ordVO", ordVO); // 資料庫取出的ordVO物件,存入req
-		// String url = "/front/ord/update_ord_input.jsp";
-		// RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交
-		// update_ord_input.jsp
-		// successView.forward(req, res);
-		//
-		// /***************************其他可能的錯誤處理**********************************/
-		// } catch (Exception e) {
-		// errorMsgs.put("Exception","無法取得要修改的資料:" + e.getMessage());
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/front/ord/listAllOrd.jsp");
-		// failureView.forward(req, res);
-		// }
-		// }
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			Map<String, String> alertMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("alertMsgs", alertMsgs);
+
+			OrdService ordSvc = new OrdService();
+			OrdVO ordVO = new OrdVO();
+
+			try {
+				/*************************** 1.接收請求參數 ***************************************/
+				// ord_no
+				String ord_no = req.getParameter("ord_no");
+				String ord_noReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+				if (ord_no == null || ord_no.trim().length() == 0) {
+					errorMsgs.put("ord_no", "訂單編號請勿空白");
+				} else if (!ord_no.trim().matches(ord_no)) { // 以下練習正則(規)表示式(regular-expression)
+					errorMsgs.put("ord_no", "訂單編號只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+				} else {
+					 ordVO = ordSvc.getOneOrd(ord_no);
+				}
+				
+				// sta
+				String sta = req.getParameter("sta").trim();
+				if (sta == null || sta.trim().length() == 0) {
+					errorMsgs.put("sta", "更新的狀態請勿空白");
+				}
+				
+				//檢查訂單狀態是否仍是待核准
+//				String ord_sta = ordVO.getOrd_sta();
+//				if(!ord_sta.equals("W_APR")){
+//					//errorMsgs.put("ord_sta","訂單狀態非[待核准],無法取消訂單");
+//					errorMsgs.put("alert","訂單狀態非[待核准],無法取消訂單");
+//				}
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front/ord/lesOrdList.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+
+				/*************************** 2.開始更新資料 ***************************************/
+				ordSvc.updateOrd(ordVO, sta);
+				alertMsgs.put("alert", "訂單[" + ord_no + "]核准成功");
+				/*************************** 3./更新完成,準備轉交(Send the Success view) ***********/
+				String url = "/front/ord/lesOrdList.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 更新成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.put("Exception", "更新資料失敗:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front/ord/lesOrdList.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		// for listOneOrd.jsp using
+		if ("getOne_For_Display".equals(action)) {
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+		
+			try {
+				/***************************1.接收請求參數****************************************/
+				String ord_no= req.getParameter("ord_no");
+				if (ord_no == null || ord_no.trim().length() == 0) {
+					errorMsgs.put("ord_no","訂單編號不能為空");
+				}
+		
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/front/ord/listOneOrd.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+		
+				/***************************2.開始查詢資料****************************************/
+				OrdService ordSvc = new OrdService();
+				OrdVO ordVO = ordSvc.getOneOrd(ord_no);
+		
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("ordVO", ordVO); // 資料庫取出的ordVO物件,存入req
+				String url = "/front/ord/listOneOrd.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_ord_input.jsp
+				successView.forward(req, res);
+		
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.put("Exception","無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front/ord/listOneOrd.jsp");
+				failureView.forward(req, res);
+			}
+		 }
 		
 		//承租人遞交訂單
 		if ("insert".equals(action)) { // 來自cartToOrd.jsp的請求
@@ -549,72 +621,67 @@ public class OrdServlet extends HttpServlet {
 			}
 		}
 
-		// if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
-		//
-		// List<String> errorMsgs = new LinkedList<String>();
-		// // Store this set in the request scope, in case we need to
-		// // send the ErrorPage view.
-		// req.setAttribute("errorMsgs", errorMsgs);
-		//
-		// try {
-		// /***************************1.接收請求參數 -
-		// 輸入格式的錯誤處理**********************/
-		// String str = req.getParameter("empno");
-		// if (str == null || (str.trim()).length() == 0) {
-		// errorMsgs.add("請輸入員工編號");
-		// }
-		// // Send the use back to the form, if there were errors
-		// if (!errorMsgs.isEmpty()) {
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/emp/select_page.jsp");
-		// failureView.forward(req, res);
-		// return;//程式中斷
-		// }
-		//
-		// Integer empno = null;
-		// try {
-		// empno = new Integer(str);
-		// } catch (Exception e) {
-		// errorMsgs.add("員工編號格式不正確");
-		// }
-		// // Send the use back to the form, if there were errors
-		// if (!errorMsgs.isEmpty()) {
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/emp/select_page.jsp");
-		// failureView.forward(req, res);
-		// return;//程式中斷
-		// }
-		//
-		// /***************************2.開始查詢資料*****************************************/
-		// EmpService empSvc = new EmpService();
-		// EmpVO empVO = empSvc.getOneEmp(empno);
-		// if (empVO == null) {
-		// errorMsgs.add("查無資料");
-		// }
-		// // Send the use back to the form, if there were errors
-		// if (!errorMsgs.isEmpty()) {
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/emp/select_page.jsp");
-		// failureView.forward(req, res);
-		// return;//程式中斷
-		// }
-		//
-		// /***************************3.查詢完成,準備轉交(Send the Success
-		// view)*************/
-		// req.setAttribute("empVO", empVO); // 資料庫取出的empVO物件,存入req
-		// String url = "/emp/listOneEmp.jsp";
-		// RequestDispatcher successView = req.getRequestDispatcher(url); //
-		// 成功轉交 listOneEmp.jsp
-		// successView.forward(req, res);
-		//
-		// /***************************其他可能的錯誤處理*************************************/
-		// } catch (Exception e) {
-		// errorMsgs.add("無法取得資料:" + e.getMessage());
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/emp/select_page.jsp");
-		// failureView.forward(req, res);
-		// }
-		// }
+
+//		if ("getOne_For_Display".equals(action)) { 
+//			
+//			List<String> errorMsgs = new LinkedList<String>();
+//			// Store this set in the request scope, in case we need to
+//			// send the ErrorPage view.
+//			req.setAttribute("errorMsgs", errorMsgs);
+//		
+//			try {
+//				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+//				String str = req.getParameter("ord");
+//				if (str == null || (str.trim()).length() == 0) {
+//					errorMsgs.add("請輸入員工編號");
+//				}
+//				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req.getRequestDispatcher("/emp/select_page.jsp");
+//					failureView.forward(req, res);
+//					return;//程式中斷
+//				}
+//		
+//				Integer empno = null;
+//				try {
+//					empno = new Integer(str);
+//				} catch (Exception e) {
+//					errorMsgs.add("員工編號格式不正確");
+//				}
+//				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req.getRequestDispatcher("/emp/select_page.jsp");
+//					failureView.forward(req, res);
+//					return;//程式中斷
+//				}
+//		
+//				/***************************2.開始查詢資料*****************************************/
+//				EmpService empSvc = new EmpService();
+//				EmpVO empVO = empSvc.getOneEmp(empno);
+//				if (empVO == null) {
+//					errorMsgs.add("查無資料");
+//				}
+//				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req.getRequestDispatcher("/emp/select_page.jsp");
+//					failureView.forward(req, res);
+//					return;//程式中斷
+//				}
+//		
+//				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+//				req.setAttribute("empVO", empVO); // 資料庫取出的empVO物件,存入req
+//				String url = "/emp/listOneEmp.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url); //
+//				成功轉交 listOneEmp.jsp
+//				successView.forward(req, res);
+//		
+//			/***************************其他可能的錯誤處理*************************************/
+//			} catch (Exception e) {
+//				errorMsgs.add("無法取得資料:" + e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher("/emp/select_page.jsp");
+//				failureView.forward(req, res);
+//			}
+//		 }
 
 	}
 }

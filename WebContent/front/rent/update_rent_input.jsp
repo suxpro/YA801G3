@@ -91,19 +91,19 @@
 			</tr>
 			<tr>
 				<td>租物押金:<font color=red><b>*</b></font></td>
-				<td><input type="text" name="rent_dps" size="8"
+				<td><input type="number" name="rent_dps" size="8"
 					value="<%=rentVO.getRent_dps()%>"/></td>
 				<td><font color="red">${errorMsgs.rent_dps}</font></td>
 			</tr>
 			<tr>
 				<td>租物價格/天:<font color=red><b>*</b></font></td>
-				<td><input type="text" name="unit_price" size="8"
+				<td><input type="number" name="unit_price" size="8"
 					value="<%=rentVO.getUnit_price()%>"/></td>
 				<td><font color="red">${errorMsgs.unit_price}</font></td>
 			</tr>
 			<tr>
 				<td>出貨/回收緩衝:<font color=red><b>*</b></font></td>
-				<td><input type="text" name="reset_days" size="8"
+				<td><input type="number" name="reset_days" size="8"
 					value="<%=rentVO.getReset_days()%>"/></td>
 				<td><font color="red">${errorMsgs.reset_days}</font></td>
 			</tr>			

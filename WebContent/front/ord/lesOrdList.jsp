@@ -7,9 +7,9 @@
 <%@ page import="back.loc.model.*"%>
 
 <%
-//	MemberVO tenVO = (MemberVO)session.getAttribute("memberVO");
+	//	MemberVO tenVO = (MemberVO)session.getAttribute("memberVO");
 //	String ten_no = tenVO.getMno();
-	//未來要修改用這會員的MNO去查他承租的訂單
+	//未來要修改用這會員的MNO去查他出租的訂單
 	OrdService ordSvc = new OrdService();
 	List<OrdVO> list = ordSvc.getAll();
 	
@@ -19,18 +19,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>承租清單管理 - tenOrdList.jsp</title>
+<title>出租清單管理 - lesOrdList.jsp</title>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 </head>
 <body bgcolor='white' align='center'>
-	<table border='1' cellpadding='5' cellspacing='0' width='800' align="center">
+	<table border='1' cellpadding='5' cellspacing='0' width='800'
+		align="center">
 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-			<td><h3>所有承租資料 - tenOrdList.jsp</h3> <a
-				href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">
-					<img
+			<td><h3>所有出租資料 - lesOrdList.jsp</h3> <a
+				href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp"> <img
 					src="<%=request.getContextPath()%>/front/ord/images/back1.gif"
 					width="100" height="32" border="0">回首頁
 			</a></td>
@@ -49,11 +49,11 @@
 	</c:if>
 
 	<%-- 一般提示 --%>
- 	<c:if test="${not empty alertMsgs}">
- 		<script>alert("${alertMsgs.alert}");</script>
- 	</c:if>
- 	
-	<table border='1' bordercolor='#CCCCFF'  align='center'>
+	<c:if test="${not empty alertMsgs}">
+		<script>alert("${alertMsgs.alert}");</script>
+	</c:if>
+
+	<table border='1' bordercolor='#CCCCFF' align='center'>
 		<tr>
 			<th>租物圖片</th>
 			<th>訂單編號</th>
@@ -61,11 +61,11 @@
 			<th>訂單狀態</th>
 			<th>交易方式</th>
 			<th>租期</th>
-<!-- 			<th>承租日期</th> -->
-<!-- 			<th>到期日期</th> -->
+			<!-- 			<th>承租日期</th> -->
+			<!-- 			<th>到期日期</th> -->
 			<th>承租天數</th>
 			<th>逾期天數</th>
-			<th>出租會員</th>
+			<th>承租會員</th>
 			<th>聯絡方式</th>
 
 		</tr>
@@ -74,86 +74,57 @@
 			end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
 			<%
 				count++;
-			    RentService rentSVC = new RentService();
-    			RentVO rentVO = rentSVC.getOneRent(((OrdVO)pageContext.getAttribute("ordVO")).getRent_no());
-				pageContext.setAttribute("rentVO",rentVO);
-				//查出出租者聯絡資料
-				MemberService memberSVC = new MemberService();
-				MemberVO lesVO = memberSVC.getOneMember(rentVO.getLes_no());
-				//pageContext.setAttribute("lesVO",lesVO);
+				    RentService rentSVC = new RentService();
+			    			RentVO rentVO = rentSVC.getOneRent(((OrdVO)pageContext.getAttribute("ordVO")).getRent_no());
+					pageContext.setAttribute("rentVO",rentVO);
+					//查出承租者聯絡資料
+					MemberService memberSVC = new MemberService();
+					MemberVO tenVO = memberSVC.getOneMember(((OrdVO)pageContext.getAttribute("ordVO")).getTen_no());
+					//pageContext.setAttribute("lesVO",lesVO);
 			%>
 
 			<tr align='center' valign='middle'>
 
-				<td><img width="100" height="100" src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${ordVO.rent_no}&pic=pic1"></td>
+				<td><img width="100" height="100"
+					src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${ordVO.rent_no}&pic=pic1"></td>
 				<td><a href="javascript:pressesA${s.index}()">${ordVO.ord_no    }</a></td>
 				<td><a href="javascript:pressesB${s.index}()">${rentVO.rent_name}</a></td>
 				<td>${ord_staMap[ordVO.ord_sta]}</td>
 				<td>${tra_staMap[ordVO.tra_mode]}</td>
-				<td>${ordVO.ten_date       }<br>
-				             ~              <br>
-				    ${ordVO.exp_date       }</td>
+				<td>${ordVO.ten_date       }<br> ~ <br>
+					${ordVO.exp_date       }
+				</td>
 				<td>${ordVO.ten_days       }天</td>
 				<td>${ordVO.ot_days        }天</td>
-				<td><a href="javascript:pressesC${s.index}()"><%=lesVO.getMname() %></a></td>
-				<td align='left'>
-					Mail  : <a href="mailto:<%=lesVO.getMmail() %>"><%=lesVO.getMmail() %></a><br>
-				    Phone#: <font color='blue'><%=lesVO.getMcell() %></font></td>
-								
-				
-<%-- 				<td>${ordVO.freight        }</td> --%>
-<%-- 				<td>${ordVO.rent_total     }</td> --%>
-<%-- 				<td>${ordVO.ten_no         }</td> --%>
-<%-- 				<td>${ordVO.init_dps       }</td> --%>
-<%-- 				<td>${ordVO.real_dps       }</td> --%>
-<%-- 				<td>${ordVO.tra_total      }</td> --%>
-<%-- 				<td>${ordVO.loc_no         }</td> --%>
-<%-- 				<td>${ordVO.rec_addr       }</td> --%>
-<%-- 				<td>${ordVO.les_ases       }</td> --%>
-<%-- 				<td>${ordVO.les_ases_ct    }</td> --%>
-<%-- 				<td>${ordVO.ten_ases       }</td> --%>
-<%-- 				<td>${ordVO.ten_ases_ct    }</td> --%>
-<%-- 				<td>${ordVO.w_apr_time     }</td> --%>
-<%-- 				<td>${ordVO.w_ship_time    }</td> --%>
-<%-- 				<td>${ordVO.dtbt_time      }</td> --%>
-<%-- 				<td>${ordVO.rec_com_time   }</td> --%>
-<%-- 				<td>${ordVO.rent_exp_time  }</td> --%>
-<%-- 				<td>${ordVO.rt_time        }</td> --%>
-<%-- 				<td>${ordVO.rt_com_time    }</td> --%>
-<%-- 				<td>${ordVO.cls_time       }</td> --%>
-<%-- 				<td>${ordVO.cc_ord_time    }</td> --%>
-<%-- 				<td>${ordVO.ord_cc_cause   }</td> --%>
-
-<!-- 								<td> -->
-<!-- 									<FORM METHOD="post" -->
-<%-- 										ACTION="<%=request.getContextPath() %>/front/ord/ord.do"> --%>
-<!-- 										<input type="submit" value="編輯"> <input type="hidden" -->
-<%-- 											name="ord_no" value="${ordVO.ord_no}"> <input --%>
-<!-- 											type="hidden" name="action" value="getOne_For_Update"> -->
-<!-- 									</FORM> -->
-<!-- 								</td> -->
+				<td><a href="javascript:pressesC${s.index}()"><%=tenVO.getMname()%></a></td>
+				<td align='left'>Mail : <a href="mailto:<%=tenVO.getMmail()%>"><%=tenVO.getMmail()%></a><br>
+					Phone#: <font color='blue'><%=tenVO.getMcell()%></font></td>
 				<td>
-					
-<!-- 					<FORM METHOD="post" -->
-<%-- 						ACTION="<%=request.getContextPath()%>/ord/ord.do"> --%>
-<!-- 						<input type="submit" value="刪除"> <input type="hidden" -->
-<%-- 							name="ord_no" value="${ordVO.ord_no}"> <input --%>
-<!-- 							type="hidden" name="action" value="delete"> -->
-<!-- 					</FORM> -->
-					
-					<button id="cc_ord<%=count%>" >刪除訂單</button>
+					<button id="app_ord<%=count%>" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+						role="button" aria-disabled="false">
+						<span>核准訂單</span>
+					</button>
+					<form method="post" action="<%=request.getContextPath()%>/front/ord/ord.do">
+						<input type="hidden" name="ord_no" value="${ordVO.ord_no}"> 
+						<input type="hidden" name="action" value="update">
+						<input type="hidden" name="sta" value="W_SHIP">
+						<input id="apply<%=count%>" type="submit" value="核准"> 
+					</form>
+				</td>
+				<td>
+					<button id="cc_ord<%=count%>">刪除訂單</button>
 					<div id="dialog-form<%=count%>" title="取消訂單[${ordVO.ord_no}]">
 						<p>請輸入取消訂單的原因.</p>
 						<form method="post"
 							action="<%=request.getContextPath()%>/front/ord/ord.do">
 							<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
 							<input type="hidden" name="action" value="delete">
-							<input type="hidden" name="role" value="ten">
+							<input type="hidden" name="role" value="les">
 							<textarea name="ord_cc_cause" rows="4" cols="35" maxlength="100"></textarea>
 							<input id="cancel<%=count%>" type="submit" value="取消訂單">
 						</form>
-					</div> 
-					<script>
+					</div> <script>
+						// 設定dialog
 		 				$("#dialog-form<%=count%>").dialog({
 						autoOpen : false,
 						height : 300,
@@ -172,19 +143,28 @@
 							$("#dialog-form<%=count%>").dialog("close");
 							}
 						});
-
+                        // cancel button click() 啟用 dialog
 						$("#cc_ord<%=count%>").button().on("click", function() {
-	     					$("#dialog-form<%=count%>").dialog( "open" );
+	     					$("#dialog-form<%=count%>").dialog("open");
 	  						$("#dialog-form<%=count%>").find("[type=submit]").hide();});
+                        
+                        // 隱藏 submit button
+                        $("#apply<%=count%>").hide();
+                        // apply button click() 啟用 submit
+                        $("#app_ord<%=count%>").button().on("click", function() {
+                        	$("#apply<%=count%>").click();});
+                      
 						
 						//依狀態讓按鈕失效
 						var ord_sta = "${ordVO.ord_sta}";
 						if(ord_sta == "W_APR"){
 <%-- 							$("#cc_ord<%=count%>").show(); --%>
+							$("#app_ord<%=count%>").attr("disabled", false);
 							$("#cc_ord<%=count%>").attr("disabled", false);
 						}
 						else{
 <%-- 							$("#cc_ord<%=count%>").hide(); --%>
+							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 						}
 					</script>
@@ -199,7 +179,7 @@
          		function pressesB${s.index}(){
         	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
          		}
-				//超連結至該出租人
+				//超連結至該承租人
          		function pressesC${s.index}(){
         	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${rentVO.les_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
          		}

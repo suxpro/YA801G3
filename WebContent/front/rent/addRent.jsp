@@ -140,19 +140,19 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 			</tr>
 			<tr>
 				<td align="right">租物押金:<font color=red><b>*</b></font></td>
-				<td><input type="TEXT" name="rent_dps" size="10"
+				<td><input type="number" name="rent_dps" size="10"
 					value="${rentVO.rent_dps}" /> 元</td>
 				<td><font color="red">${errorMsgs.rent_dps}</font></td>
 			</tr>
 			<tr>
 				<td align="right">每日租金:<font color=red><b>*</b></font></td>
-				<td><input type="TEXT" name="unit_price" size="10"
+				<td><input type="number" name="unit_price" size="10"
 					value="${rentVO.unit_price}" /> 元</td>
 				<td><font color="red">${errorMsgs.unit_price}</font></td>
 			</tr>
 			<tr>
 				<td align="right">出貨/回收緩衝:<font color=red><b>*</b></font></td>
-				<td><input type="TEXT" name="reset_days" size="3"
+				<td><input type="number" name="reset_days" size="3"
 					value="${rentVO.reset_days}" /> 天</td>
 				<td><font color="red">${errorMsgs.reset_days}</font></td>
 			</tr>

@@ -97,7 +97,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		//return updateCount;
 	}
 
-	@Override
+
 	public void update(OrdVO ordVO) {
 		int updateCount = 0;
 		Connection con = null;
@@ -605,8 +605,15 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		}
 	}
 
+
 	@Override
-	public void delete(OrdVO ordVO) {
+	public void update(OrdVO ordVO, String sta) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(OrdVO ordVO, String role) {
 		// TODO Auto-generated method stub
 		
 	}

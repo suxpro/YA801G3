@@ -50,6 +50,7 @@ public class OrdDAO implements OrdDAO_interface {
 	// private static final String DELETE =
 	// "DELETE FROM ord where ord_no = ?";
 	private static final String DELETE = "UPDATE ord SET ord_sta='CC_ORD', CC_ORD_TIME=SYSDATE, ORD_CC_CAUSE=? WHERE ord_no=?";
+	private static final String UPDATE_W_SHIP = "UPDATE ord SET ord_sta='W_SHIP', W_SHIP_TIME=SYSDATE WHERE ord_no=?";
 	private static final String UPDATE = "UPDATE ord SET rent_no=?, ten_no=?, ord_sta=?, tra_mode=?, freight=?, ten_date=?, exp_date=?, ten_days=?, rent_total=?, ot_days=?, init_dps=?, real_dps=?, tra_total=?, loc_no=?, rec_addr=?, les_ases=?, les_ases_ct=?, ten_ases=?, ten_ases_ct=?, w_apr_time=?, w_ship_time=?, dtbt_time=?, rec_com_time=?, rent_exp_time=?, rt_time=?, rt_com_time=?, cls_time=?, cc_ord_time=?, ord_cc_cause=? where ord_no=?";
 	private static final String GET_LIVE_ORD_STMT = "SELECT ord_no FROM ord WHERE rent_no=? AND ord_sta IN ('W_SHIP','DTBT','REC_COM','RENT_EXP','RT','RT_COM')";
 
@@ -156,74 +157,99 @@ public class OrdDAO implements OrdDAO_interface {
 	}
 
 	@Override
-	public void update(OrdVO ordVO) {
-		// Connection con = null;
-		// PreparedStatement pstmt = null;
-		//
-		// try {
-		//
-		// con = ds.getConnection();
-		// pstmt = con.prepareStatement(UPDATE);
-		//
-		// pstmt.setString(1, ordVO.getRent_no());
-		// pstmt.setString(2, ordVO.getTen_no());
-		// pstmt.setString(3, ordVO.getOrd_sta());
-		// pstmt.setString(4, ordVO.getTra_mode());
-		// pstmt.setInt(5, ordVO.getFreight());
-		// pstmt.setDate(6, ordVO.getTen_date());
-		// pstmt.setDate(7, ordVO.getExp_date());
-		// pstmt.setInt(8, ordVO.getTen_days());
-		// pstmt.setInt(9, ordVO.getRent_total());
-		// pstmt.setInt(10, ordVO.getOt_days());
-		// pstmt.setInt(11, ordVO.getInit_dps());
-		// pstmt.setInt(12, ordVO.getReal_dps());
-		// pstmt.setInt(13, ordVO.getTra_total());
-		// pstmt.setString(14, ordVO.getLoc_no());
-		// pstmt.setString(15, ordVO.getRec_addr());
-		// pstmt.setInt(16, ordVO.getLes_ases());
-		// pstmt.setString(17, ordVO.getLes_ases_ct());
-		// pstmt.setInt(18, ordVO.getTen_ases());
-		// pstmt.setString(19, ordVO.getTen_ases_ct());
-		// pstmt.setTimestamp(20, ordVO.getW_apr_time());
-		// pstmt.setTimestamp(21, ordVO.getW_ship_time());
-		// pstmt.setTimestamp(22, ordVO.getDtbt_time());
-		// pstmt.setTimestamp(23, ordVO.getRec_com_time());
-		// pstmt.setTimestamp(24, ordVO.getRent_exp_time());
-		// pstmt.setTimestamp(25, ordVO.getRt_time());
-		// pstmt.setTimestamp(26, ordVO.getRt_com_time());
-		// pstmt.setTimestamp(27, ordVO.getCls_time());
-		// pstmt.setTimestamp(28, ordVO.getCc_ord_time());
-		// pstmt.setString(29, ordVO.getOrd_cc_cause());
-		// pstmt.setString(30, ordVO.getOrd_no());
-		//
-		// pstmt.executeUpdate();
-		//
-		// // Handle any driver errors
-		// } catch (SQLException se) {
-		// throw new RuntimeException("A database error occured. "
-		// + se.getMessage());
-		// // Clean up JDBC resources
-		// } finally {
-		// if (pstmt != null) {
-		// try {
-		// pstmt.close();
-		// } catch (SQLException se) {
-		// se.printStackTrace(System.err);
-		// }
-		// }
-		// if (con != null) {
-		// try {
-		// con.close();
-		// } catch (Exception e) {
-		// e.printStackTrace(System.err);
-		// }
-		// }
-		// }
+	public void update(OrdVO ordVO, String sta) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			// 1●設定於 pstm.executeUpdate()之前
+			con.setAutoCommit(false);
+			//依照訂單要更新的狀
+			if(sta.equals("W_SHIP")){
+				pstmt = con.prepareStatement(UPDATE_W_SHIP);
+			}else
+			{
+				pstmt = con.prepareStatement(UPDATE);
+			}
+
+			pstmt.setString(1, ordVO.getOrd_no());
+
+			pstmt.executeUpdate();
+
+			// 修改租物狀態
+			RentDAO rentDAO = new RentDAO();
+			RentVO rentVO = rentDAO.findByPrimaryKey(ordVO.getRent_no());
+//			rentVO.setRent_sta("W_RENT"); // 更改租物狀態為待出租
+//			rentDAO.updateRent_sta(rentVO, con);
+
+			// 回復會員帳戶餘額
+//			MemberDAO memberDAO = new MemberDAO();
+//			MemberVO memberVO = memberDAO.findByPrimaryKey(ordVO.getTen_no());
+//			Double mbalance = memberVO.getMbalance();
+//			mbalance = mbalance + ordVO.getTra_total(); // 餘額加回被訂單扣除費用
+//			memberVO.setMbalance(mbalance);
+//			memberDAO.updateMem_mbl(memberVO, con);
+
+			// 新增交易紀錄
+//			TradeDAO tradeDAO = new TradeDAO();
+//			TradeVO tradeVO = new TradeVO();
+//			tradeVO.setMno(memberVO.getMno());
+//			tradeVO.setTstas("點數退還");
+//			tradeVO.setTfunds(ordVO.getTra_total().doubleValue());
+//			tradeDAO.insertForOrd(tradeVO, con);
+
+			// 新增提醒記錄
+			RemindDAO remindDAO = new RemindDAO();
+			RemindVO remindVO = new RemindVO();			
+			remindVO.setMno(ordVO.getTen_no());// 注意:該提醒的是承租方
+			remindVO.setRno(ordVO.getRent_no());
+			remindVO.setRstas("成功承租");
+			remindVO.setRdes("您有一筆訂單已核准(" + (rentVO.getRent_name()) + ")!");
+			remindDAO.insertForOrd(remindVO, con);
+
+			// 完成所有資料修改
+			con.commit();
+			con.setAutoCommit(true);
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-member");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 
 	}
 
 	@Override
-	public void delete(OrdVO ordVO) {
+	public void delete(OrdVO ordVO, String role) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -266,10 +292,14 @@ public class OrdDAO implements OrdDAO_interface {
 			// 新增提醒記錄
 			RemindDAO remindDAO = new RemindDAO();
 			RemindVO remindVO = new RemindVO();
-			remindVO.setMno(rentVO.getLes_no());// 注意:該提醒的是出租方
+			if (role.equals("ten")){
+				remindVO.setMno(ordVO.getLes_no());// 注意:該提醒的是出租方
+			} else if (role.equals("les")){
+				remindVO.setMno(ordVO.getTen_no());// 注意:該提醒的是承租方
+			}
 			remindVO.setRno(ordVO.getRent_no());
 			remindVO.setRstas("取消訂單");
-			remindVO.setRdes("您有一筆訂單已被取消(" + rentVO.getRent_name() + ") !");
+			remindVO.setRdes("您有一筆訂單已被取消(" + rentVO.getRent_name() + ")! \n 取消原因為: " + ordVO.getOrd_cc_cause());
 			remindDAO.insertForOrd(remindVO, con);
 
 			// 完成所有資料修改
