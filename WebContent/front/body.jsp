@@ -13,12 +13,12 @@
 	$.getScript("js/bodyRent/bodyRent.js");
 </script>
 
-<div class="container-fluid">
+<div class="container">
 	<!-- MENU -->
 	<nav class="animate">
 		<h4>Menu</h4>
 		<ul id="bodyRentMenu">
-			<li class="active" data-data-rent-tag-no="T10000"><a>全部租物</a></li>
+			<li class="active" data-rent-tag-no="T10000"><a>全部租物</a></li>
 			<li data-rent-tag-no="T10001"><a>${tag_staMap["T10001"]}</a></li>
             <li data-rent-tag-no="T10002"><a>${tag_staMap["T10002"]}</a></li>
             <li data-rent-tag-no="T10003"><a>${tag_staMap["T10003"]}</a></li>
