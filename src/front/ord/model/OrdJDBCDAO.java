@@ -617,4 +617,11 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public void renew(OrdVO ordVO, Integer dif_price) {
+		// TODO Auto-generated method stub
+		
+	}
 }

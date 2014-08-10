@@ -190,7 +190,7 @@ public class OrdServlet extends HttpServlet {
 		// }
 		// }
 
-		if ("delete".equals(action)) {
+		if ("cancel".equals(action)) {
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -217,9 +217,9 @@ public class OrdServlet extends HttpServlet {
 				
 				//檢查訂單狀態是否仍是待核准
 				String ord_sta = ordVO.getOrd_sta();
-				if(!ord_sta.equals("W_APR")){
+				if(!ord_sta.equals("W_APR") && !ord_sta.equals("RE_ORD") ){
 					//errorMsgs.put("ord_sta","訂單狀態非[待核准],無法取消訂單");
-					errorMsgs.put("alert","訂單狀態非[待核准],無法取消訂單");
+					errorMsgs.put("alert","訂單狀態非[待核准或待續約],無法取消訂單");
 				}
 
 				// ord_cc_cause
@@ -274,6 +274,112 @@ public class OrdServlet extends HttpServlet {
 			}
 		}
 		
+		//新增續約
+		if ("renew".equals(action)) {
+
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			Map<String, String> alertMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("alertMsgs", alertMsgs);
+
+			OrdService ordSvc = new OrdService();
+			OrdVO ordVO = new OrdVO();
+
+			try {
+				/*************************** 1.接收請求參數 ***************************************/
+				// ord_no
+				String ord_no = req.getParameter("ord_no");
+				String ord_noReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+				if (ord_no == null || ord_no.trim().length() == 0) {
+					errorMsgs.put("ord_no", "訂單編號請勿空白");
+				} else if (!ord_no.trim().matches(ord_no)) { // 以下練習正則(規)表示式(regular-expression)
+					errorMsgs.put("ord_no", "訂單編號只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+				} else {
+					 ordVO = ordSvc.getOneOrd(ord_no);
+				}
+				
+				// ord_sta
+				String ord_sta = "RE_ORD";
+				if (ord_sta == null || ord_sta.trim().length() == 0) {
+					errorMsgs.put("ord_sta", "更新的狀態請勿空白");
+				}else{
+					ordVO.setOrd_sta(ord_sta);
+				}
+					
+				// exp_date (new)
+				java.sql.Date exp_date = null;
+				try {
+					exp_date = java.sql.Date.valueOf(req.getParameter("nexp_date").trim());
+					ordVO.setExp_date(exp_date);
+				} catch (IllegalArgumentException e) {
+					errorMsgs.put("exp_date", "承租日期請勿空白");
+				}
+				
+				// ten_days
+				Integer ten_days = null;
+				Integer ext_days = null;
+				try {
+					ext_days = Integer.parseInt(req.getParameter("ext_days").trim());
+					if (ext_days <= 0)
+						errorMsgs.put("ext_days", "續約天數不可小於等於零");
+					ten_days = ordVO.getTen_days();
+					ten_days = ten_days + ext_days;
+					ordVO.setTen_days(ten_days);
+				} catch (NumberFormatException e) {
+					errorMsgs.put("ext_days", "續約天數請勿空白,或輸入非數字");
+				}
+				
+				// rent_total
+				Integer rent_total = null;
+				Integer dif_price = null;
+				try {
+					dif_price = Integer.parseInt(req.getParameter("dif_price").trim());
+					if (dif_price <= 0)
+						errorMsgs.put("dif_price", "需補差額不可小於等於零");
+					rent_total = ordVO.getRent_total();
+					rent_total = rent_total + dif_price;
+					ordVO.setRent_total(rent_total);
+				} catch (NumberFormatException e) {
+					errorMsgs.put("dif_price", "需補差額請勿空白,或輸入非數字");
+				}				
+								
+				// tra_total
+				Integer tra_total = null;
+				try {
+					tra_total = ordVO.getTra_total();
+					tra_total = tra_total + dif_price;
+					ordVO.setTra_total(tra_total);
+				} catch (NullPointerException e) {
+					errorMsgs.put("tra_total", "交易總額請勿空白,或輸入非數字");
+				}					
+								
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front/ord/tenOrdList.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+
+				/*************************** 2.開始新增資料 ***************************************/
+				ordSvc.renew(ordVO, dif_price);
+				alertMsgs.put("alert", "訂單[" + ord_no + "]續約請求送出");
+				/*************************** 3./新增完成,準備轉交(Send the Success view) ***********/
+				String url = "/front/ord/tenOrdList.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 更新成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.put("Exception", "新增資料失敗:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front/ord/tenOrdList.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		
 		if ("update".equals(action)) {
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
@@ -298,6 +404,9 @@ public class OrdServlet extends HttpServlet {
 					 ordVO = ordSvc.getOneOrd(ord_no);
 				}
 				
+				//ord_sta
+				String ord_sta = ordVO.getOrd_sta();
+				
 				// sta
 				String sta = req.getParameter("sta").trim();
 				if (sta == null || sta.trim().length() == 0) {
@@ -321,7 +430,11 @@ public class OrdServlet extends HttpServlet {
 
 				/*************************** 2.開始更新資料 ***************************************/
 				ordSvc.updateOrd(ordVO, sta);
-				alertMsgs.put("alert", "訂單[" + ord_no + "]核准成功");
+				if(ord_sta.equals("RE_ORD")){
+					alertMsgs.put("alert", "續約訂單[" + ord_no + "]核准成功");
+				} else{
+					alertMsgs.put("alert", "訂單[" + ord_no + "]核准成功");
+				}
 				/*************************** 3./更新完成,準備轉交(Send the Success view) ***********/
 				String url = "/front/ord/lesOrdList.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 更新成功後,轉交回送出刪除的來源網頁

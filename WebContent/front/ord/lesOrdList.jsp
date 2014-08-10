@@ -102,7 +102,7 @@
 				<td>
 					<button id="app_ord<%=count%>" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
 						role="button" aria-disabled="false">
-						<span>核准訂單</span>
+						<span>核准</span>
 					</button>
 					<form method="post" action="<%=request.getContextPath()%>/front/ord/ord.do">
 						<input type="hidden" name="ord_no" value="${ordVO.ord_no}"> 
@@ -112,16 +112,16 @@
 					</form>
 				</td>
 				<td>
-					<button id="cc_ord<%=count%>">刪除訂單</button>
+					<button id="cc_ord<%=count%>">取消</button>
 					<div id="dialog-form<%=count%>" title="取消訂單[${ordVO.ord_no}]">
 						<p>請輸入取消訂單的原因.</p>
 						<form method="post"
 							action="<%=request.getContextPath()%>/front/ord/ord.do">
 							<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
-							<input type="hidden" name="action" value="delete">
+							<input type="hidden" name="action" value="cancel">
 							<input type="hidden" name="role" value="les">
 							<textarea name="ord_cc_cause" rows="4" cols="35" maxlength="100"></textarea>
-							<input id="cancel<%=count%>" type="submit" value="取消訂單">
+							<input id="cancel<%=count%>" type="submit" value="取消">
 						</form>
 					</div> <script>
 						// 設定dialog
@@ -132,10 +132,10 @@
 						modal : true,
 						closeOnEscpe : true,
 						buttons : {
-									Delete : function() {
+									取消 : function() {
 										$("#cancel<%=count%>").click();
 										},
-									Cancel : function() {
+									返回 : function() {
 										$("#dialog-form<%=count%>").dialog("close");
 										}
 									},
@@ -157,16 +157,68 @@
 						
 						//依狀態讓按鈕失效
 						var ord_sta = "${ordVO.ord_sta}";
-						if(ord_sta == "W_APR"){
+						if(ord_sta == "W_APR"){ //1.訂單狀態為待核准
 <%-- 							$("#cc_ord<%=count%>").show(); --%>
-							$("#app_ord<%=count%>").attr("disabled", false);
-							$("#cc_ord<%=count%>").attr("disabled", false);
-						}
-						else{
 <%-- 							$("#cc_ord<%=count%>").hide(); --%>
+							$("#app_ord<%=count%>").attr("disabled", false); 
+							$("#cc_ord<%=count%>").attr("disabled", false);
+							
+						} else if (ord_sta == "W_SHIP"){//2.訂單狀態為待出貨
+							
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
+							
+						}else if (ord_sta == "DTBT"){//3.訂單狀態為配送中
+							
+							$("#app_ord<%=count%>").attr("disabled", true);
+							$("#cc_ord<%=count%>").attr("disabled", true);
+							
+						}else if (ord_sta == "REC_COM"){//4.訂單狀態為收貨完成
+							
+							$("#app_ord<%=count%>").attr("disabled", true);
+							$("#cc_ord<%=count%>").attr("disabled", true);
+							
+						}else if (ord_sta == "RENT_EXP"){//5.訂單狀態為租約到期
+							
+							$("#app_ord<%=count%>").attr("disabled", true);
+							$("#cc_ord<%=count%>").attr("disabled", true);
+							
+						}else if (ord_sta == "RT"){//6.訂單狀態為回收中
+							
+							$("#app_ord<%=count%>").attr("disabled", true);
+							$("#cc_ord<%=count%>").attr("disabled", true);
+							
+						}else if (ord_sta == "RT_COM"){//7.訂單狀態為回收完成
+							
+							$("#app_ord<%=count%>").attr("disabled", true);
+							$("#cc_ord<%=count%>").attr("disabled", true);
+							
+						}else if (ord_sta == "CLS"){//8.訂單狀態為結案
+							
+							$("#app_ord<%=count%>").attr("disabled", true);
+							$("#cc_ord<%=count%>").attr("disabled", true);
+							
+						}else if (ord_sta == "CC_ORD"){//9.訂單狀態為取消訂單
+							
+							$("#app_ord<%=count%>").attr("disabled", true);
+							$("#cc_ord<%=count%>").attr("disabled", true);
+							
+						}else if (ord_sta == "AB_CLS"){//10.訂單狀態為異常結案
+							
+							$("#app_ord<%=count%>").attr("disabled", true);
+							$("#cc_ord<%=count%>").attr("disabled", true);
+							
+						}else if (ord_sta == "RE_ORD"){//11.訂單狀態為待續約
+							
+							$("#app_ord<%=count%>").attr("disabled", false);
+							$("#cc_ord<%=count%>").attr("disabled", false);
+							
+						}else{
+							
+							$("#app_ord<%=count%>").attr("disabled", true);
+							$("#cc_ord<%=count%>").attr("disabled", true);													
 						}
+						
 					</script>
 				</td>
 			</tr>

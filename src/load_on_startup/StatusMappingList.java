@@ -58,7 +58,7 @@ public class StatusMappingList extends HttpServlet {
 		rent_staMap.put("IN_REP", "檢舉中");
 		rent_staMap.put("W_CHECK", "待審核");
 		rent_staMap.put("C_RENT", "已下架");
-		rent_staMap.put("W_REVIEW", "待複審");
+		rent_staMap.put("W_REVIEW", "需複審");
 		
 		context.setAttribute("rent_staMap", rent_staMap);
 
@@ -93,6 +93,7 @@ public class StatusMappingList extends HttpServlet {
 		ord_staMap.put("CLS", "結案");
 		ord_staMap.put("CC_ORD", "取消訂單");
 		ord_staMap.put("AB_CLS", "異常結案");
+		ord_staMap.put("RE_ORD", "待續約");
 		
 		context.setAttribute("ord_staMap", ord_staMap);
 

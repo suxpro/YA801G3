@@ -2,10 +2,22 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="front.rent.model.*"%>
+<%@ page import="front.member.model.*"%>
 <%@ page import="back.tag.model.*"%>
 <%@ page import="back.loc.model.*"%>
-<%RentVO rentVO = (RentVO) request.getAttribute("rentVO"); %>
-
+<%
+	//取得新增租物的會員資料(取得登入帳號)
+	MemberService memberSVC = new MemberService();
+	MemberVO memberVO = memberSVC.getOneMember("M10003"); 
+	//承接錯誤回傳的rentVO
+	RentVO rentVO = (RentVO) request.getAttribute("rentVO");;
+	if (rentVO == null) {
+		rentVO = new RentVO();
+		rentVO.setLoc_no(memberVO.getLocno());
+		rentVO.setRent_addr(memberVO.getMadrs());
+		pageContext.setAttribute("rentVO", rentVO);
+	}
+%>
 <html>
 <head> 
 <title>租物新增 - addRent.jsp</title>
