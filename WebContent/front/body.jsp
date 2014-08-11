@@ -30,9 +30,8 @@
 		</ul>
 	</nav>
 	<div class="nav-controller">
-		<span
-			class="[ glyphicon glyphicon glyphicon-th-list ] controller-open"></span>
-		<span class="[ glyphicon glyphicon-remove ] controller-close"></span>
+		<span class="[ fa fa-folder-o ] controller-open"></span>
+		<span class="[ fa fa-folder-open-o ] controller-close"></span>
 	</div>
 
 

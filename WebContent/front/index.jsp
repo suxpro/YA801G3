@@ -7,6 +7,7 @@
 
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/justrent.css" rel="stylesheet">
+<link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="jquery-ui-1.11.0.custom/jquery-ui.css" rel="stylesheet">
 <!-- <link href="css/jquery-ui-datepicker-custom.css" rel="stylesheet"> -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -22,12 +23,14 @@
 
 </head>
 <body>
+<div id="wrapper">
+	
 	<%@ include file="/front/header.jsp"%>
 
 	<!-- ¯²ª«°Ï -->
     <%@ include file="/front/body.jsp"%>
 
 	<%@ include file="/front/footer.jsp"%>
-	
+</div>	
 </body>
 </html>

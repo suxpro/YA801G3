@@ -36,7 +36,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">租務 <front class="badge">14</front><b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                  <li class="dropdown-plus-title">
-                                    <i class="glyphicon glyphicon-envelope"></i>		租務秘書提醒
+                                    <i class="fa fa-bell-o fa-spin"></i>		租務秘書提醒
                                     <b class="pull-right glyphicon glyphicon-chevron-up"></b>
                                 </li>
                                 
@@ -60,7 +60,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%=memberVOxx.getMname()%> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                  <li class="dropdown-plus-title">
-                                    <i class="glyphicon glyphicon-user"></i>		<%=memberVOxx.getMname()%>
+                                    <i class="fa fa-user fa-spin"></i>		<%=memberVOxx.getMname()%>
                                     <b class="pull-right glyphicon glyphicon-chevron-up"></b>
                                 </li>
                                 
@@ -172,22 +172,53 @@
 				<div class="carousel-inner">
 					<div class="item active">
 						<img src="<%=request.getContextPath()%>/front/img/1.png" />
+						<div class="carousel-caption">
+                        <h1 class="carousel-caption-header">Slide 1</h1>
+                        <p class="carousel-caption-text hidden-sm hidden-xs">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim aliquet rutrum. Praesent vitae ante in nisi condimentum egestas. Aliquam.
+                        </p>
+                    </div>
 					</div>
 
-					<div class="item">
+					<div class="item" data-test-wer="123"> $(div).data("testWer")
 						<img src="<%=request.getContextPath()%>/front/img/2.png" />
+						<div class="carousel-caption">
+                        <h1 class="carousel-caption-header">Slide 1</h1>
+                        <p class="carousel-caption-text hidden-sm hidden-xs">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim aliquet rutrum. Praesent vitae ante in nisi condimentum egestas. Aliquam.
+                        </p>
+                    </div>
 					</div>
 
 					<div class="item">
 						<img src="<%=request.getContextPath()%>/front/img/3.png" />
+						<div class="carousel-caption">
+                        <h2 class="carousel-caption-header">Slide 1</h2>
+                        <p class="carousel-caption-text hidden-sm hidden-xs">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim aliquet rutrum. Praesent vitae ante in nisi condimentum egestas. Aliquam.
+                        </p>
+                    </div>
 					</div>
 
 					<div class="item">
 						<img src="<%=request.getContextPath()%>/front/img/4.png" />
+						<div class="carousel-caption">
+                        <h3 class="carousel-caption-header">Slide 1</h3>
+                        <p class="carousel-caption-text hidden-sm hidden-xs">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim aliquet rutrum. Praesent vitae ante in nisi condimentum egestas. Aliquam.
+                        </p>
+                    </div>
 					</div>
 
 					<div class="item">
 						<img src="<%=request.getContextPath()%>/front/img/6.jpg" />
+						<div class="carousel-caption">
+						
+                        <h4 class="carousel-caption-header">Slide 1</h4>
+                        <p class="carousel-caption-text hidden-sm hidden-xs">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim aliquet rutrum. Praesent vitae ante in nisi condimentum egestas. Aliquam.
+                        </p>
+                    </div>
 					</div>
 				</div>
 
