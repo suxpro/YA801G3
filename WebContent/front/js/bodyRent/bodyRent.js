@@ -159,9 +159,13 @@ $(document).ready(
 			//搜尋租物分類按鈕
 			$("#bodyRentMenu > li").off();
 			$("#bodyRentMenu > li").on("click", function(event) {
-//				console.log($(this).data("rentTagNo"));
+				console.log($(this).data("rentTagNo"));
 //				console.log($(".divRentItem[data-rent-tag-no="+$(this).data("rentTagNo")+"]"));
-				$(".divRentItem").fadeOut("fast").filter("[data-rent-tag-no="+$(this).data("rentTagNo")+"]").fadeIn("fast");
+				var rentTagNo = $(this).data("rentTagNo");
+				if(rentTagNo != "T10000")
+					$(".divRentItem").fadeOut("fast").filter("[data-rent-tag-no="+rentTagNo+"]").fadeIn("fast");
+				else
+					$(".divRentItem").fadeIn("fast");
 			});
 			
 		});
