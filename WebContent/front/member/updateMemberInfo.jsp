@@ -37,13 +37,13 @@
 	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
 }
 
-#memform {width:94%;}
+#memform {width:85%;}  
 
 </style>
 
 <link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="<%=request.getContextPath()%>/front/css/justrent.css" rel="stylesheet">
-<script src="<%=request.getContextPath()%>/front/js/jquery-1.7.2.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/bootstrap.min.js"></script>
 <script	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/jquery.color.js"></script>
@@ -57,54 +57,39 @@
 
 	<%@ include file="/front/header.jsp"%>
 
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
+
+<!-- SideBar -->
+			<div class="col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li class="active"><a href="#">會員管理</a></li>
-					<li><a href="#">會員儲值</a></li>
+					<li class="active"><a href="#" onclick="document.updateMemInfo.submit();">會員資料修改</a></li>
+					<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
 					<li><a href="#">出租管理</a></li>
 					<li><a href="#">訂單管理</a></li>
 					<li><a href="#">歷史租借查詢</a></li>
-					<li><a href="#">升級會員</a></li>
-					<li class="divider"></li>
-					<li class="dropdown-submenu"><a tabindex="-1" href="#">租務秘書提醒</a>
-						<ul class="dropdown-menu">
-							<li><a tabindex="-1" href="#">成功出租(0)</a></li>
-							<li><a href="#">成功承租(0)</a></li>
-							<li><a href="#">出租確認(0)</a></li>
-							<li><a href="#">預約通知(0)</a></li>
-							<li><a href="#">出租Q&A(0)</a></li>
-							<li><a href="#">承租Q&A(0)</a></li>
-							<li><a href="#">評價通知(0)</a></li>
-							<li><a href="#">檢舉通知(0)</a></li>
-							<li><a href="#">出貨通知(0)</a></li>
-							<li><a href="#">歸期通知(0)</a></li>
-							<li><a href="#">租期通知(0)</a></li>
-						</ul></li>
-
+					<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
 				</ul>
 			</div>
 			
+						
+<!-- Form -->
+			<div class="col-md-offset-0">
 			
-			
-
-			<div class="container">
-				<div class="row-fluid">
 					<form class="form-horizontal" id="memform" METHOD="post"
 						ACTION="<%=request.getContextPath()%>/front/member/member.do"
 						name="form1" enctype="multipart/form-data" role="form">
 						<fieldset>
 							<div id="legend">
-								<legend class="">
+								<legend >
 									<h2>
 										<b>會員資料修改</b>
 									</h2>
 								</legend>
 							</div>
 
-							<div class="row row-offcanvas row-offcanvas-light">
-								<div class="col-xs-4 col-xs-offset-2">
+							
+								<div class="col-md-5">
 									<!-- 排版 -->
 
 									<!-- 會員編號 -->
@@ -193,7 +178,7 @@
 
 								</div>
 								<!-- 排版 -->
-								<div class="col-xs-offset-0 sidebar-offcanvas ">
+								<div class="col-md-offset-6 sidebar-offcanvas ">
 									<!-- 圖片排版 -->
 
 									<!-- 會員圖片 -->
@@ -202,8 +187,7 @@
 										<div class="controls">
 											<img id="mpic" width="80" height="80"
 												src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_PIC">
-											<input type="file" id="mpic" name="mpic"
-												class="col-xs-offset-6" />
+											<input type="file" id="mpic" name="mpic" />
 										</div>
 									</div>
 									<c:if test="${memberVO.mlev == 'V' }">
@@ -213,8 +197,7 @@
 											<div class="controls">
 												<img id="mvpic" width="80" height="80"
 													src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_VPIC">
-												<input type="file" id="mvpic" name="mvpic"
-													class="col-xs-offset-6" />
+												<input type="file" id="mvpic" name="mvpic"  />
 											</div>
 										</div>
 									</c:if>
@@ -222,8 +205,8 @@
 
 								</div>
 								<!-- 圖片排版 -->
-								
-								<div class=" col-xs-offset-0 sidebar-offcanvas">
+								<br>
+								<div class="col-xs-offset-0 sidebar-offcanvas">
 									<%-- 錯誤表列 --%>
 									<c:if test="${not empty errorMsgs}">
 										<font color='red'>請修正以下錯誤:
@@ -235,11 +218,7 @@
 										</font>
 									</c:if>
 								</div>
-							
-
-							</div>
-
-							<br>
+																					
 							<br>
 							<!-- Submit -->
 							<div class="control-group col-xs-8 col-xs-offset-8">
@@ -256,7 +235,7 @@
 						</fieldset>
 					</form>
 
-				</div>
+				
 			</div>
 
 		</div>
