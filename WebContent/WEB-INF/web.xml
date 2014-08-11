@@ -288,5 +288,15 @@
 		<servlet-name>StatusMappingList</servlet-name>
 		<url-pattern>/StatusMappingList</url-pattern>
 	</servlet-mapping>
+	
+    <servlet>
+           <servlet-name>ScheduleServlet</servlet-name>
+           <servlet-class>load_on_startup.ScheduleServlet</servlet-class>
+           <load-on-startup>10</load-on-startup>
+     </servlet>
+     <servlet-mapping>
+           <servlet-name>ScheduleServlet</servlet-name>
+           <url-pattern>/ScheduleServlet</url-pattern>
+     </servlet-mapping>
 
 </web-app>
