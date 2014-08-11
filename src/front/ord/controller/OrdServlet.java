@@ -379,7 +379,7 @@ public class OrdServlet extends HttpServlet {
 			}
 		}
 		
-		
+		//更新訂單狀態
 		if ("update".equals(action)) {
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
@@ -405,7 +405,7 @@ public class OrdServlet extends HttpServlet {
 				}
 				
 				//ord_sta
-				String ord_sta = ordVO.getOrd_sta();
+//				String ord_sta = ordVO.getOrd_sta();
 				
 				// sta
 				String sta = req.getParameter("sta").trim();
@@ -430,9 +430,9 @@ public class OrdServlet extends HttpServlet {
 
 				/*************************** 2.開始更新資料 ***************************************/
 				ordSvc.updateOrd(ordVO, sta);
-				if(ord_sta.equals("RE_ORD")){
+				if(sta.equals("APP_RENEW")){
 					alertMsgs.put("alert", "續約訂單[" + ord_no + "]核准成功");
-				} else{
+				} else if(sta.equals("W_SHIP")){
 					alertMsgs.put("alert", "訂單[" + ord_no + "]核准成功");
 				}
 				/*************************** 3./更新完成,準備轉交(Send the Success view) ***********/

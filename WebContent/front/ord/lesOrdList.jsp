@@ -19,6 +19,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">
 <title>出租清單管理 - lesOrdList.jsp</title>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
@@ -107,7 +108,7 @@
 					<form method="post" action="<%=request.getContextPath()%>/front/ord/ord.do">
 						<input type="hidden" name="ord_no" value="${ordVO.ord_no}"> 
 						<input type="hidden" name="action" value="update">
-						<input type="hidden" name="sta" value="W_SHIP">
+						<input type="hidden" name="sta" id="sta<%=count%>" value="W_SHIP">
 						<input id="apply<%=count%>" type="submit" value="核准"> 
 					</form>
 				</td>
@@ -162,6 +163,8 @@
 <%-- 							$("#cc_ord<%=count%>").hide(); --%>
 							$("#app_ord<%=count%>").attr("disabled", false); 
 							$("#cc_ord<%=count%>").attr("disabled", false);
+							//下個狀態為待出貨
+							$("#sta<%=count%>").val("W_SHIP");
 							
 						} else if (ord_sta == "W_SHIP"){//2.訂單狀態為待出貨
 							
@@ -212,6 +215,8 @@
 							
 							$("#app_ord<%=count%>").attr("disabled", false);
 							$("#cc_ord<%=count%>").attr("disabled", false);
+							//下個狀態為原先的訂單狀態
+							$("#sta<%=count%>").val("APP_RENEW");
 							
 						}else{
 							

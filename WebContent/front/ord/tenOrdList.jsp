@@ -19,6 +19,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">
 <title>承租清單管理 - tenOrdList.jsp</title>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
