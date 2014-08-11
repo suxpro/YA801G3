@@ -37,23 +37,24 @@
 				 <ul class="nav navbar-nav ">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">租務 <front class="badge">14</front><b class="caret"></b></a>
-                            <ul class="dropdown-menu">
+                            <ul id="remindMain" class="dropdown-menu" data-urlRemind="<%=request.getContextPath()%>/ScheduleServlet">
                                  <li class="dropdown-plus-title">
                                     <i class="glyphicon glyphicon-envelope"></i>		租務秘書提醒
                                     <b class="pull-right glyphicon glyphicon-chevron-up"></b>
                                 </li>
                                 
-                  						<li><a href="#">&nbsp;&nbsp;&nbsp;成功出租&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
-                  						<li><a href="#">&nbsp;&nbsp;&nbsp;成功承租&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
-                  						<li><a href="#">&nbsp;&nbsp;&nbsp;出租確認&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
-                  						<li><a href="#">&nbsp;&nbsp;&nbsp;預約通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">4</front></a></li>
-                  						<li><a href="#">&nbsp;&nbsp;&nbsp;出租Q&A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
-                  						<li><a href="#">&nbsp;&nbsp;&nbsp;承租Q&A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">3</front></a></li>
-                  						<li><a href="#">&nbsp;&nbsp;&nbsp;評價通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">1</front></a></li>
-                  						<li><a href="#">&nbsp;&nbsp;&nbsp;檢舉通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">3</front></a></li>
-                  						<li><a href="#">&nbsp;&nbsp;&nbsp;出貨通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">2</front></a></li>
-                  						<li><a href="#">&nbsp;&nbsp;&nbsp;歸期通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
-                  						<li><a href="#">&nbsp;&nbsp;&nbsp;租期通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">2</front></a></li>                                                                
+                  						<li class="remindList"><a id="SCES_RENT" href="#">&nbsp;&nbsp;&nbsp;成功出租&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
+                  						<li class="remindList"><a id="SCES_TEN" href="#">&nbsp;&nbsp;&nbsp;成功承租&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
+                  						<li class="remindList"><a id="CF_RENT" href="#">&nbsp;&nbsp;&nbsp;出租確認&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">4</front></a></li>
+                  						<li class="remindList"><a id="PRENT" href="#">&nbsp;&nbsp;&nbsp;預約通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
+                  						<li class="remindList"><a id="NTC_SHIP" href="#">&nbsp;&nbsp;&nbsp;出貨通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
+                  						<li class="remindList"><a id="NTC_LEASE" href="#">&nbsp;&nbsp;&nbsp;租期通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
+                  						<li class="remindList"><a id="NTC_RETR" href="#">&nbsp;&nbsp;&nbsp;歸還通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">1</front></a></li>
+                  						<li class="remindList"><a id="ANN_BRENT" href="#">&nbsp;&nbsp;&nbsp;求租公告&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">3</front></a></li>
+                  						<li class="remindList"><a id="LM_QA" href="#">&nbsp;&nbsp;&nbsp;Q&A留言&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">2</front></a></li>
+                  						<li class="remindList"><a id="ASES" href="#">&nbsp;&nbsp;&nbsp;評價通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">0</front></a></li>
+                  						<li class="remindList"><a id="OT" href="#">&nbsp;&nbsp;&nbsp;逾期通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">2</front></a></li>  
+                                        <li class="remindList"><a id="CC_ORD" href="#">&nbsp;&nbsp;&nbsp;取消訂單&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<front class="badge">2</front></a></li>                                                               
                                 
                             </ul>
                         </li>

@@ -34,16 +34,19 @@ $(document).ready(
 				$.trim($(this).find("#rentStateSpan").data("liveOrd")).length != 0? $("#btnAddRentToCart").text("預租").addClass("btn-warning") : $("#btnAddRentToCart").text("承租").addClass("btn-primary");
 
 				//點擊承租/預租按鈕
-				$("#btnAddRentToCart").click(function(e) {
+				$("#btnAddRentToCart").off();
+				$("#btnAddRentToCart").on("click", function(e) {
 					console.log($(this).data("servlet"));
 					console.log($(this).data("rentNo"));
+					console.log($(this).data("rentState"));
 					$.ajax({
 						type : "POST",
 						url : $(this).data("servlet"),
 						contentType : "application/x-www-form-urlencoded",
 						data : {
 							action : "addRentToCart",
-							rent_no : $(this).data("rentNo")
+							rent_no : $(this).data("rentNo"),
+							rent_state : $(this).data("rentState")
 						},
 						dataType : "json",
 						success : function(rspJson) {

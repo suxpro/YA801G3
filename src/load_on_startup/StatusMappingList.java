@@ -109,6 +109,7 @@ public class StatusMappingList extends HttpServlet {
 		rem_staMap.put("LM_QA", "Q&A留言");
 		rem_staMap.put("ASES", "評價");
 		rem_staMap.put("OT", "逾期通知");
+		rem_staMap.put("CC_ORD", "取消訂單");
 		
 		context.setAttribute("rem_staMap", rem_staMap);
 
