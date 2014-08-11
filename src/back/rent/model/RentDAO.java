@@ -8,6 +8,12 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import back.member.model.*;
+import front.remind.model.*;
+import back.rent.model.*;
+import back.trade.model.*;
+
+
 
 public class RentDAO implements RentDAO_interface {
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
@@ -37,58 +43,114 @@ public class RentDAO implements RentDAO_interface {
 
 	@Override
 	public void update_pass(String rent_no) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
 
-		try {
+			try {
+				
+				con = ds.getConnection();
+				// 1●設定於 pstm.executeUpdate()之前
+				con.setAutoCommit(false);
+				
+				pstmt = con.prepareStatement(UPDATE_PASS_STMT);
+				pstmt.setString(1, rent_no);
+				pstmt.executeUpdate();
+				
+				// 取的rentVO
+				RentVO rentVO = findByPrimaryKey(rent_no);
+				
+				// 新增提醒記錄
+				RemindDAO remindDAO = new RemindDAO();
+				RemindVO remindVO = new RemindVO();
+				remindVO.setMno(rentVO.getLes_no());// 注意:該提醒的是出租方
+				remindVO.setRno(rent_no);
+				remindVO.setRstas("上架通過");
+				remindVO.setRdes("您有一筆上架申請已通過(" + rentVO.getRent_name() + ") !");
+				remindDAO.insertForOrd(remindVO, con);
 
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE_PASS_STMT);
+				// 完成所有資料修改
+				con.commit();
+				con.setAutoCommit(true);
 
-			pstmt.setString(1, rent_no);
-
-			pstmt.executeUpdate();
-
-			// Handle any driver errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
+				// Handle any driver errors
+			} catch (SQLException se) {
+				if (con != null) {
+					try {
+						// 3●設定於當有exception發生時之catch區塊內
+						System.err.print("Transaction is being ");
+						System.err.println("rolled back-由-member");
+						con.rollback();
+					} catch (SQLException excep) {
+						throw new RuntimeException("rollback error occured. "
+								+ excep.getMessage());
+					}
 				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
 				}
-			}
-		}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}		
 
 	}	
 
 	@Override
-	public void update_fail(String rent_no) {
+	public void update_fail(String rent_no, String cause) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
-
+			
 			con = ds.getConnection();
+			// 1●設定於 pstm.executeUpdate()之前
+			con.setAutoCommit(false);
+			
 			pstmt = con.prepareStatement(UPDATE_FAIL_STMT);
-
 			pstmt.setString(1, rent_no);
-
 			pstmt.executeUpdate();
+			
+			// 取的rentVO
+			RentVO rentVO = findByPrimaryKey(rent_no);
+			
+			// 新增提醒記錄
+			RemindDAO remindDAO = new RemindDAO();
+			RemindVO remindVO = new RemindVO();
+			remindVO.setMno(rentVO.getLes_no());// 注意:該提醒的是出租方
+			remindVO.setRno(rent_no);
+			remindVO.setRstas("上架不通過");
+			remindVO.setRdes("您有一筆的上架申請需複審(" + rentVO.getRent_name() + ") !\n 原因 : " + cause +".");
+			remindDAO.insertForOrd(remindVO, con);
+
+			// 完成所有資料修改
+			con.commit();
+			con.setAutoCommit(true);
 
 			// Handle any driver errors
 		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-member");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
@@ -107,7 +169,7 @@ public class RentDAO implements RentDAO_interface {
 					e.printStackTrace(System.err);
 				}
 			}
-		}
+		}		
 
 	}		
 

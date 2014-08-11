@@ -62,8 +62,6 @@
 			<th>訂單狀態</th>
 			<th>交易方式</th>
 			<th>租期</th>
-			<!-- 			<th>承租日期</th> -->
-			<!-- 			<th>到期日期</th> -->
 			<th>承租天數</th>
 			<th>逾期天數</th>
 			<th>承租會員</th>
@@ -93,8 +91,7 @@
 				<td>${ord_staMap[ordVO.ord_sta]}</td>
 				<td>${tra_staMap[ordVO.tra_mode]}</td>
 				<td>${ordVO.ten_date       }<br> ~ <br>
-					${ordVO.exp_date       }
-				</td>
+					${ordVO.exp_date       }</td>
 				<td>${ordVO.ten_days       }天</td>
 				<td>${ordVO.ot_days        }天</td>
 				<td><a href="javascript:pressesC${s.index}()"><%=tenVO.getMname()%></a></td>

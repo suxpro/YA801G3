@@ -7,8 +7,7 @@
 <%-- 此頁採用 JSTL 與 EL 取值 --%>
 <%!
 	//定義返回的日期格式
-	static SimpleDateFormat dateformatAll = new SimpleDateFormat(
-			"yyyy-MM-dd HH:mm:ss");
+	static SimpleDateFormat dateformatAll = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	//去掉時間的毫秒數方法
 	public static String getTimestampString(Timestamp ts) {
 		if (ts != null)
@@ -21,25 +20,29 @@
 	RentService rentSvc = new RentService();
 	List<RentVO> list = rentSvc.getAll();
 	pageContext.setAttribute("list", list);
-	//定義返回的日期格式
+	int count = 0;
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/back/rent/waiting_onShelf_rent.jsp">
-<title>租物上架審核 - listAllQue.jsp</title>
+<title>租物上架審核 - waiting_onShelf_rent</title>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 </head>
 <body bgcolor='white' align='center'>
 	<b><font color=red>此頁練習採用 EL 的寫法取值:</font></b>
 	<table border='1' cellpadding='5' cellspacing='0' width='1200'
 		align='center'>
 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-			<td><h3>待上架租物資料 - ListAllRent.jsp</h3> <a
-				href="<%=request.getContextPath()%>/back/rent/select_page.jsp">
+			<td><h3>待上架租物資料 - waiting_onShelf_rent.jsp</h3> <a
+				href="<%=request.getContextPath()%>/back/rent/waiting_onShelf_rent.jsp">
 					<img
 					src="<%=request.getContextPath()%>/back/rent/images/back1.gif"
-					width="100" height="32" border="0">回租物管理
+					width="100" height="32" border="0">沒地方回去
 			</a></td>
 		</tr>
 	</table>
@@ -57,6 +60,7 @@
 
 	<table border='1' bordercolor='#CCCCFF' align='center'>
 		<tr align='center' valign='middle'>
+			<th>圖片</th>
 			<th>租物編號</th>
 			<th>出租人編號</th>
 			<th>租物名稱</th>
@@ -67,11 +71,12 @@
 			<th>最後狀態時間</th>
 			<th>最後上架時間</th>
 			<th>最後修改時間</th>
-			<th>圖片</th>
 		</tr>
 		<%@ include file="page1.file"%>
 		<c:forEach var="rentVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
+			<% count++; %>
 			<tr align='center' valign='middle'>
+				<td><img width="100" height="100" src="<%=request.getContextPath()%>/back/rent/rent.do?rent_no=${rentVO.rent_no}&pic=pic1&action=getImg"></td>
                 <td><a href="javascript:presses${s.index}()">${rentVO.rent_no}</a></td>
 				<td><a href="javascript:presses2${s.index}()">${rentVO.les_no}</a></td>
 				<td>${rentVO.rent_name}</td>
@@ -85,23 +90,61 @@
 						.getAttribute("rentVO")).getLast_onshelf_time())%></td>
 				<td><%=getTimestampString(((RentVO) pageContext
 						.getAttribute("rentVO")).getLast_mod_time())%></td>
-                <td><img width="100" height="100" src="<%=request.getContextPath()%>/back/rent/rent.do?rent_no=${rentVO.rent_no}&pic=pic1&action=xxx"></td>
 				<td>
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/back/rent/rent.do">
-						<input type="submit" value="通過"> <input type="hidden"
-							name="rent_no" value="${rentVO.rent_no}"> <input
-							type="hidden" name="action" value="pass">
-					</FORM>
-				</td>
+					<button id="pass_rent<%=count%>" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+						role="button" aria-disabled="false">
+						<span>通過</span>
+					</button>
+					<form method="post" action="<%=request.getContextPath()%>/back/rent/rent.do">
+						<input type="hidden" name="rent_no" value="${rentVO.rent_no}"> 
+						<input type="hidden" name="action" value="pass">
+						<input type="submit" id="pass<%=count%>" value="通過"> 
+					</form>
+				</td>							
 				<td>
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/back/rent/rent.do">
-						<input type="submit" value="不通過"> <input type="hidden"
-							name="rent_no" value="${rentVO.rent_no}"> <input
-							type="hidden" name="action" value="fail">
-					</FORM>
+					<button id="fail_rent<%=count%>">不通過</button>
+					<div id="dialog-form<%=count%>" title="不通過的原因">
+						<p>請輸入不通過的原因.</p>
+						<form method="post" action="<%=request.getContextPath()%>/back/rent/rent.do">
+							<input type="hidden" name="rent_no" value="${rentVO.rent_no}"> 
+							<input type="hidden" name="action" value="fail">
+							<textarea name="cause" rows="4" cols="35" maxlength="100"></textarea>
+							<input type="submit" id="fail<%=count%>" value="不通過">
+						</form>
+					</div> 
 				</td>
+					<script>
+						// 設定dialog
+		 				$("#dialog-form<%=count%>").dialog({
+						autoOpen : false,
+						height : 300,
+						width : 400,
+						modal : true,
+						closeOnEscpe : true,
+						buttons : {
+									送出 : function() {
+										$("#fail<%=count%>").click();
+										},
+									返回 : function() {
+										$("#dialog-form<%=count%>").dialog("close");
+										}
+									},
+						close : function() {
+							$("#dialog-form<%=count%>").dialog("close");
+							}
+						});
+						
+                        // fail_rent button click() 啟用 dialog
+						$("#fail_rent<%=count%>").button().on("click", function() {
+	     					$("#dialog-form<%=count%>").dialog("open");
+	  						$("#dialog-form<%=count%>").find("[type=submit]").hide();});
+                        
+                        // 隱藏 submit button
+                        $("#pass<%=count%>").hide();
+                        // pass_rent button click() 啟用 submit
+                        $("#pass_rent<%=count%>").button().on("click", function() {
+                        	$("#pass<%=count%>").click();});
+					</script>
 			</tr>
 			
 			<script>

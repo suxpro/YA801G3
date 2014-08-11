@@ -35,7 +35,8 @@
 		session.setAttribute("rentList",rentList);
 	}
 	//session.invalidate();
-
+    
+	int count = 0;
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -43,6 +44,10 @@
 <head>
 <meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/cart/cart.jsp">
 <title> 租物車 - cart.jsp</title>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 </head>
 <body bgcolor='white' align='center'>
 	<b><font color=red>此頁練習採用 EL 的寫法取值:</font></b>
@@ -79,13 +84,12 @@
 			<th>租物圖片</th>
 			<th>租物名稱</th>
 			<th>出租者</th>
+			<th>租物狀態</th>
 			<th>租物押金</th>
 			<th>租物價格/天</th>
 			<th>地區編號</th>
 			<th>租物地址</th>
-<!-- 			<th>最後狀態時間</th> -->
-<!-- 			<th>最後上架時間</th> -->
-<!-- 			<th>最後修改時間</th> -->
+
 		</tr>
 
 		<%@ include file="page1.file"%>
@@ -96,13 +100,14 @@
 				
 				MemberVO memberVO = memberSVC.getOneMember(rentVO.getLes_no());
 				pageContext.setAttribute("memberVO",memberVO);
-				
+				 count++;
 			%>
 	
 			<tr align='center' valign='middle'>
 				<td><img width="100" height="100" src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=pic1"></td>		
                 <td><a href="javascript:pressesA${s.index}()">${rentVO.rent_name}</a></td>
-				<td><a href="javascript:pressesB${s.index}()">${memberVO.mname}</a></td>			
+				<td><a href="javascript:pressesB${s.index}()">${memberVO.mname}</a></td>	
+				<td>${rent_staMap[rentVO.rent_sta]}</td>		
 				<td>${rentVO.rent_dps         }元</td>
 				<td>${rentVO.unit_price       }元</td>
 				<td>${loc_staMap[rentVO.loc_no]}</td>
@@ -117,10 +122,18 @@
 
 				<td>
 					<FORM method="post" action="<%=request.getContextPath()%>/front/cart/cartToOrd.jsp">
-						<input type="submit" value="前往結帳"> <input type="hidden"
-							name="rent_no" value="${rentVO.rent_no}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
+						<input type="submit" id="add_ord<%=count%>" value="前往結帳"> 
+						<input type="hidden" name="rent_no" value="${rentVO.rent_no}"> 
+						<input type="hidden" name="action" value="getOne_For_Update">
 					</FORM>
+					<script>
+					var rent_sta = "${rentVO.rent_sta}";
+					if(rent_sta == "W_RENT"){ 
+						$("#add_ord<%=count%>").attr("disabled", false);							
+					} else {
+						$("#add_ord<%=count%>").attr("disabled", true); 
+					}
+					</script>
 				</td>
 				<td>
 					<FORM method="post" action="<%=request.getContextPath()%>/front/cart/cart.do">

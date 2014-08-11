@@ -71,10 +71,10 @@
 					rows="4" style="resize: none"  readonly><%=rentVO.getRent_desc()%></textarea></td>
 
 			</tr>			
-			<tr>
-				<td>出租會員(編號):<font color=red></font></td>
-				<td><%=rentVO.getLes_no()%></td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<td>出租會員(編號):<font color=red></font></td> -->
+<%-- 				<td><%=rentVO.getLes_no()%></td> --%>
+<!-- 			</tr> -->
 			<tr>
 				<td>租物狀態:<font color=red></font></td>
 				<td>${rent_staMap[rentVO.rent_sta]}</td>
@@ -117,15 +117,15 @@
 			</tr>					
 			<tr>	
 			    <td>租物圖片(1):<font color=red></font></td>	
-				<td><img width="80" height="80" src="rent.do?rent_no=${rentVO.rent_no}&pic=pic1"></td>
+				<td><img width="200" height="150" src="rent.do?rent_no=${rentVO.rent_no}&pic=pic1"></td>
 			</tr>
 			<tr>
 				<td>租物圖片(2):<font color=red></font></td>			
-				<td><img width="80" height="80" src="rent.do?rent_no=${rentVO.rent_no}&pic=pic2"></td>
+				<td><img width="200" height="150" src="rent.do?rent_no=${rentVO.rent_no}&pic=pic2"></td>
 			</tr>
 			<tr>
 				<td>租物圖片(3):<font color=red></font></td>				
-				<td><img width="80" height="80" src="rent.do?rent_no=${rentVO.rent_no}&pic=pic3"></td>
+				<td><img width="200" height="150" src="rent.do?rent_no=${rentVO.rent_no}&pic=pic3"></td>
 			</tr>
 <!-- 			<tr>	 -->
 <!-- 				<td>租物圖片(4):<font color=red></font></td>			 -->

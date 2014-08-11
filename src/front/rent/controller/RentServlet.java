@@ -348,9 +348,9 @@ public class RentServlet extends HttpServlet {
 				RentService rentSvc = new RentService();
 				RentVO rentVO = rentSvc.getOneRent(rent_no);
 				String rent_sta = rentVO.getRent_sta();
-				if(!rent_sta.equals("W_RENT") && !rent_sta.equals("W_CHECK")){
+				if(!rent_sta.equals("W_RENT") && !rent_sta.equals("W_CHECK") && !rent_sta.equals("W_REVIEW")){
 					//租物狀態不對
-					errorMsgs.put("alert","租物狀態只有在待審核或未出租時才可以編輯");
+					errorMsgs.put("alert","租物狀態只有在待審核或未出租,需複審時才可以編輯");
 					RequestDispatcher failureView = req.getRequestDispatcher("/front/rent/listAllRent.jsp");
 					failureView.forward(req, res);
 					return;		 
@@ -420,12 +420,12 @@ public class RentServlet extends HttpServlet {
 				 String rent_sta = multi.getParameter("rent_sta").trim();
 				 if (rent_sta == null || rent_sta.trim().length() == 0) {
 					 errorMsgs.put("rent_sta","租物狀態請勿空白");
-				 }else if(rent_sta.equals("W_RENT") || rent_sta.equals("W_CHECK")){
+				 }else if(rent_sta.equals("W_RENT") || rent_sta.equals("W_CHECK") || rent_sta.equals("W_REVIEW")){
 					 rent_sta = "W_CHECK";
 					 rentVO.setRent_sta(rent_sta);
 				 }else{
 					 //租物狀態不對
-					 errorMsgs.put("alert","租物狀態只有在待審核或未出租時才可以編輯");
+					 errorMsgs.put("alert","租物狀態只有在待審核或未出租,需複審時才可以編輯");
 				 }
 //				 String rent_sta = "W_CHECK";
 //				 rentVO.setRent_sta(rent_sta);
