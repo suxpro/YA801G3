@@ -42,40 +42,24 @@
 
 	<%@ include file="/front/header.jsp"%>
 
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
+		
+<!-- SideBar -->
+			<div class="col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li class="active"><a href="#">會員管理</a></li>
-					<li><a href="#">會員儲值</a></li>
+					<li><a href="#" onclick="document.updateMemInfo.submit();">會員資料修改</a></li>
+					<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
 					<li><a href="#">出租管理</a></li>
 					<li><a href="#">訂單管理</a></li>
 					<li><a href="#">歷史租借查詢</a></li>
-					<li><a href="#">升級會員</a></li>
-					<li class="divider"></li>
-					<li class="dropdown-submenu"><a tabindex="-1" href="#">租務秘書提醒</a>
-						<ul class="dropdown-menu">
-							<li><a tabindex="-1" href="#">成功出租(0)</a></li>
-							<li><a href="#">成功承租(0)</a></li>
-							<li><a href="#">出租確認(0)</a></li>
-							<li><a href="#">預約通知(0)</a></li>
-							<li><a href="#">出租Q&A(0)</a></li>
-							<li><a href="#">承租Q&A(0)</a></li>
-							<li><a href="#">評價通知(0)</a></li>
-							<li><a href="#">檢舉通知(0)</a></li>
-							<li><a href="#">出貨通知(0)</a></li>
-							<li><a href="#">歸期通知(0)</a></li>
-							<li><a href="#">租期通知(0)</a></li>
-						</ul></li>
-
+					<li class="active"><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
 				</ul>
 			</div>
 			
+<!-- Form -->
+			<div class="col-md-offset-0">
 			
-			
-
-			<div class="container">
-				<div class="row-fluid">
 					<form class="form-horizontal" id="memform" METHOD="post"
 						ACTION="<%=request.getContextPath()%>/front/member/memberVIP.do"
 						name="form1" enctype="multipart/form-data" role="form">
@@ -116,7 +100,7 @@
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">VIP黃金會員是什麼?</h4>
+					<h4 class="modal-title" id="myModalLabel">VIP特級會員是什麼?</h4>
 				</div>
 				<!-- agreement -->
 				<div class="modal-body">
@@ -131,7 +115,7 @@
 							<br/>
 							
 									<!-- Submit -->
-									<div class="control-group col-xs-offset-8">
+									<div class="control-group col-md-offset-10">
 										<div class="controls">
 											<input type="hidden" name="action" value="updateVIP">
 											<input type="hidden" name="mno" value="<%=memberVO.getMno()%>">
@@ -145,7 +129,6 @@
 						</fieldset>
 					</form>
 
-				</div>
 			</div>
 
 		</div>

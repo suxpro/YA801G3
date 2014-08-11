@@ -180,7 +180,8 @@
                     </div>
 					</div>
 
-					<div class="item" data-test-wer="123"> $(div).data("testWer")
+<!-- $(div).data("testWer") -->
+					<div class="item" data-test-wer="123"> 
 						<img src="<%=request.getContextPath()%>/front/img/2.png" />
 						<div class="carousel-caption">
                         <h1 class="carousel-caption-header">Slide 1</h1>

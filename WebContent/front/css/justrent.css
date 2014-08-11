@@ -3,13 +3,13 @@
 /* ==== Google font ==== */
 @import url('http://fonts.googleapis.com/css?family=Noto+Serif:400,400italic,700|Open+Sans:300,400,600,700');
 /* === prettify === */
-@import url('../js/google-code-prettify/prettify.css');
+@import url('prettify.css');
 /* === fontawesome === */
 @import url('font-awesome.min.css');
 /* === custom icon === */
 @import url('custom-fonts.css');
 /* ==== overwrite bootstrap standard ==== */
-@import url('overwrite.css');
+/* @import url('overwrite.css'); */
 @import url('animate.css');
 
 /* ===================================
@@ -213,6 +213,37 @@ img.img-polaroid {
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 }
+
+/*
+ * Sidebar
+ */
+@media (min-width: 768px) {
+  .sidebar {
+    top: 72px;
+    bottom: 0;
+    left: 0;
+    display: block;
+    padding: 0px 8px 6px;
+    overflow-x: hidden;
+    overflow-y: auto; /*Scrollable contents if viewport is shorter than content.*/
+    background-color: #FEFFFF;
+    
+  }
+}
+
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+  text-align: center;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  border-radius: 10px;
+  color: #fff;
+  background-color: #68A4C4;
+}
+
 
 /*Menu*/
 .animate {
