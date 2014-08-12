@@ -50,6 +50,7 @@ public class OrdDAO implements OrdDAO_interface {
 	// "DELETE FROM ord where ord_no = ?";
 	private static final String DELETE = "UPDATE ord SET ord_sta='CC_ORD', CC_ORD_TIME=SYSDATE, ORD_CC_CAUSE=? WHERE ord_no=?";
 	private static final String UPDATE_W_SHIP = "UPDATE ord SET ord_sta='W_SHIP', W_SHIP_TIME=SYSDATE WHERE ord_no=?";
+	private static final String UPDATE_APP_RENEW = "UPDATE ord SET ord_sta=? WHERE ord_no=?";
 	private static final String UPDATE = "UPDATE ord SET rent_no=?, ten_no=?, ord_sta=?, tra_mode=?, freight=?, ten_date=?, exp_date=?, ten_days=?, rent_total=?, ot_days=?, init_dps=?, real_dps=?, tra_total=?, loc_no=?, rec_addr=?, les_ases=?, les_ases_ct=?, ten_ases=?, ten_ases_ct=?, w_apr_time=?, w_ship_time=?, dtbt_time=?, rec_com_time=?, rent_exp_time=?, rt_time=?, rt_com_time=?, cls_time=?, cc_ord_time=?, ord_cc_cause=? where ord_no=?";
 	private static final String GET_LIVE_ORD_STMT = "SELECT ord_no FROM ord WHERE rent_no=? AND ord_sta IN ('W_SHIP','DTBT','REC_COM','RENT_EXP','RT','RT_COM')";
 
@@ -159,28 +160,37 @@ public class OrdDAO implements OrdDAO_interface {
 	public void update(OrdVO ordVO, String sta) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		String oOrd_sta = ordVO.getOrd_sta();
-		String oOrd_no = null;
-		if(oOrd_sta.equals("RE_ORD")){
-			oOrd_no = ordVO.getOrd_cc_cause();
-		}
-
+		
 		try {
 
 			con = ds.getConnection();
 			// 1●設定於 pstm.executeUpdate()之前
 			con.setAutoCommit(false);
-			//依照訂單要更新的狀
+			//依照訂單要更新的狀態
 			if(sta.equals("W_SHIP")){
+				
 				pstmt = con.prepareStatement(UPDATE_W_SHIP);
-			}else
-			{
-				pstmt = con.prepareStatement(UPDATE);
+				pstmt.setString(1, ordVO.getOrd_no());
+				pstmt.executeUpdate();
+				
+			}else if (sta.equals("APP_RENEW")){
+				//找尋原先訂單的紀錄
+				String pOrd_no = ordVO.getOrd_cc_cause();
+				OrdVO pOrdVO = findByPrimaryKey(pOrd_no);
+				//繼承先前訂單的狀態
+				String pOrd_sta = pOrdVO.getOrd_sta();
+				
+				pstmt = con.prepareStatement(UPDATE_APP_RENEW);
+				pstmt.setString(1, pOrd_sta);
+				pstmt.setString(2, ordVO.getOrd_no());
+				pstmt.executeUpdate();
+				
+				//報廢原先訂單
+				pOrdVO.setOrd_cc_cause("訂單["+ ordVO.getOrd_no() +"]續約成功,報廢原訂單");
+				//由系統呼叫取消訂單
+				delete(pOrdVO,"sys");
+				
 			}
-
-			pstmt.setString(1, ordVO.getOrd_no());
-
-			pstmt.executeUpdate();
 
 			// 修改租物狀態
 			RentDAO rentDAO = new RentDAO();
@@ -209,21 +219,14 @@ public class OrdDAO implements OrdDAO_interface {
 			RemindVO remindVO = new RemindVO();			
 			remindVO.setMno(ordVO.getTen_no());// 注意:該提醒的是承租方
 			remindVO.setRno(ordVO.getRent_no());
-			remindVO.setRstas("成功承租");
-			if(oOrd_sta.equals("RE_ORD")){
-				remindVO.setRdes("您有一筆續約訂單已核准(" + (rentVO.getRent_name()) + ")!");
-			}else{
+			remindVO.setRstas("成功承租");			
+			if(sta.equals("W_SHIP")){		
 				remindVO.setRdes("您有一筆訂單已核准(" + (rentVO.getRent_name()) + ")!");
-			}	
-			remindDAO.insertForOrd(remindVO, con);
-			
-			//報廢原先訂單
-			if(oOrd_sta.equals("RE_ORD")){
-				OrdVO oOrdVO = findByPrimaryKey(oOrd_no);
-				oOrdVO.setOrd_cc_cause("訂單["+ ordVO.getOrd_no() +"]續約成功,報廢原訂單");
-				//由系統呼叫取消訂單
-				delete(oOrdVO,"sys");
+				
+			}else if(sta.equals("APP_RENEW")){
+				remindVO.setRdes("您有一筆續約訂單已核准(" + (rentVO.getRent_name()) + ")!");
 			}
+			remindDAO.insertForOrd(remindVO, con);
 
 			// 完成所有資料修改
 			con.commit();

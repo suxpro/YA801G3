@@ -17,8 +17,8 @@ public class RentService {
 	}
 
 	// 預留給 Struts 2 用的
-	public void onShelf_fail(String rent_no) {
-		dao.update_fail(rent_no);
+	public void onShelf_fail(String rent_no, String cause) {
+		dao.update_fail(rent_no, cause);
 	}
 
 //	public void deleteRent(String rent_no) {

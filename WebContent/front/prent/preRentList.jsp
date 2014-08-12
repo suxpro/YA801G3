@@ -2,14 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="front.rent.model.*"%>
+<%@ page import="front.prerent.model.*"%>
 <%@ page import="front.member.model.*"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.sql.Timestamp"%>
 <%-- 此頁採用 JSTL 與 EL 取值 --%>
 <%!
 	//定義返回的日期格式
-	static SimpleDateFormat dateformatAll = new SimpleDateFormat(
-			"yyyy-MM-dd HH:mm:ss");//定義返回的日期格式
+	static SimpleDateFormat dateformatAll = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//定義返回的日期格式
 
 	//去掉時間的毫秒數方法
 	public static String getTimestampString(Timestamp ts) {
@@ -20,44 +20,33 @@
 	}
 %>
 <%
+	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+	if (memberVO != null){
+		String mno = memberVO.getMno(); 
+	}
+	
+	PrentService prentSVC = new PrentService();
+	List<PrentVO> prentList = prentSVC.getAll();
+//	List<PrentVO> prentList = prentSVC.getAll(mno);
 	RentService rentSVC = new RentService();
 	//List<RentVO> list = rentSvc.getAll();
 	//pageContext.setAttribute("list", list);
 	MemberService memberSVC = new MemberService();
 	
-	Vector<String> rentList = (Vector<String>)session.getAttribute("rentList");
-	if(rentList == null){
-		rentList = new Vector<String>();  
-		rentList.add("R10001");
-		rentList.add("R10002");
-		rentList.add("R10003");
-	
-		session.setAttribute("rentList",rentList);
-	}
-	//session.invalidate();
-    
-	int count = 0;
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/cart/cart.jsp">
-<title> 租物車 - cart.jsp</title>
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/prent/preRentList.jsp">
+<title> 欲租清單 - preRentList.jsp</title>
 </head>
 <body bgcolor='white' align='center'>
-	<b><font color=red>此頁練習採用 EL 的寫法取值:</font></b>
-	<table border='1' cellpadding='5' cellspacing='0' width='800'
-		align='center'>
+	<table border='1' cellpadding='5' cellspacing='0' width='800' align='center'>
 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-			<td><h3>租物車 - cart.jsp</h3> <a
-				href="<%=request.getContextPath()%>/front/cart/cart.jsp">
-					<img
-					src="<%=request.getContextPath()%>/front/cart/images/back1.gif"
+			<td><h3>欲租清單 - preRentList.jsp</h3> 
+			<a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">
+				<img src="<%=request.getContextPath()%>/front/prent/images/back1.gif"
 					width="100" height="32" border="0">回首頁
 			</a></td>
 		</tr>

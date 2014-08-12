@@ -91,7 +91,7 @@
 		<!-- 租物按鈕 -->
 		<div class="col-md-offset-2 col-md-2">
             <div style="position:relative;top:-10px">$ ${rentVO.unit_price}/day</div>
-            <button type="button" class="btn" id="btnAddRentToCart" data-servlet="<%=request.getContextPath()%>/front/rent/rent.do" data-rent-no="${rentVO.rent_no}"></button>
+            <button type="button" class="btn" id="btnAddRentToCart" data-servlet="<%=request.getContextPath()%>/front/rent/rent.do" data-rent-no="${rentVO.rent_no}" data-rent-state="${rentVO.rent_sta}"></button>
 			<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 		</div>
 	</div>

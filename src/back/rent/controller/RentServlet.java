@@ -142,10 +142,15 @@ public class RentServlet extends HttpServlet {
 				if (rent_no == null || rent_no.trim().length() == 0) {
 					errorMsgs.put("rent_no", "租物編號不能為空");
 				}
+				
+				String cause = req.getParameter("cause");
+				if (rent_no == null || rent_no.trim().length() == 0) {
+					errorMsgs.put("rent_no", "不通過的原因不能為空");
+				}
 
 				/*************************** 2.開始刪除資料 ***************************************/
 				RentService rentSvc = new RentService();
-				rentSvc.onShelf_fail(rent_no);
+				rentSvc.onShelf_fail(rent_no ,cause);
 
 				/*************************** 3.更新完成,準備轉交(Send the Success view) ***********/
 				String url = "/back/rent/waiting_onShelf_rent.jsp";

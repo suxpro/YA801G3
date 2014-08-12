@@ -16,7 +16,7 @@ public class ScheduleServlet extends HttpServlet {
     Timer timer;
  	Send sendMessage = new Send();
     int count=0;
-   
+    
     public void init() throws ServletException {
       TimerTask task = new TimerTask(){ 
 	        public void run() {
@@ -27,13 +27,13 @@ public class ScheduleServlet extends HttpServlet {
 	        } 
       };
       timer = new Timer();
-      timer.scheduleAtFixedRate(task, new Date(), 10*1000); //每10秒執行一次
+//      timer.scheduleAtFixedRate(task, new Date(), 10*1000); //每10秒執行一次
       System.out.println("已建立排程!");
-      
 //      String[] tel ={"0989936902"};
 //      String message = "排程訊息測試-QAQ....";
 //      sendMessage.sendMessage(tel , message);
 //      System.out.println("已建立簡訊發送排程!");
+      
     }
     
 
@@ -42,7 +42,19 @@ public class ScheduleServlet extends HttpServlet {
     	HttpSession session = req.getSession();
         String memID = (String) session.getAttribute("mid");
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-        System.out.println(memID);
+//        System.out.println(memID);
+        
+		String resJson = "{\"resJson\" : [";
+//		for (String rentStr : rentList) {
+//			resJson += "\""+rentStr+"\",";
+//		}
+		resJson += "\""+memID+"\",";
+		resJson = resJson.substring(0,resJson.length() - 1) + "]}";
+	    System.out.println("RentServlet.642."+resJson);
+	    PrintWriter out = res.getWriter();
+	    out.write(resJson);
+	    out.flush();
+	    out.close();
     }                           	
 
     public void destroy() {

@@ -22,6 +22,9 @@ import javax.servlet.UnavailableException;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
 
+import front.member.model.MemberVO;
+import front.prerent.model.PrentService;
+import front.prerent.model.PrentVO;
 import front.rent.model.*;
 
 import com.oreilly.servlet.MultipartRequest;
@@ -345,9 +348,9 @@ public class RentServlet extends HttpServlet {
 				RentService rentSvc = new RentService();
 				RentVO rentVO = rentSvc.getOneRent(rent_no);
 				String rent_sta = rentVO.getRent_sta();
-				if(!rent_sta.equals("W_RENT") && !rent_sta.equals("W_CHECK")){
+				if(!rent_sta.equals("W_RENT") && !rent_sta.equals("W_CHECK") && !rent_sta.equals("W_REVIEW")){
 					//租物狀態不對
-					errorMsgs.put("alert","租物狀態只有在待審核或未出租時才可以編輯");
+					errorMsgs.put("alert","租物狀態只有在待審核或未出租,需複審時才可以編輯");
 					RequestDispatcher failureView = req.getRequestDispatcher("/front/rent/listAllRent.jsp");
 					failureView.forward(req, res);
 					return;		 
@@ -417,12 +420,12 @@ public class RentServlet extends HttpServlet {
 				 String rent_sta = multi.getParameter("rent_sta").trim();
 				 if (rent_sta == null || rent_sta.trim().length() == 0) {
 					 errorMsgs.put("rent_sta","租物狀態請勿空白");
-				 }else if(rent_sta.equals("W_RENT") || rent_sta.equals("W_CHECK")){
+				 }else if(rent_sta.equals("W_RENT") || rent_sta.equals("W_CHECK") || rent_sta.equals("W_REVIEW")){
 					 rent_sta = "W_CHECK";
 					 rentVO.setRent_sta(rent_sta);
 				 }else{
 					 //租物狀態不對
-					 errorMsgs.put("alert","租物狀態只有在待審核或未出租時才可以編輯");
+					 errorMsgs.put("alert","租物狀態只有在待審核或未出租,需複審時才可以編輯");
 				 }
 //				 String rent_sta = "W_CHECK";
 //				 rentVO.setRent_sta(rent_sta);
@@ -649,6 +652,8 @@ public class RentServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
 				String rent_no = req.getParameter("rent_no");
+				String rent_state = req.getParameter("rent_state");
+				
 				/*************************** 2.開始判斷與塞資料 ****************************************/
 			    Vector<String> rentList = (Vector<String>)session.getAttribute("rentList");
 				if(rentList == null)
@@ -664,6 +669,21 @@ public class RentServlet extends HttpServlet {
 					System.out.println("RentServlet.639.增加租物"+rent_no+"存session");
 				} else 
 					System.out.println("RentServlet.641.已有租物"+rent_no+"在session");
+				
+				if("A_RENT".equals(rent_state)){
+				//以下新增資料至預租Table
+					String ten_no = ((MemberVO)session.getAttribute("memberVO")).getMno();
+					
+					java.sql.Date prent_time = new java.sql.Date(System.currentTimeMillis());
+	
+					Integer prent_days = 0;
+	
+					String prent_flag = "Y";
+					String ord_no = "";
+					PrentService prentSvc = new PrentService();
+					PrentVO prentVO = prentSvc.addPrent(rent_no, ten_no, prent_time,
+							prent_days, prent_flag, ord_no);
+				}
 				
 				/*************************** 3.塞資料完成,準備轉交(Send the Successview) ************/
 				session.setAttribute("rentList", rentList);
