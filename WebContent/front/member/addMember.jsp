@@ -22,6 +22,21 @@
 
 </style>
 
+<script type="text/javascript">
+
+function submitForm(){ 
+	form1.mid.value = "Tider";
+	form1.mpwd.value = "Tider1";
+	form1.mname.value = "饅頭人";
+	form1.msex.value = "M";
+	form1.mcell.value = "0912345678";
+	form1.mmail.value = "tider1@gmail.com";
+	form1.locno.value = "L10004";
+	form1.madrs.value = "桃園縣中壢市中大路300-1號";
+	}
+
+</script>
+
 </head>
 <link rel="stylesheet" type="text/css" href="js/calendar.css">
 
@@ -186,9 +201,14 @@
 
 				</div>
 			</div>
+			
+			<input type="image" src="images/7065_key.png" id="submit_Btn" onClick="submitForm();" />
 
 
 	<%@ include file="/front/footer.jsp"%>
 
 </body>
 </html>
+
+
+<li><a href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">歷史租借查詢</a></li>
