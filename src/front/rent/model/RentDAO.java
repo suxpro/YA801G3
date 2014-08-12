@@ -48,7 +48,7 @@ public class RentDAO implements RentDAO_interface {
 //			+ "WHERE rent_no =? ";
 	private static final String DELETE_STMT = "UPDATE rent SET rent_sta = 'C_RENT', offshelf_flag = 'Y' WHERE rent_no = ?";
 //	private static final String DELETE_STMT = "DELETE FROM rent WHERE rent_no = ?";
-	private static final String GET_ALL_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' order by rent_no";
+	private static final String GET_ALL_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' AND les_no=? order by rent_no";
 	private static final String GET_ONE_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' and rent_no = ?";
     //修改租物狀態
 	private static final String UPDATE_STA_STMT = "UPDATE rent SET rent_sta = ?, last_sta_time=SYSDATE, last_mod_time=SYSDATE WHERE rent_no = ?";
@@ -319,7 +319,7 @@ public class RentDAO implements RentDAO_interface {
 	}	
 
 	@Override
-	public List<RentVO> getAll() {
+	public List<RentVO> getAll(String les_no) {
 		List<RentVO> list = new ArrayList<RentVO>();
 		RentVO rentVO = null;
 
@@ -331,6 +331,7 @@ public class RentDAO implements RentDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
+			pstmt.setString(1, les_no);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

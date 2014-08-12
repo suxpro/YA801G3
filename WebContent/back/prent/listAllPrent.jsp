@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="back.prerent.model.*"%>
-
 <%
+	
 	PrentDAO dao = new PrentDAO();
 	List<PrentVO> list = dao.getAll();
 	pageContext.setAttribute("list", list);

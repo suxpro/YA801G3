@@ -10,7 +10,7 @@ public interface RentDAO_interface {
           public void updateRent_sta(RentVO rentVO, Connection con);
           public void delete(String rent_no);
           public RentVO findByPrimaryKey(String rent_no);
-          public List<RentVO> getAll();
+          public List<RentVO> getAll(String les_no);
           //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //        public List<TagVO> getAll(Map<String, String[]> map); 
 }

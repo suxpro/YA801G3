@@ -318,7 +318,7 @@ public class RentJDBCDAO implements RentDAO_interface {
 	}
 
 	@Override
-	public List<RentVO> getAll() {
+	public List<RentVO> getAll(String les_no) {
 		List<RentVO> list = new ArrayList<RentVO>();
 		RentVO rentVO = null;
 
@@ -511,5 +511,6 @@ public class RentJDBCDAO implements RentDAO_interface {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }

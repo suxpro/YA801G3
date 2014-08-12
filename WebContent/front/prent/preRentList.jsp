@@ -32,14 +32,18 @@
 	//List<RentVO> list = rentSvc.getAll();
 	//pageContext.setAttribute("list", list);
 	MemberService memberSVC = new MemberService();
-	
+	int count=0;
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/prent/preRentList.jsp">
-<title> 欲租清單 - preRentList.jsp</title>
+<title> 追蹤清單 - preRentList.jsp</title>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 </head>
 <body bgcolor='white' align='center'>
 	<table border='1' cellpadding='5' cellspacing='0' width='800' align='center'>
@@ -76,31 +80,32 @@
 			<th>租物狀態</th>
 			<th>租物押金</th>
 			<th>租物價格/天</th>
-			<th>地區編號</th>
-			<th>租物地址</th>
-
+			<th>出貨/回收緩衝</th>
+			<th>地區</th>
+<!-- 			<th>租物地址</th> -->
 		</tr>
 
 		<%@ include file="page1.file"%>
-		<c:forEach var="rent_no" items="${rentList}"  varStatus="s">
+		<c:forEach var="rent_no" items="${prentList.rent_no}"  varStatus="s">
 			<% 
 		    	RentVO rentVO = rentSVC.getOneRent((String)pageContext.getAttribute("rent_no"));
 				pageContext.setAttribute("rentVO",rentVO);
 				
-				MemberVO memberVO = memberSVC.getOneMember(rentVO.getLes_no());
-				pageContext.setAttribute("memberVO",memberVO);
-				 count++;
+				MemberVO lesVO = memberSVC.getOneMember(rentVO.getLes_no());
+				pageContext.setAttribute("lesVO",lesVO);
+				count++;
 			%>
 	
 			<tr align='center' valign='middle'>
 				<td><img width="100" height="100" src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=pic1"></td>		
                 <td><a href="javascript:pressesA${s.index}()">${rentVO.rent_name}</a></td>
-				<td><a href="javascript:pressesB${s.index}()">${memberVO.mname}</a></td>	
+				<td><a href="javascript:pressesB${s.index}()">${lesVO.mname}</a></td>	
 				<td>${rent_staMap[rentVO.rent_sta]}</td>		
 				<td>${rentVO.rent_dps         }元</td>
 				<td>${rentVO.unit_price       }元</td>
+				<td>${rentVO.reset_days       }天</td>
 				<td>${loc_staMap[rentVO.loc_no]}</td>
-				<td>${rentVO.rent_addr        }</td>
+<%-- 				<td>${rentVO.rent_addr        }</td> --%>
 
 <%-- 				<td><%=getTimestampString(((RentVO) pageContext --%>
 <%-- 						.getAttribute("rentVO")).getLast_sta_time())%></td> --%>
@@ -110,7 +115,7 @@
 <%-- 						.getAttribute("rentVO")).getLast_mod_time())%></td> --%>
 
 				<td>
-					<FORM method="post" action="<%=request.getContextPath()%>/front/cart/cartToOrd.jsp">
+					<FORM method="post" action="<%=request.getContextPath()%>/front/ord/addOrd.jsp">
 						<input type="submit" id="add_ord<%=count%>" value="前往結帳"> 
 						<input type="hidden" name="rent_no" value="${rentVO.rent_no}"> 
 						<input type="hidden" name="action" value="getOne_For_Update">
