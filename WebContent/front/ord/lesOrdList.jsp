@@ -106,8 +106,22 @@
 						<input type="hidden" name="ord_no" value="${ordVO.ord_no}"> 
 						<input type="hidden" name="action" value="update">
 						<input type="hidden" name="sta" id="sta<%=count%>" value="W_SHIP">
+						<input type="hidden" name="reqURL" value="/front/ord/lesOrdList.jsp">
 						<input id="apply<%=count%>" type="submit" value="核准"> 
 					</form>
+				</td>
+				<td>
+					<button id="rt_com<%=count%>" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+						role="button" aria-disabled="false">
+						<span>回收完成</span>
+					</button>
+					<form method="post" action="<%=request.getContextPath()%>/front/ord/ord.do">
+						<input type="hidden" name="ord_no" value="${ordVO.ord_no}"> 
+						<input type="hidden" name="action" value="update">
+						<input type="hidden" name="sta" id="sta<%=count%>" value="RT_COM">
+						<input type="hidden" name="reqURL" value="/front/ord/lesOrdList.jsp">
+						<input id="rt<%=count%>" type="submit" value="回收"> 
+					</form>				
 				</td>
 				<td>
 					<button id="cc_ord<%=count%>">取消</button>
@@ -141,16 +155,23 @@
 							$("#dialog-form<%=count%>").dialog("close");
 							}
 						});
+						
                         // cancel button click() 啟用 dialog
 						$("#cc_ord<%=count%>").button().on("click", function() {
 	     					$("#dialog-form<%=count%>").dialog("open");
 	  						$("#dialog-form<%=count%>").find("[type=submit]").hide();});
                         
-                        // 隱藏 submit button
+                        // 隱藏 核准 submit button
                         $("#apply<%=count%>").hide();
                         // apply button click() 啟用 submit
                         $("#app_ord<%=count%>").button().on("click", function() {
                         	$("#apply<%=count%>").click();});
+                        
+                        // 隱藏 回收 submit button
+                        $("#rt<%=count%>").hide();
+                        // apply button click() 啟用 submit
+                        $("#rt_com<%=count%>").button().on("click", function() {
+                        	$("#rt<%=count%>").click();});
                       
 						
 						//依狀態讓按鈕失效
@@ -160,6 +181,7 @@
 <%-- 							$("#cc_ord<%=count%>").hide(); --%>
 							$("#app_ord<%=count%>").attr("disabled", false); 
 							$("#cc_ord<%=count%>").attr("disabled", false);
+							$("#rt_com<%=count%>").attr("disabled", true);
 							//下個狀態為待出貨
 							$("#sta<%=count%>").val("W_SHIP");
 							
@@ -167,58 +189,67 @@
 							
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rt_com<%=count%>").attr("disabled", true);
 							
-						}else if (ord_sta == "DTBT"){//3.訂單狀態為配送中
+// 						}else if (ord_sta == "DTBT"){//3.訂單狀態為配送中
 							
-							$("#app_ord<%=count%>").attr("disabled", true);
-							$("#cc_ord<%=count%>").attr("disabled", true);
+<%-- 							$("#app_ord<%=count%>").attr("disabled", true); --%>
+<%-- 							$("#cc_ord<%=count%>").attr("disabled", true); --%>
 							
 						}else if (ord_sta == "REC_COM"){//4.訂單狀態為收貨完成
 							
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rt_com<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "RENT_EXP"){//5.訂單狀態為租約到期
 							
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rt_com<%=count%>").attr("disabled", false);
 							
-						}else if (ord_sta == "RT"){//6.訂單狀態為回收中
+// 						}else if (ord_sta == "RT"){//6.訂單狀態為回收中
 							
-							$("#app_ord<%=count%>").attr("disabled", true);
-							$("#cc_ord<%=count%>").attr("disabled", true);
+<%-- 							$("#app_ord<%=count%>").attr("disabled", true); --%>
+<%-- 							$("#cc_ord<%=count%>").attr("disabled", true); --%>
 							
 						}else if (ord_sta == "RT_COM"){//7.訂單狀態為回收完成
 							
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rt_com<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "CLS"){//8.訂單狀態為結案
 							
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rt_com<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "CC_ORD"){//9.訂單狀態為取消訂單
 							
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rt_com<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "AB_CLS"){//10.訂單狀態為異常結案
 							
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rt_com<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "RE_ORD"){//11.訂單狀態為待續約
 							
 							$("#app_ord<%=count%>").attr("disabled", false);
 							$("#cc_ord<%=count%>").attr("disabled", false);
+							$("#rt_com<%=count%>").attr("disabled", true);
 							//下個狀態為原先的訂單狀態
 							$("#sta<%=count%>").val("APP_RENEW");
 							
 						}else{
 							
 							$("#app_ord<%=count%>").attr("disabled", true);
-							$("#cc_ord<%=count%>").attr("disabled", true);													
+							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rt_com<%=count%>").attr("disabled", true);
 						}
 						
 					</script>

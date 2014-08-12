@@ -225,6 +225,8 @@ public class OrdServlet extends HttpServlet {
 
 			OrdService ordSvc = new OrdService();
 			OrdVO ordVO = new OrdVO();
+			
+			String reqURL = null;
 
 			try {
 				/*************************** 1.接收請求參數 ***************************************/
@@ -248,6 +250,12 @@ public class OrdServlet extends HttpServlet {
 					errorMsgs.put("sta", "更新的狀態請勿空白");
 				}
 				
+				// reqURL
+				reqURL = req.getParameter("reqURL").trim();
+				if (reqURL == null || reqURL.trim().length() == 0) {
+					errorMsgs.put("reqURL", "來源網址請勿空白");
+				}
+				
 				//檢查訂單狀態是否仍是待核准
 //				String ord_sta = ordVO.getOrd_sta();
 //				if(!ord_sta.equals("W_APR")){
@@ -258,7 +266,7 @@ public class OrdServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front/ord/lesOrdList.jsp");
+							.getRequestDispatcher(reqURL);
 					failureView.forward(req, res);
 					return;
 				}
@@ -269,17 +277,21 @@ public class OrdServlet extends HttpServlet {
 					alertMsgs.put("alert", "續約訂單[" + ord_no + "]核准成功");
 				} else if(sta.equals("W_SHIP")){
 					alertMsgs.put("alert", "訂單[" + ord_no + "]核准成功");
+				} else if(sta.equals("REC_COM")){
+					alertMsgs.put("alert", "訂單[" + ord_no + "]狀態已更新為收貨完成");
+				} else if(sta.equals("RT_COM")){
+					alertMsgs.put("alert", "訂單[" + ord_no + "]狀態已更新為回收完成");
 				}
+				
 				/*************************** 3./更新完成,準備轉交(Send the Success view) ***********/
-				String url = "/front/ord/lesOrdList.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 更新成功後,轉交回送出刪除的來源網頁
+				RequestDispatcher successView = req.getRequestDispatcher(reqURL);// 更新成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.put("Exception", "更新資料失敗:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front/ord/lesOrdList.jsp");
+						.getRequestDispatcher(reqURL);
 				failureView.forward(req, res);
 			}
 		}

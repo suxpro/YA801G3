@@ -19,7 +19,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">
+<meta http-equiv="Refresh"
+	content="30;URL=<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">
 <title>承租清單管理 - tenOrdList.jsp</title>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
@@ -75,13 +76,13 @@
 			end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
 			<%
 				count++;
-						    RentService rentSVC = new RentService();
-					    			RentVO rentVO = rentSVC.getOneRent(((OrdVO)pageContext.getAttribute("ordVO")).getRent_no());
-							pageContext.setAttribute("rentVO",rentVO);
-							//查出出租者聯絡資料
-							MemberService memberSVC = new MemberService();
-							MemberVO lesVO = memberSVC.getOneMember(rentVO.getLes_no());
-							//pageContext.setAttribute("lesVO",lesVO);
+							    RentService rentSVC = new RentService();
+						    			RentVO rentVO = rentSVC.getOneRent(((OrdVO)pageContext.getAttribute("ordVO")).getRent_no());
+								pageContext.setAttribute("rentVO",rentVO);
+								//查出出租者聯絡資料
+								MemberService memberSVC = new MemberService();
+								MemberVO lesVO = memberSVC.getOneMember(rentVO.getLes_no());
+								//pageContext.setAttribute("lesVO",lesVO);
 			%>
 
 			<tr align='center' valign='middle'>
@@ -218,6 +219,19 @@
 					</div>
 				</td>
 				<td>
+					<button id="rec_com<%=count%>" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+						role="button" aria-disabled="false">
+						<span>收貨完成</span>
+					</button>
+					<form method="post" action="<%=request.getContextPath()%>/front/ord/ord.do">
+						<input type="hidden" name="ord_no" value="${ordVO.ord_no}"> 
+						<input type="hidden" name="action" value="update">
+						<input type="hidden" name="sta" value="REC_COM">
+						<input type="hidden" name="reqURL" value="/front/ord/tenOrdList.jsp">
+						<input id="receive<%=count%>" type="submit" value="收貨"> 
+					</form>				
+				</td>
+				<td>
 					<button id="cc_ord<%=count%>">取消</button>
 					<div id="dialog-form2<%=count%>" title="取消訂單[${ordVO.ord_no}]">
 						<p>請輸入取消訂單的原因.</p>
@@ -256,7 +270,13 @@
      					$("#dialog-form1<%=count%>").dialog( "open" );
   						$("#dialog-form1<%=count%>").find("[type=submit]").hide();});
 					//dialog for續約  - end
-									
+					
+					// 隱藏  收貨 按鈕
+                    $("#receive<%=count%>").hide();
+                    // 收貨完成  click() 啟用 submit
+                    $("#rec_com<%=count%>").button().on("click", function() {
+                        	$("#receive<%=count%>").click();});
+					
 					//dialog for取訂單  - start
 		 			$("#dialog-form2<%=count%>").dialog({
 						autoOpen : false,
@@ -290,61 +310,72 @@
 <%-- 							$("#cc_ord<%=count%>").hide(); --%>
 							$("#re_ord<%=count%>").attr("disabled", true); 
 							$("#cc_ord<%=count%>").attr("disabled", false);
+							$("#rec_com<%=count%>").attr("disabled", true);
 							
 						} else if (ord_sta == "W_SHIP"){//2.訂單狀態為待出貨
 							
 							$("#re_ord<%=count%>").attr("disabled", false);
 							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rec_com<%=count%>").attr("disabled", false);
 							
-						}else if (ord_sta == "DTBT"){//3.訂單狀態為配送中
+// 						}else if (ord_sta == "DTBT"){//3.訂單狀態為配送中
 							
-							$("#re_ord<%=count%>").attr("disabled", false);
-							$("#cc_ord<%=count%>").attr("disabled", true);
+<%-- 							$("#re_ord<%=count%>").attr("disabled", false); --%>
+<%-- 							$("#cc_ord<%=count%>").attr("disabled", true); --%>
+							
 							
 						}else if (ord_sta == "REC_COM"){//4.訂單狀態為收貨完成
 							
 							$("#re_ord<%=count%>").attr("disabled", false);
 							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rec_com<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "RENT_EXP"){//5.訂單狀態為租約到期
 							
 							$("#re_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rec_com<%=count%>").attr("disabled", true);
 							
-						}else if (ord_sta == "RT"){//6.訂單狀態為回收中
+// 						}else if (ord_sta == "RT"){//6.訂單狀態為回收中
 							
-							$("#re_ord<%=count%>").attr("disabled", true);
-							$("#cc_ord<%=count%>").attr("disabled", true);
+<%-- 							$("#re_ord<%=count%>").attr("disabled", true); --%>
+<%-- 							$("#cc_ord<%=count%>").attr("disabled", true); --%>
 							
 						}else if (ord_sta == "RT_COM"){//7.訂單狀態為回收完成
 							
 							$("#re_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rec_com<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "CLS"){//8.訂單狀態為結案
 							
 							$("#re_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rec_com<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "CC_ORD"){//9.訂單狀態為取消訂單
 							
 							$("#re_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rec_com<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "AB_CLS"){//10.訂單狀態為異常結案
 							
 							$("#re_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rec_com<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "RE_ORD"){//11.訂單狀態為待續約
 							
 							$("#re_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", false);
+							$("#rec_com<%=count%>").attr("disabled", true);
 							
 						}else{
 							
 							$("#re_ord<%=count%>").attr("disabled", true);
-							$("#cc_ord<%=count%>").attr("disabled", true);													
+							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#rec_com<%=count%>").attr("disabled", true);
 						}
 					</script>
 			</tr>
