@@ -7,8 +7,7 @@
 <%@ page import="back.loc.model.*"%>
 <%
 	//取得新增租物的會員資料(取得登入帳號)
-	MemberService memberSVC = new MemberService();
-	MemberVO memberVO = memberSVC.getOneMember("M10003"); 
+	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 	//承接錯誤回傳的rentVO
 	RentVO rentVO = (RentVO) request.getAttribute("rentVO");;
 	if (rentVO == null) {
