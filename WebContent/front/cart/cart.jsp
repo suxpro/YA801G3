@@ -28,13 +28,10 @@
 	Vector<String> rentList = (Vector<String>)session.getAttribute("rentList");
 	if(rentList == null){
 		rentList = new Vector<String>();  
-		rentList.add("R10001");
-		rentList.add("R10002");
-		rentList.add("R10003");
-	
+// 		rentList.add("R10001");
 		session.setAttribute("rentList",rentList);
 	}
-	//session.invalidate();
+//     session.invalidate();
     
 	int count = 0;
 %>

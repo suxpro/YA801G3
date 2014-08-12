@@ -23,7 +23,7 @@
 	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
     String mno = memberVO.getMno();
 	RentService rentSvc = new RentService();
-	List<RentVO> list = rentSvc.getAll(mno);
+	List<RentVO> list = rentSvc.getAllByMno(mno);
 	pageContext.setAttribute("list", list);
 %>
 

@@ -125,7 +125,7 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 					rows="4" style="resize: none">${rentVO.rent_desc}</textarea></td>
 				<td><font color="red">${errorMsgs.rent_desc}</font></td>
 									
-				<input type="hidden" name="les_no" size="6" value="M10001" />
+				<input type="hidden" name="les_no" size="6" value="${memberVO.mno}" />
 			</tr>
 <!-- 			<tr> -->
 <!-- 				<td align="right">出租人:<font color=red><b>*</b></font></td> -->

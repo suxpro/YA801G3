@@ -142,7 +142,11 @@ public class RentService {
 		return dao.findByPrimaryKey(rent_no);
 	}
 
-	public List<RentVO> getAll(String les_no) {
-		return dao.getAll(les_no);
+	public List<RentVO> getAll() {
+		return dao.getAll();
+	}
+	
+	public List<RentVO> getAllByMno(String mno) {
+		return dao.getAllByMno(mno);
 	}
 }

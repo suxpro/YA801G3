@@ -12,7 +12,8 @@
 	request.setAttribute("rentVO", rentVO);
 	//取得承租會員資料(取得登入帳號)
 	MemberService memberSVC = new MemberService();
-	MemberVO memberVO = memberSVC.getOneMember("M10001"); 
+// 	MemberVO memberVO = memberSVC.getOneMember("M10001"); 
+	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 	//承接錯誤回傳的ordVO
 	OrdVO ordVO = (OrdVO) request.getAttribute("ordVO");
 	if (ordVO == null) {
