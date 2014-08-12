@@ -6,8 +6,6 @@
 	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO"); //EmpServlet.java (Concroller), 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
 %>
 
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,7 +15,7 @@
 <style type="text/css">
 
 
-#memform {width:94%;}
+#memform {width:90%;}
 
 
 </style>
@@ -66,12 +64,12 @@
 <!-- SideBar -->
 			<div class="col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li><a href="#" onclick="document.updateMemInfo.submit();">會員資料修改</a></li>
+					<li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
 					<li class="active"><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
+					<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
 					<li><a href="#">出租管理</a></li>
 					<li><a href="#">訂單管理</a></li>
 					<li><a href="#">歷史租借查詢</a></li>
-					<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
 				</ul>
 			</div>
 			
@@ -90,7 +88,7 @@
 								</legend>
 							</div>
 
-								<div class="col-md-4">
+								<div class="col-md-4 col-md-offset-1">
 									<!-- 排版 -->
 									
 									<!-- 會員帳戶餘額 -->
@@ -119,7 +117,7 @@
 								</div>
 								<!-- 排版 -->
 								
-								<div class="col-md-4">
+								<div class="col-md-4 col-md-offset-1">
 									<!-- 排版 -->
 									<!-- 會員儲值方式 -->
 									<div id="textbox" class="control-group  ">
@@ -160,7 +158,7 @@
 
 							
 									<!-- Submit -->
-									<div class="control-group col-xs-8 col-xs-offset-8">
+									<div class="control-group col-xs-9 col-xs-offset-9">
 										<div class="controls">
 											<input type="hidden" name="action" value="storedMoney">
 											<input type="hidden" name="mno" value="<%=memberVO.getMno()%>">

@@ -48,12 +48,12 @@
 <!-- SideBar -->
 			<div class="col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li><a href="#" onclick="document.updateMemInfo.submit();">會員資料修改</a></li>
+					<li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
 					<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
+					<li class="active"><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
 					<li><a href="#">出租管理</a></li>
 					<li><a href="#">訂單管理</a></li>
 					<li><a href="#">歷史租借查詢</a></li>
-					<li class="active"><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
 				</ul>
 			</div>
 			
@@ -73,7 +73,7 @@
 							</div>
 
 							<div class="row row-offcanvas row-offcanvas-light">
-								<div class="col-xs-4 col-xs-offset-4">
+								<div class="col-xs-4 col-xs-offset-3">
 									<!-- 排版 -->
 									
 									<!-- 會員帳戶餘額 -->
@@ -112,10 +112,9 @@
 							
 							</div>
 							<br/>
-							<br/>
 							
 									<!-- Submit -->
-									<div class="control-group col-md-offset-10">
+									<div class="control-group col-md-offset-9">
 										<div class="controls">
 											<input type="hidden" name="action" value="updateVIP">
 											<input type="hidden" name="mno" value="<%=memberVO.getMno()%>">

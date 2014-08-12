@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="BIG5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="front.member.model.*"%>
-<%
-	MemberVO memberVOxx = null;
-	if (session.getAttribute("memberVO") != null) {
-		memberVOxx = (MemberVO) session.getAttribute("memberVO");
-	}
-%> 
+
 <script>
     $.getScript("js/remind/remind.js");
 </script>
 
+<style>
+#money{
+color:white;
+padding-top: 14px;
+}
+
+</style>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -32,8 +33,12 @@
 			</div>
 			
 		<!-- 登入後 -->
-			<c:if test="<%=memberVOxx != null%>">
+			<c:if test="${memberVO != null}">
 			   <div class="navbar-collapse collapse navbar-right" >	
+<!-- 餘額 -->
+			   <label class="nav navbar-nav " id="money"><strong><i class="fa fa-usd"></i>&nbsp;&nbsp;${memberVO.mbalance }</strong></label>
+			   
+			   
 				 <ul class="nav navbar-nav ">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">租務 <front class="badge">14</front><b class="caret"></b></a>
@@ -60,19 +65,20 @@
                  </ul>			
 				 <ul class="nav navbar-nav ">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%=memberVOxx.getMname()%> <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> ${memberVO.mname} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                  <li class="dropdown-plus-title">
-                                    <i class="fa fa-user fa-spin"></i>		<%=memberVOxx.getMname()%>
+                                    <i class="fa fa-user fa-spin"></i>		${memberVO.mname}
                                     <b class="pull-right glyphicon glyphicon-chevron-up"></b>
                                 </li>
                                 
-                                <li><a href="#" onclick="document.updateMemInfo.submit();">會員資料修改</a>
-                                	<FORM name="updateMemInfo" METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/member.do">
+                                <li><a href="#" onclick="document.MemInfo.submit();">會員資料</a>
+                                	<FORM name="MemInfo" METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/member.do">
 										<input type="hidden" name="mno" value="${memberVO.mno}"> 						
-										<input type="hidden" name="action" value="getOne_For_Update">
+										<input type="hidden" name="action" value="getOne_For_Display">
 									</FORM>
                                 </li>
+                                
                                 <li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a>
                                 	<FORM name="storedMoney" METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/memberStored.do">
 										<input type="hidden" name="mno" value="${memberVO.mno}"> 						
@@ -80,15 +86,17 @@
 									</FORM>
                                 
                                 </li>
-                                <li><a href="#">出租管理</a></li>
-                                <li><a href="#">訂單管理</a></li>
-                                <li><a href="#">歷史租借查詢</a></li>
-                                <li><a href="#" onclick="document.updateVIP.submit();">升級會員</a>
+ 								<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a>
                                 	<FORM name="updateVIP" METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/memberVIP.do">
 										<input type="hidden" name="mno" value="${memberVO.mno}"> 						
 										<input type="hidden" name="action" value="getOne_For_Update">
 									</FORM>
                                 </li>
+                                
+                                <li><a href="#">出租管理</a></li>
+                                <li><a href="#">訂單管理</a></li>
+                                <li><a href="#">歷史租借查詢</a></li>
+
 
               					<li class="divider"></li>
                                 <li>

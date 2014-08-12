@@ -6,8 +6,6 @@
 	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO"); //EmpServlet.java (Concroller), 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
 %>
 
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -63,12 +61,12 @@
 <!-- SideBar -->
 			<div class="col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li class="active"><a href="#" onclick="document.updateMemInfo.submit();">會員資料修改</a></li>
+					<li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
 					<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
+					<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
 					<li><a href="#">出租管理</a></li>
 					<li><a href="#">訂單管理</a></li>
 					<li><a href="#">歷史租借查詢</a></li>
-					<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
 				</ul>
 			</div>
 			
@@ -89,14 +87,14 @@
 							</div>
 
 							
-								<div class="col-md-5">
+								<div class="col-md-5 col-md-offset-1">
 									<!-- 排版 -->
 
 									<!-- 會員編號 -->
-									<div class="control-group  ">
-										<label class="control-label" for="username">會員編號</label> <label
-											class="control-label col-xs-offset-1" id="username"><%=memberVO.getMno()%></label>
-									</div>
+<!-- 									<div class="control-group  "> -->
+<!-- 										<label class="control-label" for="username">會員編號</label>  -->
+<%-- 										<label class="control-label col-xs-offset-1" id="username"><%=memberVO.getMno()%></label> --%>
+<!-- 									</div> -->
 
 									<!-- 會員帳號 -->
 									<div class="control-group  ">
@@ -156,8 +154,8 @@
 
 									<!-- 地區 -->
 									<div class="control-group  ">
-										<label class="control-label" for="password_confirm">地區</label>
-										<select size="1" name="locno" class="col-xs-offset-2">
+										<label class="control-label" for="locno">地區　　</label>
+										<select size="1" name="locno" class="col-xs-offset-1">
 											<c:forEach var="locVO" items="${locSvc.all}">
 												<option value="${locVO.loc_no}"
 													${(memberVO.locno==locVO.loc_no)? 'selected':'' }>${locVO.loc_desc}
@@ -178,7 +176,7 @@
 
 								</div>
 								<!-- 排版 -->
-								<div class="col-md-offset-6 sidebar-offcanvas ">
+								<div class="col-md-offset-7 sidebar-offcanvas ">
 									<!-- 圖片排版 -->
 
 									<!-- 會員圖片 -->
@@ -221,7 +219,7 @@
 																					
 							<br>
 							<!-- Submit -->
-							<div class="control-group col-xs-8 col-xs-offset-8">
+							<div class="control-group col-xs-9 col-xs-offset-9">
 								<div class="controls">
 									<input type="hidden" name="action" value="updateInfo">
 									<input type="hidden" name="mno" value="<%=memberVO.getMno()%>">

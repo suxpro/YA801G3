@@ -94,12 +94,10 @@
 				<td>
 					<FORM METHOD="post"
 						ACTION="<%=request.getContextPath()%>/front/member/member.do">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="mno" value="${memberVO.mno}"> 
+						<input type="submit" value="修改"> <input type="hidden"	name="mno" value="${memberVO.mno}"> 
 						<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
 			     		<input type="hidden" name="whichPage"	value="<%=whichPage%>">               <!--送出當前是第幾頁給Controller-->	
-							<input type="hidden"
-							name="action" value="getOne_For_Update">
+						<input type="hidden" name="action" value="getOne_For_Update">
 					</FORM>
 				</td>
 				
