@@ -60,7 +60,7 @@ $(document).ready(
 				$(this).parent("li").addClass( "active" ).siblings("li").removeClass( "active" );
 				switch ($(this).attr("rel")) {
 				case "member":
-					$("#listAllMem").load("member/listAllMem.jsp",function() {
+					$("#listAllMem").load("member/listAllMember.jsp",function() {
 //						此區看是否有後續動作要做
 //						$.getScript("js/member/listAllMem.js");
 					});
