@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 
@@ -103,6 +104,7 @@ public class storedMoney extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
+			HttpSession session = req.getSession();
 
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
@@ -133,8 +135,8 @@ public class storedMoney extends HttpServlet {
 				memberVO = memberSvc.storedMoney(mno, mbalance, cash);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				
+				session.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
+//				req.setAttribute("memberVO", memberVO);
 //				String url = requestURL+"?whichPage="+whichPage+"&mno="+mno; // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)和修改的是哪一筆
 				
 				String url = "/front/member/listAllMember.jsp";
