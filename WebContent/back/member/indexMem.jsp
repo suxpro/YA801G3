@@ -15,9 +15,8 @@
 		</div>
 
 		<div id="listAllMem" class="col-md-10 col-md-offset-2 main">
-<%-- 				<%@ include file="/back/member/listAllMem.jsp"%> --%>
+				<%@ include file="/back/member/listAllMember.jsp"%>
 <!-- 此區加載點擊"會員區"後顯示的第一頁,也就是上面<li>的第一項 -->
-            listAllMem.jsp
 		</div>
 	</div>
 </div>

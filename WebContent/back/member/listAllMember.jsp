@@ -15,15 +15,15 @@
 <title>所有會員資料 - listAllMember_byDAO.jsp</title>
 </head>
 <body bgcolor='white'>
-	<b><font color=red>此頁練習採用 EL 的寫法取值:</font></b>
-	<table border='1' cellpadding='5' cellspacing='0' width='800'>
-		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-			<td>
-				<h3>所有會員資料 - listAllMember.jsp</h3> <a href="<%=request.getContextPath()%>/back/member/select_page.jsp"><img
-					src="images/back1.gif" width="100" height="32" border="0">回首頁</a>
-			</td>
-		</tr>
-	</table>
+<!-- 	<b><font color=red>此頁練習採用 EL 的寫法取值:</font></b> -->
+<!-- 	<table border='1' cellpadding='5' cellspacing='0' width='800'> -->
+<!-- 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'> -->
+<!-- 			<td> -->
+<%-- 				<h3>所有會員資料 - listAllMember.jsp</h3> <a href="<%=request.getContextPath()%>/back/member/select_page.jsp"><img --%>
+<!-- 					src="images/back1.gif" width="100" height="32" border="0">回首頁</a> -->
+<!-- 			</td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
