@@ -68,7 +68,7 @@ public class MemberService {
 	
 	public MemberVO storedMoney(String mno, Double mbalance , Double cash){
 
-		MemberVO memberVO = new MemberVO();
+		MemberVO memberVO = dao.findByPrimaryKey(mno);
 		
 		memberVO.setMno(mno);
 		memberVO.setMbalance(mbalance);
