@@ -145,4 +145,8 @@ public class RentService {
 	public List<RentVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public List<RentVO> getAllByMno(String mno) {
+		return dao.getAllByMno(mno);
+	}
 }

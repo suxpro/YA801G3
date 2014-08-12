@@ -512,4 +512,12 @@ public class RentJDBCDAO implements RentDAO_interface {
 		
 	}
 
+	@Override
+	public List<RentVO> getAllByMno(String mno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
 }

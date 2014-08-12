@@ -28,13 +28,10 @@
 	Vector<String> rentList = (Vector<String>)session.getAttribute("rentList");
 	if(rentList == null){
 		rentList = new Vector<String>();  
-		rentList.add("R10001");
-		rentList.add("R10002");
-		rentList.add("R10003");
-	
+// 		rentList.add("R10001");
 		session.setAttribute("rentList",rentList);
 	}
-	//session.invalidate();
+//     session.invalidate();
     
 	int count = 0;
 %>
@@ -87,8 +84,9 @@
 			<th>租物狀態</th>
 			<th>租物押金</th>
 			<th>租物價格/天</th>
-			<th>地區編號</th>
-			<th>租物地址</th>
+			<th>出貨/回收緩衝</th>>
+			<th>地區</th>
+<!-- 			<th>租物地址</th> -->
 
 		</tr>
 
@@ -110,8 +108,9 @@
 				<td>${rent_staMap[rentVO.rent_sta]}</td>		
 				<td>${rentVO.rent_dps         }元</td>
 				<td>${rentVO.unit_price       }元</td>
+				<td>${rentVO.reset_days       }天</td>
 				<td>${loc_staMap[rentVO.loc_no]}</td>
-				<td>${rentVO.rent_addr        }</td>
+<%-- 				<td>${rentVO.rent_addr        }</td> --%>
 
 <%-- 				<td><%=getTimestampString(((RentVO) pageContext --%>
 <%-- 						.getAttribute("rentVO")).getLast_sta_time())%></td> --%>
@@ -121,7 +120,7 @@
 <%-- 						.getAttribute("rentVO")).getLast_mod_time())%></td> --%>
 
 				<td>
-					<FORM method="post" action="<%=request.getContextPath()%>/front/cart/cartToOrd.jsp">
+					<FORM method="post" action="<%=request.getContextPath()%>/front/ord/addOrd.jsp">
 						<input type="submit" id="add_ord<%=count%>" value="前往結帳"> 
 						<input type="hidden" name="rent_no" value="${rentVO.rent_no}"> 
 						<input type="hidden" name="action" value="getOne_For_Update">

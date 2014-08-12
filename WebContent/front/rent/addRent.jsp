@@ -7,8 +7,7 @@
 <%@ page import="back.loc.model.*"%>
 <%
 	//取得新增租物的會員資料(取得登入帳號)
-	MemberService memberSVC = new MemberService();
-	MemberVO memberVO = memberSVC.getOneMember("M10003"); 
+	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 	//承接錯誤回傳的rentVO
 	RentVO rentVO = (RentVO) request.getAttribute("rentVO");;
 	if (rentVO == null) {
@@ -126,7 +125,7 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 					rows="4" style="resize: none">${rentVO.rent_desc}</textarea></td>
 				<td><font color="red">${errorMsgs.rent_desc}</font></td>
 									
-				<input type="hidden" name="les_no" size="6" value="M10001" />
+				<input type="hidden" name="les_no" size="6" value="${memberVO.mno}" />
 			</tr>
 <!-- 			<tr> -->
 <!-- 				<td align="right">出租人:<font color=red><b>*</b></font></td> -->

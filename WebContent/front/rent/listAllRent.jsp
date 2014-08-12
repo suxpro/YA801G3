@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="front.rent.model.*"%>
+<%@ page import="front.member.model.*"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.sql.Timestamp"%>
 <%-- 此頁採用 JSTL 與 EL 取值 --%>
@@ -19,8 +20,10 @@
 	}
 %>
 <%
+	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+    String mno = memberVO.getMno();
 	RentService rentSvc = new RentService();
-	List<RentVO> list = rentSvc.getAll();
+	List<RentVO> list = rentSvc.getAllByMno(mno);
 	pageContext.setAttribute("list", list);
 %>
 
