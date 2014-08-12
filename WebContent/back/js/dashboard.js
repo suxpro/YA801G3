@@ -98,7 +98,7 @@ $(document).ready(
 					});
 					break;
 				case "temp1":
-					$("#listAllRent").load("rent/temp1.jsp", function() {
+					$("#listAllRent").load("rent/waiting_onShelf_rent.jsp", function() {
 //						此區看是否有後續動作要做
 					});
 					break;

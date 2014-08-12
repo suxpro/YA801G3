@@ -22,30 +22,31 @@
 	pageContext.setAttribute("list", list);
 	int count = 0;
 %>
+<script>$.getScript("js/rent/rent.js");</script>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/back/rent/waiting_onShelf_rent.jsp">
-<title>租物上架審核 - waiting_onShelf_rent</title>
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-</head>
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
+<!-- <html> -->
+<!-- <head> -->
+<%-- <meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/back/rent/waiting_onShelf_rent.jsp"> --%>
+<!-- <title>租物上架審核 - waiting_onShelf_rent</title> -->
+<!-- <link rel="stylesheet" -->
+<!-- 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
+<!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script> -->
+<!-- <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
+<!-- </head> -->
 <body bgcolor='white' align='center'>
-	<b><font color=red>此頁練習採用 EL 的寫法取值:</font></b>
-	<table border='1' cellpadding='5' cellspacing='0' width='1200'
-		align='center'>
-		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-			<td><h3>待上架租物資料 - waiting_onShelf_rent.jsp</h3> <a
-				href="<%=request.getContextPath()%>/back/rent/waiting_onShelf_rent.jsp">
-					<img
-					src="<%=request.getContextPath()%>/back/rent/images/back1.gif"
-					width="100" height="32" border="0">沒地方回去
-			</a></td>
-		</tr>
-	</table>
+<!-- 	<b><font color=red>此頁練習採用 EL 的寫法取值:</font></b> -->
+<!-- 	<table border='1' cellpadding='5' cellspacing='0' width='1200' -->
+<!-- 		align='center'> -->
+<!-- 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'> -->
+<!-- 			<td><h3>待上架租物資料 - waiting_onShelf_rent.jsp</h3> <a -->
+<%-- 				href="<%=request.getContextPath()%>/back/rent/waiting_onShelf_rent.jsp"> --%>
+<!-- 					<img -->
+<%-- 					src="<%=request.getContextPath()%>/back/rent/images/back1.gif" --%>
+<!-- 					width="100" height="32" border="0">沒地方回去 -->
+<!-- 			</a></td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -58,7 +59,7 @@
 		</font>
 	</c:if>
 
-	<table border='1' bordercolor='#CCCCFF' align='center'>
+	<table border='1' bordercolor='#CCCCFF' align='center' style="white-space: nowrap;" class="table table-hover">
 		<tr align='center' valign='middle'>
 			<th>圖片</th>
 			<th>租物編號</th>
@@ -105,7 +106,7 @@
 					<button id="fail_rent<%=count%>">不通過</button>
 					<div id="dialog-form<%=count%>" title="不通過的原因">
 						<p>請輸入不通過的原因.</p>
-						<form method="post" action="<%=request.getContextPath()%>/back/rent/rent.do">
+						<form id="failRentAJAX" method="post" action="<%=request.getContextPath()%>/back/rent/rent.do">
 							<input type="hidden" name="rent_no" value="${rentVO.rent_no}"> 
 							<input type="hidden" name="action" value="fail">
 							<textarea name="cause" rows="4" cols="35" maxlength="100"></textarea>
@@ -164,4 +165,4 @@
 	<%@ include file="page2.file"%>
 
 </body>
-</html>
+<!-- </html> -->

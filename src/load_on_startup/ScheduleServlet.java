@@ -28,7 +28,7 @@ public class ScheduleServlet extends HttpServlet {
       TimerTask task = new TimerTask(){ 
 	        public void run() {
                 count++;   
-	        	System.out.println("第"+count+"次執行時間="+new Date(scheduledExecutionTime()));
+//	        	System.out.println("第"+count+"次執行時間="+new Date(scheduledExecutionTime()));
 //                System.out.println("工作排定的時間 = " + new Date(scheduledExecutionTime()));
 //                System.out.println("工作執行的時間 = " + new Date() + "\n");
 	        	
@@ -39,9 +39,9 @@ public class ScheduleServlet extends HttpServlet {
 	            	java.util.Date nowDate = new java.util.Date(); //當前時間
 	            	Date ordDate = ordVO.getExp_date(); //租物期限
 		        	if((nowDate.getTime()-ordDate.getTime()) >= 0){ //如果當前時間超過租物期限,則為租約到期
-		        		System.out.println(ordVO.getOrd_no()+"租約到期");
-		        		System.out.println("nowDate = "+nowDate);
-		        		System.out.println("ordDate = "+ordDate);
+//		        		System.out.println(ordVO.getOrd_no()+"租約到期");
+//		        		System.out.println("nowDate = "+nowDate);
+//		        		System.out.println("ordDate = "+ordDate);
 		        	}
 	    		}
 	            
