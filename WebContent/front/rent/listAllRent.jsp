@@ -31,21 +31,24 @@
 <html>
 <head>
 <meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/rent/listAllRent.jsp">
+
+<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="<%=request.getContextPath()%>/front/css/justrent.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="<%=request.getContextPath()%>/front/js/bootstrap.min.js"></script>
+<script	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
+<script src="<%=request.getContextPath()%>/front/js/jquery.color.js"></script>
+<script src="<%=request.getContextPath()%>/front/js/justrent.js"></script>
+
+<script language="JavaScript" src="js/previewImage.js"></script>
+<script language="JavaScript" src="js/previewImage2.js"></script>
+
 <title>租物管理清單 - listAllRent.jsp</title>
 </head>
 <body bgcolor='white' align='center'>
-	<b><font color=red>此頁練習採用 EL 的寫法取值:</font></b>
-	<table border='1' cellpadding='5' cellspacing='0' width='1200'
-		align='center'>
-		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-			<td><h3>所有租物資料 - ListAllRent.jsp</h3> <a
-				href="<%=request.getContextPath()%>/front/rent/select_page.jsp">
-					<img
-					src="<%=request.getContextPath()%>/front/rent/images/back1.gif"
-					width="100" height="32" border="0">回首頁
-			</a></td>
-		</tr>
-	</table>
+
+<%@ include file="/front/header.jsp"%>
+
 	<%-- 訊息提示 --%>	
  	<c:if test="${not empty errorMsgs}">
  		<script>alert("${errorMsgs.alert}");</script>
@@ -60,6 +63,23 @@
 <!-- 			</ul> -->
 <!-- 		</font> -->
 <%-- 	</c:if> --%>
+
+	<div class="container">
+		<div class="row">
+		
+		
+<!-- SideBar -->
+			<div class="col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
+					<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
+					<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
+					<li class="active"><a href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物管理</a></li>
+					<li><a href="#">出租管理</a></li>
+					<li><a href="#">訂單管理</a></li>
+					<li><a href="#">歷史租借查詢</a></li>
+				</ul>
+			</div>
 
 	<table border='1' bordercolor='#CCCCFF' align='center'>
 		<tr align='center' valign='middle'>
@@ -121,6 +141,12 @@
 		</c:forEach>
 	</table>
 	<%@ include file="page2.file"%>
+	
+			</div>
+	</div>
+	
+	
+<%@ include file="/front/footer.jsp"%>
 
 </body>
 </html>

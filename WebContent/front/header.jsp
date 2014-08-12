@@ -94,6 +94,8 @@ padding-top: 14px;
 									</FORM>
                                 </li>
                                 
+                                 <li><a href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物管理</a></li>
+                                
                                 <li><a href="#">出租管理</a></li>
                                 <li><a href="#">訂單管理</a></li>
                                 <li><a href="#">歷史租借查詢</a></li>
