@@ -91,6 +91,13 @@ public class OrdService {
 	public List<OrdVO> getAll() {
 		return dao.getAll();
 	}
+	
+	//鈞彥,找出會員的所有歷史訂單
+	public List<OrdVO> getAllOrdByMember(String mno) {
+		return dao.getAllOrdByMember(mno);
+	}
+	
+	
 
 	//小豬加,找尋訂單資料是否該筆ord_no是否有人正在租
 	public String hasLiveOrd(String rent_no) {

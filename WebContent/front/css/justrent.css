@@ -389,6 +389,15 @@ ul.nav li.dropdown ul.dropdown-menu .dropdown-plus-title {
     border-color: rgb(212, 63, 58);
 }
 
+/*會員頁面裡的SideBar*/
+.dropdown-a {
+    position: relative;
+    display: block;
+}
+
+.dropdown-b {
+     list-style-type :none;
+}
 
 
 /*租務秘書 多工選單*/

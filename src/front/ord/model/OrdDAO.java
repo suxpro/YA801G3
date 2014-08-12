@@ -50,9 +50,103 @@ public class OrdDAO implements OrdDAO_interface {
 	// "DELETE FROM ord where ord_no = ?";
 	private static final String DELETE = "UPDATE ord SET ord_sta='CC_ORD', CC_ORD_TIME=SYSDATE, ORD_CC_CAUSE=? WHERE ord_no=?";
 	private static final String UPDATE_W_SHIP = "UPDATE ord SET ord_sta='W_SHIP', W_SHIP_TIME=SYSDATE WHERE ord_no=?";
+	private static final String UPDATE_RENT_EXP = "UPDATE ord SET ord_sta='RENT_EXP', RENT_EXP_TIME=SYSDATE WHERE ord_no=?"; //小豬加,排程器跑租約到期
 	private static final String UPDATE_APP_RENEW = "UPDATE ord SET ord_sta=? WHERE ord_no=?";
 	private static final String UPDATE = "UPDATE ord SET rent_no=?, ten_no=?, ord_sta=?, tra_mode=?, freight=?, ten_date=?, exp_date=?, ten_days=?, rent_total=?, ot_days=?, init_dps=?, real_dps=?, tra_total=?, loc_no=?, rec_addr=?, les_ases=?, les_ases_ct=?, ten_ases=?, ten_ases_ct=?, w_apr_time=?, w_ship_time=?, dtbt_time=?, rec_com_time=?, rent_exp_time=?, rt_time=?, rt_com_time=?, cls_time=?, cc_ord_time=?, ord_cc_cause=? where ord_no=?";
 	private static final String GET_LIVE_ORD_STMT = "SELECT ord_no FROM ord WHERE rent_no=? AND ord_sta IN ('W_SHIP','DTBT','REC_COM','RENT_EXP','RT','RT_COM')";
+	//鈞彥,找出會員的所有歷史訂單
+	private static final String GET_ALL_ORD_MEMBER = "SELECT * FROM(SELECT * FROM ord WHERE ord_sta IN ('CLS','AB_CLS') AND les_no = ? UNION SELECT * FROM ord WHERE ord_sta IN ('CLS','AB_CLS') AND  ten_no = ?) a　ORDER BY cls_time DESC";
+	
+	//鈞彥,找出會員的所有歷史訂單
+	@Override
+	public List<OrdVO> getAllOrdByMember(String mno) {
+
+		List<OrdVO> list = new ArrayList<OrdVO>();
+		OrdVO ordVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_ORD_MEMBER);
+
+			pstmt.setString(1, mno);
+			pstmt.setString(2, mno);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				ordVO = new OrdVO();
+				ordVO.setRent_no(rs.getString("rent_no"));
+				ordVO.setLes_no(rs.getString("les_no"));
+				ordVO.setTen_no(rs.getString("ten_no"));
+				ordVO.setOrd_sta(rs.getString("ord_sta"));
+				ordVO.setTra_mode(rs.getString("tra_mode"));
+				ordVO.setFreight(rs.getInt("freight"));
+				ordVO.setTen_date(rs.getDate("ten_date"));
+				ordVO.setExp_date(rs.getDate("exp_date"));
+				ordVO.setTen_days(rs.getInt("ten_days"));
+				ordVO.setRent_total(rs.getInt("rent_total"));
+				ordVO.setOt_days(rs.getInt("ot_days"));
+				ordVO.setInit_dps(rs.getInt("init_dps"));
+				ordVO.setReal_dps(rs.getInt("real_dps"));
+				ordVO.setTra_total(rs.getInt("tra_total"));
+				ordVO.setLoc_no(rs.getString("loc_no"));
+				ordVO.setRec_addr(rs.getString("rec_addr"));
+				ordVO.setLes_ases(rs.getInt("les_ases"));
+				ordVO.setLes_ases_ct(rs.getString("les_ases_ct"));
+				ordVO.setTen_ases(rs.getInt("ten_ases"));
+				ordVO.setTen_ases_ct(rs.getString("ten_ases_ct"));
+				ordVO.setW_apr_time(rs.getTimestamp("w_apr_time"));
+				ordVO.setW_ship_time(rs.getTimestamp("w_ship_time"));
+				ordVO.setDtbt_time(rs.getTimestamp("dtbt_time"));
+				ordVO.setRec_com_time(rs.getTimestamp("rec_com_time"));
+				ordVO.setRent_exp_time(rs.getTimestamp("rent_exp_time"));
+				ordVO.setRt_time(rs.getTimestamp("rt_time"));
+				ordVO.setRt_com_time(rs.getTimestamp("rt_com_time"));
+				ordVO.setCls_time(rs.getTimestamp("cls_time"));
+				ordVO.setCc_ord_time(rs.getTimestamp("cc_ord_time"));
+				ordVO.setOrd_cc_cause(rs.getString("ord_cc_cause"));
+				ordVO.setOrd_no(rs.getString("ord_no"));
+				list.add(ordVO);
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	
+	}
+
+
+
 
 	@Override
 	public void insert(OrdVO ordVO) {
@@ -156,6 +250,8 @@ public class OrdDAO implements OrdDAO_interface {
 
 	}
 
+
+
 	@Override
 	public void update(OrdVO ordVO, String sta) {
 		Connection con = null;
@@ -189,6 +285,12 @@ public class OrdDAO implements OrdDAO_interface {
 				pOrdVO.setOrd_cc_cause("訂單["+ ordVO.getOrd_no() +"]續約成功,報廢原訂單");
 				//由系統呼叫取消訂單
 				delete(pOrdVO,"sys");
+				
+			}else if(sta.equals("RENT_EXP")){ //小豬加,排程器跑租約到期
+				
+				pstmt = con.prepareStatement(UPDATE_RENT_EXP);
+				pstmt.setString(1, ordVO.getOrd_no());
+				pstmt.executeUpdate();
 				
 			}
 

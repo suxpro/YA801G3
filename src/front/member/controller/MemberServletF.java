@@ -90,7 +90,7 @@ public class MemberServletF extends HttpServlet {
 			rs.close();
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e);
+//			e.printStackTrace();
 			}
 	}
 

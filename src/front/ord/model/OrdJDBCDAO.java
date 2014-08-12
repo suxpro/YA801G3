@@ -24,6 +24,17 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 	private static final String UPDATE = 
 		"UPDATE ord SET rent_no=?, les_no=?, ten_no=?, ord_sta=?, tra_mode=?, freight=?, ten_date=?, exp_date=?, ten_days=?, rent_total=?, ot_days=?, init_dps=?, real_dps=?, tra_total=?, loc_no=?, rec_addr=?, les_ases=?, les_ases_ct=?, ten_ases=?, ten_ases_ct=?, w_apr_time=?, w_ship_time=?, dtbt_time=?, rec_com_time=?, rent_exp_time=?, rt_time=?, rt_com_time=?, cls_time=?, cc_ord_time=?, ord_cc_cause=? where ord_no=?";
 
+	
+
+
+
+	@Override
+	public List<OrdVO> getAllOrdByMember(String mno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	@Override
 	public void insert(OrdVO ordVO) {
 		int updateCount = 0;

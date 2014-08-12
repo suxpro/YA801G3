@@ -75,13 +75,19 @@
 					<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
 					<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
 					<li class="active"><a href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物管理</a></li>
-					<li><a href="#">出租管理</a></li>
+              		<li class="dropdown-a">
+                		<a tabindex="-1" href="#">出租管理</a>
+                		<ul class="dropdown-b">
+                  			<li><a tabindex="-1" href="#">成功出租(0)</a></li>
+                  			<li><a href="#">成功承租(0)</a></li>
+                		</ul>
+              		</li>
 					<li><a href="#">訂單管理</a></li>
 					<li><a href="#">歷史租借查詢</a></li>
 				</ul>
 			</div>
 
-	<table border='1' bordercolor='#CCCCFF' align='center'>
+	<table border='1' bordercolor='#CCCCFF' align='center' >
 		<tr align='center' valign='middle'>
 			<th>圖片</th>
 			<th>租物名稱</th>
@@ -140,10 +146,11 @@
 			</tr>
 		</c:forEach>
 	</table>
+</div>
 	<%@ include file="page2.file"%>
 	
 			</div>
-	</div>
+
 	
 	
 <%@ include file="/front/footer.jsp"%>

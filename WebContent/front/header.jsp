@@ -98,7 +98,7 @@ padding-top: 14px;
                                 
                                 <li><a href="#">出租管理</a></li>
                                 <li><a href="#">訂單管理</a></li>
-                                <li><a href="#">歷史租借查詢</a></li>
+                                <li><a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借查詢</a></li>
 
 
               					<li class="divider"></li>
