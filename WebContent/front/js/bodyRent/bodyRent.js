@@ -31,9 +31,10 @@ $(document).ready(
 			$('#infoRentModel').on('shown.bs.modal',function(e) {
 //				console.log("bodyRent.rentState:"+$(this).find("#rentStateSpan").data("rentState"));
 				//按鈕顯示承租/預租
-				$.trim($(this).find("#rentStateSpan").data("liveOrd")).length != 0? $("#btnAddRentToCart").text("預租").addClass("btn-warning") : $("#btnAddRentToCart").text("承租").addClass("btn-primary");
+//				$.trim($(this).find("#rentStateSpan").data("liveOrd")).length != 0? $("#btnAddRentToCart").text("預租").addClass("btn-warning") : $("#btnAddRentToCart").text("承租").addClass("btn-primary");
+				$.trim($(this).find("#rentStateSpan").data("liveOrd")).length != 0? $("#btnAddRentToCart").hide("fast") : $("#btnAddRentToCart").show("fast");
 
-				//點擊承租/預租按鈕
+				//點擊承租按鈕
 				$("#btnAddRentToCart").off();
 				$("#btnAddRentToCart").on("click", function(e) {
 					console.log($(this).data("servlet"));
@@ -49,6 +50,31 @@ $(document).ready(
 							rent_state : $(this).data("rentState")
 						},
 						dataType : "json",
+						success : function(rspJson) {
+							console.log(rspJson);
+						},
+						error : function() {
+							alert("系統異常!");
+						}
+					});
+				});
+				
+				//點擊追蹤按鈕
+				$("#btnAddRentToPrerent").off();
+				$("#btnAddRentToPrerent").on("click", function(e) {
+					console.log($(this).data("servlet"));
+					console.log($(this).data("rentNo"));
+					console.log($(this).data("rentState"));
+					$.ajax({
+						type : "POST",
+						url : $(this).data("servlet"),
+						contentType : "application/x-www-form-urlencoded",
+						data : {
+							action : "addRentToPrerent",
+							rent_no : $(this).data("rentNo"),
+							rent_state : $(this).data("rentState")
+						},
+						dataType : "text",
 						success : function(rspJson) {
 							console.log(rspJson);
 						},

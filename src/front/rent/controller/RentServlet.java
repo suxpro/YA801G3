@@ -670,20 +670,20 @@ public class RentServlet extends HttpServlet {
 				} else 
 					System.out.println("RentServlet.641.已有租物"+rent_no+"在session");
 				
-				if("A_RENT".equals(rent_state)){
-				//以下新增資料至預租Table
-					String ten_no = ((MemberVO)session.getAttribute("memberVO")).getMno();
-					
-					java.sql.Date prent_time = new java.sql.Date(System.currentTimeMillis());
-	
-					Integer prent_days = 0;
-	
-					String prent_flag = "Y";
-					String ord_no = "";
-					PrentService prentSvc = new PrentService();
-					PrentVO prentVO = prentSvc.addPrent(rent_no, ten_no, prent_time,
-							prent_days, prent_flag, ord_no);
-				}
+//				if("A_RENT".equals(rent_state)){
+//				//以下新增資料至預租Table
+//					String ten_no = ((MemberVO)session.getAttribute("memberVO")).getMno();
+//					
+//					java.sql.Date prent_time = new java.sql.Date(System.currentTimeMillis());
+//	
+//					Integer prent_days = 0;
+//	
+//					String prent_flag = "Y";
+//					String ord_no = "";
+//					PrentService prentSvc = new PrentService();
+//					PrentVO prentVO = prentSvc.addPrent(rent_no, ten_no, prent_time,
+//							prent_days, prent_flag, ord_no);
+//				}
 				
 				/*************************** 3.塞資料完成,準備轉交(Send the Successview) ************/
 				session.setAttribute("rentList", rentList);
@@ -709,7 +709,55 @@ public class RentServlet extends HttpServlet {
 			}
 		}
 		
-		
+//		小豬加,使用者增加租物至Prerent
+		if ("addRentToPrerent".equals(action)) {
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			// 【取得 session】
+			HttpSession session = req.getSession();
+		    
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String rent_no = req.getParameter("rent_no");
+				String rent_state = req.getParameter("rent_state");
+				
+				/*************************** 2.開始判斷與塞資料 ****************************************/
+
+				//以下新增資料至預租Table Prerent
+				String ten_no = ((MemberVO)session.getAttribute("memberVO")).getMno();
+				
+				java.sql.Date prent_time = new java.sql.Date(System.currentTimeMillis());
+
+				Integer prent_days = 1;
+
+				String prent_flag = "Y";
+				
+				String ord_no = "";
+				
+				/*************************** 3.塞資料完成,準備轉交(Send the Successview) ************/
+				PrentService prentSvc = new PrentService();
+				PrentVO prentVO = prentSvc.addPrent(rent_no, ten_no, prent_time,
+						prent_days, prent_flag, ord_no);
+				System.out.println("RentServlet.741.租物"+rent_no+"已存Prerent");
+				
+				/*************************** 4.json測試,前端AJAX console.log接 ****************************/
+				String resJson = "{\"resJson\" : [";
+				resJson += "\""+rent_no+"\",";
+				resJson = resJson.substring(0,resJson.length() - 1) + "]}";
+//			    System.out.println("RentServlet.642."+resJson);
+			    PrintWriter out = res.getWriter();
+			    out.write(resJson);
+			    out.flush();
+			    out.close();
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.put("Exception", "無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front/rent/infoRent.jsp");
+				failureView.forward(req, res);
+			}
+		}
 		
 	}
 

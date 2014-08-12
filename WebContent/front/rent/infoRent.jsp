@@ -89,10 +89,11 @@
                  src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC5" />
         </div>
 		<!-- 租物按鈕 -->
-		<div class="col-md-offset-2 col-md-2">
-            <div style="position:relative;top:-10px">$ ${rentVO.unit_price}/day</div>
-            <button type="button" class="btn" id="btnAddRentToCart" data-servlet="<%=request.getContextPath()%>/front/rent/rent.do" data-rent-no="${rentVO.rent_no}" data-rent-state="${rentVO.rent_sta}"></button>
-			<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		<div class="col-md-offset-1 col-md-3">
+            <div class="text-right" style="position:relative;top:-10px">$ ${rentVO.unit_price}/day</div>
+            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-warning pull-right" id="btnAddRentToPrerent" data-servlet="<%=request.getContextPath()%>/front/rent/rent.do" data-rent-no="${rentVO.rent_no}" data-rent-state="${rentVO.rent_sta}">追蹤</button>
+            <button type="button" class="btn btn-primary pull-right" id="btnAddRentToCart" data-servlet="<%=request.getContextPath()%>/front/rent/rent.do" data-rent-no="${rentVO.rent_no}" data-rent-state="${rentVO.rent_sta}">承租</button>
 		</div>
 	</div>
 	<!-- /row -->
