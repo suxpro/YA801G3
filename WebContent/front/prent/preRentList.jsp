@@ -21,17 +21,19 @@
 %>
 <%
 	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+	String mno = null;
 	if (memberVO != null){
-		String mno = memberVO.getMno(); 
+		mno = memberVO.getMno(); 
 	}
-	
+
 	PrentService prentSVC = new PrentService();
-	List<PrentVO> prentList = prentSVC.getAll();
-//	List<PrentVO> prentList = prentSVC.getAll(mno);
+	List<PrentVO> prentList = prentSVC.getAll(mno);
+	pageContext.setAttribute("list", prentList);
+
 	RentService rentSVC = new RentService();
-	//List<RentVO> list = rentSvc.getAll();
-	//pageContext.setAttribute("list", list);
+
 	MemberService memberSVC = new MemberService();
+	
 	int count=0;
 %>
 
@@ -48,7 +50,7 @@
 <body bgcolor='white' align='center'>
 	<table border='1' cellpadding='5' cellspacing='0' width='800' align='center'>
 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-			<td><h3>欲租清單 - preRentList.jsp</h3> 
+			<td><h3>追蹤清單 - preRentList.jsp</h3> 
 			<a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">
 				<img src="<%=request.getContextPath()%>/front/prent/images/back1.gif"
 					width="100" height="32" border="0">回首頁
@@ -82,13 +84,14 @@
 			<th>租物價格/天</th>
 			<th>出貨/回收緩衝</th>
 			<th>地區</th>
+			<th>加入追蹤時間</th>
 <!-- 			<th>租物地址</th> -->
 		</tr>
 
-		<%@ include file="page1.file"%>
-		<c:forEach var="rent_no" items="${prentList.rent_no}"  varStatus="s">
+<%-- 		<%@ include file="page1.file"%> --%>
+		<c:forEach var="prentVO" items="${list}" varStatus="s">
 			<% 
-		    	RentVO rentVO = rentSVC.getOneRent((String)pageContext.getAttribute("rent_no"));
+		    	RentVO rentVO = rentSVC.getOneRent(((PrentVO)pageContext.getAttribute("prentVO")).getRent_no());
 				pageContext.setAttribute("rentVO",rentVO);
 				
 				MemberVO lesVO = memberSVC.getOneMember(rentVO.getLes_no());
@@ -105,7 +108,8 @@
 				<td>${rentVO.unit_price       }元</td>
 				<td>${rentVO.reset_days       }天</td>
 				<td>${loc_staMap[rentVO.loc_no]}</td>
-<%-- 				<td>${rentVO.rent_addr        }</td> --%>
+				<td><%=getTimestampString(((PrentVO) pageContext.getAttribute("prentVO")).getPrent_time())%></td> 
+				
 
 <%-- 				<td><%=getTimestampString(((RentVO) pageContext --%>
 <%-- 						.getAttribute("rentVO")).getLast_sta_time())%></td> --%>
@@ -115,11 +119,12 @@
 <%-- 						.getAttribute("rentVO")).getLast_mod_time())%></td> --%>
 
 				<td>
-					<FORM method="post" action="<%=request.getContextPath()%>/front/ord/addOrd.jsp">
+					<form method="post" action="<%=request.getContextPath()%>/front/ord/addOrd.jsp">
 						<input type="submit" id="add_ord<%=count%>" value="前往結帳"> 
 						<input type="hidden" name="rent_no" value="${rentVO.rent_no}"> 
 						<input type="hidden" name="action" value="getOne_For_Update">
-					</FORM>
+						<input type="hidden" name="requestURL" value="/front/prent/preRentList.jsp">
+					</form>
 					<script>
 					var rent_sta = "${rentVO.rent_sta}";
 					if(rent_sta == "W_RENT"){ 
@@ -130,9 +135,9 @@
 					</script>
 				</td>
 				<td>
-					<FORM method="post" action="<%=request.getContextPath()%>/front/cart/cart.do">
+					<FORM method="post" action="<%=request.getContextPath()%>/front/prent/prent.do">
 						<input type="submit" value="移除"> 
-						<input type="hidden" name="del" value="${s.index}">
+						<input type="hidden" name="prent_no" value="${prentVO.prent_no}">
 						<input type="hidden" name="action" value="delete">
 					</FORM>
  
@@ -152,7 +157,7 @@
         	</script>
 		</c:forEach>
 	</table>
-	<%@ include file="page2.file"%>
+<%-- 	<%@ include file="page2.file"%> --%>
 
 </body>
 </html>

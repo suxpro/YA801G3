@@ -726,7 +726,7 @@ public class RentServlet extends HttpServlet {
 				//以下新增資料至預租Table Prerent
 				String ten_no = ((MemberVO)session.getAttribute("memberVO")).getMno();
 				
-				java.sql.Date prent_time = new java.sql.Date(System.currentTimeMillis());
+//				java.sql.Date prent_time = new java.sql.Date(System.currentTimeMillis());
 
 				Integer prent_days = 1;
 
@@ -736,8 +736,7 @@ public class RentServlet extends HttpServlet {
 				
 				/*************************** 3.塞資料完成,準備轉交(Send the Successview) ************/
 				PrentService prentSvc = new PrentService();
-				PrentVO prentVO = prentSvc.addPrent(rent_no, ten_no, prent_time,
-						prent_days, prent_flag, ord_no);
+				prentSvc.addPrent(rent_no, ten_no,prent_days, prent_flag, ord_no);
 				System.out.println("RentServlet.741.租物"+rent_no+"已存Prerent");
 				
 				/*************************** 4.json測試,前端AJAX console.log接 ****************************/

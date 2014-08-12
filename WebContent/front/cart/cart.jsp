@@ -124,6 +124,7 @@
 						<input type="submit" id="add_ord<%=count%>" value="前往結帳"> 
 						<input type="hidden" name="rent_no" value="${rentVO.rent_no}"> 
 						<input type="hidden" name="action" value="getOne_For_Update">
+						<input type="hidden" name="requestURL" value="/front/cart/cart.jsp">
 					</FORM>
 					<script>
 					var rent_sta = "${rentVO.rent_sta}";

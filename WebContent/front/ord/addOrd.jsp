@@ -6,6 +6,8 @@
 <%
 	//取得租物資料
 	String rent_no = (String) request.getParameter("rent_no");
+	//取得來源地址
+	String requestURL = (String) request.getParameter("requestURL");
 	//String rent_no ="R10001";
 	RentService rentSVC = new RentService();
 	RentVO rentVO = rentSVC.getOneRent(rent_no);
@@ -252,9 +254,10 @@
 				<%-- 					value="${ordVO.tra_total}" readonly="readonly" /></td> --%>
 			</tr>
 		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="hidden" name="ord_no" value="<%=ordVO.getOrd_no()%>"> <input
-			type="submit" value="結帳">
+		<br><input type="hidden" name="action" value="insert"> 
+			<input type="hidden" name="ord_no" value="<%=ordVO.getOrd_no()%>">
+			<input type="hidden" name="requestURL" value="<%=requestURL %>">
+			<input type="submit" value="結帳">
 	</FORM>
 
 </body>

@@ -26,7 +26,7 @@ public class PrentJDBCDAO implements PrentDAO_interface{
 		"UPDATE prerent set rent_no=?, ten_no=?, prent_time=?, prent_days=?, prent_flag=?, ord_no=? where prent_no = ?";
 
 	@Override
-	public int insert(PrentVO prentVO) {
+	public void insert(PrentVO prentVO) {
 		int updateCount = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -39,7 +39,7 @@ public class PrentJDBCDAO implements PrentDAO_interface{
 			
 			pstmt.setString(1, prentVO.getRent_no());
 			pstmt.setString(2, prentVO.getTen_no());
-			pstmt.setDate(3, prentVO.getPrent_time());
+			pstmt.setTimestamp(3, prentVO.getPrent_time());
 			pstmt.setInt(4, prentVO.getPrent_days());
 			pstmt.setString(5, prentVO.getPrent_flag());
 			pstmt.setString(6, prentVO.getOrd_no());
@@ -72,11 +72,11 @@ public class PrentJDBCDAO implements PrentDAO_interface{
 				}
 			}
 		}
-		return updateCount;
+//		return updateCount;
 	}
 
 	@Override
-	public int update(PrentVO prentVO) {
+	public void update(PrentVO prentVO) {
 		int updateCount = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -89,7 +89,7 @@ public class PrentJDBCDAO implements PrentDAO_interface{
 
 			pstmt.setString(1, prentVO.getRent_no());
 			pstmt.setString(2, prentVO.getTen_no());
-			pstmt.setDate(3, prentVO.getPrent_time());
+			pstmt.setTimestamp(3, prentVO.getPrent_time());
 			pstmt.setInt(4, prentVO.getPrent_days());
 			pstmt.setString(5, prentVO.getPrent_flag());
 			pstmt.setString(6, prentVO.getOrd_no());
@@ -122,11 +122,11 @@ public class PrentJDBCDAO implements PrentDAO_interface{
 				}
 			}
 		}
-		return updateCount;
+//		return updateCount;
 	}
 
 	@Override
-	public int delete(String prent_no) {
+	public void delete(String prent_no) {
 		int updateCount = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -166,7 +166,7 @@ public class PrentJDBCDAO implements PrentDAO_interface{
 				}
 			}
 		}
-		return updateCount;
+//		return updateCount;
 	}
 
 	@Override
@@ -193,7 +193,7 @@ public class PrentJDBCDAO implements PrentDAO_interface{
 				prentVO.setPrent_no(rs.getString("prent_no"));
 				prentVO.setRent_no(rs.getString("rent_no"));
 				prentVO.setTen_no(rs.getString("ten_no"));
-				prentVO.setPrent_time(rs.getDate("prent_time"));
+				prentVO.setPrent_time(rs.getTimestamp("prent_time"));
 				prentVO.setPrent_days(rs.getInt("prent_days"));
 				prentVO.setPrent_flag(rs.getString("prent_flag"));
 				prentVO.setOrd_no(rs.getString("ord_no"));
@@ -235,7 +235,7 @@ public class PrentJDBCDAO implements PrentDAO_interface{
 	}
 
 	@Override
-	public List<PrentVO> getAll() {
+	public List<PrentVO> getAll(String mno) {
 		List<PrentVO> list = new ArrayList<PrentVO>();
 		PrentVO prentVO = null;
 
@@ -256,7 +256,7 @@ public class PrentJDBCDAO implements PrentDAO_interface{
 				prentVO.setPrent_no(rs.getString("prent_no"));
 				prentVO.setRent_no(rs.getString("rent_no"));
 				prentVO.setTen_no(rs.getString("ten_no"));
-				prentVO.setPrent_time(rs.getDate("prent_time"));
+				prentVO.setPrent_time(rs.getTimestamp("prent_time"));
 				prentVO.setPrent_days(rs.getInt("prent_days"));
 				prentVO.setPrent_flag(rs.getString("prent_flag"));
 				prentVO.setOrd_no(rs.getString("ord_no"));
@@ -356,4 +356,5 @@ public class PrentJDBCDAO implements PrentDAO_interface{
 //			System.out.println();
 //		}
 	}
+
 }

@@ -1,12 +1,13 @@
 package front.prerent.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class PrentVO implements java.io.Serializable {
 	private String prent_no;
 	private String rent_no;
 	private String ten_no;
-	private Date prent_time;
+	private Timestamp prent_time;
 	private Integer prent_days;
 	private String prent_flag;
 	private String ord_no;
@@ -35,11 +36,11 @@ public class PrentVO implements java.io.Serializable {
 		this.ten_no = ten_no;
 	}
 
-	public Date getPrent_time() {
+	public Timestamp getPrent_time() {
 		return prent_time;
 	}
 
-	public void setPrent_time(Date prent_time) {
+	public void setPrent_time(Timestamp prent_time) {
 		this.prent_time = prent_time;
 	}
 

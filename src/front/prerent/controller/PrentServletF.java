@@ -157,82 +157,82 @@ public class PrentServletF extends HttpServlet {
 			}
 		}
 
-		if ("update".equals(action)) { // 來自update_prent_input.jsp的請求
-
-			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-			
-			String requestURL = multi.getParameter("requestURL"); // 送出修改的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】
-			req.setAttribute("requestURL", requestURL); // 送出修改的來源網頁路徑, 存入req
-			
-			String whichPage = multi.getParameter("whichPage"); // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)
-			req.setAttribute("whichPage", whichPage);   // 送出修改的來源網頁的第幾頁, 存入req(只用於:istAllEmp.jsp)
-
-			try {
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String prent_no = multi.getParameter("prent_no").trim();
-				String rent_no = multi.getParameter("rent_no").trim();
-				String ten_no = multi.getParameter("ten_no").trim();
-				java.sql.Date prent_time = null;
-				try {
-					prent_time = java.sql.Date.valueOf(multi.getParameter(
-							"prent_time").trim());
-				} catch (IllegalArgumentException e) {
-					prent_time = new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.put("prent_time", "請輸入日期!");
-				}
-				Integer prent_days = null;
-				try {
-					prent_days = new Integer(multi.getParameter("prent_days")
-							.trim());
-				} catch (NumberFormatException e) {
-					prent_days = 0;
-					errorMsgs.put("prent_days", "預租天數請填數字.");
-				}
-				String prent_flag = multi.getParameter("prent_flag").trim();
-				String ord_no = multi.getParameter("ord_no").trim();
-
-				PrentVO prentVO = new PrentVO();
-				prentVO.setPrent_no(prent_no);
-				prentVO.setRent_no(rent_no);
-				prentVO.setTen_no(ten_no);
-				prentVO.setPrent_time(prent_time);
-				prentVO.setPrent_days(prent_days);
-				prentVO.setPrent_flag(prent_flag);
-				prentVO.setOrd_no(ord_no);
-
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("prentVO", prentVO); // 含有輸入格式錯誤的empVO物件,也存入req
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front/prent/update_prent_input.jsp");
-					failureView.forward(req, res);
-					return; // 程式中斷
-				}
-
-				/*************************** 2.開始修改資料 *****************************************/
-				PrentService prentSvc = new PrentService();
-				prentVO = prentSvc.updatePrent(prent_no, rent_no, ten_no,
-						prent_time, prent_days, prent_flag, ord_no);
-
-				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("prentVO", prentVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				
-				String url = requestURL+"?whichPage="+whichPage+"&prent_no="+prent_no; // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)和修改的是哪一筆
-				
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
-				successView.forward(req, res);
-
-				/*************************** 其他可能的錯誤處理 *************************************/
-			} catch (Exception e) {
-				errorMsgs.put("Exception", "修改資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front/prent/update_prent_input.jsp");
-				failureView.forward(req, res);
-			}
-		}
+//		if ("update".equals(action)) { // 來自update_prent_input.jsp的請求
+//
+//			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+//			// Store this set in the request scope, in case we need to
+//			// send the ErrorPage view.
+//			req.setAttribute("errorMsgs", errorMsgs);
+//			
+//			String requestURL = multi.getParameter("requestURL"); // 送出修改的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】
+//			req.setAttribute("requestURL", requestURL); // 送出修改的來源網頁路徑, 存入req
+//			
+//			String whichPage = multi.getParameter("whichPage"); // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)
+//			req.setAttribute("whichPage", whichPage);   // 送出修改的來源網頁的第幾頁, 存入req(只用於:istAllEmp.jsp)
+//
+//			try {
+//				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+//				String prent_no = multi.getParameter("prent_no").trim();
+//				String rent_no = multi.getParameter("rent_no").trim();
+//				String ten_no = multi.getParameter("ten_no").trim();
+//				java.sql.Date prent_time = null;
+//				try {
+//					prent_time = java.sql.Date.valueOf(multi.getParameter(
+//							"prent_time").trim());
+//				} catch (IllegalArgumentException e) {
+//					prent_time = new java.sql.Date(System.currentTimeMillis());
+//					errorMsgs.put("prent_time", "請輸入日期!");
+//				}
+//				Integer prent_days = null;
+//				try {
+//					prent_days = new Integer(multi.getParameter("prent_days")
+//							.trim());
+//				} catch (NumberFormatException e) {
+//					prent_days = 0;
+//					errorMsgs.put("prent_days", "預租天數請填數字.");
+//				}
+//				String prent_flag = multi.getParameter("prent_flag").trim();
+//				String ord_no = multi.getParameter("ord_no").trim();
+//
+//				PrentVO prentVO = new PrentVO();
+//				prentVO.setPrent_no(prent_no);
+//				prentVO.setRent_no(rent_no);
+//				prentVO.setTen_no(ten_no);
+//				prentVO.setPrent_time(prent_time);
+//				prentVO.setPrent_days(prent_days);
+//				prentVO.setPrent_flag(prent_flag);
+//				prentVO.setOrd_no(ord_no);
+//
+//				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					req.setAttribute("prentVO", prentVO); // 含有輸入格式錯誤的empVO物件,也存入req
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/front/prent/update_prent_input.jsp");
+//					failureView.forward(req, res);
+//					return; // 程式中斷
+//				}
+//
+//				/*************************** 2.開始修改資料 *****************************************/
+//				PrentService prentSvc = new PrentService();
+//				prentVO = prentSvc.updatePrent(prent_no, rent_no, ten_no, prent_time,
+//						 prent_days, prent_flag, ord_no);
+//
+//				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+//				req.setAttribute("prentVO", prentVO); // 資料庫update成功後,正確的的empVO物件,存入req
+//				
+//				String url = requestURL+"?whichPage="+whichPage+"&prent_no="+prent_no; // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)和修改的是哪一筆
+//				
+//				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+//				successView.forward(req, res);
+//
+//				/*************************** 其他可能的錯誤處理 *************************************/
+//			} catch (Exception e) {
+//				errorMsgs.put("Exception", "修改資料失敗:" + e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front/prent/update_prent_input.jsp");
+//				failureView.forward(req, res);
+//			}
+//		}
 
 		if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 
@@ -246,14 +246,15 @@ public class PrentServletF extends HttpServlet {
 
 				String rent_no = multi.getParameter("rent_no").trim();
 				String ten_no = multi.getParameter("ten_no").trim();
-				java.sql.Date prent_time = null;
-				try {
-					prent_time = java.sql.Date.valueOf(multi.getParameter(
-							"prent_time").trim());
-				} catch (IllegalArgumentException e) {
-					prent_time = new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.put("prent_time", "請輸入日期!");
-				}
+			    //萬思賢修改
+//				java.sql.Date prent_time = null;
+//				try {
+//					prent_time = java.sql.Date.valueOf(multi.getParameter(
+//							"prent_time").trim());
+//				} catch (IllegalArgumentException e) {
+//					prent_time = new java.sql.Date(System.currentTimeMillis());
+//					errorMsgs.put("prent_time", "請輸入日期!");
+//				}
 
 				Integer prent_days = null;
 				try {
@@ -271,7 +272,8 @@ public class PrentServletF extends HttpServlet {
 
 				prentVO.setRent_no(rent_no);
 				prentVO.setTen_no(ten_no);
-				prentVO.setPrent_time(prent_time);
+				// 時間由資料庫自己寫入
+//				prentVO.setPrent_time(prent_time);
 				prentVO.setPrent_days(prent_days);
 				prentVO.setPrent_flag(prent_flag);
 				prentVO.setOrd_no(ord_no);
@@ -287,8 +289,7 @@ public class PrentServletF extends HttpServlet {
 
 				/*************************** 2.開始新增資料 ***************************************/
 				PrentService prentSvc = new PrentService();
-				prentVO = prentSvc.addPrent(rent_no, ten_no, prent_time,
-						prent_days, prent_flag, ord_no);
+				prentSvc.addPrent(prentVO);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				String url = "/front/prent/listAllPrent.jsp";
@@ -304,15 +305,13 @@ public class PrentServletF extends HttpServlet {
 			}
 		}
 
-		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+		if ("delete".equals(action)) { 
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			String requestURL = req.getParameter("requestURL"); // 送出刪除的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】
-
 			try {
 				/*************************** 1.接收請求參數 ***************************************/
 				String prent_no = req.getParameter("prent_no");
@@ -322,7 +321,7 @@ public class PrentServletF extends HttpServlet {
 				prentSvc.deletePrent(prent_no);
 
 				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-				String url = requestURL;
+				String url = "/front/prent/preRentList.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 
@@ -330,7 +329,7 @@ public class PrentServletF extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception", "刪除資料失敗:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher(requestURL);
+						.getRequestDispatcher("/front/prent/preRentList.jsp");
 				failureView.forward(req, res);
 			}
 		}
