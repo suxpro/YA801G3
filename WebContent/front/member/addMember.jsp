@@ -131,17 +131,17 @@
 
 								</div>
 								<!-- 排版 -->
-								<div class="col-xs-offset-0 sidebar-offcanvas ">
+								<div class="col-md-offset-8 sidebar-offcanvas ">
 									<!-- 圖片排版 -->
 
 									<!-- 會員圖片 -->
-									<div class="control-group ">
+									<div class="control-group">
 										<label class="control-label" for="mpic">會員圖片</label>
 										<div class="controls" >
 											<div id="preview">
 												<img id="imghead" width="100" height="100" src="" border="0">
 											</div>								
-											<input type="file" id="mpic" name="mpic" onchange="previewImage(this)" class="col-xs-offset-6" />
+											<input type="file" id="mpic" name="mpic" onchange="previewImage(this)" />
 										</div>
 									</div>					
 
@@ -167,7 +167,7 @@
 							<br>
 							<br>
 							<!-- Submit -->
-							<div class="control-group col-xs-8 col-xs-offset-8">
+							<div class="control-group col-md-10 col-md-offset-10">
 								<div class="controls">
 									<input type="hidden" name="action" value="insert">
 									<input type="hidden" name="mverification" value="<%=(memberVO == null) ? "N" : memberVO.getMverification()%>" />

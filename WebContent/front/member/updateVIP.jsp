@@ -26,6 +26,44 @@
 
 </style>
 
+<script>
+
+//確定新增按鈕
+$("#checkVIP").off();
+$("#checkVIP").on("submit", function(event) {
+	
+// 	function() {
+// 		alert("確定升級為VIP");
+// 		}
+// 	event.preventDefault();
+
+// 	// grab all form data
+// 	var formData = new FormData($(this)[0]);
+
+// 	console.log(formData);
+
+// 	$.ajax({
+// 		url : $(this).attr("value"),
+// 		type : "POST",
+// 		data : formData,
+// 		async : false,
+// 		cache : false,
+// 		contentType : false,
+// 		processData : false,
+// 		success : function(data) {
+// 			$("#addEmpModel").on("hidden.bs.modal", function(e) {
+// 				$("#listAllEmp").html(data);
+// 			}).modal("hide");
+// 		},
+// 		error : function() {
+// 			alert("系統異常!");
+// 		}
+	});
+
+
+</script>
+
+
 <link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="<%=request.getContextPath()%>/front/css/justrent.css" rel="stylesheet">
 <script src="<%=request.getContextPath()%>/front/js/jquery-1.7.2.min.js"></script>
@@ -119,7 +157,7 @@
 											<input type="hidden" name="action" value="updateVIP">
 											<input type="hidden" name="mno" value="<%=memberVO.getMno()%>">
 											<input type="hidden" id="mlev" name="mlev" value=V class="col-xs-offset-1">
-											<button class="btn btn-success">確定</button>
+											<button class="btn btn-success" id="checkVIP">確定</button>
 										</div>
 									</div>
 
