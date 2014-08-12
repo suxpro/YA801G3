@@ -51,7 +51,9 @@ $(document).ready(
 						},
 						dataType : "json",
 						success : function(rspJson) {
-							console.log(rspJson);
+							$("#infoRentModel").on("hidden.bs.modal", function(e) {
+								console.log(rspJson);
+							}).modal("hide");
 						},
 						error : function() {
 							alert("系統異常!");
@@ -76,7 +78,9 @@ $(document).ready(
 						},
 						dataType : "text",
 						success : function(rspJson) {
-							console.log(rspJson);
+							$("#infoRentModel").on("hidden.bs.modal", function(e) {
+								console.log(rspJson);
+							}).modal("hide");
 						},
 						error : function() {
 							alert("系統異常!");
