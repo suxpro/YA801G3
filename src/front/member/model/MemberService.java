@@ -161,4 +161,8 @@ public class MemberService {
 		return dao.getAll();
 	}
 
+    //會員停權 排程器 - by小豬
+    public void updateTimer(MemberVO memberVO, String action) {
+    	dao.updateTimer(memberVO, action);
+    }
 }

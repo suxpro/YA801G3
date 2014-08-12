@@ -35,6 +35,7 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String UPDATE = "UPDATE member set mem_id=?, mem_pwd=?, mem_pic=?, mem_name=?, mem_sex=?, mem_cell=?, mem_mail=?, loc_no=?, mem_adrs=?, mem_lev=?, mem_mbl=?, mem_ileg=?, mem_ases=?, mem_ver=?, mem_date=?, mem_pic_info=?, mem_vpic=?, mem_vpic_info=? where mem_no = ?";
 	private static final String UPDATE_INFO = "UPDATE member set mem_pwd=?, mem_pic=?, mem_name=?, mem_sex=?, mem_cell=?, mem_mail=?, loc_no=?, mem_adrs=?, mem_pic_info=?, mem_vpic=?, mem_vpic_info=? where mem_no = ?";
 	private static final String UPDATE_VIP = "UPDATE member set mem_lev=? , mem_mbl=? where mem_no = ?";
+	private static final String UPDATE_SUSPENDED = "UPDATE member set mem_lev=? where mem_no = ?";
 	private static final String STORED_MOMEY = "UPDATE member set mem_mbl=? where mem_no=?";
 	/*
 	 * (non-Javadoc)
@@ -611,7 +612,53 @@ public class MemberDAO implements MemberDAO_interface {
 		}
 		return list;
 	}
+	
+    //會員停權 排程器 - by小豬
+	//會員評價到300自動升級VIP
+	//會員積分達到-10 停權 還是被檢舉超過10次成立就停權 停權是終身停權
+	@Override
+	public void updateTimer(MemberVO memberVO, String action) {
 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_SUSPENDED);
+			if("SUSPENDED".equals(action))
+				pstmt.setString(1, "S");
+			else if("VIP".equals(action))
+				pstmt.setString(1, "V");
+			pstmt.setString(2, memberVO.getMno());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	
+	
 	public static void main(String[] args) throws IOException {
 
 //		MemberDAO dao = new MemberDAO();

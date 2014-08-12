@@ -21,8 +21,7 @@ public class ScheduleServlet extends HttpServlet {
 
 	Timer timer1; // 租約到期塞提醒資料表且改訂單狀態為租約到期
 	Timer timer2; // 搜尋提醒資料表的提醒flag是Y的發簡訊提醒後改flag為N
-	Timer timer3; // SOS一天過後刪除 //會員評價到300自動升級VIP //會員積分達到-10 停權 還是被檢舉超過10次成立就停權
-					// 停權是終身停權 背後執行序 如果抓到 評分為-10的自動將會員終身停權
+	Timer timer3; // SOS一天過後刪除 //會員評價到300自動升級VIP //會員積分達到-10 停權 還是被檢舉超過10次成立就停權 停權是終身停權
 	Send sendMessage = new Send();
 	int count = 0;
 	
@@ -57,8 +56,8 @@ public class ScheduleServlet extends HttpServlet {
 		};
 		timer1 = new Timer();
 		Calendar cal = new GregorianCalendar(2014, Calendar.AUGUST, 12, 0, 0, 0);
-		timer1.scheduleAtFixedRate(task1, cal.getTime(), 1 * 1 * 30 * 1000); // 每30秒執行一次
-		System.out.println("已建立租約到期排程!");
+		timer1.scheduleAtFixedRate(task1, cal.getTime(), 1 * 1 * 60 * 1000); // 每60秒執行一次
+		System.out.println("已建立租約到期排程timer1!");
 		
 		// 搜尋提醒資料表的提醒flag是Y的發簡訊提醒後改flag為N
 		TimerTask task2 = new TimerTask() {
@@ -86,22 +85,32 @@ public class ScheduleServlet extends HttpServlet {
 		};
 		timer2 = new Timer();
 		timer2.scheduleAtFixedRate(task2, new java.util.Date(), 60 * 1000); // 每60秒執行一次
-		System.out.println("已建立簡訊發送排程!");
+		System.out.println("已建立簡訊發送排程timer2!");
 		
 		//其他排程器要做的事
 		TimerTask task3 = new TimerTask() {
 			public void run() {
 				// SOS一天過後刪除
 
+				
 				// 會員評價到300自動升級VIP
-
 				// 會員積分達到-10 停權 還是被檢舉超過10次成立就停權 停權是終身停權
-				// 背後執行序 如果抓到 評分為-10的自動將會員終身停權
-
+				MemberService memSvc = new MemberService();
+				List<MemberVO> listMemVO = memSvc.getAll();
+				for (MemberVO memVO : listMemVO) {
+					if((memVO.getMillegal() > 10 || memVO.getMassess() < -10) && !"S".equals(memVO.getMlev())){
+						memSvc.updateTimer(memVO, "SUSPENDED");
+						System.out.println(memVO.getMno() + "已被停權,MEM_LEV改為\"S\"");
+					} else if(memVO.getMassess() >= 300 && "G".equals(memVO.getMlev())) {
+						memSvc.updateTimer(memVO, "VIP");
+						System.out.println(memVO.getMno() + "已被升級VIP,MEM_LEV改為\"V\"");
+					}
+				}
 			}
 		};
 		timer3 = new Timer();
-		timer3.scheduleAtFixedRate(task3, new java.util.Date(), 10 * 1000); // 每10秒執行一次
+		timer3.scheduleAtFixedRate(task3, new java.util.Date(), 60 * 1000); // 每60秒執行一次
+		System.out.println("已建立其他排程timer3!");
 
 	}
 
@@ -129,7 +138,7 @@ public class ScheduleServlet extends HttpServlet {
 		timer1.cancel();
 		timer2.cancel();
 		timer3.cancel();
-		System.out.println("已移除排程!");
+		System.out.println("已移除所有排程!");
 	}
 
 }

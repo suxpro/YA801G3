@@ -19,4 +19,7 @@ public interface MemberDAO_interface {
     public List<MemberVO> getAll();
     //更新會員餘額 - by思賢
     public void updateMem_mbl(MemberVO memberVO , Connection con);
+    //會員停權 排程器 - by小豬
+    public void updateTimer(MemberVO memberVO , String action);
+    
 }
