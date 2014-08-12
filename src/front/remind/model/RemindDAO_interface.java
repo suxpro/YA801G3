@@ -13,5 +13,8 @@ public interface RemindDAO_interface {
 //  public List<EmpVO> getAll(Map<String, String[]> map); 
     //新增一筆提醒記錄 for Ord using by思賢
     public void insertForOrd(RemindVO remindVO, Connection con);
+    
+    //小豬加,AJAX查此會員的提醒狀態為N,動態更新提醒數字
+    public List<RemindVO> ajaxGetMemRemind(String memNo, String getFlag);
 
 }

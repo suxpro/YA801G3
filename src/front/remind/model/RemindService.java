@@ -51,5 +51,8 @@ public class RemindService {
 	public List<RemindVO> getAll() {
 		return dao.getAll();
 	}
-
+    //小豬加,AJAX查此會員的提醒狀態為N,動態更新提醒數字
+    public List<RemindVO> ajaxGetMemRemind(String memNo, String getFlag) {
+		return dao.ajaxGetMemRemind(memNo, getFlag);
+    }
 }

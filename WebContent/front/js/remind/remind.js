@@ -6,7 +6,7 @@ $(document).ready(function() {
 	run();
 	
 	function run() {
-//	    intervalID = window.setInterval(setRemindListNum, 10*1000);
+	    intervalID = window.setInterval(setRemindListNum, 30*1000); //30秒跑一次
 	}
 	
 	function stop() {
@@ -14,13 +14,13 @@ $(document).ready(function() {
 	}
 	
 	function setRemindListNum() {
-		$("#remindMain .remindList #D0001").find("front").text(Math.ceil(Math.random() * 10));
+		$("#remindMain .remindList #SCES_RENT").find("front").text(Math.ceil(Math.random() * 10));
 		$.ajax({
 			type : "POST",
 			url : $("#remindMain").data("urlremind"),
-			contentType : "application/x-www-form-urlencoded",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 			data : {
-				action : "remind",
+				action : "remindHeaderNum",
 //				rent_no : $(this).attr("id")
 			},
 			dataType : "json",

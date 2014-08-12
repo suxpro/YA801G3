@@ -32,6 +32,7 @@ public class RemindDAO implements RemindDAO_interface{
 	private static final String GET_ONE_STMT = "SELECT rem_no, mem_no, rent_no, to_char(rem_time,'yyyy-mm-dd') rem_time, rem_stas, rem_des, rem_flag FROM remind where rem_no = ?";
 	private static final String DELETE = "DELETE FROM remind where rem_no = ?";
 	private static final String UPDATE = "UPDATE remind set mem_no=?, rent_no=?, rem_time=?, rem_stas=?, rem_des=?, rem_flag=? where rem_no=?";
+	private static final String AJAX_GET_ONE_STMT = "SELECT rem_no, mem_no, rent_no, to_char(rem_time,'yyyy-mm-dd') rem_time, rem_stas, rem_des, rem_flag FROM remind where mem_no = ? AND rem_flag = ?";
 
 	
 
@@ -288,6 +289,70 @@ public class RemindDAO implements RemindDAO_interface{
 		return list;
 	}
 
+    //小豬加,AJAX查此會員的提醒狀態為N,動態更新提醒數字
+	@Override
+	public List<RemindVO> ajaxGetMemRemind(String memNo, String getFlag) {
+		List<RemindVO> list = new ArrayList<RemindVO>();
+		RemindVO remindVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(AJAX_GET_ONE_STMT);
+
+			pstmt.setString(1, memNo);
+			pstmt.setString(2, getFlag);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// remindVo 也稱為 Domain objects			
+				remindVO = new RemindVO();
+				remindVO.setRno(rs.getString("rem_no"));
+				remindVO.setMno(rs.getString("mem_no"));
+				remindVO.setRtno(rs.getString("rent_no"));
+				remindVO.setRtime(rs.getDate("rem_time"));
+				remindVO.setRstas(rs.getString("rem_stas"));
+				remindVO.setRdes(rs.getString("rem_des"));
+				remindVO.setRflag(rs.getString("rem_flag"));	
+				list.add(remindVO);				
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
 	public static void main(String[] args) {
 
 		RemindJDBCDAO dao = new RemindJDBCDAO();
