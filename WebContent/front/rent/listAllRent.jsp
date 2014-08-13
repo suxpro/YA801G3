@@ -47,7 +47,7 @@
 
 <title>租物管理清單 - listAllRent.jsp</title>
 </head>
-<body bgcolor='white' align='center'>
+<body bgcolor='white'>
 
 	<%@ include file="/front/header.jsp"%>
 

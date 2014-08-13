@@ -70,9 +70,9 @@ public class StatusMappingList extends HttpServlet {
 		context.setAttribute("que_staMap", que_staMap);
 
 		// 會員等級
-		mem_staMap.put("G", "一般");
-		mem_staMap.put("V", "VIP");
-		mem_staMap.put("S", "停權");
+		mem_staMap.put("G", "一般會員");
+		mem_staMap.put("V", "VIP會員");
+		mem_staMap.put("S", "停權會員");
 		
 		mem_staMap.put("M", "男");
 		mem_staMap.put("F", "女");

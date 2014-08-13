@@ -879,11 +879,15 @@ public class MemberServletF extends HttpServlet {
 						mvpic, mvpic_info);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+				
+				MemberService memberSvcInfo = new MemberService();
+				memberVO = memberSvcInfo.getOneMember(mno);
+				
 				req.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				
 //				String url = requestURL+"?whichPage="+whichPage+"&mno="+mno; // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)和修改的是哪一筆
 				
-				String url = "/front/member/listAllMember.jsp";
+				String url = "/front/member/listOneMemberInfo.jsp";
 				
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);

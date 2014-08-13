@@ -3,14 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="front.member.model.*"%>
 <%
-	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO"); //EmpServlet.java (Concroller), 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
+// 	MemberService MemberSvc = new MemberService();
+ 	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO"); //EmpServlet.java (Concroller), 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
+
+// 	MemberVO memberVO = MemberSvc.getOneMember(memberVOxx.getMno());
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=BIG5">
-<title>會員資料修改 - updateMemberInfo.jsp</title>
+<title>JustRent! - 會員資料修改</title>
 
 <style type="text/css">
 #preview {
@@ -35,7 +38,25 @@
 	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
 }
 
-#memform {width:85%;}  
+#memform {width:85%;}
+
+#vipPic{
+width:120px;
+height:120px;
+background-color:#FEFFE5;
+  position: relative;
+  left: -17px;
+  top: 20px;
+  text-align:center;
+  box-shadow:1px 1px 1px 1px rgba(20%,20%,40%,0.1);
+  border-radius: 10px;
+  
+}
+#vipPicLabel {
+color: black;
+font-weight: bold;
+
+}  
 
 </style>
 
@@ -98,6 +119,12 @@
 									<div class="control-group  ">
 										<label class="control-label" for="mname">會員姓名</label> 
 										<label class="control-label col-xs-offset-1" id="mid">${memberVO.mname}</label>
+									</div>
+									
+									<!-- 會員餘額 -->
+									<div class="control-group  ">
+										<label class="control-label" for="mname">會員餘額</label> 
+										<label class="control-label col-xs-offset-1" id="mid">${memberVO.mbalance}</label>
 									</div>
 
 									<!-- 會員性別 -->
@@ -177,8 +204,8 @@
 									</div>
 									<c:if test="${memberVO.mlev == 'V' }">
 										<!-- 會員輪播圖片 -->
-										<div class="control-group  ">
-											<label class="control-label" for="password_confirm">會員輪播圖片</label>
+										<div id="vipPic" class="control-group  ">
+											<label id="vipPicLabel" class="control-label" for="password_confirm">會員輪播圖片</label>
 											<div class="controls">
 												<img id="mvpic" width="80" height="80"
 													src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_VPIC">
