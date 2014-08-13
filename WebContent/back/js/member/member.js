@@ -1,23 +1,24 @@
 /**
  * 
  */
-$("#failRentAJAX").off();
-$("#failRentAJAX").on("submit", function(event) {
-
-	$(this).parent("div").dialog("close");
+//後端會員管理AJAX | class="btnCallAjaxMember" type="button"
+$(".btnCallAjaxMember").off();
+$(".btnCallAjaxMember").on("click", function(event) {
+	
+	var table = $(this).closest("table");
+	
+//	form.parent("div").dialog("close");
+	
+	console.log($(this).closest("table").find("select").serialize());
 	
 	$.ajax({
-		url : $(this).attr("action"),
+		url : table.find("form").attr("action"),
 		type : "POST",
 		contentType : "application/x-www-form-urlencoded",
-		data : {
-			action : "fail",
-			rent_no : $(this).find("input[name='rent_no']").val(),
-			cause : $(this).find("textarea").val()
-		},
+		data : table.find("select").serialize(),
 		dataType : "html",
 		success : function(returnData) {
-				$("#listAllRent").html(returnData);
+				$("#listAllMem").html(returnData);
 		},
 		error : function() {
 			alert("系統異常!");

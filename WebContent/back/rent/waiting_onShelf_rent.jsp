@@ -22,7 +22,7 @@
     pageContext.setAttribute("list", list);
     int count = 0;
 %>
-<script>$.getScript("js/rent/rent.js");</script>
+<!-- <script>$.getScript("js/rent/rent.js");</script> -->
 
 <!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
 <!-- <html> -->
@@ -99,19 +99,19 @@
                     <form method="post" action="<%=request.getContextPath()%>/back/rent/rent.do">
                         <input type="hidden" name="rent_no" value="${rentVO.rent_no}"> 
                         <input type="hidden" name="action" value="pass">
-                        <input type="submit" id="pass<%=count%>" value="通過"> 
+                        <input class="btnCallAjaxRent" type="button" id="pass<%=count%>" value="通過"> 
                     </form>
                 </td>                           
                 <td>
                     <button id="fail_rent<%=count%>">不通過</button>
                     <div id="dialog-form<%=count%>" title="不通過的原因">
                         <p>請輸入不通過的原因.</p>
-                        <form id="failRentAJAX" method="post" action="<%=request.getContextPath()%>/back/rent/rent.do">
+                        <form method="post" action="<%=request.getContextPath()%>/back/rent/rent.do">
                             <input type="hidden" name="rent_no" value="${rentVO.rent_no}"> 
                             <input type="hidden" name="action" value="fail">
                             <textarea name="cause" rows="4" cols="35" maxlength="100"></textarea>
 <%--                             <input type="submit" id="fail<%=count%>" value="不通過"> --%>
-                            <input type="button" id="fail<%=count%>" value="不通過">
+                            <input class="btnCallAjaxRent" type="button" id="fail<%=count%>" value="不通過">
                         </form>
                     </div> 
                 </td>
