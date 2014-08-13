@@ -4,6 +4,7 @@
 $(document).ready(function() {
 	var intervalID;
 	run();
+	setRemindListNum();
 	
 	function run() {
 	    intervalID = window.setInterval(setRemindListNum, 30*1000); //30秒跑一次
@@ -14,7 +15,7 @@ $(document).ready(function() {
 	}
 	
 	function setRemindListNum() {
-		$("#remindMain .remindList #SCES_RENT").find("front").text(Math.ceil(Math.random() * 10));
+//		$("#remindMain .remindList").find("font").text(Math.ceil(Math.random() * 10));
 		$.ajax({
 			type : "POST",
 			url : $("#remindMain").data("urlremind"),
@@ -24,12 +25,18 @@ $(document).ready(function() {
 //				rent_no : $(this).attr("id")
 			},
 			dataType : "json",
-			success : function(data) {
+			success : function(jsonData) {
 //				$("#infoRentShow").html(data);
-				console.log(data);
+				for (var key in jsonData) {
+					console.log(key + ' is ' + jsonData[1]);
+					
+				}
+				$("#remindMain .remindList").each(function( index ){
+					$(this).find("font").text(index);
+				});
 			},
 			error : function() {
-				alert("系統異常!");
+				console.log("尚未登入!");
 			}
 		});
 	}

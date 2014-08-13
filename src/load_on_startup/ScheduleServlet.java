@@ -8,6 +8,7 @@ import javax.sql.*;
 
 import front.remind.model.RemindService;
 import front.remind.model.RemindVO;
+import front.rent.model.RentService;
 import front.member.model.MemberVO;
 import front.member.model.MemberService;
 import front.ord.model.OrdService;
@@ -52,8 +53,34 @@ public class ScheduleServlet extends HttpServlet {
 							System.out
 									.println(ordVO.getOrd_no()
 											+ "租約到期,修改訂單狀態從\"REC_COM收貨完成\"至\"RENT_EXP租約到期\"");
-							System.out.println("nowDate = " + nowDate);
+							// System.out.println("nowDate = " + nowDate);
 							// System.out.println("ordDate = "+ordDate);
+						}
+					} else if ("RENT_EXP".equals(ordVO.getOrd_sta())) {
+						java.util.Date nowDate = new java.util.Date(); // 當前時間
+						Date ordDate = ordVO.getExp_date(); // 租物期限
+						if ((nowDate.getTime() - ordDate.getTime()) >= (ordVO.getOt_days()+1) * 24 * 60 * 60 * 1000) { // 如果當前時間超過租物期限1天,則為租約逾期1天
+							//逾期天數+1
+							ordVO.setOt_days(ordVO.getOt_days() + 1);
+							ordSvc.updateOrd(ordVO, "OT_DAYS");
+							
+							//發簡訊提醒
+							MemberService memSvc = new MemberService();
+							RentService rentSvc = new RentService();
+							MemberVO memVO = memSvc.getOneMember(ordVO.getTen_no());
+							String Mcell = memVO.getMcell();
+							String Mname = memVO.getMname();
+							// 發送簡訊
+							System.out.println("Mcell = " + Mcell);
+							System.out.println(Mname + " 您好!\nJustRent提醒:\n"
+									+ "您的租物:" + rentSvc.getOneRent(ordVO.getRent_no()).getRent_name()
+									+ "已逾期" + ordVO.getOt_days() + "天\n請盡速歸還."
+									+ "\n時間:" + nowDate + ".\n");
+
+							// String[] tel ={Mcell};
+							// String message = Mname+" 您好!\nJustRent提醒:\n " +
+							// remindVO.getRdes()+"\n時間:"+remindVO.getRtime()+".\n";
+							// sendMessage.sendMessage(tel , message);
 						}
 					}
 				}
@@ -61,7 +88,7 @@ public class ScheduleServlet extends HttpServlet {
 		};
 		timer1 = new Timer();
 		Calendar cal = new GregorianCalendar(2014, Calendar.AUGUST, 12, 0, 0, 0);
-		timer1.scheduleAtFixedRate(task1, cal.getTime(), 1 * 1 * 60 * 1000); // 每60秒執行一次
+		timer1.scheduleAtFixedRate(task1, cal.getTime(), 1 * 24 * 60 * 60 * 1000); // 每1天執行一次
 		System.out.println("已建立租約到期排程timer1!");
 
 		// 搜尋提醒資料表的提醒flag是Y的發簡訊提醒後改flag為N
@@ -77,7 +104,7 @@ public class ScheduleServlet extends HttpServlet {
 						String Mname = memVO.getMname();
 						// 發送簡訊
 						System.out.println("Mcell = " + Mcell);
-						System.out.println(Mname + " 您好!\nJustRent提醒:\n "
+						System.out.println(Mname + "您好!\nJustRent提醒:\n"
 								+ remindVO.getRdes() + "\n時間:"
 								+ remindVO.getRtime() + ".\n");
 						// String[] tel ={Mcell};
@@ -144,19 +171,20 @@ public class ScheduleServlet extends HttpServlet {
 		} else {
 			action = req.getParameter("action");
 		}
-		
+
 		if ("remindHeaderNum".equals(action)) {
-			//抓取session現在登入的member
+
+			// 抓取session現在登入的member
 			HttpSession session = req.getSession();
 			String memID = (String) session.getAttribute("mid");
 			MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-//			System.out.println("ScheduleServlet.135.現在登入的memID:\n"+memID);
-	
+			// System.out.println("ScheduleServlet.135.現在登入的memID:\n"+memID);
+
 			RemindService remindSvc = new RemindService();
 			List<RemindVO> listRemindVO = remindSvc.ajaxGetMemRemind(
 					memberVO.getMno(), "N");
-			
-			//用JSON存提醒數字,回傳呼叫的AJAX
+
+			// 用JSON存提醒數字,回傳呼叫的AJAX
 			Map<String, Integer> map = new HashMap<String, Integer>();
 			map.put("成功出租", 0);
 			map.put("成功承租", 0);
@@ -177,65 +205,61 @@ public class ScheduleServlet extends HttpServlet {
 				try {
 					if ("成功出租".equals(remindVO.getRstas())) {
 						jsonObj.put("成功出租", (Integer) jsonObj.get("成功出租") + 1);
-	
+
 					} else if ("成功承租".equals(remindVO.getRstas())) {
 						jsonObj.put("成功承租", (Integer) jsonObj.get("成功承租") + 1);
-	
+
 					} else if ("出租確認".equals(remindVO.getRstas())) {
 						jsonObj.put("出租確認", (Integer) jsonObj.get("出租確認") + 1);
-	
+
 					} else if ("預約".equals(remindVO.getRstas())) {
 						jsonObj.put("預約", (Integer) jsonObj.get("預約") + 1);
-	
+
 					} else if ("出貨通知".equals(remindVO.getRstas())) {
 						jsonObj.put("出貨通知", (Integer) jsonObj.get("出貨通知") + 1);
-	
+
 					} else if ("租期通知".equals(remindVO.getRstas())) {
 						jsonObj.put("租期通知", (Integer) jsonObj.get("租期通知") + 1);
-	
+
 					} else if ("歸還通知".equals(remindVO.getRstas())) {
 						jsonObj.put("歸還通知", (Integer) jsonObj.get("歸還通知") + 1);
-	
+
 					} else if ("求租公告".equals(remindVO.getRstas())) {
 						jsonObj.put("求租公告", (Integer) jsonObj.get("求租公告") + 1);
-	
+
 					} else if ("Q&A留言".equals(remindVO.getRstas())) {
 						jsonObj.put("Q&A留言", (Integer) jsonObj.get("Q&A留言") + 1);
-	
+
 					} else if ("評價".equals(remindVO.getRstas())) {
 						jsonObj.put("評價", (Integer) jsonObj.get("評價") + 1);
-	
+
 					} else if ("逾期通知".equals(remindVO.getRstas())) {
 						jsonObj.put("逾期通知", (Integer) jsonObj.get("逾期通知") + 1);
-	
+
 					} else if ("取消訂單".equals(remindVO.getRstas())) {
 						jsonObj.put("取消訂單", (Integer) jsonObj.get("取消訂單") + 1);
-	
+
 					} else if ("上架通過".equals(remindVO.getRstas())) {
 						jsonObj.put("上架通過", (Integer) jsonObj.get("上架通過") + 1);
-	
+
 					} else if ("上架不通過".equals(remindVO.getRstas())) {
 						jsonObj.put("上架不通過", (Integer) jsonObj.get("上架不通過") + 1);
-	
+
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-//			System.out.println("ScheduleServlet.208.jsonObj:\n" + jsonObj);
-            res.setContentType("text/html;charset=utf-8");
-//            res.setHeader("Cache-Control", "no-cache");
+			res.setContentType("text/html;charset=utf-8");
+			res.setHeader("Cache-Control", "no-cache");
 			PrintWriter out = res.getWriter();
+			// System.out.println("ScheduleServlet.208.jsonObj:\n" + jsonObj);
 			out.write(jsonObj.toString());
 			out.flush();
 			out.close();
-		}
-		//end remindHeaderNum
-		
-		
-		
-		
+		} // end remindHeaderNum
+
 	}
 
 	public void destroy() {

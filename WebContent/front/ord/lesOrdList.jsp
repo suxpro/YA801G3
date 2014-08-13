@@ -124,6 +124,19 @@
 					</form>				
 				</td>
 				<td>
+					<button id="close<%=count%>" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+						role="button" aria-disabled="false">
+						<span>結案</span>
+					</button>
+					<form method="post" action="<%=request.getContextPath()%>/front/ord/ord.do">
+						<input type="hidden" name="ord_no" value="${ordVO.ord_no}"> 
+						<input type="hidden" name="action" value="update">
+						<input type="hidden" name="sta" id="sta<%=count%>" value="CLS">
+						<input type="hidden" name="reqURL" value="/front/ord/lesOrdList.jsp">
+						<input id="cls<%=count%>" type="submit" value="結案"> 
+					</form>				
+				</td>
+				<td>
 					<button id="cc_ord<%=count%>">取消</button>
 					<div id="dialog-form<%=count%>" title="取消訂單[${ordVO.ord_no}]">
 						<p>請輸入取消訂單的原因.</p>
@@ -169,9 +182,15 @@
                         
                         // 隱藏 回收 submit button
                         $("#rt<%=count%>").hide();
-                        // apply button click() 啟用 submit
+                        // retirn button click() 啟用 submit
                         $("#rt_com<%=count%>").button().on("click", function() {
                         	$("#rt<%=count%>").click();});
+                        
+                        // 隱藏 結案 submit button
+                        $("#cls<%=count%>").hide();
+                        // close button click() 啟用 submit
+                        $("#close<%=count%>").button().on("click", function() {
+                        	$("#cls<%=count%>").click();});
                       
 						
 						//依狀態讓按鈕失效

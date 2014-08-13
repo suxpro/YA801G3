@@ -22,8 +22,12 @@ public class PrentDAO implements PrentDAO_interface {
 
 	private static final String INSERT_STMT = 
 		"INSERT INTO prerent (prent_no, rent_no, ten_no, prent_time, prent_days, prent_flag, ord_no) VALUES ('P'||TO_CHAR(prerent_seq.NEXTVAL), ?, ?, SYSDATE, ?, ?, ?)";
+	//取的單一會員的追蹤清單
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM prerent WHERE prent_flag='Y' AND ten_no =? order by prent_no";
+	//取的單一租物的追蹤會員清單
+	private static final String GET_ALL_BYRENT_STMT = 
+			"SELECT DISTINCT ten_no FROM prerent WHERE prent_flag='Y' AND rent_no =? ";
 	private static final String GET_ONE_STMT = 
 		"SELECT * FROM prerent WHERE prent_flag='Y' and prent_no =?";
 //	private static final String DELETE = 
@@ -336,5 +340,58 @@ public class PrentDAO implements PrentDAO_interface {
 //			System.out.print(aPrent.getOrd_no());
 //			System.out.println();
 //		}
+	}
+
+	@Override
+	public Set<String> getAllByRent(String rent_no) {
+		
+		Set<String> set = new HashSet<String>();
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_BYRENT_STMT);
+			pstmt.setString(1, rent_no);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				String ten_no = null;
+				ten_no = rs.getString("ten_no");
+				set.add(ten_no);
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return set;
 	}
 }

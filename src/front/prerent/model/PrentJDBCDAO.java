@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class PrentJDBCDAO implements PrentDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -355,6 +356,12 @@ public class PrentJDBCDAO implements PrentDAO_interface{
 //			System.out.print(aPrent.getOrd_no());
 //			System.out.println();
 //		}
+	}
+
+	@Override
+	public Set<String> getAllByRent(String rent_no) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
