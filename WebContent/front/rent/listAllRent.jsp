@@ -45,15 +45,16 @@
 <script language="JavaScript" src="js/previewImage.js"></script>
 <script language="JavaScript" src="js/previewImage2.js"></script>
 
-<title>租物管理清單 - listAllRent.jsp</title>
+<title>JustRent - 租物管理清單 </title>
 </head>
-<body bgcolor='white'>
+<body>
 
 	<%@ include file="/front/header.jsp"%>
 
 
 	<div class="container">
 		<div class="row">
+		
 			<%-- 訊息提示 --%>
 			<c:if test="${not empty errorMsgs}">
 				<script>
@@ -73,24 +74,21 @@
 						<ul id="area1" class="dropdown-b">
 							<li><a tabindex="-1"
 								href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">[租物資料]</a></li>
-							<li><a href="#">[上下架管理]</a></li>
-							<li><a href="#">[租物修改]</a></li>
+							<li><a href="<%=request.getContextPath()%>/front/rent/addRent.jsp">[新增租物]</a></li>
 						</ul>
 
 					</li>
 
 					<li class="dropdown-a"><a tabindex="-1" href="#">出租管理</a>
 						<ul class="dropdown-b">
-							<li><a tabindex="-1" href="#">[訂單核准]</a></li>
-							<li><a href="#">[承租人評價/檢舉]</a></li>
+							<li><a tabindex="-1" href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">[訂單核准]</a></li>
 						</ul></li>
 
-					<li class="dropdown-a"><a tabindex="-1" href="#">承租管理</a>
+					<li class="dropdown-a"><a tabindex="-1" href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租管理</a>
 						<ul class="dropdown-b">
-							<li><a tabindex="-1" href="#">[訂單修改]</a></li>
-							<li><a href="#">[預租查詢]</a></li>
+							<li><a tabindex="-1" href="<%=request.getContextPath()%>/front/cart/cart.jsp">[租物清單]</a></li>
+							<li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">[追蹤清單]</a></li>
 							<li><a href="#">[續租查詢]</a></li>
-							<li><a href="#">[租物評價/檢舉]</a></li>
 						</ul></li>
 
 					<li><a

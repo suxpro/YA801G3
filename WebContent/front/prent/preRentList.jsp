@@ -41,22 +41,72 @@
 <html>
 <head>
 <meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/prent/preRentList.jsp">
-<title> 追蹤清單 - preRentList.jsp</title>
+<title>JustRent! - 追蹤清單 </title>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css"
+	rel="stylesheet" media="screen">
+<link href="<%=request.getContextPath()%>/front/css/justrent.css"
+	rel="stylesheet">
+<!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+<script src="<%=request.getContextPath()%>/front/js/bootstrap.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
+<script src="<%=request.getContextPath()%>/front/js/jquery.color.js"></script>
+<script src="<%=request.getContextPath()%>/front/js/justrent.js"></script>
+
 </head>
-<body bgcolor='white' align='center'>
-	<table border='1' cellpadding='5' cellspacing='0' width='800' align='center'>
-		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-			<td><h3>追蹤清單 - preRentList.jsp</h3> 
-			<a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">
-				<img src="<%=request.getContextPath()%>/front/prent/images/back1.gif"
-					width="100" height="32" border="0">回首頁
-			</a></td>
-		</tr>
-	</table>
+<body >
+	<%@ include file="/front/header.jsp"%>
+
+	<div class="container">
+		<div class="row">
+		
+					<!-- SideBar -->
+			<div class="col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
+					<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
+					<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
+
+					<li class="dropdown-a"><a tabindex="-1" href="#area1">租物管理</a>
+						<ul id="area1" class="dropdown-b">
+							<li><a tabindex="-1"
+								href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">[租物資料]</a></li>
+							<li><a href="<%=request.getContextPath()%>/front/rent/addRent.jsp">[新增租物]</a></li>
+						</ul>
+
+					</li>
+
+					<li class="dropdown-a"><a tabindex="-1" href="#">出租管理</a>
+						<ul class="dropdown-b">
+							<li><a tabindex="-1" href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">[訂單核准]</a></li>
+						</ul></li>
+
+					<li class="dropdown-a active"><a tabindex="-1" href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租管理</a>
+						<ul class="dropdown-b">
+							<li><a tabindex="-1" href="<%=request.getContextPath()%>/front/cart/cart.jsp">[租物清單]</a></li>
+							<li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">[追蹤清單]</a></li>
+							<li><a href="#">[續租查詢]</a></li>
+						</ul></li>
+
+					<li><a
+						href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借查詢</a></li>
+				</ul>
+			</div>
+			<div class="col-md-10 col-md-offset-0">
+				<div id="legend">
+					<legend class="">
+						<h2>
+							<b>追蹤清單</b>
+						</h2>
+					</legend>
+				</div>
+
+				<div class="col-md-12 col-md-offset-0">
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -74,7 +124,7 @@
  		<script>alert("${alertMsgs.alert}");</script>
  	</c:if>
 
-	<table border='1' bordercolor='#CCCCFF' align='center'>
+	<table border='1' bordercolor='#CCCCFF'>
 		<tr align='center' valign='middle'>
 			<th>租物圖片</th>
 			<th>租物名稱</th>
@@ -158,6 +208,9 @@
 		</c:forEach>
 	</table>
 <%-- 	<%@ include file="page2.file"%> --%>
-
+</div>
+</div>
+</div>
+	<%@ include file="/front/footer.jsp"%>
 </body>
 </html>

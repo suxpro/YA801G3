@@ -99,10 +99,27 @@ text-align:center;
 					<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
 					<li class="active"><a href="#"
 						onclick="document.updateVIP.submit();">升級會員</a></li>
-					<li><a
-						href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物管理</a></li>
-					<li><a href="#">出租管理</a></li>
-					<li><a href="#">訂單管理</a></li>
+					<li class="dropdown-a"><a tabindex="-1" href="#area1">租物管理</a>
+						<ul id="area1" class="dropdown-b">
+							<li><a tabindex="-1"
+								href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">[租物資料]</a></li>
+							<li><a href="<%=request.getContextPath()%>/front/rent/addRent.jsp">[新增租物]</a></li>
+						</ul>
+
+					</li>
+
+					<li class="dropdown-a"><a tabindex="-1" href="#">出租管理</a>
+						<ul class="dropdown-b">
+							<li><a tabindex="-1" href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">[訂單核准]</a></li>
+						</ul></li>
+
+					<li class="dropdown-a"><a tabindex="-1" href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租管理</a>
+						<ul class="dropdown-b">
+							<li><a tabindex="-1" href="<%=request.getContextPath()%>/front/cart/cart.jsp">[租物清單]</a></li>
+							<li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">[追蹤清單]</a></li>
+							<li><a href="#">[續租查詢]</a></li>
+						</ul></li>
+
 					<li><a
 						href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借查詢</a></li>
 				</ul>
