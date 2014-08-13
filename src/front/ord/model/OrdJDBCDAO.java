@@ -635,4 +635,11 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public Set<String> findRenewOrdByRentNo(String rent_no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

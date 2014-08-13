@@ -201,6 +201,7 @@
 							$("#app_ord<%=count%>").attr("disabled", false); 
 							$("#cc_ord<%=count%>").attr("disabled", false);
 							$("#rt_com<%=count%>").attr("disabled", true);
+							$("#close<%=count%>").attr("disabled", true);
 							//下個狀態為待出貨
 							$("#sta<%=count%>").val("W_SHIP");
 							
@@ -209,6 +210,7 @@
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rt_com<%=count%>").attr("disabled", true);
+							$("#close<%=count%>").attr("disabled", true);
 							
 // 						}else if (ord_sta == "DTBT"){//3.訂單狀態為配送中
 							
@@ -220,12 +222,14 @@
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rt_com<%=count%>").attr("disabled", true);
+							$("#close<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "RENT_EXP"){//5.訂單狀態為租約到期
 							
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rt_com<%=count%>").attr("disabled", false);
+							$("#close<%=count%>").attr("disabled", true);
 							
 // 						}else if (ord_sta == "RT"){//6.訂單狀態為回收中
 							
@@ -237,30 +241,35 @@
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rt_com<%=count%>").attr("disabled", true);
+							$("#close<%=count%>").attr("disabled", false);
 							
 						}else if (ord_sta == "CLS"){//8.訂單狀態為結案
 							
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rt_com<%=count%>").attr("disabled", true);
+							$("#close<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "CC_ORD"){//9.訂單狀態為取消訂單
 							
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rt_com<%=count%>").attr("disabled", true);
+							$("#close<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "AB_CLS"){//10.訂單狀態為異常結案
 							
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rt_com<%=count%>").attr("disabled", true);
+							$("#close<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "RE_ORD"){//11.訂單狀態為待續約
 							
 							$("#app_ord<%=count%>").attr("disabled", false);
 							$("#cc_ord<%=count%>").attr("disabled", false);
 							$("#rt_com<%=count%>").attr("disabled", true);
+							$("#close<%=count%>").attr("disabled", true);
 							//下個狀態為原先的訂單狀態
 							$("#sta<%=count%>").val("APP_RENEW");
 							
@@ -269,6 +278,7 @@
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rt_com<%=count%>").attr("disabled", true);
+							$("#close<%=count%>").attr("disabled", true);
 						}
 						
 					</script>

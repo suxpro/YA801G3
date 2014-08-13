@@ -37,19 +37,21 @@ public class OrdDAO implements OrdDAO_interface {
 			+ "VALUES ('O'||TO_CHAR(ord_seq.NEXTVAL), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE)";
 
 	private static final String RENEW_STMT ="INSERT INTO ord (ord_no, rent_no, les_no,  ten_no, ord_sta, tra_mode, "
-	 + "freight, ten_date, exp_date, ten_days, rent_total, "
-	 + "ot_days, init_dps, real_dps, tra_total, loc_no, "
-	 + "rec_addr, les_ases, les_ases_ct, ten_ases, ten_ases_ct, "
-	 + "w_apr_time, w_ship_time, dtbt_time, rec_com_time, rent_exp_time, "
-	 + "rt_time, rt_com_time, cls_time, cc_ord_time, ord_cc_cause) "
-	 + "VALUES ('O'||TO_CHAR(ord_seq.NEXTVAL), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
-	 + "?, ?, ?, ?, SYSDATE, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "freight, ten_date, exp_date, ten_days, rent_total, "
+			+ "ot_days, init_dps, real_dps, tra_total, loc_no, "
+			+ "rec_addr, les_ases, les_ases_ct, ten_ases, ten_ases_ct, "
+			+ "w_apr_time, w_ship_time, dtbt_time, rec_com_time, rent_exp_time, "
+			+ "rt_time, rt_com_time, cls_time, cc_ord_time, ord_cc_cause) "
+			+ "VALUES ('O'||TO_CHAR(ord_seq.NEXTVAL), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
+			+ "?, ?, ?, ?, SYSDATE, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	private static final String GET_ALL_STMT = "SELECT * FROM ord WHERE ord_sta NOT IN ('CC_ORD','CLS','AB_CLS') ORDER BY ord_no";
 	private static final String GET_ONE_STMT = "SELECT * FROM ord WHERE ord_no = ?";
-	// private static final String DELETE =
-	// "DELETE FROM ord where ord_no = ?";
-	private static final String DELETE = "UPDATE ord SET ord_sta='CC_ORD', CC_ORD_TIME=SYSDATE, ORD_CC_CAUSE=? WHERE ord_no=?";
+	private static final String GET_LIVE_ORD_STMT = "SELECT ord_no FROM ord WHERE rent_no=? AND ord_sta IN ('W_SHIP','DTBT','REC_COM','RENT_EXP','RT','RT_COM')";
+	private static final String GET_RENEW_ORD_STMT = "SELECT ord_no FROM ord WHERE ord_sta = 'RE_ORD' AND rent_no=? ";
+	//鈞彥,找出會員的所有歷史訂單
+	private static final String GET_ALL_ORD_MEMBER = "SELECT * FROM(SELECT * FROM ord WHERE ord_sta IN ('CLS','AB_CLS') AND les_no = ? UNION SELECT * FROM ord WHERE ord_sta IN ('CLS','AB_CLS') AND  ten_no = ?) a　ORDER BY cls_time DESC";
+	
 	private static final String UPDATE_W_SHIP = "UPDATE ord SET ord_sta='W_SHIP', W_SHIP_TIME=SYSDATE WHERE ord_no=?";
 	private static final String UPDATE_REC_COM = "UPDATE ord SET ord_sta='REC_COM', REC_COM_TIME=SYSDATE WHERE ord_no=?";
 	private static final String UPDATE_RENT_EXP = "UPDATE ord SET ord_sta='RENT_EXP', RENT_EXP_TIME=SYSDATE WHERE ord_no=?"; //小豬加,排程器跑租約到期
@@ -57,12 +59,11 @@ public class OrdDAO implements OrdDAO_interface {
 	private static final String UPDATE_RT_COM = "UPDATE ord SET ord_sta='RT_COM', RT_COM_TIME=SYSDATE WHERE ord_no=?";
 	private static final String UPDATE_CLS = "UPDATE ord SET ord_sta='CLS', CLS_TIME=SYSDATE WHERE ord_no=?";
 	private static final String UPDATE_APP_RENEW = "UPDATE ord SET ord_sta=? WHERE ord_no=?";
-	private static final String UPDATE = "UPDATE ord SET rent_no=?, ten_no=?, ord_sta=?, tra_mode=?, freight=?, ten_date=?, exp_date=?, ten_days=?, rent_total=?, ot_days=?, init_dps=?, real_dps=?, tra_total=?, loc_no=?, rec_addr=?, les_ases=?, les_ases_ct=?, ten_ases=?, ten_ases_ct=?, w_apr_time=?, w_ship_time=?, dtbt_time=?, rec_com_time=?, rent_exp_time=?, rt_time=?, rt_com_time=?, cls_time=?, cc_ord_time=?, ord_cc_cause=? where ord_no=?";
-	private static final String GET_LIVE_ORD_STMT = "SELECT ord_no FROM ord WHERE rent_no=? AND ord_sta IN ('W_SHIP','DTBT','REC_COM','RENT_EXP','RT','RT_COM')";
-	//鈞彥,找出會員的所有歷史訂單
-	private static final String GET_ALL_ORD_MEMBER = "SELECT * FROM(SELECT * FROM ord WHERE ord_sta IN ('CLS','AB_CLS') AND les_no = ? UNION SELECT * FROM ord WHERE ord_sta IN ('CLS','AB_CLS') AND  ten_no = ?) a　ORDER BY cls_time DESC";
+//	private static final String UPDATE = "UPDATE ord SET rent_no=?, ten_no=?, ord_sta=?, tra_mode=?, freight=?, ten_date=?, exp_date=?, ten_days=?, rent_total=?, ot_days=?, init_dps=?, real_dps=?, tra_total=?, loc_no=?, rec_addr=?, les_ases=?, les_ases_ct=?, ten_ases=?, ten_ases_ct=?, w_apr_time=?, w_ship_time=?, dtbt_time=?, rec_com_time=?, rent_exp_time=?, rt_time=?, rt_com_time=?, cls_time=?, cc_ord_time=?, ord_cc_cause=? where ord_no=?";
+
+	private static final String DELETE = "UPDATE ord SET ord_sta='CC_ORD', CC_ORD_TIME=SYSDATE, ORD_CC_CAUSE=? WHERE ord_no=?";
 	
-	//鈞彥,找出會員的所有歷史訂單
+	
 	@Override
 	public List<OrdVO> getAllOrdByMember(String mno) {
 
@@ -274,10 +275,11 @@ public class OrdDAO implements OrdDAO_interface {
 				//找尋原先訂單的紀錄
 				String pOrd_no = ordVO.getOrd_cc_cause();
 				OrdVO pOrdVO = findByPrimaryKey(pOrd_no);
-				//繼承先前訂單的狀態 parent
+				//取得原先訂單的最新狀態 - parent
 				String pOrd_sta = pOrdVO.getOrd_sta();
 				
 				pstmt = con.prepareStatement(UPDATE_APP_RENEW);
+				//讓新訂單繼承原訂單的狀態
 				pstmt.setString(1, pOrd_sta);
 				pstmt.setString(2, ordVO.getOrd_no());
 				pstmt.executeUpdate();
@@ -285,7 +287,7 @@ public class OrdDAO implements OrdDAO_interface {
 				//報廢原先訂單
 				pOrdVO.setOrd_cc_cause("訂單["+ ordVO.getOrd_no() +"]續約成功,報廢原訂單");
 				//由系統呼叫取消訂單
-				delete(pOrdVO,"sys");
+				delete(pOrdVO, "sys");
 				
 			}else if(sta.equals("REC_COM")){ 
 				
@@ -298,6 +300,17 @@ public class OrdDAO implements OrdDAO_interface {
 				pstmt = con.prepareStatement(UPDATE_RENT_EXP);
 				pstmt.setString(1, ordVO.getOrd_no());
 				pstmt.executeUpdate();
+				
+				//報廢未核准的續約訂單  add by思賢
+				Set<String> set = findRenewOrdByRentNo(ordVO.getRent_no());
+				
+				for (String ord_no : set){	
+					
+					OrdVO reOrdVO = findByPrimaryKey(ord_no);
+					reOrdVO.setOrd_cc_cause("訂單["+ ordVO.getOrd_no() +"]的租約已到期, 系統報廢未核准的續約訂單");
+					//由系統報廢 續約訂單
+					delete(reOrdVO, "sys");
+				}	
 				
 			}else if(sta.equals("RT_COM")){ 
 				
@@ -466,49 +479,54 @@ public class OrdDAO implements OrdDAO_interface {
 
 	}
 
+	// 取消訂單
 	@Override
 	public void delete(OrdVO ordVO, String role) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		OrdVO oOrdVO = findByPrimaryKey(ordVO.getOrd_no()); //取的訂單做廢前的"資料庫"紀錄
-		String oOrd_sta = oOrdVO.getOrd_sta(); //訂單原狀態
+		OrdVO oOrdVO = findByPrimaryKey(ordVO.getOrd_no()); //取得訂單做廢前的"資料庫"紀錄
+		String oOrd_sta = oOrdVO.getOrd_sta(); //原訂單現今在資料庫的狀態
 		try {
 
 			con = ds.getConnection();
 			// 1●設定於 pstm.executeUpdate()之前
 			con.setAutoCommit(false);
-
+            // 取消訂單 並寫入取消原因
 			pstmt = con.prepareStatement(DELETE);
-
 			pstmt.setString(1, ordVO.getOrd_cc_cause());
 			pstmt.setString(2, ordVO.getOrd_no());
-
 			pstmt.executeUpdate();
 
-			// 修改租物狀態
+			// 修改租物狀態 當待核准的訂單被 承租會員或是出租會員所取消
 			RentDAO rentDAO = new RentDAO();
 			RentVO rentVO = rentDAO.findByPrimaryKey(ordVO.getRent_no());
-			//只有當原訂單狀態為待核准且取消的人不是系統自動(由會員執行)
+			// 只有當訂單狀態為待核准 而且取消的腳色不是系統自動執行(由會員執行)
 			if (oOrd_sta.equals("W_APR") && !role.equals("sys")){ 
+				
 				rentVO.setRent_sta("W_RENT"); // 更改租物狀態為待出租
 				rentDAO.updateRent_sta(rentVO, con);
 			}
+			
 			// 回復會員帳戶餘額
 			MemberDAO memberDAO = new MemberDAO();
 			MemberVO memberVO = memberDAO.findByPrimaryKey(ordVO.getTen_no());
 			Double mbalance = memberVO.getMbalance();
-			//只有當原訂單狀態為待核准且取消的人不是系統自動(由會員執行)
-			if (oOrd_sta.equals("W_APR") && !role.equals("sys")){ 
+			// 只有當訂單狀態為待核准 而且取消的腳色不是系統自動執行(由會員執行)
+			if (oOrd_sta.equals("W_APR") && !role.equals("sys")){
+				
 				mbalance = mbalance + ordVO.getTra_total(); // 餘額加回被訂單扣除的費用
 				memberVO.setMbalance(mbalance);
 				memberDAO.updateMem_mbl(memberVO, con);
-			} else if (oOrd_sta.equals("RE_ORD") && !role.equals("sys")){
-				mbalance = mbalance + oOrdVO.getTra_total() - (findByPrimaryKey(oOrdVO.getOrd_cc_cause()).getTra_total()); // 餘額加回續約扣除的需補差額
+				
+			} else if (oOrd_sta.equals("W_APR") && role.equals("sys")){ 
+				//續約成立 系統自動報廢原訂單  不做任何動作修改餘額
+			
+			} else if (oOrd_sta.equals("RE_ORD")){
+				// 餘額加回續約扣除的需補差額                                                                      // 取得續約前訂單的交易總吳
+				mbalance = mbalance + oOrdVO.getTra_total() - (findByPrimaryKey(oOrdVO.getOrd_cc_cause()).getTra_total()); 
 				memberVO.setMbalance(mbalance);
 				memberDAO.updateMem_mbl(memberVO, con);				
-			} else{
-				//當執行續約成功 系統做廢先前訂單時 餘額不需要更動
 			}
 
 			// 新增交易紀錄
@@ -516,40 +534,51 @@ public class OrdDAO implements OrdDAO_interface {
 			TradeVO tradeVO = new TradeVO();
 			tradeVO.setMno(memberVO.getMno());
 			tradeVO.setTstas("點數退還");
-			//只有當原訂單狀態為待核准且取消的人不是系統自動(由會員執行)
+			// 只有當訂單狀態為待核准 而且取消的腳色不是系統自動執行(由會員執行)
 			if (oOrd_sta.equals("W_APR") && !role.equals("sys")){ 
+				
 				tradeVO.setTfunds(ordVO.getTra_total().doubleValue());
 				tradeDAO.insertForOrd(tradeVO, con);
-			} else if (oOrd_sta.equals("RE_ORD") && !role.equals("sys")){
-				tradeVO.setTfunds(oOrdVO.getTra_total() - (findByPrimaryKey(oOrdVO.getOrd_cc_cause()).getTra_total()).doubleValue()); // 續約扣除的需補差額
-				tradeDAO.insertForOrd(tradeVO, con);			
-			} else{
-				//當執行續約成功 系統做廢先前訂單時 餘額不需要更動
+				
+			} else if (oOrd_sta.equals("W_APR") && role.equals("sys")){ 
+				//續約成立 系統自動報廢原訂單  不做任何動作修改餘額
+							
+			} else if (oOrd_sta.equals("RE_ORD")){
+				// 續約扣除的需補差額
+				tradeVO.setTfunds(oOrdVO.getTra_total() - (findByPrimaryKey(oOrdVO.getOrd_cc_cause()).getTra_total()).doubleValue()); 
+				tradeDAO.insertForOrd(tradeVO, con);	
+				
 			}
-
 
 			// 新增提醒記錄
 			RemindDAO remindDAO = new RemindDAO();
 			RemindVO remindVO = new RemindVO();
-			if (role.equals("ten")){
+			if (role.equals("ten")){				
 				remindVO.setMno(ordVO.getLes_no());// 注意:該提醒的是出租方
-			} else if (role.equals("les")){
+			} else if (role.equals("les")){				
+				remindVO.setMno(ordVO.getTen_no());// 注意:該提醒的是承租方
+			} else if (role.equals("sys")){				
 				remindVO.setMno(ordVO.getTen_no());// 注意:該提醒的是承租方
 			}
+			
 			//只有當原訂單狀態為待核准且取消的人不是系統自動(由會員執行)
 			if (oOrd_sta.equals("W_APR") && !role.equals("sys")){ 
+				
 				remindVO.setRno(ordVO.getRent_no());
 				remindVO.setRstas("取消訂單");
-				remindVO.setRdes("您有一筆訂單已被取消(" + rentVO.getRent_name() + ")! \n 取消原因為: " + ordVO.getOrd_cc_cause());
+				remindVO.setRdes("您有一筆訂單已被取消(" + rentVO.getRent_name() + ")! 取消原因為: " + ordVO.getOrd_cc_cause());
 				remindDAO.insertForOrd(remindVO, con);
-			} else if (oOrd_sta.equals("RE_ORD") && !role.equals("sys")){
+				
+			} else if (oOrd_sta.equals("W_APR") && role.equals("sys")){ 
+				//續約成立 系統自動報廢原訂單  不做任何動作修改餘額
+							
+			} else if (oOrd_sta.equals("RE_ORD")){
+				
 				remindVO.setRno(ordVO.getRent_no());
 				remindVO.setRstas("取消訂單");
-				remindVO.setRdes("您有一筆續約訂單已被取消(" + rentVO.getRent_name() + ")! \n 取消原因為: " + ordVO.getOrd_cc_cause());
+				remindVO.setRdes("您有一筆續約訂單已被取消(" + rentVO.getRent_name() + ")! 取消原因為: " + ordVO.getOrd_cc_cause());
 				remindDAO.insertForOrd(remindVO, con);		
-			} else{
-				//當執行續約成功 系統做廢先前訂單時 不需要提醒
-			}
+			} 
 
 			// 完成所有資料修改
 			con.commit();
@@ -811,6 +840,56 @@ public class OrdDAO implements OrdDAO_interface {
 		return ord_no;
 	}
 
+	@Override
+	public Set<String> findRenewOrdByRentNo(String rent_no) {
+
+		Set<String> set = new HashSet<String>();
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_RENEW_ORD_STMT);
+			pstmt.setString(1, rent_no);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				set.add(rs.getString("ord_no"));
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return set;
+	}	
+	
 	@Override
 	public void renew(OrdVO ordVO, Integer dif_price) {
 		Connection con = null;
