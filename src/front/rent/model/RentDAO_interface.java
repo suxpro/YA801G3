@@ -14,5 +14,7 @@ public interface RentDAO_interface {
           public List<RentVO> getAll();
           //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //        public List<TagVO> getAll(Map<String, String[]> map); 
+          //小豬加,租物區只顯示待出租跟已出租
+      	  public List<RentVO> getBodyRent();
 }
   

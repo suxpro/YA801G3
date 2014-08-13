@@ -149,4 +149,9 @@ public class RentService {
 	public List<RentVO> getAllByMno(String mno) {
 		return dao.getAllByMno(mno);
 	}
+	
+	//小豬加,租物區只顯示待出租跟已出租
+	public List<RentVO> getBodyRent() {
+		return dao.getBodyRent();
+	}
 }

@@ -6,7 +6,7 @@
 
 <%
 	RentService rentSvc = new RentService();
-    List<RentVO> list = rentSvc.getAll();
+    List<RentVO> list = rentSvc.getBodyRent();
     pageContext.setAttribute("rentBodyList", list);
 %>
 <script>
