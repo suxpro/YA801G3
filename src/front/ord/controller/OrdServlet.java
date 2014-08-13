@@ -273,6 +273,8 @@ public class OrdServlet extends HttpServlet {
 
 				/*************************** 2.開始更新資料 ***************************************/
 				ordSvc.updateOrd(ordVO, sta);
+				
+				//回傳頁面alert
 				if(sta.equals("APP_RENEW")){
 					alertMsgs.put("alert", "續約訂單[" + ord_no + "]核准成功");
 				} else if(sta.equals("W_SHIP")){
@@ -281,6 +283,8 @@ public class OrdServlet extends HttpServlet {
 					alertMsgs.put("alert", "訂單[" + ord_no + "]狀態已更新為收貨完成");
 				} else if(sta.equals("RT_COM")){
 					alertMsgs.put("alert", "訂單[" + ord_no + "]狀態已更新為回收完成");
+				} else if(sta.equals("CLS")){
+					alertMsgs.put("alert", "訂單[" + ord_no + "]狀態已更新為結案");
 				}
 				
 				/*************************** 3./更新完成,準備轉交(Send the Success view) ***********/

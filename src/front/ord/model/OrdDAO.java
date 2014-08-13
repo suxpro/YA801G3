@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import front.member.model.MemberDAO;
 import front.member.model.MemberVO;
+import front.prerent.model.PrentDAO;
 import front.remind.model.RemindDAO;
 import front.remind.model.RemindVO;
 import front.rent.model.RentDAO;
@@ -52,7 +53,9 @@ public class OrdDAO implements OrdDAO_interface {
 	private static final String UPDATE_W_SHIP = "UPDATE ord SET ord_sta='W_SHIP', W_SHIP_TIME=SYSDATE WHERE ord_no=?";
 	private static final String UPDATE_REC_COM = "UPDATE ord SET ord_sta='REC_COM', REC_COM_TIME=SYSDATE WHERE ord_no=?";
 	private static final String UPDATE_RENT_EXP = "UPDATE ord SET ord_sta='RENT_EXP', RENT_EXP_TIME=SYSDATE WHERE ord_no=?"; //小豬加,排程器跑租約到期
+	private static final String UPDATE_OT_DAYS = "UPDATE ord SET ot_days=? WHERE ord_no=?"; //小豬加,排程器跑租約逾期1天,OT_DAYS+1
 	private static final String UPDATE_RT_COM = "UPDATE ord SET ord_sta='RT_COM', RT_COM_TIME=SYSDATE WHERE ord_no=?";
+	private static final String UPDATE_CLS = "UPDATE ord SET ord_sta='CLS', CLS_TIME=SYSDATE WHERE ord_no=?";
 	private static final String UPDATE_APP_RENEW = "UPDATE ord SET ord_sta=? WHERE ord_no=?";
 	private static final String UPDATE = "UPDATE ord SET rent_no=?, ten_no=?, ord_sta=?, tra_mode=?, freight=?, ten_date=?, exp_date=?, ten_days=?, rent_total=?, ot_days=?, init_dps=?, real_dps=?, tra_total=?, loc_no=?, rec_addr=?, les_ases=?, les_ases_ct=?, ten_ases=?, ten_ases_ct=?, w_apr_time=?, w_ship_time=?, dtbt_time=?, rec_com_time=?, rent_exp_time=?, rt_time=?, rt_com_time=?, cls_time=?, cc_ord_time=?, ord_cc_cause=? where ord_no=?";
 	private static final String GET_LIVE_ORD_STMT = "SELECT ord_no FROM ord WHERE rent_no=? AND ord_sta IN ('W_SHIP','DTBT','REC_COM','RENT_EXP','RT','RT_COM')";
@@ -146,8 +149,6 @@ public class OrdDAO implements OrdDAO_interface {
 		return list;
 	
 	}
-
-
 
 
 	@Override
@@ -273,7 +274,7 @@ public class OrdDAO implements OrdDAO_interface {
 				//找尋原先訂單的紀錄
 				String pOrd_no = ordVO.getOrd_cc_cause();
 				OrdVO pOrdVO = findByPrimaryKey(pOrd_no);
-				//繼承先前訂單的狀態
+				//繼承先前訂單的狀態 parent
 				String pOrd_sta = pOrdVO.getOrd_sta();
 				
 				pstmt = con.prepareStatement(UPDATE_APP_RENEW);
@@ -304,45 +305,125 @@ public class OrdDAO implements OrdDAO_interface {
 				pstmt.setString(1, ordVO.getOrd_no());
 				pstmt.executeUpdate();
 				
+			}else if(sta.equals("CLS")){ 
+				
+				pstmt = con.prepareStatement(UPDATE_CLS);
+				pstmt.setString(1, ordVO.getOrd_no());
+				pstmt.executeUpdate();
+				
+			}else if(sta.equals("OT_DAYS")){ //小豬加,排程器跑租約逾期1天,OT_DAYS+1
+				
+				pstmt = con.prepareStatement(UPDATE_OT_DAYS);
+				pstmt.setInt(1, ordVO.getOt_days());
+				pstmt.setString(2, ordVO.getOrd_no());
+				pstmt.executeUpdate();
+				
 			}
 
-			// 修改租物狀態
+			
 			RentDAO rentDAO = new RentDAO();
 			RentVO rentVO = rentDAO.findByPrimaryKey(ordVO.getRent_no());
-//			rentVO.setRent_sta("W_RENT"); // 更改租物狀態為待出租
-//			rentDAO.updateRent_sta(rentVO, con);
+			
+			if(sta.equals("CLS")){ 
+				// 修改租物狀態
+				rentVO.setRent_sta("W_RENT"); // 更改租物狀態為待出租
+				rentDAO.updateRent_sta(rentVO, con);	
+				
+				// 出租方 租金收入 更新帳戶餘額
+				MemberDAO lesDAO = new MemberDAO();
+				MemberVO lesVO = lesDAO.findByPrimaryKey(ordVO.getLes_no());
+				Double les_mbl = lesVO.getMbalance();
+				les_mbl = les_mbl + ordVO.getRent_total(); // 餘額加上租金總額(未來可以從中抽取平台服務費)
+				lesVO.setMbalance(les_mbl);
+				lesDAO.updateMem_mbl(lesVO, con);
 
-			// 回復會員帳戶餘額
-//			MemberDAO memberDAO = new MemberDAO();
-//			MemberVO memberVO = memberDAO.findByPrimaryKey(ordVO.getTen_no());
-//			Double mbalance = memberVO.getMbalance();
-//			mbalance = mbalance + ordVO.getTra_total(); // 餘額加回被訂單扣除費用
-//			memberVO.setMbalance(mbalance);
-//			memberDAO.updateMem_mbl(memberVO, con);
+				// 出租方的交易紀錄
+				TradeDAO tLesDAO = new TradeDAO();
+				TradeVO tLesVO = new TradeVO();
+				tLesVO.setMno(ordVO.getLes_no());
+				tLesVO.setTstas("點數收入");
+				tLesVO.setTfunds(ordVO.getRent_total().doubleValue());
+				tLesDAO.insertForOrd(tLesVO, con);
+				
+				
+				// 承租方 押金退還 更新帳戶餘額
+				MemberDAO tenDAO = new MemberDAO();
+				MemberVO tenVO = tenDAO.findByPrimaryKey(ordVO.getTen_no());
+				Double ten_mbl = tenVO.getMbalance();
+				ten_mbl = ten_mbl + ordVO.getReal_dps(); // 實際押金加回承租方餘額
+				tenVO.setMbalance(ten_mbl);
+				tenDAO.updateMem_mbl(tenVO, con);
 
-			// 新增交易紀錄
-//			TradeDAO tradeDAO = new TradeDAO();
-//			TradeVO tradeVO = new TradeVO();
-//			tradeVO.setMno(memberVO.getMno());
-//			tradeVO.setTstas("點數退還");
-//			tradeVO.setTfunds(ordVO.getTra_total().doubleValue());
-//			tradeDAO.insertForOrd(tradeVO, con);
+				// 承租方的交易紀錄
+				TradeDAO tTenDAO = new TradeDAO();
+				TradeVO tTenVO = new TradeVO();
+				tTenVO.setMno(ordVO.getTen_no());
+				tTenVO.setTstas("點數退還");
+				tTenVO.setTfunds(ordVO.getReal_dps().doubleValue());
+				tTenDAO.insertForOrd(tTenVO, con);
+								
+			}
 
-			// 新增提醒記錄
-			RemindDAO remindDAO = new RemindDAO();
-			RemindVO remindVO = new RemindVO();			
-			remindVO.setMno(ordVO.getTen_no());// 注意:該提醒的是承租方
-			remindVO.setRno(ordVO.getRent_no());
-		
+			// 新增提醒記錄	
 			if(sta.equals("W_SHIP")){		
+				
+				RemindDAO remindDAO = new RemindDAO();
+				RemindVO remindVO = new RemindVO();			
+				remindVO.setMno(ordVO.getTen_no());// 注意:該提醒的是承租方
+				remindVO.setRno(ordVO.getRent_no());
 				remindVO.setRstas("成功承租");	
 				remindVO.setRdes("您有一筆訂單已核准(" + (rentVO.getRent_name()) + ")!");
 				remindDAO.insertForOrd(remindVO, con);
 				
 			}else if(sta.equals("APP_RENEW")){
+				
+				RemindDAO remindDAO = new RemindDAO();
+				RemindVO remindVO = new RemindVO();			
+				remindVO.setMno(ordVO.getTen_no());// 注意:該提醒的是承租方
+				remindVO.setRno(ordVO.getRent_no());
 				remindVO.setRstas("成功承租");	
 				remindVO.setRdes("您有一筆續約訂單已核准(" + (rentVO.getRent_name()) + ")!");
 				remindDAO.insertForOrd(remindVO, con);
+				
+			} else if(sta.equals("CLS")){
+				
+				// 提醒出租方 訂單結案 租金匯入
+				RemindDAO rLesDAO = new RemindDAO();
+				RemindVO rLesVO = new RemindVO();			
+				rLesVO.setMno(ordVO.getLes_no());// 注意:該提醒的是出租方
+				rLesVO.setRno(ordVO.getRent_no());
+				rLesVO.setRstas("訂單結案");	
+				rLesVO.setRdes("您有一筆訂單已結案(" + (rentVO.getRent_name()) + "), 已存入租金所得[" + ordVO.getRent_total() + "].");
+				rLesDAO.insertForOrd(rLesVO, con);
+						
+				// 提醒承租方 訂單結案 押金退回
+				RemindDAO rTenDAO = new RemindDAO();
+				RemindVO rTenVO = new RemindVO();			
+				rTenVO.setMno(ordVO.getTen_no());// 注意:該提醒的是承租方
+				rTenVO.setRno(ordVO.getRent_no());
+				rTenVO.setRstas("訂單結案");	
+				rTenVO.setRdes("您有一筆訂單已結案(" + (rentVO.getRent_name()) + "), 已退還租物押金[" + ordVO.getReal_dps() + "].");
+				rTenDAO.insertForOrd(rTenVO, con);						
+				
+				// 提醒 追蹤的所有人 租物又重新開放出租
+				PrentDAO prentDAO = new PrentDAO();
+				Set<String> set = prentDAO.getAllByRent(ordVO.getRent_no());
+				// 取得租物的追蹤會員編號
+				for (String mno : set){
+					
+					if(!mno.equals(ordVO.getTen_no())){ //過濾掉這筆訂單的已承租的會員編號
+						
+						RemindDAO rPrentDAO = new RemindDAO();
+						RemindVO rPrentVO = new RemindVO();			
+						rPrentVO.setMno(mno);// 注意:該提醒的是承租方
+						rPrentVO.setRno(ordVO.getRent_no());
+						rPrentVO.setRstas("追蹤提醒 ");	
+						rPrentVO.setRdes("您有一個追蹤中的租物(" + (rentVO.getRent_name()) + "), 已重新開放出租.");
+						rPrentDAO.insertForOrd(rPrentVO, con);	
+					}
+					
+				}
+						
 			}
 
 
