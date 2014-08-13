@@ -2,6 +2,38 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<script>
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+};
+
+function submitForm(){ 
+	var date = new Date().Format("yyyy-MM-dd");
+    addEmpForm.addEmpAccount.value = "Tider";
+    addEmpForm.addEmpName.value = "饅頭人";
+    addEmpForm.addEmpSex.value = "M";
+    addEmpForm.addEmpTel.value = "039876543";
+    addEmpForm.addEmpCell.value = "0912345678";
+    addEmpForm.addEmpEmail.value = "tider1@gmail.com";
+    addEmpForm.addEmpAddress.value = "桃園縣中壢市中大路300-1號";
+    addEmpForm.addEmpJob.value = "employee";
+    addEmpForm.addEmpSal.value = "34567";
+    addEmpForm.addEmpECP.value = "Lion";
+    addEmpForm.addEmpECell.value = "0913579246";
+};
+</script>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
     <font color='red'>請修正以下錯誤:
@@ -20,7 +52,7 @@
 		<h4 class="modal-title" id="myModalLabel">新增員工</h4>
 	</div>
 
-    <form class="form-horizontal" role="form" id="addEmpForm" value="<%=request.getContextPath()%>/employee/employee.do" enctype="multipart/form-data">
+    <form class="form-horizontal" role="form" id="addEmpForm" name="addEmpForm" value="<%=request.getContextPath()%>/employee/employee.do" enctype="multipart/form-data">
 <%--     <form class="form-horizontal" role="form" action="<%=request.getContextPath()%>/employee/employee.do" method="post" enctype="multipart/form-data"> --%>
 		<div class="modal-body">
 			<div class="form-group">
@@ -28,7 +60,8 @@
 				<div class="col-md-4">
 					<input type="text" class="form-control" id="addEmpAccount" name="addEmpAccount"
 						placeholder="帳號" required="required" />
-				</div>${errorMsgs.emp_id}
+				</div>
+<%-- 				${errorMsgs.emp_id} --%>
                 <label for="addEmpPic" class="col-md-2 control-label">圖片上傳:</label>
 				<div class="col-md-4">
 					<input type="file" id="addEmpPic" name="addEmpPic">
@@ -115,6 +148,7 @@
 				</div>
 			</div>
 			<div class="form-group modal-footer">
+                <input type="image" src="img/7065_key.png" onClick="submitForm();" />
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 				<button type="submit" class="btn btn-primary">確定</button>
                 <input type="hidden" name="action" value="addEmp">

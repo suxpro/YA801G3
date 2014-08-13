@@ -14,7 +14,7 @@
 	String passRandom = (String)request.getAttribute("passRandom");   //String passRandom = request.getParameter("passRandom");
 	
 	String mailserver   = "140.115.236.9";
-	String From         = "JustRent@gmail.com";
+	String From         = "justrent.server@gmail.com";
 	String to           = "justrent.service@gmail.com";  //String to = request.getParameter("email");
 	String Subject      = "您的密碼";
     String messageText  = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom +"\n" +" (已經啟用)";        
@@ -54,12 +54,12 @@ try {
 
       //response.sendRedirect("emp_select.jsp?msg=Y");
     System.out.println("傳送成功!");
-    out.println("<script >alert(\"傳送成功!\")</script>");	
+//     out.println("<script >alert(\"傳送成功!\")</script>");	
 }
     catch (MessagingException mex) {
       //response.sendRedirect("emp_select.jsp?msg=N");
     System.out.println("傳送失敗!");
-    out.println("<script >alert(\"傳送失敗!\")</script>");  
+//     out.println("<script >alert(\"傳送失敗!\")</script>");  
       //mex.printStackTrace();
     }
  
