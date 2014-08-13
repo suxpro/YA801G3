@@ -118,7 +118,7 @@ public class RentServlet extends HttpServlet {
 
 				/*************************** 3.更新完成,準備轉交(Send the Success view) ***********/
 				String url = "/back/rent/waiting_onShelf_rent.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);//
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 **********************************/
@@ -154,9 +154,9 @@ public class RentServlet extends HttpServlet {
 
 				/*************************** 3.更新完成,準備轉交(Send the Success view) ***********/
 				String url = "/back/rent/waiting_onShelf_rent.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);//
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-
+			    
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.put("Exception", "更新資料失敗:" + e.getMessage());

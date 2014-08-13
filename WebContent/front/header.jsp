@@ -50,27 +50,27 @@ padding-top: 14px;
 				 <ul class="nav navbar-nav ">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">租務 <front class="badge">14</front><b class="caret"></b></a>
-                            <ul id="remindMain" class="dropdown-menu" data-urlRemind="<%=request.getContextPath()%>/ScheduleServlet">
+                            <ul id="remindMain" class="dropdown-menu dropdown-menu-right" data-urlRemind="<%=request.getContextPath()%>/ScheduleServlet">
                                  <li class="dropdown-plus-title">
                                     <i class="fa fa-bell-o fa-spin"></i>		租務秘書提醒
                                     <b class="pull-right glyphicon glyphicon-chevron-up"></b>
                                 </li>
-                  						<li class="remindList"><a id="SCES_RENT" href="#">&nbsp;&nbsp;&nbsp;成功出租&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>
-                  						<li class="remindList"><a id="SCES_TEN" href="#">&nbsp;&nbsp;&nbsp;成功承租&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>
-                  						<li class="remindList"><a id="CF_RENT" href="#">&nbsp;&nbsp;&nbsp;出租確認&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>
-                  						<li class="remindList"><a id="PRENT" href="#">&nbsp;&nbsp;&nbsp;預約通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>
-                  						<li class="remindList"><a id="NTC_SHIP" href="#">&nbsp;&nbsp;&nbsp;出貨通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>
-                  						<li class="remindList"><a id="NTC_LEASE" href="#">&nbsp;&nbsp;&nbsp;租期通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>
-                  						<li class="remindList"><a id="NTC_RETR" href="#">&nbsp;&nbsp;&nbsp;歸還通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>
-                  						<li class="remindList"><a id="ANN_BRENT" href="#">&nbsp;&nbsp;&nbsp;求租公告&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>
-                  						<li class="remindList"><a id="LM_QA" href="#">&nbsp;&nbsp;&nbsp;Q&A留言&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>
-                  						<li class="remindList"><a id="ASES" href="#">&nbsp;&nbsp;&nbsp;評價通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>
-                  						<li class="remindList"><a id="OT" href="#">&nbsp;&nbsp;&nbsp;逾期通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>  
-                                        <li class="remindList"><a id="CC_ORD" href="#">&nbsp;&nbsp;&nbsp;取消訂單&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>  
-                                        <li class="remindList"><a id="SELL_PASS" href="#">&nbsp;&nbsp;&nbsp;上架通過&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>  
-                                        <li class="remindList"><a id="SELL_NO_PASS" href="#">&nbsp;&nbsp;&nbsp;上架不通過&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li> 
-                                        <li class="remindList"><a href="#">&nbsp;&nbsp;&nbsp;訂單結案&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>  
-                                        <li class="remindList"><a href="#">&nbsp;&nbsp;&nbsp;追蹤提醒&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>                                                                
+                  						<li class="remindList"><a id="SCES_RENT" href="#">   成功出租&nbsp;<font class="badge pull-right">0</font></a></li>
+                  						<li class="remindList"><a id="SCES_TEN" href="#">    成功承租<font class="badge pull-right">0</font></a></li>
+                  						<li class="remindList"><a id="CF_RENT" href="#">     出租確認<font class="badge pull-right">0</font></a></li>
+                  						<li class="remindList"><a id="PRENT" href="#">       預約通知<font class="badge pull-right">0</font></a></li>
+                  						<li class="remindList"><a id="NTC_SHIP" href="#">    出貨通知<font class="badge pull-right">0</font></a></li>
+                  						<li class="remindList"><a id="NTC_LEASE" href="#">   租期通知<font class="badge pull-right">0</font></a></li>
+                  						<li class="remindList"><a id="NTC_RETR" href="#">    歸還通知<font class="badge pull-right">0</font></a></li>
+                  						<li class="remindList"><a id="ANN_BRENT" href="#">   求租公告<font class="badge pull-right">0</font></a></li>
+                  						<li class="remindList"><a id="LM_QA" href="#">       Q&A留言<font class="badge pull-right">0</font></a></li>
+                  						<li class="remindList"><a id="ASES" href="#">        評價通知<font class="badge pull-right">0</font></a></li>
+                  						<li class="remindList"><a id="OT" href="#">          逾期通知<font class="badge pull-right">0</font></a></li>  
+                                        <li class="remindList"><a id="CC_ORD" href="#">      取消訂單<font class="badge pull-right">0</font></a></li>  
+                                        <li class="remindList"><a id="SELL_PASS" href="#">   上架通過<font class="badge pull-right">0</font></a></li>  
+                                        <li class="remindList"><a id="SELL_NO_PASS" href="#">上架不通過<font class="badge pull-right">0</font></a></li> 
+                                        <li class="remindList"><a href="#">                  訂單結案<font class="badge pull-right">0</font></a></li>  
+                                        <li class="remindList"><a href="#">                  追蹤提醒<font class="badge pull-right">0</font></a></li>                                                                
                                 
                             </ul>
                         </li>

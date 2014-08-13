@@ -94,7 +94,7 @@ $(document).ready(
 				case "rent":
 					$("#listAllRent").load("rent/listAllRent.jsp",function() {
 //						此區看是否有後續動作要做
-//						$.getScript("js/rent/listAllRent.js");
+//						$.getScript("js/rent/rent.js");
 					});
 					break;
 				case "temp1":
