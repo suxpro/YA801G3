@@ -7,7 +7,7 @@ $(document).ready(function() {
 	setRemindListNum();
 	
 	function run() {
-	    intervalID = window.setInterval(setRemindListNum, 30*1000); //30秒跑一次
+	    intervalID = window.setInterval(setRemindListNum, 60*1000); //60秒跑一次
 	}
 	
 	function stop() {
@@ -26,14 +26,15 @@ $(document).ready(function() {
 			},
 			dataType : "json",
 			success : function(jsonData) {
-//				$("#infoRentShow").html(data);
+//				var jsonArray = [];
 				for (var key in jsonData) {
-					console.log(key + ' is ' + jsonData[1]);
-					
+//					console.log(key + ' is ' + jsonData[key]);
+//					jsonArray.push(jsonData[key]);
+					$("#remindMain .remindList a:contains("+key+")").find("font").text(jsonData[key]);
 				}
-				$("#remindMain .remindList").each(function( index ){
-					$(this).find("font").text(index);
-				});
+//				$("#remindMain .remindList").each(function( index ){
+//					$(this).find("font").text(jsonArray[index]);
+//				});
 			},
 			error : function() {
 				console.log("尚未登入!");

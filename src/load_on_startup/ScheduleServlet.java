@@ -30,7 +30,7 @@ public class ScheduleServlet extends HttpServlet {
 					// 停權是終身停權
 	Send sendMessage = new Send();
 	int count = 0;
-
+	
 	public void init() throws ServletException {
 		// 租約到期塞提醒資料表且改訂單狀態為租約到期
 		TimerTask task1 = new TimerTask() {
@@ -183,68 +183,38 @@ public class ScheduleServlet extends HttpServlet {
 			RemindService remindSvc = new RemindService();
 			List<RemindVO> listRemindVO = remindSvc.ajaxGetMemRemind(
 					memberVO.getMno(), "N");
-
+			
+			ArrayList<String> arrayRemind = new ArrayList<String>();
+			arrayRemind.add("成功出租");
+			arrayRemind.add("成功承租");
+			arrayRemind.add("出租確認");
+			arrayRemind.add("預約");
+			arrayRemind.add("出貨通知");
+			arrayRemind.add("租期通知");
+			arrayRemind.add("歸還通知");
+			arrayRemind.add("求租公告");
+			arrayRemind.add("Q&A留言");
+			arrayRemind.add("評價");
+			arrayRemind.add("逾期通知");
+			arrayRemind.add("取消訂單");
+			arrayRemind.add("上架通過");
+			arrayRemind.add("上架不通過");
+			arrayRemind.add("訂單結案");
+			arrayRemind.add("追蹤提醒");
+			
 			// 用JSON存提醒數字,回傳呼叫的AJAX
-			Map<String, Integer> map = new HashMap<String, Integer>();
-			map.put("成功出租", 0);
-			map.put("成功承租", 0);
-			map.put("出租確認", 0);
-			map.put("預約", 0);
-			map.put("出貨通知", 0);
-			map.put("租期通知", 0);
-			map.put("歸還通知", 0);
-			map.put("求租公告", 0);
-			map.put("Q&A留言", 0);
-			map.put("評價", 0);
-			map.put("逾期通知", 0);
-			map.put("取消訂單", 0);
-			map.put("上架通過", 0);
-			map.put("上架不通過", 0);
+			Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+			for(String strRemind : arrayRemind){
+				map.put(strRemind, 0);
+			}
+			
 			JSONObject jsonObj = new JSONObject(map);
 			for (RemindVO remindVO : listRemindVO) {
 				try {
-					if ("成功出租".equals(remindVO.getRstas())) {
-						jsonObj.put("成功出租", (Integer) jsonObj.get("成功出租") + 1);
-
-					} else if ("成功承租".equals(remindVO.getRstas())) {
-						jsonObj.put("成功承租", (Integer) jsonObj.get("成功承租") + 1);
-
-					} else if ("出租確認".equals(remindVO.getRstas())) {
-						jsonObj.put("出租確認", (Integer) jsonObj.get("出租確認") + 1);
-
-					} else if ("預約".equals(remindVO.getRstas())) {
-						jsonObj.put("預約", (Integer) jsonObj.get("預約") + 1);
-
-					} else if ("出貨通知".equals(remindVO.getRstas())) {
-						jsonObj.put("出貨通知", (Integer) jsonObj.get("出貨通知") + 1);
-
-					} else if ("租期通知".equals(remindVO.getRstas())) {
-						jsonObj.put("租期通知", (Integer) jsonObj.get("租期通知") + 1);
-
-					} else if ("歸還通知".equals(remindVO.getRstas())) {
-						jsonObj.put("歸還通知", (Integer) jsonObj.get("歸還通知") + 1);
-
-					} else if ("求租公告".equals(remindVO.getRstas())) {
-						jsonObj.put("求租公告", (Integer) jsonObj.get("求租公告") + 1);
-
-					} else if ("Q&A留言".equals(remindVO.getRstas())) {
-						jsonObj.put("Q&A留言", (Integer) jsonObj.get("Q&A留言") + 1);
-
-					} else if ("評價".equals(remindVO.getRstas())) {
-						jsonObj.put("評價", (Integer) jsonObj.get("評價") + 1);
-
-					} else if ("逾期通知".equals(remindVO.getRstas())) {
-						jsonObj.put("逾期通知", (Integer) jsonObj.get("逾期通知") + 1);
-
-					} else if ("取消訂單".equals(remindVO.getRstas())) {
-						jsonObj.put("取消訂單", (Integer) jsonObj.get("取消訂單") + 1);
-
-					} else if ("上架通過".equals(remindVO.getRstas())) {
-						jsonObj.put("上架通過", (Integer) jsonObj.get("上架通過") + 1);
-
-					} else if ("上架不通過".equals(remindVO.getRstas())) {
-						jsonObj.put("上架不通過", (Integer) jsonObj.get("上架不通過") + 1);
-
+					for(String strRemind : arrayRemind){
+						if (strRemind.equals(remindVO.getRstas())) {
+							jsonObj.put(strRemind, (Integer) jsonObj.get(strRemind) + 1);
+						}
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -254,7 +224,7 @@ public class ScheduleServlet extends HttpServlet {
 			res.setContentType("text/html;charset=utf-8");
 			res.setHeader("Cache-Control", "no-cache");
 			PrintWriter out = res.getWriter();
-			// System.out.println("ScheduleServlet.208.jsonObj:\n" + jsonObj);
+//			System.out.println("ScheduleServlet.208.jsonObj:\n" + jsonObj);
 			out.write(jsonObj.toString());
 			out.flush();
 			out.close();

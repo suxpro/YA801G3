@@ -68,7 +68,9 @@ padding-top: 14px;
                   						<li class="remindList"><a id="OT" href="#">&nbsp;&nbsp;&nbsp;逾期通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>  
                                         <li class="remindList"><a id="CC_ORD" href="#">&nbsp;&nbsp;&nbsp;取消訂單&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>  
                                         <li class="remindList"><a id="SELL_PASS" href="#">&nbsp;&nbsp;&nbsp;上架通過&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>  
-                                        <li class="remindList"><a id="SELL_NO_PASS" href="#">&nbsp;&nbsp;&nbsp;上架不通過&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>                                                               
+                                        <li class="remindList"><a id="SELL_NO_PASS" href="#">&nbsp;&nbsp;&nbsp;上架不通過&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li> 
+                                        <li class="remindList"><a href="#">&nbsp;&nbsp;&nbsp;訂單結案&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>  
+                                        <li class="remindList"><a href="#">&nbsp;&nbsp;&nbsp;追蹤提醒&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="badge">0</font></a></li>                                                                
                                 
                             </ul>
                         </li>
