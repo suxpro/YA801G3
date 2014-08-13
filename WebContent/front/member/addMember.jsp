@@ -75,15 +75,15 @@ function submitForm(){
 									<!-- 會員帳號 -->
 									<div class="control-group  ">
 										<label class="control-label" for="mid">會員帳號 </label> 
-										<input type="text" id="mid" name="mid" value="<%=(memberVO == null) ? "" : memberVO.getMid()%>" class="col-xs-offset-1" ruquired/>
+										<input type="text" id="mid" name="mid" value="<%=(memberVO == null) ? "" : memberVO.getMid()%>" class="col-xs-offset-1 " maxlength="10"  required />
+										
 									</div>
 
 									<!-- 會員密碼 -->
 									<div class="control-group  ">
 										<label class="control-label" for="mpwd">會員密碼</label> <input
 											type="password" id="mpwd" name="mpwd"
-											value="<%=(memberVO == null) ? "" : memberVO.getMpwd()%>" class="col-xs-offset-1"
-											ruquired/>
+											value="<%=(memberVO == null) ? "" : memberVO.getMpwd()%>" class="col-xs-offset-1" required />
 									</div>
 
 
@@ -91,8 +91,7 @@ function submitForm(){
 									<div class="control-group  ">
 										<label class="control-label" for="mname">會員姓名</label> <input
 											type="text" id="mname" name="mname"
-											value="<%=(memberVO == null) ? "" : memberVO.getMname()%>" class="col-xs-offset-1"
-											ruquired/>
+											value="<%=(memberVO == null) ? "" : memberVO.getMname()%>" class="col-xs-offset-1" required />
 									</div>
 
 									<!-- 會員性別 -->
@@ -109,8 +108,7 @@ function submitForm(){
 									<div class="control-group  ">
 										<label class="control-label" for="mcell">會員手機</label> <input
 											type="text" id="mcell" name="mcell"
-											value="<%=(memberVO == null) ? "" : memberVO.getMcell()%>" class="col-xs-offset-1"
-											ruquired/>
+											value="<%=(memberVO == null) ? "" : memberVO.getMcell()%>" class="col-xs-offset-1" required />
 
 									</div>
 
@@ -139,7 +137,7 @@ function submitForm(){
 									<!-- 會員地址 -->
 									<div class="control-group ">
 										<label class="control-label" for="madrs">會員地址</label> 
-										<input type="text" id="madrs" name="madrs" value="<%=(memberVO == null) ? "" : memberVO.getMadrs()%>" class="col-xs-offset-1" ruquired="ruquired"/>
+										<input type="text" id="madrs" name="madrs" value="<%=(memberVO == null) ? "" : memberVO.getMadrs()%>" class="col-xs-offset-1" required />
 
 									</div>
 
@@ -163,16 +161,20 @@ function submitForm(){
 								</div>
 								<!-- 圖片排版 -->
 								
-								<div class=" col-xs-offset-0 sidebar-offcanvas">
+								<div class=" col-xs-offset-6 sidebar-offcanvas ">
 									<%-- 錯誤表列 --%>
 									<c:if test="${not empty errorMsgs}">
-										<font color='red'>請修正以下錯誤:
-											<ul>
+									<div id="errorBox" class="alert alert-error">
+									<a class="close" data-dismiss="alert" href="#">×</a>										
+										<ul class="errorBoxUl">
+											<font  class="bg-danger" color='red'>請修正以下錯誤
 												<c:forEach var="message" items="${errorMsgs}">
-													<li>${message.value}</li>
+													<li class="bg-danger">${message.value}</li>												
 												</c:forEach>
-											</ul>
-										</font>
+											</font>
+										</ul>
+										
+									</div>
 									</c:if>
 								</div>
 							
@@ -210,5 +212,3 @@ function submitForm(){
 </body>
 </html>
 
-
-<li><a href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">歷史租借查詢</a></li>
