@@ -85,7 +85,7 @@ padding-top: 14px;
                                 <li><a href="#" onclick="document.MemInfo.submit();">會員資料</a>
                                 	<FORM name="MemInfo" METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/member.do">
 										<input type="hidden" name="mno" value="${memberVO.mno}"> 						
-										<input type="hidden" name="action" value="getOne_For_Display">
+										<input type="hidden" name="action" value="getOne_MemberInfo_Display">
 									</FORM>
                                 </li>
                                 

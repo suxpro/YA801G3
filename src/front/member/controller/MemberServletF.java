@@ -178,6 +178,72 @@ public class MemberServletF extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("getOne_MemberInfo_Display".equals(action)) { // 來自select_page.jsp的請求
+
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String str = req.getParameter("mno");
+				if (str == null || (str.trim()).length() == 0) {
+					errorMsgs.put("mno", "請輸入會員編號");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front/member/select_page.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				String mno = null;
+				try {
+					mno = new String(str);
+				} catch (Exception e) {
+					errorMsgs.put("mno", "會員編號格式不正確");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front/member/select_page.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				/*************************** 2.開始查詢資料 *****************************************/
+				MemberDAO dao = new MemberDAO();
+				MemberVO memberVO = dao.findByPrimaryKey(mno);
+				if (memberVO == null) {
+					errorMsgs.put("mno", "查無資料");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front/member/select_page.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("memberVO", memberVO); // 資料庫取出的empVO物件,存入req
+				String url = "/front/member/listOneMemberInfo.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交
+																				// listOneEmp.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.put("Exception", "無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front/member/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+
 
 		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
 
@@ -460,7 +526,8 @@ public class MemberServletF extends HttpServlet {
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
+			res.setContentType("text/html;charset=utf-8");
+			req.setAttribute("errorMsgs", errorMsgs);			
 
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
@@ -621,7 +688,13 @@ public class MemberServletF extends HttpServlet {
 						mvpic_info);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/front/member/listAllMember.jsp";
+				req.setAttribute("memberVO", memberVO);
+				
+				String urlMail = "/front/member/JavaMailProccess.jsp";
+				RequestDispatcher successViewMail = req.getRequestDispatcher(urlMail); // 新增成功後轉交listAllEmp.jsp
+				successViewMail.include(req, res);
+				
+				String url = "/front/member/thxAddMember.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 

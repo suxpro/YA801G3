@@ -213,6 +213,16 @@ img.img-polaroid {
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 }
+/*錯誤列表*/
+#errorBox{
+padding-left: 1em; 
+/* text-indent: -.7em; */
+width: auto;
+}
+.errorBoxUl{
+list-style-type :none;
+}
+
 
 /*
  * Sidebar
