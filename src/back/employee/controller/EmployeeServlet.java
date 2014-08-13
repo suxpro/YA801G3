@@ -161,7 +161,7 @@ public class EmployeeServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					System.out.println("有errorMsgs");
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back/employee/addEmp.jsp");
+							.getRequestDispatcher("/back/employee/listAllEmp.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -189,7 +189,7 @@ public class EmployeeServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception", e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back/employee/addEmp.jsp");
+						.getRequestDispatcher("/back/employee/listAllEmp.jsp");
 				failureView.forward(req, res);
 			}
 		}

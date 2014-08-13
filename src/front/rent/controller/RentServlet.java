@@ -736,8 +736,18 @@ public class RentServlet extends HttpServlet {
 				
 				/*************************** 3.塞資料完成,準備轉交(Send the Successview) ************/
 				PrentService prentSvc = new PrentService();
-				prentSvc.addPrent(rent_no, ten_no,prent_days, prent_flag, ord_no);
-				System.out.println("RentServlet.741.租物"+rent_no+"已存Prerent");
+				List<PrentVO> listPrentVO = prentSvc.getAll(ten_no);
+				Boolean isPrent = false;
+				for(PrentVO prentVO : listPrentVO){
+					if(prentVO.getRent_no().equals(rent_no))
+						isPrent = true;
+				}
+				if(!isPrent){
+					prentSvc.addPrent(rent_no, ten_no,prent_days, prent_flag, ord_no);
+					System.out.println("RentServlet.747.租物"+rent_no+"存Prerent");
+				}else{
+					System.out.println("RentServlet.749.租物"+rent_no+"已存在");
+				}
 				
 				/*************************** 4.json測試,前端AJAX console.log接 ****************************/
 				String resJson = "{\"resJson\" : [";

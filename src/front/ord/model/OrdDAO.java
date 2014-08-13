@@ -52,6 +52,7 @@ public class OrdDAO implements OrdDAO_interface {
 	private static final String UPDATE_W_SHIP = "UPDATE ord SET ord_sta='W_SHIP', W_SHIP_TIME=SYSDATE WHERE ord_no=?";
 	private static final String UPDATE_REC_COM = "UPDATE ord SET ord_sta='REC_COM', REC_COM_TIME=SYSDATE WHERE ord_no=?";
 	private static final String UPDATE_RENT_EXP = "UPDATE ord SET ord_sta='RENT_EXP', RENT_EXP_TIME=SYSDATE WHERE ord_no=?"; //小豬加,排程器跑租約到期
+	private static final String UPDATE_OT_DAYS = "UPDATE ord SET ot_days=? WHERE ord_no=?"; //小豬加,排程器跑租約逾期1天,OT_DAYS+1
 	private static final String UPDATE_RT_COM = "UPDATE ord SET ord_sta='RT_COM', RT_COM_TIME=SYSDATE WHERE ord_no=?";
 	private static final String UPDATE_APP_RENEW = "UPDATE ord SET ord_sta=? WHERE ord_no=?";
 	private static final String UPDATE = "UPDATE ord SET rent_no=?, ten_no=?, ord_sta=?, tra_mode=?, freight=?, ten_date=?, exp_date=?, ten_days=?, rent_total=?, ot_days=?, init_dps=?, real_dps=?, tra_total=?, loc_no=?, rec_addr=?, les_ases=?, les_ases_ct=?, ten_ases=?, ten_ases_ct=?, w_apr_time=?, w_ship_time=?, dtbt_time=?, rec_com_time=?, rent_exp_time=?, rt_time=?, rt_com_time=?, cls_time=?, cc_ord_time=?, ord_cc_cause=? where ord_no=?";
@@ -302,6 +303,13 @@ public class OrdDAO implements OrdDAO_interface {
 				
 				pstmt = con.prepareStatement(UPDATE_RT_COM);
 				pstmt.setString(1, ordVO.getOrd_no());
+				pstmt.executeUpdate();
+				
+			}else if(sta.equals("OT_DAYS")){ //小豬加,排程器跑租約逾期1天,OT_DAYS+1
+				
+				pstmt = con.prepareStatement(UPDATE_OT_DAYS);
+				pstmt.setInt(1, ordVO.getOt_days());
+				pstmt.setString(2, ordVO.getOrd_no());
 				pstmt.executeUpdate();
 				
 			}
