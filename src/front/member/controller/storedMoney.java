@@ -104,7 +104,7 @@ public class storedMoney extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			HttpSession session = req.getSession();
+//			HttpSession session = req.getSession();
 
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
@@ -135,8 +135,8 @@ public class storedMoney extends HttpServlet {
 				memberVO = memberSvc.storedMoney(mno, mbalance, cash);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-				session.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
-//				req.setAttribute("memberVO", memberVO);
+//				session.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
+				req.setAttribute("memberVO", memberVO);
 //				String url = requestURL+"?whichPage="+whichPage+"&mno="+mno; // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)和修改的是哪一筆
 				
 				String url = "/front/member/listAllMember.jsp";

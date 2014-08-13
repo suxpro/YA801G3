@@ -15,60 +15,69 @@
 <title>升級會員 - updateVIP.jsp</title>
 
 <style type="text/css">
-
 #imghead2 {
 	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
 }
 
-#memform {width:94%;}
+#memform {
+	width: 94%;
+}
 
-#textbox { background-color:#FFFFE4; text-align:center;}
+#textbox {
+	background-color: #FFFFE4;
+	text-align: center;
+}
 
+#errorVIP{
+
+width: 300px;
+text-align:center;
+}
 </style>
 
 <script>
+	//確定新增按鈕
+	$("#checkVIP").off();
+	$("#checkVIP").on("submit", function(event) {
 
-//確定新增按鈕
-$("#checkVIP").off();
-$("#checkVIP").on("submit", function(event) {
-	
-// 	function() {
-// 		alert("確定升級為VIP");
-// 		}
-// 	event.preventDefault();
+		// 	function() {
+		// 		alert("確定升級為VIP");
+		// 		}
+		// 	event.preventDefault();
 
-// 	// grab all form data
-// 	var formData = new FormData($(this)[0]);
+		// 	// grab all form data
+		// 	var formData = new FormData($(this)[0]);
 
-// 	console.log(formData);
+		// 	console.log(formData);
 
-// 	$.ajax({
-// 		url : $(this).attr("value"),
-// 		type : "POST",
-// 		data : formData,
-// 		async : false,
-// 		cache : false,
-// 		contentType : false,
-// 		processData : false,
-// 		success : function(data) {
-// 			$("#addEmpModel").on("hidden.bs.modal", function(e) {
-// 				$("#listAllEmp").html(data);
-// 			}).modal("hide");
-// 		},
-// 		error : function() {
-// 			alert("系統異常!");
-// 		}
+		// 	$.ajax({
+		// 		url : $(this).attr("value"),
+		// 		type : "POST",
+		// 		data : formData,
+		// 		async : false,
+		// 		cache : false,
+		// 		contentType : false,
+		// 		processData : false,
+		// 		success : function(data) {
+		// 			$("#addEmpModel").on("hidden.bs.modal", function(e) {
+		// 				$("#listAllEmp").html(data);
+		// 			}).modal("hide");
+		// 		},
+		// 		error : function() {
+		// 			alert("系統異常!");
+		// 		}
 	});
-
-
 </script>
 
 
-<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/front/css/justrent.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css"
+	rel="stylesheet" media="screen">
+<link href="<%=request.getContextPath()%>/front/css/justrent.css"
+	rel="stylesheet">
 <script src="<%=request.getContextPath()%>/front/js/jquery-1.7.2.min.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/bootstrap.min.js"></script>
-<script	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
+<script
+	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/jquery.color.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/justrent.js"></script>
 
@@ -82,90 +91,106 @@ $("#checkVIP").on("submit", function(event) {
 
 	<div class="container">
 		<div class="row">
-		
-<!-- SideBar -->
+
+			<!-- SideBar -->
 			<div class="col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
 					<li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
 					<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
-					<li class="active"><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
-					<li><a href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物管理</a></li>
+					<li class="active"><a href="#"
+						onclick="document.updateVIP.submit();">升級會員</a></li>
+					<li><a
+						href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物管理</a></li>
 					<li><a href="#">出租管理</a></li>
 					<li><a href="#">訂單管理</a></li>
-					<li><a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借查詢</a></li>
+					<li><a
+						href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借查詢</a></li>
 				</ul>
 			</div>
-			
-<!-- Form -->
-			<div class="col-md-offset-0">
-			
-					<form class="form-horizontal" id="memform" METHOD="post"
-						ACTION="<%=request.getContextPath()%>/front/member/memberVIP.do"
-						name="form1" enctype="multipart/form-data" role="form">
-						<fieldset>
-							<div id="legend">
-								<legend class="">
-									<h2>
-										<b>升級會員</b>
-									</h2>
-								</legend>
-							</div>
 
-							<div class="row row-offcanvas row-offcanvas-light">
-								<div class="col-xs-4 col-xs-offset-3">
-									<!-- 排版 -->
-									
-									<!-- 會員帳戶餘額 -->
-									<div id="textbox" class="control-group  ">
-										<h3>									
-										<label class="control-label" for="mbalance">&nbsp;&nbsp;贊助 JUSTRENT!</label>
-										</h3>
-										<br/>
-										<label class="control-label" for="mbalance">&nbsp;&nbsp;3000 NT 永久VIP會員</label> 										
-										<a href="#" class="control-label" for="mbalance" data-toggle="modal" data-target="#VIP">VIP有何好處?</a>  
-										<input type="hidden" id="mbalance" name="vip" value="3000" class="col-xs-offset-1" />
-										<br/>
-										<br/>
-									</div>
-								</div>
+			<!-- Form -->
+			<div class="col-md-offset-0">
+
+				<form class="form-horizontal" id="memform" METHOD="post"
+					ACTION="<%=request.getContextPath()%>/front/member/memberVIP.do"
+					name="form1" enctype="multipart/form-data" role="form">
+					<fieldset>
+						<div id="legend">
+							<legend class="">
+								<h2>
+									<b>升級會員</b>
+								</h2>
+							</legend>
+						</div>
+
+						<div class="row row-offcanvas row-offcanvas-light">
+							<div class="col-xs-4 col-xs-offset-3">
 								<!-- 排版 -->
-								
-	<!-- modal VIP-->
-	<div class="modal fade" id="VIP" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">VIP特級會員是什麼?</h4>
-				</div>
-				<!-- agreement -->
-				<div class="modal-body">
-					<%@ include file="/front/member/whatVIP.jsp"%>
-				</div>
-			</div>
-		</div>
-	</div>
-							
+
+								<!-- 會員帳戶餘額 -->
+								<div id="textbox" class="control-group  ">
+									<h3>
+										<label class="control-label" for="mbalance">&nbsp;&nbsp;贊助
+											JUSTRENT!</label>
+									</h3>
+									<br /> <label class="control-label" for="mbalance">&nbsp;&nbsp;3000
+										NT 永久VIP會員</label> <a href="#" class="control-label" for="mbalance"
+										data-toggle="modal" data-target="#VIP">VIP有何好處?</a> <input
+										type="hidden" id="mbalance" name="vip" value="3000"
+										class="col-xs-offset-1" /> <br /> <br />
+								</div>
+																           								
 							</div>
-							<br/>
-							
-									<!-- Submit -->
-									<div class="control-group col-md-offset-9">
-										<div class="controls">
-											<input type="hidden" name="action" value="updateVIP">
-											<input type="hidden" name="mno" value="<%=memberVO.getMno()%>">
-											<input type="hidden" id="mlev" name="mlev" value=V class="col-xs-offset-1">
-											<button class="btn btn-success" id="checkVIP">確定</button>
+							<!-- 排版 -->
+
+							<!-- modal VIP-->
+							<div class="modal fade" id="VIP" tabindex="-1" role="dialog"
+								aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">
+												<span aria-hidden="true">&times;</span> <span
+													class="sr-only">Close</span>
+											</button>
+											<h4 class="modal-title" id="myModalLabel">VIP特級會員是什麼?</h4>
+										</div>
+										<!-- agreement -->
+										<div class="modal-body">
+											<%@ include file="/front/member/whatVIP.jsp"%>
 										</div>
 									</div>
+								</div>
+							</div>
+
+						</div>
+						
+						        <div id="errorVIP" class="col-xs-offset-3 ">
+									<%-- 錯誤表列 --%>
+									<c:if test="${not empty errorMsgs}">
+										<div class="alert alert-error">
+                							<a class="close" data-dismiss="alert" href="#">×</a><p class="bg-danger"><font color='red'>${errorMsgs.mbalance}</font></p>
+            							</div>
+									</c:if>
+								</div>
+						
+						<br />
+
+						<!-- Submit -->
+						<div class="control-group col-md-offset-9">
+							<div class="controls">
+								<input type="hidden" name="action" value="updateVIP"> <input
+									type="hidden" name="mno" value="<%=memberVO.getMno()%>">
+								<input type="hidden" id="mlev" name="mlev" value=V
+									class="col-xs-offset-1">
+								<button class="btn btn-success" id="checkVIP">確定</button>
+							</div>
+						</div>					
 
 
 
-						</fieldset>
-					</form>
+					</fieldset>
+				</form>
 
 			</div>
 

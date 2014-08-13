@@ -112,10 +112,17 @@ public class updateVIP extends HttpServlet {
 				
 				MemberService memberSvcxx = new MemberService();
 				MemberVO memberVO = memberSvcxx.getOneMember(mno);
-
+				
 				Double mbalance = memberVO.getMbalance();
 				Double vip = new Double(multi.getParameter("vip"));
-				mbalance -= vip ;
+				
+				if(mbalance >= 3000){					
+					mbalance -= vip ;
+					
+				}else {
+					errorMsgs.put("mbalance", "餘額不足請先儲值。");					
+				}
+				
 
 //				MemberVO memberVO = new MemberVO();
 				memberVO.setMno(mno);

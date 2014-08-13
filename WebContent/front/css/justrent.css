@@ -219,8 +219,8 @@ img.img-polaroid {
  */
 @media (min-width: 768px) {
   .sidebar {
-    top: 72px;
-    bottom: 0;
+/*     top: 72px; */
+    bottom: auto;
     left: 0;
     display: block;
     padding: 0px 8px 6px;
@@ -397,6 +397,9 @@ ul.nav li.dropdown ul.dropdown-menu .dropdown-plus-title {
 
 .dropdown-b {
      list-style-type :none;
+     padding-left: 1em; 
+     text-indent: -.7em;
+     color:#ff0000;    
 }
 
 

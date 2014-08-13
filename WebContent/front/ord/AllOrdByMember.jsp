@@ -7,25 +7,27 @@
 <%@ page import="front.ord.model.*"%>
 
 <%
-MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 String mno  = memberVO.getMno();
 
 OrdService ordSvc = new OrdService();
 List<OrdVO> list = ordSvc.getAllOrdByMember(mno);
 
 pageContext.setAttribute("list", list);
-
 %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/front/css/justrent.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css"
+	rel="stylesheet" media="screen">
+<link href="<%=request.getContextPath()%>/front/css/justrent.css"
+	rel="stylesheet">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/bootstrap.min.js"></script>
-<script	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
+<script
+	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/jquery.color.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/justrent.js"></script>
 <head>
@@ -37,21 +39,31 @@ pageContext.setAttribute("list", list);
 	<div class="container">
 		<div class="row">
 
-<!-- SideBar -->
+			<!-- SideBar -->
 			<div class="col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
 					<li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
 					<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
 					<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
-					<li><a href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物管理</a></li>
+					<li><a
+						href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物管理</a></li>
 					<li><a href="#">出租管理</a></li>
 					<li><a href="#">訂單管理</a></li>
-					<li class="active"><a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借查詢</a></li>
+					<li class="active"><a
+						href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借查詢</a></li>
 				</ul>
 			</div>
-			
-<!-- Form -->
-			<div class="col-md-offset-0">
+
+			<!-- Form -->
+			<div class="col-md-10 col-md-offset-0">
+
+				<div id="legend">
+					<legend class="">
+						<h2>
+							<b>歷史租借查詢</b>
+						</h2>
+					</legend>
+				</div>
 
 				<table border='1' bordercolor='#CCCCFF' align='center'>
 					<tr>
@@ -76,15 +88,15 @@ pageContext.setAttribute("list", list);
 					<c:forEach var="ordVO" items="${list}" begin="<%=pageIndex%>"
 						end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
 						<%
-				    RentService rentSVC = new RentService();
-			    			RentVO rentVO = rentSVC.getOneRent(((OrdVO)pageContext.getAttribute("ordVO")).getRent_no());
-					pageContext.setAttribute("rentVO",rentVO);
-					//查出承租者聯絡資料
-					MemberService memberSVC = new MemberService();
-					MemberVO tenVO = memberSVC.getOneMember(((OrdVO)pageContext.getAttribute("ordVO")).getTen_no());
-					MemberVO tenVOxx = memberSVC.getOneMember(((OrdVO)pageContext.getAttribute("ordVO")).getLes_no());
-// 					pageContext.setAttribute("lesVO",lesVO);
-			%>
+							RentService rentSVC = new RentService();
+							    			RentVO rentVO = rentSVC.getOneRent(((OrdVO)pageContext.getAttribute("ordVO")).getRent_no());
+									pageContext.setAttribute("rentVO",rentVO);
+									//查出承租者聯絡資料
+									MemberService memberSVC = new MemberService();
+									MemberVO tenVO = memberSVC.getOneMember(((OrdVO)pageContext.getAttribute("ordVO")).getTen_no());
+									MemberVO tenVOxx = memberSVC.getOneMember(((OrdVO)pageContext.getAttribute("ordVO")).getLes_no());
+						// 					pageContext.setAttribute("lesVO",lesVO);
+						%>
 
 						<tr align='center' valign='middle'>
 
@@ -134,6 +146,10 @@ pageContext.setAttribute("list", list);
 
 		</div>
 	</div>
+	
+	<br/><br/><br/><br/>
+	
 	<%@ include file="/front/footer.jsp"%>
+		
 </body>
 </html>
