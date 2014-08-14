@@ -165,18 +165,9 @@
 	<form method="post" action="<%=request.getContextPath()%>/front/ord/ord.do" name="form1">
 		<table border="0" cellspacing="10">
 
-			<!-- 			<tr> -->
-			<!-- 				<td>訂單編號:<font color=red><b>*</b></font></td> -->
-			<!-- 				<td><input type="TEXT" name="ord_no" size="10" -->
-			<%-- 					value="<%=ordVO.getOrd_no()%>" readonly="readonly" /></td> --%>
-			<!-- 			</tr> -->
-			<!-- 			<tr> -->
-			<!-- 				<td>租物編號:<font color=red><b>*</b></font></td> -->
-			<!-- 				<td> -->
+
 			<input type="hidden" name="rent_no" size="10" value="<%=rentVO.getRent_no()%>" readonly="readonly" />
 			<input type="hidden" name="les_no" size="6" value="<%=rentVO.getLes_no()%>" readonly="readonly" />
-			<!-- 				</td> -->
-			<!-- 			</tr> -->
 			<tr>
 				<td>租物名稱:<font color=red></font></td>
 				<td><input type="TEXT" name="rent_name" value="<%=rentVO.getRent_name()%>" readonly="readonly" /></td>
