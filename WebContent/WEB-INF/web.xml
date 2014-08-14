@@ -83,6 +83,14 @@
 		<url-pattern>/back/rent/rent.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>ShipServlet</servlet-name>
+		<servlet-class>back.ship.controller.ShipServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShipServlet</servlet-name>
+		<url-pattern>/back/ship/ship.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>OrdServlet</servlet-name>
 		<servlet-class>front.ord.controller.OrdServlet</servlet-class>
 	</servlet>
