@@ -116,13 +116,21 @@ public class updateVIP extends HttpServlet {
 				Double mbalance = memberVO.getMbalance();
 				Double vip = new Double(multi.getParameter("vip"));
 				
-				if(mbalance >= 3000){					
-					mbalance -= vip ;
-					
-				}else {
-					errorMsgs.put("mbalance", "餘額不足請先儲值。");					
-				}
+				String BeforeLev = memberVO.getMlev();
+//				System.out.printf(BeforeLev);
 				
+				if(!(BeforeLev.equals(mlev))){					
+					if(mbalance >= 3000){					
+						mbalance -= vip ;
+						
+						}else {
+					
+							errorMsgs.put("mbalance", "餘額不足請先儲值。");					
+						}
+				}else{
+					errorMsgs.put("mbalance", "已是 VIP 特級會員。");
+				}
+								
 
 //				MemberVO memberVO = new MemberVO();
 				memberVO.setMno(mno);
@@ -143,11 +151,15 @@ public class updateVIP extends HttpServlet {
 				memberVO = memberSvc.updateVIP(mno, mlev, mbalance, vip);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+				
+				MemberService memberSvcInfo = new MemberService();
+				memberVO = memberSvcInfo.getOneMember(mno);
+				
 				req.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				
 //				String url = requestURL+"?whichPage="+whichPage+"&mno="+mno; // 送出修改的來源網頁的第幾頁(只用於:istAllEmp.jsp)和修改的是哪一筆
 				
-				String url = "/front/member/listAllMember.jsp";
+				String url = "/front/member/listOneMemberInfo.jsp";
 				
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);

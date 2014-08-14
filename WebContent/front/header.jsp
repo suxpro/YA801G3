@@ -11,7 +11,7 @@ pageContext.setAttribute("memberSvcMoney", memberSvc);
 %>
 
 <script>
-    $.getScript("js/remind/remind.js");
+    $.getScript("<%=request.getContextPath()%>/front/js/remind/remind.js");
 </script>
 
 <style>

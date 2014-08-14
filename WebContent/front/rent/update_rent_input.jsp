@@ -7,25 +7,76 @@
 %>
 <html>
 <head>
-<title>租物資料修改 - update_rent_input.jsp</title>
 </head>
 <link rel="stylesheet" type="text/css" href="js/calendar.css">
 <script language="JavaScript" src="js/calendarcode.js"></script>
 <div id="popupcalendar" class="text"></div>
 
-<body bgcolor='white' align='center'>
+<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css"
+	rel="stylesheet" media="screen">
+<link href="<%=request.getContextPath()%>/front/css/justrent.css"
+	rel="stylesheet">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="<%=request.getContextPath()%>/front/js/bootstrap.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
+<script src="<%=request.getContextPath()%>/front/js/jquery.color.js"></script>
+<script src="<%=request.getContextPath()%>/front/js/justrent.js"></script>
 
-	<table border='1' cellpadding='5' cellspacing='0' width='600' align='center'>
-		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-			<td>
-				<h3>租物資料修改 - update_rent_input.jsp</h3> 
-				<a href="<%=request.getContextPath() %>/front/rent/listAllRent.jsp">
-				<img src="<%=request.getContextPath() %>/front/rent/images/back1.gif" width="100" height="32" border="0">回租物管理清單</a>
-			</td>
-		</tr>
-	</table>
 
-	<h3>租物資料修改:</h3>
+<body >
+
+	<%@ include file="/front/header.jsp"%>
+
+	<div class="container">
+		<div class="row">
+
+			<!-- SideBar -->
+			<div class="col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
+					<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
+					<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
+
+					<li class="active dropdown-a"><a tabindex="-1" href="#area1">租物管理</a>
+						<ul id="area1" class="dropdown-b">
+							<li><a tabindex="-1"
+								href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">[租物資料]</a></li>
+							<li><a href="<%=request.getContextPath()%>/front/rent/addRent.jsp">[新增租物]</a></li>
+						</ul>
+
+					</li>
+
+					<li class="dropdown-a"><a tabindex="-1" href="#">出租管理</a>
+						<ul class="dropdown-b">
+							<li><a tabindex="-1" href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">[訂單核准]</a></li>
+							<li><a href="#">[承租人評價/檢舉]</a></li>
+						</ul></li>
+
+					<li class="dropdown-a"><a tabindex="-1" href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租管理</a>
+						<ul class="dropdown-b">
+							<li><a tabindex="-1" href="<%=request.getContextPath()%>/front/cart/cart.jsp">[租物清單]</a></li>
+							<li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">[追蹤清單]</a></li>
+							<li><a href="#">[續租查詢]</a></li>
+							<li><a href="#">[租物評價/檢舉]</a></li>
+						</ul></li>
+
+					<li><a
+						href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借查詢</a></li>
+				</ul>
+			</div>
+
+			<div class="col-md-10 col-md-offset-0">
+				<div id="legend">
+					<legend class="">
+						<h2>
+							<b>租物資料修改</b>
+						</h2>
+					</legend>
+				</div>
+
+				<div class="col-md-12 col-md-offset-0">
+
 	<%-- 錯誤表列 --%>
 	<script>
 	<c:if test="${not empty errorMsgs}">
@@ -43,7 +94,7 @@
 <%-- 	</c:if> --%>
 
 	<FORM METHOD="post" ACTION="<%=request.getContextPath() %>/front/rent/rent.do" name="form1" enctype="multipart/form-data">
-		<table border="0" align='center'>
+		<table border="0" >
 
 <!-- 			<tr> -->
 <!-- 				<td>租物編號:<font color=red><b>*</b></font></td> -->
@@ -157,5 +208,9 @@
 			type="submit" value="送出修改">
 	</FORM>
 
+</div>
+</div>
+</div>
+	<%@ include file="/front/footer.jsp"%>
 </body>
 </html>

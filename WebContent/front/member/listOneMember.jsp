@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=BIG5">
-<title>會員資料 - MemberInfo</title>
+<title>JustRent! - 會員資料 </title>
 
 <style type="text/css">
 #preview {
@@ -67,7 +67,6 @@
 			<th>違規次數</th>
 			<th>會員郵件</th>
 			<th>地區</th>
-			<th>會員驗證</th>
 			<th>加入日期</th>
 			<th>會員圖片</th>
 
@@ -83,7 +82,6 @@
 			<td>${memberVO.millegal}</td>
 			<td>${memberVO.mmail}</td>
 			<td>${loc_staMap[memberVO.locno]}</td>
-			<td>${mem_staMap[memberVO.mverification]}</td>
 			<td>${memberVO.mdate}</td>
 			<td><img id="mpic" width="80" height="80"
 					src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_PIC"></td>
