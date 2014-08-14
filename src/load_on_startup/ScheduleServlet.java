@@ -51,8 +51,9 @@ public class ScheduleServlet extends HttpServlet {
 						if ((nowDate.getTime() - ordDate.getTime()) >= 0) { // 如果當前時間超過租物期限,則為租約到期
 							ordSvc.updateOrd(ordVO, "RENT_EXP");
 							System.out
-									.println(ordVO.getOrd_no()
-											+ "租約到期,修改訂單狀態從\"REC_COM收貨完成\"至\"RENT_EXP租約到期\"");
+									.println("訂單:"+ordVO.getOrd_no()+"租約到期\n"
+											+ "時間:" + nowDate
+											+ "\n修改訂單狀態至\"RENT_EXP租約到期\"");
 							// System.out.println("nowDate = " + nowDate);
 							// System.out.println("ordDate = "+ordDate);
 						}
