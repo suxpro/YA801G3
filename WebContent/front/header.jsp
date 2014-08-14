@@ -43,7 +43,7 @@ String randomName5 = listVIP.get((randomNum+4)%listVIP.size()).getMname();
 %>
 
 <script>
-    $.getScript("js/remind/remind.js");
+    $.getScript("<%=request.getContextPath()%>/front/js/remind/remind.js");
  
     $(document).ready(
     		function() { 
