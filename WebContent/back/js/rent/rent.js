@@ -9,7 +9,7 @@ $(".btnCallAjaxRent").on("click", function(event) {
 	
 	form.parent("div").dialog("close");
 	
-	console.log(form.attr("action"));
+//	console.log(form.attr("action"));
 	
 	$.ajax({
 		url : form.attr("action"),

@@ -9,7 +9,7 @@ $(".btnCallAjaxMember").on("click", function(event) {
 	
 //	form.parent("div").dialog("close");
 	
-	console.log($(this).closest("table").find("select").serialize());
+//	console.log($(this).closest("table").find("select").serialize());
 	
 	$.ajax({
 		url : table.find("form").attr("action"),

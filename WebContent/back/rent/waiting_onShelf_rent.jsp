@@ -22,7 +22,7 @@
     pageContext.setAttribute("list", list);
     int count = 0;
 %>
-<!-- <script>$.getScript("js/rent/rent.js");</script> -->
+<script>$.getScript("js/rent/rent.js");</script>
 
 <!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
 <!-- <html> -->
