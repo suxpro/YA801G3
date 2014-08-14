@@ -7,18 +7,7 @@
 <script>
 
 </script>
-<style>
-textarea {
-	margin: 15px;
-	width: 97%;
-	height: 350px;
-	overflow: auto;
-	border: 0;
-	font-size: 15px;
-	line-height: 170%;
-	font-family: Verdana, Arial, sans-serif;
-}
-</style>
+
 
 
 <head>
@@ -28,7 +17,7 @@ textarea {
 
 
 
-	<form class="form-horizontal" role="form" METHOD=POST
+	<form class="form-horizontal introText" role="form" METHOD=POST
 		ACTION="<%=request.getContextPath()%>/front/member/addMember.jsp">
 
 		<TEXTAREA id="UserNote">		

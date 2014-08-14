@@ -7,18 +7,6 @@
 <script>
 
 </script>
-<style>
-textarea {
-	margin: 15px;
-	width: 97%;
-	height: 350px;
-	overflow: auto;
-	border: 0;
-	font-size: 15px;
-	line-height: 170%;
-	font-family: Verdana, Arial, sans-serif;
-}
-</style>
 
 
 <head>

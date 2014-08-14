@@ -215,6 +215,8 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 </div>
 			</div>
 
+
+
 <div class="col-md-10 col-md-offset-0">
 				<div id="legend">
 					<legend class="">

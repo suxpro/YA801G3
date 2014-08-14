@@ -26,11 +26,11 @@
 
 <title>JustRent! - ¸Uª«¬Ò¥i¯²</title>
 
+
 </head>
 <body>
 <div id="wrapper">
 
-<%-- 	<%=memberVO.getMbalance() %> --%>
 
 	<%@ include file="/front/header.jsp"%>
 
