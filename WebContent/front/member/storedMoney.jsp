@@ -201,7 +201,7 @@
 								</div>
 								<!-- 排版 -->
 								
-								<div class="col-md-4 col-md-offset-1">
+								<div class="col-md-5 col-md-offset-1">
 									<!-- 排版 -->
 									<!-- 會員儲值方式 -->
 									<div id="textbox" class="control-group  ">
@@ -210,24 +210,24 @@
 										</h4>
 										
 										<div class="col-xs-offset-1">		
-											<select size="1" name="" onchange="Action()">
-													<option name="money" >請選擇方式</option>
-													<option value="atm" name="money" >匯款</option>
-													<option value="card" name="money" >信用卡</option>
-											</select>
+<!-- 											<select size="1" name="" onchange="Action()"> -->
+<!-- 													<option name="money" >請選擇方式</option> -->
+<!-- 													<option value="atm" name="money" >匯款</option> -->
+<!-- 													<option value="card" name="money" >信用卡</option> -->
+<!-- 											</select> -->
 											
-											<br/>
-											<input type="radio" value="money" name="money" onclick = "show()">現金付款
+											
+<!-- 											<input type="radio" value="money" name="money" onclick = "show()">現金付款 -->
 											<input type="radio" value="card" name="money" onclick = "showBank()">信用卡付款
 											<input type="radio" value="atm" name="money" onclick ="showCard()">ATM
 											
 											<div style='display:none' id="atm">
-												銀行代號：　<input type="text" name="aNum">
+												銀行代號：<input type="text" name="aNum"><br/>
 												扣款代號：<input type="text" name="sA">
 											</div>		
 											<div style='display:none' id="card">
-												信用卡號碼：<input type="text" name="cNum">
-												到期年月：<input type="text" name="mon">
+												信用卡號碼：<input type="text" name="cNum"><br/>
+												到期年月：　<input type="text" name="mon">
 											</div>
 											
             							</div>		

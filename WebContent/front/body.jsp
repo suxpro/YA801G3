@@ -13,6 +13,13 @@
 	$.getScript("js/bodyRent/bodyRent.js");
 </script>
 
+
+<style>
+#cart{
+text-align:center;
+}
+</style>
+
 <div class="container">
 	<!-- MENU -->
 	<nav class="animate">
@@ -61,21 +68,35 @@
 	<!-- /.row -->
 
 	<div class="row row-offcanvas row-offcanvas-light">
+	
+
+	
+	
 		<!-- SOS/熱門 -->
-		<div class="col-md-2 sidebar-offcanvas navbar-right"
-			id="sidebar" role="navigation">
+		<div class="col-md-2 sidebar-offcanvas navbar-right" id="sidebar" role="navigation">
+
+<!-- CART -->
+
+<div id="cart" >
+			<a href="<%=request.getContextPath()%>/front/cart/cart.jsp">
+			<i  title="Cart" style="color:#0CEEBF" class="fa fa-shopping-cart fa-5x"></i></a>
+</div>		
+			<br/><br/>
+			
 			<div class="list-group">
 				<a href="#" class="list-group-item active">即時SOS訊息</a> <a
 					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
-					class="list-group-item">會員</a> <a
-					href="<%=request.getContextPath()%>/front/prent/select_page.jsp"
-					class="list-group-item">預租</a> <a
-					href="<%=request.getContextPath()%>/front/remind/select_page.jsp"
-					class="list-group-item">提醒</a> <a
-					href="<%=request.getContextPath()%>/front/report/select_page.jsp"
-					class="list-group-item">檢舉</a> <a
-					href="<%=request.getContextPath()%>/front/trade/select_page.jsp"
-					class="list-group-item">交易</a> <a
+					class="list-group-item">Link</a> <a
+					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
+					class="list-group-item">Link</a> <a
+					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
+					class="list-group-item">Link</a> <a
+					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
+					class="list-group-item">Link</a> <a
+					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
+					class="list-group-item">Link</a> <a
+					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
+					class="list-group-item">Link</a> <a
 					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
 					class="list-group-item">Link</a> <a
 					href="<%=request.getContextPath()%>/front/member/select_page.jsp"

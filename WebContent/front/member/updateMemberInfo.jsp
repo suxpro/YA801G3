@@ -310,14 +310,43 @@
 									<input type="hidden" name="requestURL" value="<%=request.getAttribute("requestURL")%>">	<!--原送出修改的來源網頁路徑,從request取出後,再送給Controller準備轉交之用-->
 									<input type="hidden" name="whichPage" value="<%=request.getAttribute("whichPage")%>"> <!--只用於:istAllEmp.jsp-->
 									
-									<button class="btn btn-success">修改</button>
+									<!--  modal VIPBtn-->
+									<button type="button"  class="btn btn-success" data-toggle="modal" data-target="#UpdateBtn">修改</button>
+									
+<!-- 									<button class="btn btn-success">修改</button> -->
 								</div>
 							</div>
 
 						</fieldset>
-					</form>
+							<!-- modal VIP-->
+	<div class="modal fade bs-example-modal-sm" id="UpdateBtn" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true" data-toggle="false">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">會員修改資料 </h4>
+				</div>
+				<div class="modal-body">
+
+		會員資料修改成功！
+		<br/>
+		<br/>
 
 				
+		<button class="btn btn-primary col-md-offset-9" >確定</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+						
+						
+						
+					</form>
+								
 			</div>
 
 		</div>
