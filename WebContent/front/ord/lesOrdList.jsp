@@ -7,12 +7,12 @@
 <%@ page import="back.loc.model.*"%>
 
 <%
-	//	MemberVO tenVO = (MemberVO)session.getAttribute("memberVO");
-//	String ten_no = tenVO.getMno();
-	//未來要修改用這會員的MNO去查他出租的訂單
+	//取的session上的會員資料
+	MemberVO lesVO = (MemberVO)session.getAttribute("memberVO");
+	String les_no = lesVO.getMno();
+	//用這會員的MNO去查他承租的訂單
 	OrdService ordSvc = new OrdService();
-	List<OrdVO> list = ordSvc.getAll();
-	
+	List<OrdVO> list = ordSvc.getAllByMno("les", les_no);
 	pageContext.setAttribute("list", list);
 	int count = 0;
 %>

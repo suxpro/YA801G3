@@ -231,26 +231,17 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 			<tr>
 				<td align="right">租物名稱:<font color=red><b>*</b></font></td>
 				<td><input type="TEXT" name="rent_name" size="30"
-					value="${rentVO.rent_name}" /></td>
-				<td><font color="red">${errorMsgs.rent_name}</font></td>
+					value="${rentVO.rent_name}" />
+				<span><font color="red">${errorMsgs.rent_name}</font></span></td>
 			</tr>
 			<tr>
 				<td valign="top" align="right">租物描述:<font color=red><b>*</b></font></td>
 				<td><textarea name="rent_desc" maxlength="300" cols="40"
-					rows="4" style="resize: none">${rentVO.rent_desc}</textarea></td>
-				<td><font color="red">${errorMsgs.rent_desc}</font></td>
+					rows="4" style="resize: none">${rentVO.rent_desc}</textarea>
+				<span><font color="red">${errorMsgs.rent_desc}</font></span></td>
 									
 				<input type="hidden" name="les_no" size="6" value="${memberVO.mno}" />
 			</tr>
-<!-- 			<tr> -->
-<!-- 				<td align="right">出租人:<font color=red><b>*</b></font></td> -->
-<%-- 				<td><input type="hidden" name="les_no" size="6" value="${rentVO.les_no}" /></td> --%>
-<!-- 			</tr> -->
-<!-- 			<tr> -->
-<!-- 				<td align="right">租物狀態:<font color=red><b>*</b></font></td> -->
-<!-- 				<td><input type="TEXT" name="rent_sta" size="10" value="待審核" readonly="readonly" /></td> -->
-<!-- 			</tr> -->
-
 			<jsp:useBean id="tagSvc" scope="page"
 				class="back.tag.model.TagService" />
 			<tr>
@@ -260,27 +251,26 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 							<option value="${tagVO.tag_no}"
 								${(rentVO.tag_no==tagVO.tag_no)?'selected':''}>${tagVO.tag_desc}
 						</c:forEach>
-				   </select>
-			    </td>
-			   	<td><font color="red">${errorMsgs.tag_no}</font></td>
+				   </select>			    
+			   	<span><font color="red">${errorMsgs.tag_no}</font></span></td>
 			</tr>
 			<tr>
 				<td align="right">租物押金:<font color=red><b>*</b></font></td>
 				<td><input type="number" name="rent_dps" size="10"
-					value="${rentVO.rent_dps}" /> 元</td>
-				<td><font color="red">${errorMsgs.rent_dps}</font></td>
+					value="${rentVO.rent_dps}" /> 元
+				<span><font color="red">${errorMsgs.rent_dps}</font></span></td>
 			</tr>
 			<tr>
 				<td align="right">每日租金:<font color=red><b>*</b></font></td>
 				<td><input type="number" name="unit_price" size="10"
-					value="${rentVO.unit_price}" /> 元</td>
-				<td><font color="red">${errorMsgs.unit_price}</font></td>
+					value="${rentVO.unit_price}" /> 元
+				<span><font color="red">${errorMsgs.unit_price}</font></span></td>
 			</tr>
 			<tr>
 				<td align="right">出貨/回收緩衝:<font color=red><b>*</b></font></td>
 				<td><input type="number" name="reset_days" size="3"
-					value="${rentVO.reset_days}" /> 天</td>
-				<td><font color="red">${errorMsgs.reset_days}</font></td>
+					value="${rentVO.reset_days}" /> 天
+				<span><font color="red">${errorMsgs.reset_days}</font></span></td>
 			</tr>
 			
 			<jsp:useBean id="locSvc" scope="page"
@@ -292,14 +282,14 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 							<option value="${locVO.loc_no}"
 								${(rentVO.loc_no==locVO.loc_no)?'selected':'' }>${locVO.loc_desc}
 						</c:forEach>
-				</select></td>
-				<td><font color="red">${errorMsgs.loc_no}</font></td>
+				</select>
+				<span><font color="red">${errorMsgs.loc_no}</font></span></td>
 			</tr>
 			<tr>
 				<td align="right">租物地址:<font color=red><b>*</b></font></td>
 				<td><input type="TEXT" name="rent_addr" size="55"
-					value="${rentVO.rent_addr}" /></td>
-				<td><font color="red">${errorMsgs.rent_addr}</font></td>
+					value="${rentVO.rent_addr}" />
+				<span><font color="red">${errorMsgs.rent_addr}</font></span></td>
 			</tr>
 			<tr>
 				<td valign="top" align="right">租物圖片(1):<font color=red><b>*</b></font></td>
@@ -308,8 +298,8 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
     					<img id="img1" width=100 height=100 border=0 src='' class="imghead">
 					</div>
 					<input type="file" name="pic1" onchange="previewImage(this,'div1','img1')"/>
-				</td>
-				<td><font color="red">${errorMsgs.pics}</font></td>
+				
+				<span><font color="red">${errorMsgs.pics}</font></span></td>
 				
 			</tr>
 			<tr>

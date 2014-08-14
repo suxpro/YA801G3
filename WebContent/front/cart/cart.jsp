@@ -39,7 +39,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/cart/cart.jsp">
+<%-- <meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/cart/cart.jsp"> --%>
 <title>JustRent! - 租物清單</title>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
@@ -187,7 +187,7 @@
  		<script>alert("${alertMsgs.alert}");</script>
  	</c:if>
 
-	<table border='1' bordercolor='#CCCCFF' >
+	<table border='1' bordercolor='#CCCCFF'  >
 		<tr align='center' valign='middle'>
 			<th>租物圖片</th>
 			<th>租物名稱</th>

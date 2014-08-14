@@ -171,7 +171,7 @@
 				<div class="col-md-12 col-md-offset-0">
 
 
-					<table border='1' bordercolor='#CCCCFF'>
+					<table border='1' bordercolor='#CCCCFF' style="white-space: nowrap">
 						<tr align='center' valign='middle'>
 							<th>圖片</th>
 							<th>租物名稱</th>
@@ -189,11 +189,11 @@
 						</tr>
 						<%@ include file="page1.file"%>
 						<c:forEach var="rentVO" items="${list}" begin="<%=pageIndex%>"
-							end="<%=pageIndex+rowsPerPage-1%>">
+							end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
 							<tr align='center' valign='middle'>
 								<td><img width="100" height="100"
 									src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=pic1"></td>
-								<td>${rentVO.rent_name        }</td>
+								<td><a href="javascript:pressesA${s.index}()">${rentVO.rent_name}</a></td>
 								<%-- 				<td width='100px'>${rentVO.rent_desc        }</td> --%>
 								<td>${rent_staMap[rentVO.rent_sta]}</td>
 								<td>${tag_staMap[rentVO.tag_no]}</td>
@@ -229,6 +229,12 @@
 									</FORM>
 								</td>
 							</tr>
+							<script>
+							//超連結至該租物
+			         		function pressesA${s.index}(){
+			        	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+			         		}
+							</script>
 						</c:forEach>
 					</table>
 				</div>
