@@ -19,14 +19,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<<<<<<< HEAD
+
 <%-- <meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/ord/lesOrdList.jsp"> --%>
 <title>出租清單管理 - lesOrdList.jsp</title>
-=======
-<meta http-equiv="Refresh"
-	content="30;URL=<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">
-<title>JustRent - 訂單核准</title>
->>>>>>> branch 'master' of ssh://git@github.com/suxpro/YA801G3.git
+
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -77,7 +73,7 @@
 								href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">[追蹤清單]</a></li>
 							<li><a href="#">[續租查詢]</a></li>
 						</ul></li>
-<<<<<<< HEAD
+
 
 					<li><a
 						href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借查詢</a></li>
@@ -110,7 +106,7 @@
 						<script>alert("${alertMsgs.alert}");</script>
 					</c:if>
 
-					<table border='1' bordercolor='#CCCCFF' >
+					<table border='1' bordercolor='#CCCCFF' style="white-space: nowrap;" >
 						<tr>
 							<th>租物圖片</th>
 							<th>訂單編號</th>
@@ -122,10 +118,7 @@
 							<th>逾期天數</th>
 							<th>承租會員</th>
 							<th>聯絡方式</th>
-=======
->>>>>>> branch 'master' of ssh://git@github.com/suxpro/YA801G3.git
 
-<<<<<<< HEAD
 		</tr>
 		<%@ include file="page1.file"%>
 		<c:forEach var="ordVO" items="${list}" begin="<%=pageIndex%>"
@@ -140,27 +133,11 @@
 								MemberVO tenVO = memberSVC.getOneMember(((OrdVO)pageContext.getAttribute("ordVO")).getTen_no());
 								//pageContext.setAttribute("lesVO",lesVO);
 			%>
-=======
-					<li><a
-						href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借查詢</a></li>
-				</ul>
-			</div>
->>>>>>> branch 'master' of ssh://git@github.com/suxpro/YA801G3.git
 
-<<<<<<< HEAD
+
 							<tr align='center' valign='middle'>
-=======
-			<div class="col-md-10 col-md-offset-0">
-				<div id="legend">
-					<legend class="">
-						<h2>
-							<b>訂單核准</b>
-						</h2>
-					</legend>
-				</div>
->>>>>>> branch 'master' of ssh://git@github.com/suxpro/YA801G3.git
 
-<<<<<<< HEAD
+
 				<td><img width="100" height="100"
 					src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${ordVO.rent_no}&pic=pic1"></td>
 				<td><a href="javascript:pressesA${s.index}()">${ordVO.ord_no    }</a></td>
@@ -283,134 +260,6 @@
 					
 						// 設定dialog-formB
 		 				$("#dialog-formB<%=count%>").dialog({
-=======
-				<div class="col-md-12 col-md-offset-0">
-					<%-- 錯誤表列 --%>
-					<c:if test="${not empty errorMsgs}">
-						<font color='red'>請修正以下錯誤:
-							<ul>
-								<c:forEach var="message" items="${errorMsgs}">
-									<li>${message.value}</li>
-								</c:forEach>
-							</ul>
-						</font>
-					</c:if>
-
-					<%-- 一般提示 --%>
-					<c:if test="${not empty alertMsgs}">
-						<script>alert("${alertMsgs.alert}");</script>
-					</c:if>
-
-					<table border='1' bordercolor='#CCCCFF' >
-						<tr>
-							<th>租物圖片</th>
-							<th>訂單編號</th>
-							<th>租物名稱</th>
-							<th>訂單狀態</th>
-							<th>交易方式</th>
-							<th>租期</th>
-							<th>承租天數</th>
-							<th>逾期天數</th>
-							<th>承租會員</th>
-							<th>聯絡方式</th>
-
-						</tr>
-						<%@ include file="page1.file"%>
-						<c:forEach var="ordVO" items="${list}" begin="<%=pageIndex%>"
-							end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
-							<%
-								count++;
-									    RentService rentSVC = new RentService();
-								    			RentVO rentVO = rentSVC.getOneRent(((OrdVO)pageContext.getAttribute("ordVO")).getRent_no());
-										pageContext.setAttribute("rentVO",rentVO);
-										//查出承租者聯絡資料
-										MemberService memberSVC = new MemberService();
-										MemberVO tenVO = memberSVC.getOneMember(((OrdVO)pageContext.getAttribute("ordVO")).getTen_no());
-										//pageContext.setAttribute("lesVO",lesVO);
-							%>
-
-							<tr align='center' valign='middle'>
-
-								<td><img width="100" height="100"
-									src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${ordVO.rent_no}&pic=pic1"></td>
-								<td><a href="javascript:pressesA${s.index}()">${ordVO.ord_no    }</a></td>
-								<td><a href="javascript:pressesB${s.index}()">${rentVO.rent_name}</a></td>
-								<td>${ord_staMap[ordVO.ord_sta]}</td>
-								<td>${tra_staMap[ordVO.tra_mode]}</td>
-								<td>${ordVO.ten_date       }<br> ~ <br>
-									${ordVO.exp_date       }
-								</td>
-								<td>${ordVO.ten_days       }天</td>
-								<td>${ordVO.ot_days        }天</td>
-								<td><a href="javascript:pressesC${s.index}()"><%=tenVO.getMname()%></a></td>
-								<td align='left'>Mail : <a
-									href="mailto:<%=tenVO.getMmail()%>"><%=tenVO.getMmail()%></a><br>
-									Phone#: <font color='blue'><%=tenVO.getMcell()%></font></td>
-								<td>
-									<button id="app_ord<%=count%>"
-										class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-										role="button" aria-disabled="false">
-										<span>核准</span>
-									</button>
-									<form method="post"
-										action="<%=request.getContextPath()%>/front/ord/ord.do">
-										<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
-										<input type="hidden" name="action" value="update"> <input
-											type="hidden" name="sta" id="sta<%=count%>" value="W_SHIP">
-										<input type="hidden" name="reqURL"
-											value="/front/ord/lesOrdList.jsp"> <input
-											id="apply<%=count%>" type="submit" value="核准">
-									</form>
-								</td>
-								<td>
-									<button id="rt_com<%=count%>"
-										class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-										role="button" aria-disabled="false">
-										<span>回收完成</span>
-									</button>
-									<form method="post"
-										action="<%=request.getContextPath()%>/front/ord/ord.do">
-										<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
-										<input type="hidden" name="action" value="update"> <input
-											type="hidden" name="sta" id="sta<%=count%>" value="RT_COM">
-										<input type="hidden" name="reqURL"
-											value="/front/ord/lesOrdList.jsp"> <input
-											id="rt<%=count%>" type="submit" value="回收">
-									</form>
-								</td>
-								<td>
-									<button id="close<%=count%>"
-										class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-										role="button" aria-disabled="false">
-										<span>結案</span>
-									</button>
-									<form method="post"
-										action="<%=request.getContextPath()%>/front/ord/ord.do">
-										<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
-										<input type="hidden" name="action" value="update"> <input
-											type="hidden" name="sta" id="sta<%=count%>" value="CLS">
-										<input type="hidden" name="reqURL"
-											value="/front/ord/lesOrdList.jsp"> <input
-											id="cls<%=count%>" type="submit" value="結案">
-									</form>
-								</td>
-								<td>
-									<button id="cc_ord<%=count%>">取消</button>
-									<div id="dialog-form<%=count%>" title="取消訂單[${ordVO.ord_no}]">
-										<p>請輸入取消訂單的原因.</p>
-										<form method="post"
-											action="<%=request.getContextPath()%>/front/ord/ord.do">
-											<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
-											<input type="hidden" name="action" value="cancel"> <input
-												type="hidden" name="role" value="les">
-											<textarea name="ord_cc_cause" rows="4" cols="35"
-												maxlength="100"></textarea>
-											<input id="cancel<%=count%>" type="submit" value="取消">
-										</form>
-									</div> <script>
-						// 設定dialog
-		 				$("#dialog-form<%=count%>").dialog({
->>>>>>> branch 'master' of ssh://git@github.com/suxpro/YA801G3.git
 						autoOpen : false,
 						height : 300,
 						width : 400,
