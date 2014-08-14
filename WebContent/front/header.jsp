@@ -2,16 +2,83 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="BIG5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="front.member.model.*"%>
 
 <%
 MemberService memberSvc = new MemberService();
 
 pageContext.setAttribute("memberSvcMoney", memberSvc);
 
+//隨機輪播圖片
+MemberDAO dao = new MemberDAO();
+List<MemberVO> list2 = dao.getAll();
+pageContext.setAttribute("list2", list2);
+
+List<MemberVO> listVIP = new ArrayList<MemberVO>();
+for(MemberVO memberVIP : list2){	
+	if("V".equals(memberVIP.getMlev())){
+		listVIP.add(memberVIP);
+	}
+}
+int randomNum = (int)Math.floor(Math.random() * listVIP.size());
+
+String randomAd1 = listVIP.get(randomNum).getMno();
+String randomAd2 = listVIP.get((randomNum+1)%listVIP.size()).getMno();
+String randomAd3 = listVIP.get((randomNum+2)%listVIP.size()).getMno();
+String randomAd4 = listVIP.get((randomNum+3)%listVIP.size()).getMno();
+String randomAd5 = listVIP.get((randomNum+4)%listVIP.size()).getMno();
+
+String randomName1 = listVIP.get(randomNum).getMname();
+String randomName2 = listVIP.get((randomNum+1)%listVIP.size()).getMname();
+String randomName3 = listVIP.get((randomNum+2)%listVIP.size()).getMname();
+String randomName4 = listVIP.get((randomNum+3)%listVIP.size()).getMname();
+String randomName5 = listVIP.get((randomNum+4)%listVIP.size()).getMname();
+
+// randomNum 19 
+// (randomNum+1)%listVIP.size() 20 0
+// (randomNum+2)%listVIP.size() 21 1
+// (randomNum+3)%listVIP.size()
+// (randomNum+4)%listVIP.size()
 %>
 
 <script>
     $.getScript("js/remind/remind.js");
+ 
+    $(document).ready(
+    		function() { 
+// ad();
+
+function ad() {
+	$.ajax({
+		type : "POST",
+		url : $("#controllerAD").data("ad"),
+		contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+		data : {
+			action : "controllerAD",
+		},
+		dataType : "json",
+		success : function(jsonData) {
+//			var jsonArray = [];
+			for (var key in jsonData) {
+				console.log(key + ' is ' + jsonData[key]);
+//				jsonArray.push(jsonData[key]);
+// 				$("#remindMain .remindList a:contains("+key+")").find("font").text(jsonData[key]);
+			}
+//			$("#remindMain .remindList").each(function( index ){
+//				$(this).find("font").text(jsonArray[index]);
+//			});
+		},
+		error : function() {
+			console.log("尚未登入!");
+		}
+	});	
+	
+}
+    			
+	
+    		}); // end ready
+    
 </script>
 
 <style>
@@ -28,6 +95,12 @@ padding-top: 14px;
 <title></title>
 </head>
 <body>
+
+<%-- 		<c:forEach var="memberVO" items="${list2}">				 --%>
+<%-- 			${memberVO.mno}					 --%>
+<%-- 		</c:forEach> --%>
+		
+
 	<!-- header -->
 	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
 		<div class="container">
@@ -177,7 +250,7 @@ padding-top: 14px;
 	</div>
 
 	<!-- 首頁輪播 -->
-	<div class="container">
+	<div id="controllerAD" class="container" data-ad="<%=request.getContextPath()%>/front/member/member.do">
 		<div class="row">
 			<!-- The carousel -->
 			<div id="transition-timer-carousel"
@@ -196,54 +269,43 @@ padding-top: 14px;
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner">
 					<div class="item active">
-						<img src="<%=request.getContextPath()%>/front/img/1.png" />
+						<img src="<%=request.getContextPath()%>/front/member/member.do?mno=<%=randomAd1%>&pic=MEM_VPIC" />
 						<div class="carousel-caption">
-                        <h1 class="carousel-caption-header">Slide 1</h1>
-                        <p class="carousel-caption-text hidden-sm hidden-xs">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim aliquet rutrum. Praesent vitae ante in nisi condimentum egestas. Aliquam.
-                        </p>
+                        <h1 class="carousel-caption-header"><%=randomName1 %></h1>
+
                     </div>
 					</div>
 
-<!-- $(div).data("testWer") -->
-					<div class="item" data-test-wer="123"> 
-						<img src="<%=request.getContextPath()%>/front/img/2.png" />
+					<div class="item"> 
+						<img src="<%=request.getContextPath()%>/front/member/member.do?mno=<%=randomAd2%>&pic=MEM_VPIC" />
 						<div class="carousel-caption">
-                        <h1 class="carousel-caption-header">Slide 1</h1>
-                        <p class="carousel-caption-text hidden-sm hidden-xs">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim aliquet rutrum. Praesent vitae ante in nisi condimentum egestas. Aliquam.
-                        </p>
+                        <h1 class="carousel-caption-header"><%=randomName2 %></h1>
+
                     </div>
 					</div>
 
 					<div class="item">
-						<img src="<%=request.getContextPath()%>/front/img/3.png" />
+						<img src="<%=request.getContextPath()%>/front/member/member.do?mno=<%=randomAd3%>&pic=MEM_VPIC" />
 						<div class="carousel-caption">
-                        <h2 class="carousel-caption-header">Slide 1</h2>
-                        <p class="carousel-caption-text hidden-sm hidden-xs">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim aliquet rutrum. Praesent vitae ante in nisi condimentum egestas. Aliquam.
-                        </p>
+                        <h2 class="carousel-caption-header"><%=randomName3 %></h2>
+
                     </div>
 					</div>
 
 					<div class="item">
-						<img src="<%=request.getContextPath()%>/front/img/4.png" />
+						<img src="<%=request.getContextPath()%>/front/member/member.do?mno=<%=randomAd4%>&pic=MEM_VPIC" />
 						<div class="carousel-caption">
-                        <h3 class="carousel-caption-header">Slide 1</h3>
-                        <p class="carousel-caption-text hidden-sm hidden-xs">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim aliquet rutrum. Praesent vitae ante in nisi condimentum egestas. Aliquam.
-                        </p>
+                        <h3 class="carousel-caption-header"><%=randomName4 %></h3>
+
                     </div>
 					</div>
 
 					<div class="item">
-						<img src="<%=request.getContextPath()%>/front/img/6.jpg" />
+						<img src="<%=request.getContextPath()%>/front/member/member.do?mno=<%=randomAd5%>&pic=MEM_VPIC" />
 						<div class="carousel-caption">
 						
-                        <h4 class="carousel-caption-header">Slide 1</h4>
-                        <p class="carousel-caption-text hidden-sm hidden-xs">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim aliquet rutrum. Praesent vitae ante in nisi condimentum egestas. Aliquam.
-                        </p>
+                        <h4 class="carousel-caption-header"><%=randomName5 %></h4>
+
                     </div>
 					</div>
 				</div>

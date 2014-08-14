@@ -196,13 +196,43 @@ text-align:center;
 						<!-- Submit -->
 						<div class="control-group col-md-offset-9">
 							<div class="controls">
-								<input type="hidden" name="action" value="updateVIP"> <input
-									type="hidden" name="mno" value="<%=memberVO.getMno()%>">
-								<input type="hidden" id="mlev" name="mlev" value=V
-									class="col-xs-offset-1">
-								<button class="btn btn-success" id="checkVIP">確定</button>
+								<input type="hidden" name="action" value="updateVIP"> 
+								<input type="hidden" name="mno" value="<%=memberVO.getMno()%>">
+								<input type="hidden" id="mlev" name="mlev" value=V >
+									
+						<!--  modal VIPBtn-->
+						<button type="button"  class="btn btn-success" data-toggle="modal" data-target="#VIPBtn">升級會員</button>
+
 							</div>
-						</div>					
+						</div>
+						
+					
+								<!-- modal VIP-->
+	<div class="modal fade bs-example-modal-sm" id="VIPBtn" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">VIP 特級會員 </h4>
+				</div>
+				<div class="modal-body">
+
+		是否確定成為 VIP 特級會員。
+		<br/>
+		<br/>
+
+		<button id="checkVIP" class="btn btn-danger btn-sm col-md-offset-7"  data-dismiss="modal">取消</button>		
+		<button id="checkVIP" class="btn btn-success btn-sm col-md-offset-0" >確定</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+						
+						
 
 
 

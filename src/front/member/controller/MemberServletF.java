@@ -901,6 +901,9 @@ public class MemberServletF extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+//		//CONTROLLER AD
+//		IF ("CONTROLLERAD".EQUALS(ACTION)) {}
 	}
 
 	public void init() throws ServletException {
