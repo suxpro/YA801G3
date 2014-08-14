@@ -41,34 +41,98 @@ pageContext.setAttribute("list", list);
 
 			<!-- SideBar -->
 			<div class="col-md-2 sidebar">
-				<ul class="nav nav-sidebar">
-					<li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
-					<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
-					<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
-					<li class="dropdown-a"><a tabindex="-1" href="#area1">租物管理</a>
-						<ul id="area1" class="dropdown-b">
-							<li><a tabindex="-1"
-								href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">[租物資料]</a></li>
-							<li><a href="<%=request.getContextPath()%>/front/rent/addRent.jsp">[新增租物]</a></li>
-						</ul>
+			<div class="panel-group" id="accordion">
+<!-- 會員資料 -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          會員管理
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul class="nav nav-sidebar">
+        <li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
+        <li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
+        <li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-					</li>
+<!-- 租物管理  -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          租物管理
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul class="nav nav-sidebar">
+        <li><a href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物資料</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/rent/addRent.jsp">新增租物</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-					<li class="dropdown-a"><a tabindex="-1" href="#">出租管理</a>
-						<ul class="dropdown-b">
-							<li><a tabindex="-1" href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">[訂單核准]</a></li>
-						</ul></li>
+<!-- 承租管理 -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+         承租管理
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul class="nav nav-sidebar">
+        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租資料</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物清單</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
+        <li><a href="#">續租查詢</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- 出租管理  -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+          出租管理
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul class="nav nav-sidebar">
+        <li><a href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">訂單核准</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-					<li class="dropdown-a"><a tabindex="-1" href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租管理</a>
-						<ul class="dropdown-b">
-							<li><a tabindex="-1" href="<%=request.getContextPath()%>/front/cart/cart.jsp">[租物清單]</a></li>
-							<li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">[追蹤清單]</a></li>
-							<li><a href="#">[續租查詢]</a></li>
-						</ul></li>
+<!-- 歷史租借查詢 -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">
+          歷史租借查詢
+        </a>
+      </h4>
+    </div>
+  </div>
 
-					<li class="active"><a
-						href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借查詢</a></li>
-				</ul>
+</div>
 			</div>
 
 			<!-- Form -->

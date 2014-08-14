@@ -87,10 +87,6 @@ color:white;
 padding-top: 14px;
 }
 
-/* #title{ */
-/*  	font-family: Microsoft JhengHei, 標楷體, Comic Sans MS, 新細明體;  */
-/*  	font-weight: bold;  */
-/* }  */
 
 </style>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -162,31 +158,29 @@ padding-top: 14px;
                                     <b class="pull-right glyphicon glyphicon-chevron-up"></b>
                                 </li>
                                 
-                                <li><a href="#" onclick="document.MemInfo.submit();">會員資料</a>
+                                <li><a href="#" onclick="document.MemInfo.submit();">會員管理</a>
+
+                                </li>
+                                
                                 	<FORM name="MemInfo" METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/member.do">
 										<input type="hidden" name="mno" value="${memberVO.mno}"> 						
 										<input type="hidden" name="action" value="getOne_MemberInfo_Display">
 									</FORM>
-                                </li>
-                                
-                                <li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a>
+									
                                 	<FORM name="storedMoney" METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/memberStored.do">
 										<input type="hidden" name="mno" value="${memberVO.mno}"> 						
 										<input type="hidden" name="action" value="getOne_For_Update">
-									</FORM>
-                                
-                                </li>
- 								<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a>
+									</FORM>                                
+                            
                                 	<FORM name="updateVIP" METHOD="post" ACTION="<%=request.getContextPath()%>/front/member/memberVIP.do">
 										<input type="hidden" name="mno" value="${memberVO.mno}"> 						
 										<input type="hidden" name="action" value="getOne_For_Update">
 									</FORM>
-                                </li>
+                             
                                 
-                                 <li><a href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物管理</a></li>
-                                
-                                <li><a href="#">出租管理</a></li>
-                                <li><a href="#">訂單管理</a></li>
+                                <li><a href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物管理</a></li>
+                                <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租管理</a></li>
+                                <li><a href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">出租管理</a></li>                                
                                 <li><a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借查詢</a></li>
 
 

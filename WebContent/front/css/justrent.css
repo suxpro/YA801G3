@@ -250,7 +250,7 @@ list-style-type :none;
     bottom: auto;
     left: 0;
     display: block;
-    padding: 0px 8px 6px;
+    padding: 0px 10px 8px;
     overflow-x: hidden;
     overflow-y: auto; /*Scrollable contents if viewport is shorter than content.*/
     background-color: #FEFFFF;

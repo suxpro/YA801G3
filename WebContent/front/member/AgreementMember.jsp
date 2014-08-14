@@ -20,7 +20,7 @@ function agree() {
 	}); // end ready
 </script>
 <style>
-textarea {
+#UserNote {
 	margin: 15px;
 	width: 540px;
 	height: 350px;
