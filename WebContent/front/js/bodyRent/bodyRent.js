@@ -179,13 +179,13 @@ $(document).ready(
 			$("#btnBodyRentSubmit").off();
 			$("#btnBodyRentSubmit").on("click", function(event) {
 				if($.trim($("#inputBodyRentSearch").val()).length != 0){
-					$(".divRentItem").fadeOut("fast", function() { //一開始先將所有的筆數隱藏
-						$(".bodyRentName:contains("+$("#inputBodyRentSearch").val()+")").parents(".divRentItem").fadeIn("fast");
+					$(".divRentItem").hide(0, function() { //一開始先將所有的筆數隱藏
+						$(".bodyRentName:contains("+$("#inputBodyRentSearch").val()+")").parents(".divRentItem").fadeIn();
 					});
 				} else {
 					var selectPage = $(".liBodyRentPage.disabled").text();
 					console.log(selectPage);
-					$(".divRentItem").fadeOut("fast").slice(showPage*(selectPage-1),showPage*selectPage).fadeIn("fast");
+					$(".divRentItem").hide().slice(showPage*(selectPage-1),showPage*selectPage).fadeIn("fast");
 				}
 			});
 			
@@ -195,10 +195,13 @@ $(document).ready(
 				console.log($(this).data("rentTagNo"));
 //				console.log($(".divRentItem[data-rent-tag-no="+$(this).data("rentTagNo")+"]"));
 				var rentTagNo = $(this).data("rentTagNo");
-				if(rentTagNo != "T10000")
-					$(".divRentItem").fadeOut("fast").filter("[data-rent-tag-no="+rentTagNo+"]").fadeIn("fast");
-				else
-					$(".divRentItem").fadeIn("fast");
+//				$(".divRentItem").fadeOut("fast").filter("[data-rent-tag-no="+rentTagNo+"]").fadeIn("slow");
+				$(".divRentItem").hide(0,function() {
+					if(rentTagNo != "T10000")
+						$(this).filter("[data-rent-tag-no="+rentTagNo+"]").fadeIn("fast");
+					else
+						$(this).fadeIn("fast");
+				});
 			});
 			
 		});

@@ -64,7 +64,7 @@
 		</div>
 		<!-- 租物圖片 -->
 		<div class="col-md-6">
-			<img class="imgMainShow" height="100%" width="100%"
+			<img class="imgMainShow img-responsive" height="100%" width="100%"
 	             src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
          </div>
 		<!-- 租物日期 -->
@@ -83,10 +83,6 @@
                  src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC2" />
             <img class="imgPreview" height="50px" width="50px"
                  src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC3" />
-            <img class="imgPreview" height="50px" width="50px"
-                 src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC4" />
-            <img class="imgPreview" height="50px" width="50px"
-                 src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC5" />
         </div>
 		<!-- 租物按鈕 -->
 		<div class="col-md-offset-1 col-md-3">

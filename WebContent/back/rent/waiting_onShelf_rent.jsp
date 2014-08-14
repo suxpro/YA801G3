@@ -34,7 +34,7 @@
 <!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script> -->
 <!-- <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
 <!-- </head> -->
-<body bgcolor='white' align='center'>
+<!-- <body bgcolor='white' align='center'> -->
 <!--    <b><font color=red>此頁練習採用 EL 的寫法取值:</font></b> -->
 <!--    <table border='1' cellpadding='5' cellspacing='0' width='1200' -->
 <!--        align='center'> -->
@@ -59,7 +59,9 @@
         </font>
     </c:if>
 
-    <table border='1' bordercolor='#CCCCFF' align='center' style="white-space: nowrap;" class="table table-hover">
+        <div class="table-responsive">
+            <table id="listAllEmpTable" class="table table-hover"
+                style="white-space: nowrap;">
         <tr align='center' valign='middle'>
             <th>圖片</th>
             <th>租物編號</th>
@@ -163,7 +165,8 @@
             
         </c:forEach>
     </table>
+    </div>
     <%@ include file="page2.file"%>
 
-</body>
+<!-- </body> -->
 <!-- </html> -->

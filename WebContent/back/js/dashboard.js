@@ -66,19 +66,19 @@ $(document).ready(
 					});
 					break;
 				case "temp1":
-					$("#listAllMem").load("member/temp1.jsp", function() {
+					$("#listAllMem").load("member/listAllMember.jsp", function() {
 //						此區看是否有後續動作要做
 						$.getScript("js/member/member.js");
 					});
 					break;
 				case "temp2":
-					$("#listAllMem").load("member/temp2.jsp", function() {
+					$("#listAllMem").load("member/listAllMember.jsp", function() {
 //						此區看是否有後續動作要做
 						$.getScript("js/member/member.js");
 					});
 					break;
 				case "temp3":
-					$("#listAllMem").load("member/temp3.jsp", function() {
+					$("#listAllMem").load("member/listAllMember.jsp", function() {
 //						此區看是否有後續動作要做
 						$.getScript("js/member/member.js");
 					});
@@ -95,7 +95,7 @@ $(document).ready(
 				$(this).parent("li").addClass( "active" ).siblings("li").removeClass( "active" );
 				switch ($(this).attr("rel")) {
 				case "rent":
-					$("#listAllRent").load("rent/listAllRent.jsp",function() {
+					$("#listAllRent").load("rent/waiting_onShelf_rent.jsp",function() {
 //						此區看是否有後續動作要做
 						$.getScript("js/rent/rent.js");
 					});
@@ -107,7 +107,7 @@ $(document).ready(
 					});
 					break;
 				case "temp2":
-					$("#listAllRent").load("rent/temp2.jsp", function() {
+					$("#listAllRent").load("rent/waiting_onShelf_rent.jsp", function() {
 //						此區看是否有後續動作要做
 						$.getScript("js/rent/rent.js");
 					});

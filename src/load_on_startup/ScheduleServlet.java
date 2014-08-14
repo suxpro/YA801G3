@@ -71,16 +71,17 @@ public class ScheduleServlet extends HttpServlet {
 							String Mcell = memVO.getMcell();
 							String Mname = memVO.getMname();
 							// 發送簡訊
-							System.out.println("Mcell = " + Mcell);
-							System.out.println(Mname + " 您好!\nJustRent提醒:\n"
+							String messageSend =
+									Mname + " 您好!\nJustRent提醒:\n"
 									+ "您的租物:" + rentSvc.getOneRent(ordVO.getRent_no()).getRent_name()
 									+ "已逾期" + ordVO.getOt_days() + "天\n請盡速歸還."
-									+ "\n時間:" + nowDate + ".\n");
+									+ "\n時間:" + nowDate + ".\n";
+							System.out.println("Mcell = " + Mcell);
+							System.out.println("messageSend = " + messageSend);
 
-							// String[] tel ={Mcell};
-							// String message = Mname+" 您好!\nJustRent提醒:\n " +
-							// remindVO.getRdes()+"\n時間:"+remindVO.getRtime()+".\n";
-							// sendMessage.sendMessage(tel , message);
+							String[] tel ={Mcell};
+							String message = messageSend;
+							sendMessage.sendMessage(tel , message);
 						}
 					}
 				}
@@ -103,14 +104,16 @@ public class ScheduleServlet extends HttpServlet {
 						String Mcell = memVO.getMcell();
 						String Mname = memVO.getMname();
 						// 發送簡訊
-						System.out.println("Mcell = " + Mcell);
-						System.out.println(Mname + "您好!\nJustRent提醒:\n"
+						String messageSend =
+								Mname + "您好!\nJustRent提醒:\n"
 								+ remindVO.getRdes() + "\n時間:"
-								+ new java.util.Date() + ".\n");
-						// String[] tel ={Mcell};
-						// String message = Mname+" 您好!\nJustRent提醒:\n " +
-						// remindVO.getRdes()+"\n時間:"+remindVO.getRtime()+".\n";
-						// sendMessage.sendMessage(tel , message);
+								+ new java.util.Date() + ".\n";
+						System.out.println("Mcell = " + Mcell);
+						System.out.println("messageSend = " + messageSend);
+						
+						String[] tel ={Mcell};
+						String message = messageSend;
+						sendMessage.sendMessage(tel , message);
 
 						// 修改flag為N
 						remindSvc.updateRemind(remindVO.getRno(),

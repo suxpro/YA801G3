@@ -10,12 +10,12 @@
 	pageContext.setAttribute("list", list);
 %>
 <script>$.getScript("js/member/member.js");</script>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<title>所有會員資料 - listAllMember_byDAO.jsp</title>
-</head>
-<body bgcolor='white'>
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
+<!-- <html> -->
+<!-- <head> -->
+<!-- <title>所有會員資料 - listAllMember_byDAO.jsp</title> -->
+<!-- </head> -->
+<!-- <body bgcolor='white'> -->
 <!-- 	<b><font color=red>此頁練習採用 EL 的寫法取值:</font></b> -->
 <!-- 	<table border='1' cellpadding='5' cellspacing='0' width='800'> -->
 <!-- 		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'> -->
@@ -27,17 +27,18 @@
 <!-- 	</table> -->
 
 	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font color='red'>請修正以下錯誤:
-			<ul>
-				<c:forEach var="message" items="${errorMsgs}">
-					<li>${message.value}</li>
-				</c:forEach>
-			</ul>
-		</font>
-	</c:if>
-
-    <table border='1' bordercolor='#CCCCFF' width='100%'>
+<%-- 	<c:if test="${not empty errorMsgs}"> --%>
+<!-- 		<font color='red'>請修正以下錯誤: -->
+<!-- 			<ul> -->
+<%-- 				<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 					<li>${message.value}</li> --%>
+<%-- 				</c:forEach> --%>
+<!-- 			</ul> -->
+<!-- 		</font> -->
+<%-- 	</c:if> --%>
+<div class="container-fluid">
+    <div class="table-responsive">
+    <table class="table table-hover" style="white-space: nowrap;">
         <tr>
             <th>會員編號</th>
             <th>會員帳號</th>
@@ -94,6 +95,7 @@
         </c:forEach>
     </table>
 	<%@ include file="page2.file"%>
-
-</body>
-</html>
+	</div>
+</div>
+<!-- </body> -->
+<!-- </html> -->

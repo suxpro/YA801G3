@@ -14,8 +14,8 @@ public class LoginHandler extends HttpServlet {
 	// 【實際上應至資料庫搜尋比對】
 	protected String allowUser(String account, String password) {
 			EmployeeVO getEmpVo = new EmployeeDAO().findPwdByEmpId(account);
-			System.out.println("LoginHandler.16."+getEmpVo.getEmp_pwd());
-			System.out.println("LoginHandler.17."+getEmpVo.getEmp_pwd().equals(password));
+//			System.out.println("LoginHandler.16."+getEmpVo.getEmp_pwd());
+//			System.out.println("LoginHandler.17."+getEmpVo.getEmp_pwd().equals(password));
 		    if (getEmpVo.getEmp_pwd().equals(password))
 		        return getEmpVo.getEmp_job();
 		      else
@@ -34,9 +34,9 @@ public class LoginHandler extends HttpServlet {
 		String accountBack = req.getParameter("accountBack");
 		String passwordBack = req.getParameter("passwordBack");
 		String allowUser = allowUser(accountBack, passwordBack);
-		System.out.println("LoginHandler.34."+accountBack);
-		System.out.println("LoginHandler.35."+passwordBack);
-		System.out.println("LoginHandler.35."+allowUser);
+//		System.out.println("LoginHandler.34."+accountBack);
+//		System.out.println("LoginHandler.35."+passwordBack);
+		System.out.println("LoginHandler.39.後端登入"+accountBack);
 		
 		// 【檢查該帳號 , 密碼是否有效】
 		if ("false".equals(allowUser)) { // 【帳號 , 密碼無效時】

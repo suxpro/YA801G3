@@ -108,9 +108,10 @@
 					<c:forEach var="rentVO" items="${rentBodyList}" varStatus="status">
 						<div id="${rentVO.rent_no}" class='divRentItem col-md-3' value="<%=request.getContextPath()%>/front/rent/rent.do" data-rent-list-no="${status.count}" data-rent-tag-no="${rentVO.tag_no}">
 						    <a class="thumbnail" rel="ligthbox" data-toggle="modal" data-target="#infoRentModel">
-							    <img height="300px" width="300px" src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
+							    <img class="img-responsive" src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
 								<div class='text-right'>
-									<small class='bodyRentName text-muted'>${rentVO.rent_name} | <span id="rentStateSpan" class="label label-primary" data-rentState="${rentVO.rent_sta}">${rent_staMap[rentVO.rent_sta]}</span> |</small>
+									<small class='bodyRentName text-muted'>${rentVO.rent_name}
+									<span id="rentStateSpan" class="label label-primary" data-rentState="${rentVO.rent_sta}">${rent_staMap[rentVO.rent_sta]}</span></small>
 								</div> <!-- text-right / end -->
 							</a>
 						</div>
