@@ -44,7 +44,6 @@ String randomName5 = listVIP.get((randomNum+4)%listVIP.size()).getMname();
 
 <script>
     $.getScript("<%=request.getContextPath()%>/front/js/remind/remind.js");
-<<<<<<< HEAD
  
     $(document).ready(
     		function() { 
@@ -80,8 +79,6 @@ function ad() {
 	
     		}); // end ready
     
-=======
->>>>>>> branch 'master' of ssh://git@github.com/suxpro/YA801G3.git
 </script>
 
 <style>
