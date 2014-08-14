@@ -642,4 +642,11 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public void updateAses(OrdVO ordVO, String role) {
+		// TODO Auto-generated method stub
+		
+	}
 }

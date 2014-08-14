@@ -1,9 +1,9 @@
 /**
  * 
  */
-//後端租物管理AJAX | class="btnCallAjaxRent" type="button"
-$(".btnCallAjaxRent").off();
-$(".btnCallAjaxRent").on("click", function(event) {
+//後端物流管理AJAX | class="btnCallAjaxLogistic" type="button"
+$(".btnCallAjaxLogistic").off();
+$(".btnCallAjaxLogistic").on("click", function(event) {
 	
 	var form = $(this).closest("form");
 	
@@ -18,7 +18,7 @@ $(".btnCallAjaxRent").on("click", function(event) {
 		data : form.serialize(),
 		dataType : "html",
 		success : function(returnData) {
-				$("#listAllRent").html(returnData);
+				$("#listAllTrade").html(returnData);
 		},
 		error : function() {
 			alert("系統異常!");

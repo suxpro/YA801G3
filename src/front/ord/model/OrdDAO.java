@@ -58,6 +58,7 @@ public class OrdDAO implements OrdDAO_interface {
 	private static final String UPDATE_OT_DAYS = "UPDATE ord SET ot_days=? WHERE ord_no=?"; //小豬加,排程器跑租約逾期1天,OT_DAYS+1
 	private static final String UPDATE_RT_COM = "UPDATE ord SET ord_sta='RT_COM', RT_COM_TIME=SYSDATE WHERE ord_no=?";
 	private static final String UPDATE_CLS = "UPDATE ord SET ord_sta='CLS', CLS_TIME=SYSDATE WHERE ord_no=?";
+	private static final String UPDATE_ASES = "UPDATE ord SET les_ases=?, les_ases_ct=?, ten_ases=?, ten_ases_ct=? WHERE ord_no=?";
 	private static final String UPDATE_APP_RENEW = "UPDATE ord SET ord_sta=? WHERE ord_no=?";
 //	private static final String UPDATE = "UPDATE ord SET rent_no=?, ten_no=?, ord_sta=?, tra_mode=?, freight=?, ten_date=?, exp_date=?, ten_days=?, rent_total=?, ot_days=?, init_dps=?, real_dps=?, tra_total=?, loc_no=?, rec_addr=?, les_ases=?, les_ases_ct=?, ten_ases=?, ten_ases_ct=?, w_apr_time=?, w_ship_time=?, dtbt_time=?, rec_com_time=?, rent_exp_time=?, rt_time=?, rt_com_time=?, cls_time=?, cc_ord_time=?, ord_cc_cause=? where ord_no=?";
 
@@ -286,8 +287,8 @@ public class OrdDAO implements OrdDAO_interface {
 				
 				//報廢原先訂單
 				pOrdVO.setOrd_cc_cause("訂單["+ ordVO.getOrd_no() +"]續約成功,報廢原訂單");
-				//由系統呼叫取消訂單
-				delete(pOrdVO, "sys");
+				//由系統報廢訂單
+				delete(pOrdVO, "sys", con);
 				
 			}else if(sta.equals("REC_COM")){ 
 				
@@ -308,8 +309,8 @@ public class OrdDAO implements OrdDAO_interface {
 					
 					OrdVO reOrdVO = findByPrimaryKey(ord_no);
 					reOrdVO.setOrd_cc_cause("訂單["+ ordVO.getOrd_no() +"]的租約已到期, 系統報廢未核准的續約訂單");
-					//由系統報廢 續約訂單
-					delete(reOrdVO, "sys");
+					//由系統報廢續約訂單
+					delete(reOrdVO, "sys", con);
 				}	
 				
 			}else if(sta.equals("RT_COM")){ 
@@ -618,7 +619,137 @@ public class OrdDAO implements OrdDAO_interface {
 		}
 
 	}
+	
+	// 新增另一個型態的方法 給有交易問題的程式使用
+	public void delete(OrdVO ordVO, String role, Connection con) {
+		
+		PreparedStatement pstmt = null;
+		OrdVO oOrdVO = findByPrimaryKey(ordVO.getOrd_no()); //取得訂單做廢前的"資料庫"紀錄
+		String oOrd_sta = oOrdVO.getOrd_sta(); //原訂單現今在資料庫的狀態
+		try {
 
+			// 1●設定於 pstm.executeUpdate()之前
+			con.setAutoCommit(false);
+            // 取消訂單 並寫入取消原因
+			pstmt = con.prepareStatement(DELETE);
+			pstmt.setString(1, ordVO.getOrd_cc_cause());
+			pstmt.setString(2, ordVO.getOrd_no());
+			pstmt.executeUpdate();
+
+			// 修改租物狀態 當待核准的訂單被 承租會員或是出租會員所取消
+			RentDAO rentDAO = new RentDAO();
+			RentVO rentVO = rentDAO.findByPrimaryKey(ordVO.getRent_no());
+			// 只有當訂單狀態為待核准 而且取消的腳色不是系統自動執行(由會員執行)
+			if (oOrd_sta.equals("W_APR") && !role.equals("sys")){ 
+				
+				rentVO.setRent_sta("W_RENT"); // 更改租物狀態為待出租
+				rentDAO.updateRent_sta(rentVO, con);
+			}
+			
+			// 回復會員帳戶餘額
+			MemberDAO memberDAO = new MemberDAO();
+			MemberVO memberVO = memberDAO.findByPrimaryKey(ordVO.getTen_no());
+			Double mbalance = memberVO.getMbalance();
+			// 只有當訂單狀態為待核准 而且取消的腳色不是系統自動執行(由會員執行)
+			if (oOrd_sta.equals("W_APR") && !role.equals("sys")){
+				
+				mbalance = mbalance + ordVO.getTra_total(); // 餘額加回被訂單扣除的費用
+				memberVO.setMbalance(mbalance);
+				memberDAO.updateMem_mbl(memberVO, con);
+				
+			} else if (oOrd_sta.equals("W_APR") && role.equals("sys")){ 
+				//續約成立 系統自動報廢原訂單  不做任何動作修改餘額
+			
+			} else if (oOrd_sta.equals("RE_ORD")){
+				// 餘額加回續約扣除的需補差額                                                                      // 取得續約前訂單的交易總吳
+				mbalance = mbalance + oOrdVO.getTra_total() - (findByPrimaryKey(oOrdVO.getOrd_cc_cause()).getTra_total()); 
+				memberVO.setMbalance(mbalance);
+				memberDAO.updateMem_mbl(memberVO, con);				
+			}
+
+			// 新增交易紀錄
+			TradeDAO tradeDAO = new TradeDAO();
+			TradeVO tradeVO = new TradeVO();
+			tradeVO.setMno(memberVO.getMno());
+			tradeVO.setTstas("點數退還");
+			// 只有當訂單狀態為待核准 而且取消的腳色不是系統自動執行(由會員執行)
+			if (oOrd_sta.equals("W_APR") && !role.equals("sys")){ 
+				
+				tradeVO.setTfunds(ordVO.getTra_total().doubleValue());
+				tradeDAO.insertForOrd(tradeVO, con);
+				
+			} else if (oOrd_sta.equals("W_APR") && role.equals("sys")){ 
+				//續約成立 系統自動報廢原訂單  不做任何動作修改餘額
+							
+			} else if (oOrd_sta.equals("RE_ORD")){
+				// 續約扣除的需補差額
+				tradeVO.setTfunds(oOrdVO.getTra_total() - (findByPrimaryKey(oOrdVO.getOrd_cc_cause()).getTra_total()).doubleValue()); 
+				tradeDAO.insertForOrd(tradeVO, con);	
+				
+			}
+
+			// 新增提醒記錄
+			RemindDAO remindDAO = new RemindDAO();
+			RemindVO remindVO = new RemindVO();
+			if (role.equals("ten")){				
+				remindVO.setMno(ordVO.getLes_no());// 注意:該提醒的是出租方
+			} else if (role.equals("les")){				
+				remindVO.setMno(ordVO.getTen_no());// 注意:該提醒的是承租方
+			} else if (role.equals("sys")){				
+				remindVO.setMno(ordVO.getTen_no());// 注意:該提醒的是承租方
+			}
+			
+			//只有當原訂單狀態為待核准且取消的人不是系統自動(由會員執行)
+			if (oOrd_sta.equals("W_APR") && !role.equals("sys")){ 
+				
+				remindVO.setRno(ordVO.getRent_no());
+				remindVO.setRstas("取消訂單");
+				remindVO.setRdes("您有一筆訂單已被取消(" + rentVO.getRent_name() + ")! 取消原因為: " + ordVO.getOrd_cc_cause());
+				remindDAO.insertForOrd(remindVO, con);
+				
+			} else if (oOrd_sta.equals("W_APR") && role.equals("sys")){ 
+				//續約成立 系統自動報廢原訂單  不做任何動作修改餘額
+							
+			} else if (oOrd_sta.equals("RE_ORD")){
+				
+				remindVO.setRno(ordVO.getRent_no());
+				remindVO.setRstas("取消訂單");
+				remindVO.setRdes("您有一筆續約訂單已被取消(" + rentVO.getRent_name() + ")! 取消原因為: " + ordVO.getOrd_cc_cause());
+				remindDAO.insertForOrd(remindVO, con);		
+			} 
+
+			// 完成所有資料修改
+			con.commit();
+			con.setAutoCommit(true);
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-member");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}	
+	
 	@Override
 	public OrdVO findByPrimaryKey(String ord_no) {
 
@@ -1007,6 +1138,113 @@ public class OrdDAO implements OrdDAO_interface {
 			}
 		}
 		
+	}
+
+
+	@Override
+	public void updateAses(OrdVO ordVO, String role) {		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			// 1●設定於 pstm.executeUpdate()之前
+			con.setAutoCommit(false);
+            // 更新訂單內的評價內容
+			pstmt = con.prepareStatement(UPDATE_ASES);
+			pstmt.setInt(1, ordVO.getLes_ases());
+			pstmt.setString(2, ordVO.getLes_ases_ct());
+			pstmt.setInt(3, ordVO.getTen_ases());
+			pstmt.setString(4, ordVO.getTen_ases_ct());
+			pstmt.setString(5, ordVO.getOrd_no());
+			pstmt.executeUpdate();
+
+			// 更新會員評價
+			MemberDAO memberDAO = new MemberDAO();
+			MemberVO memberVO = new MemberVO();
+			int massess = 0;
+			if(role.equals("ten")){
+				memberVO = memberDAO.findByPrimaryKey(ordVO.getLes_no());
+				massess = memberVO.getMassess();
+				massess = massess + ordVO.getLes_ases();
+				memberVO.setMassess(massess);
+				memberDAO.updateMem_ases(memberVO, con);
+				
+			} else if(role.equals("les")) {
+				memberVO = memberDAO.findByPrimaryKey(ordVO.getTen_no());
+				massess = memberVO.getMassess();
+				massess = massess + ordVO.getTen_ases();
+				memberVO.setMassess(massess);
+				memberDAO.updateMem_ases(memberVO, con);
+			}
+			
+			// 取得租物資料
+			RentDAO rentDAO = new RentDAO();
+			RentVO rentVO = rentDAO.findByPrimaryKey(ordVO.getRent_no());
+			
+			// 新增提醒記錄
+			RemindDAO remindDAO = new RemindDAO();
+			RemindVO remindVO = new RemindVO();
+			int ord_ases = 0;
+			if (role.equals("ten")){				
+				remindVO.setMno(ordVO.getLes_no());// 注意:該提醒的是出租方
+				ord_ases = ordVO.getLes_ases();
+			} else if (role.equals("les")){				
+				remindVO.setMno(ordVO.getTen_no());// 注意:該提醒的是承租方
+				ord_ases = ordVO.getTen_ases();
+			} 
+			String ases_sta = null;
+			if (ord_ases == 2){
+				ases_sta = "特優";
+			} else if (ord_ases == 1){
+				ases_sta = "優良";
+			} else if (ord_ases == 0){
+				ases_sta = "普通";
+			} else if (ord_ases == -1){
+				ases_sta = "極差";
+			}			
+			remindVO.setRno(ordVO.getRent_no());
+			remindVO.setRstas("評價");
+			remindVO.setRdes("您已經從訂單(" + rentVO.getRent_name() + ")獲得一個新的評價[" + ases_sta +"],也請儘快完成評價動作,謝謝您的合作.");
+			remindDAO.insertForOrd(remindVO, con);
+			
+			// 完成所有資料修改
+			con.commit();
+			con.setAutoCommit(true);
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-member");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 }

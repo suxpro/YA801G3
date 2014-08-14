@@ -38,8 +38,14 @@ public class RentDAO implements RentDAO_interface {
 
 	private static final String UPDATE_PASS_STMT = "UPDATE rent SET rent_sta = 'W_RENT', last_sta_time = SYSDATE, last_onshelf_time = SYSDATE WHERE rent_no = ?";
 	private static final String UPDATE_FAIL_STMT = "UPDATE rent SET rent_sta = 'W_REVIEW', last_sta_time = SYSDATE WHERE rent_no = ?";
-	private static final String GET_ALL_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' and rent_sta = 'W_CHECK' order by rent_no";
-	private static final String GET_ONE_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' and rent_sta = 'W_CHECK' and rent_no = ?";
+	private static final String GET_ALL_STMT = "SELECT * FROM rent WHERE rent_sta = 'W_CHECK' order by rent_no";
+	private static final String GET_ONE_STMT = "SELECT * FROM rent WHERE rent_no = ?";
+	
+	//old
+//	private static final String GET_ALL_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' and rent_sta = 'W_CHECK' order by rent_no";
+//	private static final String GET_ONE_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' and rent_sta = 'W_CHECK' and rent_no = ?";
+
+
 
 	@Override
 	public void update_pass(String rent_no) {

@@ -706,5 +706,15 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+
+
+
+	@Override
+	public void updateMem_ases(MemberVO memberVO, Connection con) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
