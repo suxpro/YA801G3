@@ -14,6 +14,7 @@ public interface OrdDAO_interface {
           
           public OrdVO findByPrimaryKey(String ord_no);
           public List<OrdVO> getAll();
+          public List<OrdVO> getAllByMno(String role,String mno);
           public String findLiveOrdByRentNo(String rent_no);
           public Set<String> findRenewOrdByRentNo(String rent_no);
           public List<OrdVO> getAllOrdByMember(String mno);
