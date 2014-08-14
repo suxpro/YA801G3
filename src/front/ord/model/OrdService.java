@@ -105,4 +105,10 @@ public class OrdService {
 	public String hasLiveOrd(String rent_no) {
 		return dao.findLiveOrdByRentNo(rent_no);
 	}
+	
+	//取得會員的所出租產生的訂單或是所承租所產生的訂單
+	public List<OrdVO> getAllByMno(String role, String mno) {
+		return dao.getAllByMno(role, mno);
+	}
+
 }

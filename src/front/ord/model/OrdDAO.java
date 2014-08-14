@@ -45,7 +45,9 @@ public class OrdDAO implements OrdDAO_interface {
 			+ "VALUES ('O'||TO_CHAR(ord_seq.NEXTVAL), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
 			+ "?, ?, ?, ?, SYSDATE, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-	private static final String GET_ALL_STMT = "SELECT * FROM ord WHERE ord_sta NOT IN ('CC_ORD','CLS','AB_CLS') ORDER BY ord_no";
+	private static final String GET_ALL_STMT =     "SELECT * FROM ord WHERE ord_sta NOT IN ('CC_ORD','CLS','AB_CLS') ORDER BY ord_no";
+	private static final String GET_ALL_LES_STMT = "SELECT * FROM ord WHERE ord_sta NOT IN ('CC_ORD','CLS','AB_CLS') AND les_no=? ORDER BY ord_no";
+	private static final String GET_ALL_TEN_STMT = "SELECT * FROM ord WHERE ord_sta NOT IN ('CC_ORD','CLS','AB_CLS') AND ten_no=? ORDER BY ord_no";
 	private static final String GET_ONE_STMT = "SELECT * FROM ord WHERE ord_no = ?";
 	private static final String GET_LIVE_ORD_STMT = "SELECT ord_no FROM ord WHERE rent_no=? AND ord_sta IN ('W_SHIP','DTBT','REC_COM','RENT_EXP','RT','RT_COM')";
 	private static final String GET_RENEW_ORD_STMT = "SELECT ord_no FROM ord WHERE ord_sta = 'RE_ORD' AND rent_no=? ";
@@ -1245,6 +1247,98 @@ public class OrdDAO implements OrdDAO_interface {
 				}
 			}
 		}
+	}
+
+
+	@Override
+	public List<OrdVO> getAllByMno(String role, String mno) {
+		List<OrdVO> list = new ArrayList<OrdVO>();
+		OrdVO ordVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			if (role.equals("ten")){
+				pstmt = con.prepareStatement(GET_ALL_TEN_STMT);
+				pstmt.setString(1, mno);
+			} else if (role.equals("les")){
+				pstmt = con.prepareStatement(GET_ALL_LES_STMT);
+				pstmt.setString(1, mno);
+			} else {
+//				pstmt = con.prepareStatement(GET_ALL_STMT);				
+			}
+				
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				ordVO = new OrdVO();
+				ordVO.setRent_no(rs.getString("rent_no"));
+				ordVO.setLes_no(rs.getString("les_no"));
+				ordVO.setTen_no(rs.getString("ten_no"));
+				ordVO.setOrd_sta(rs.getString("ord_sta"));
+				ordVO.setTra_mode(rs.getString("tra_mode"));
+				ordVO.setFreight(rs.getInt("freight"));
+				ordVO.setTen_date(rs.getDate("ten_date"));
+				ordVO.setExp_date(rs.getDate("exp_date"));
+				ordVO.setTen_days(rs.getInt("ten_days"));
+				ordVO.setRent_total(rs.getInt("rent_total"));
+				ordVO.setOt_days(rs.getInt("ot_days"));
+				ordVO.setInit_dps(rs.getInt("init_dps"));
+				ordVO.setReal_dps(rs.getInt("real_dps"));
+				ordVO.setTra_total(rs.getInt("tra_total"));
+				ordVO.setLoc_no(rs.getString("loc_no"));
+				ordVO.setRec_addr(rs.getString("rec_addr"));
+				ordVO.setLes_ases(rs.getInt("les_ases"));
+				ordVO.setLes_ases_ct(rs.getString("les_ases_ct"));
+				ordVO.setTen_ases(rs.getInt("ten_ases"));
+				ordVO.setTen_ases_ct(rs.getString("ten_ases_ct"));
+				ordVO.setW_apr_time(rs.getTimestamp("w_apr_time"));
+				ordVO.setW_ship_time(rs.getTimestamp("w_ship_time"));
+				ordVO.setDtbt_time(rs.getTimestamp("dtbt_time"));
+				ordVO.setRec_com_time(rs.getTimestamp("rec_com_time"));
+				ordVO.setRent_exp_time(rs.getTimestamp("rent_exp_time"));
+				ordVO.setRt_time(rs.getTimestamp("rt_time"));
+				ordVO.setRt_com_time(rs.getTimestamp("rt_com_time"));
+				ordVO.setCls_time(rs.getTimestamp("cls_time"));
+				ordVO.setCc_ord_time(rs.getTimestamp("cc_ord_time"));
+				ordVO.setOrd_cc_cause(rs.getString("ord_cc_cause"));
+				ordVO.setOrd_no(rs.getString("ord_no"));
+				list.add(ordVO);
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 
 }

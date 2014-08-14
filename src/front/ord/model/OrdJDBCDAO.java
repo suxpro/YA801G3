@@ -649,4 +649,11 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public List<OrdVO> getAllByMno(String role, String mno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
