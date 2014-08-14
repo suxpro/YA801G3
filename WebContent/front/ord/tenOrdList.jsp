@@ -19,25 +19,76 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Refresh"
-	content="30;URL=<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">
-<title>承租清單管理 - tenOrdList.jsp</title>
+<!-- <meta http-equiv="Refresh" -->
+<%-- 	content="30;URL=<%=request.getContextPath()%>/front/ord/tenOrdList.jsp"> --%>
+<title>JustRent! - 承租管理 </title>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css"
+	rel="stylesheet" media="screen">
+<link href="<%=request.getContextPath()%>/front/css/justrent.css"
+	rel="stylesheet">
+<!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+<script src="<%=request.getContextPath()%>/front/js/bootstrap.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
+<script src="<%=request.getContextPath()%>/front/js/jquery.color.js"></script>
+<script src="<%=request.getContextPath()%>/front/js/justrent.js"></script>
+
 </head>
-<body bgcolor='white' align='center'>
-	<table border='1' cellpadding='5' cellspacing='0' width='800'
-		align="center">
-		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-			<td><h3>所有承租資料 - tenOrdList.jsp</h3> <a
-				href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp"> <img
-					src="<%=request.getContextPath()%>/front/ord/images/back1.gif"
-					width="100" height="32" border="0">回首頁
-			</a></td>
-		</tr>
-	</table>
+<body >
+	<%@ include file="/front/header.jsp"%>
+
+	<div class="container">
+		<div class="row">
+		
+					<!-- SideBar -->
+			<div class="col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
+					<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
+					<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
+
+					<li class="dropdown-a"><a tabindex="-1" href="#area1">租物管理</a>
+						<ul id="area1" class="dropdown-b">
+							<li><a tabindex="-1"
+								href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">[租物資料]</a></li>
+							<li><a href="<%=request.getContextPath()%>/front/rent/addRent.jsp">[新增租物]</a></li>
+						</ul>
+
+					</li>
+
+					<li class="dropdown-a"><a tabindex="-1" href="#">出租管理</a>
+						<ul class="dropdown-b">
+							<li><a tabindex="-1" href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">[訂單核准]</a></li>
+							<li><a href="#">[承租人評價/檢舉]</a></li>
+						</ul></li>
+
+					<li class="dropdown-a active"><a tabindex="-1" href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租管理</a>
+						<ul class="dropdown-b">
+							<li><a tabindex="-1" href="<%=request.getContextPath()%>/front/cart/cart.jsp">[租物清單]</a></li>
+							<li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">[追蹤清單]</a></li>
+							<li><a href="#">[續租查詢]</a></li>
+							<li><a href="#">[租物評價/檢舉]</a></li>
+						</ul></li>
+
+					<li><a
+						href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借查詢</a></li>
+				</ul>
+			</div>
+					<div class="col-md-10 col-md-offset-0">
+				<div id="legend">
+					<legend class="">
+						<h2>
+							<b>租物清單</b>
+						</h2>
+					</legend>
+				</div>
+
+				<div class="col-md-12 col-md-offset-0">
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -55,7 +106,7 @@
 		<script>alert("${alertMsgs.alert}");</script>
 	</c:if>
 
-	<table border='1' bordercolor='#CCCCFF' align='center'>
+	<table border='1' bordercolor='#CCCCFF' >
 		<tr>
 			<th>租物圖片</th>
 			<th>訂單編號</th>
@@ -102,41 +153,9 @@
 				<td align='left'>Mail : <a href="mailto:<%=lesVO.getMmail()%>"><%=lesVO.getMmail()%></a><br>
 					Phone#: <font color='blue'><%=lesVO.getMcell()%></font></td>
 
-
-				<%-- 				<td>${ordVO.freight        }</td> --%>
-				<%-- 				<td>${ordVO.rent_total     }</td> --%>
-				<%-- 				<td>${ordVO.ten_no         }</td> --%>
-				<%-- 				<td>${ordVO.init_dps       }</td> --%>
-				<%-- 				<td>${ordVO.real_dps       }</td> --%>
-				<%-- 				<td>${ordVO.tra_total      }</td> --%>
-				<%-- 				<td>${ordVO.loc_no         }</td> --%>
-				<%-- 				<td>${ordVO.rec_addr       }</td> --%>
-				<%-- 				<td>${ordVO.les_ases       }</td> --%>
-				<%-- 				<td>${ordVO.les_ases_ct    }</td> --%>
-				<%-- 				<td>${ordVO.ten_ases       }</td> --%>
-				<%-- 				<td>${ordVO.ten_ases_ct    }</td> --%>
-				<%-- 				<td>${ordVO.w_apr_time     }</td> --%>
-				<%-- 				<td>${ordVO.w_ship_time    }</td> --%>
-				<%-- 				<td>${ordVO.dtbt_time      }</td> --%>
-				<%-- 				<td>${ordVO.rec_com_time   }</td> --%>
-				<%-- 				<td>${ordVO.rent_exp_time  }</td> --%>
-				<%-- 				<td>${ordVO.rt_time        }</td> --%>
-				<%-- 				<td>${ordVO.rt_com_time    }</td> --%>
-				<%-- 				<td>${ordVO.cls_time       }</td> --%>
-				<%-- 				<td>${ordVO.cc_ord_time    }</td> --%>
-				<%-- 				<td>${ordVO.ord_cc_cause   }</td> --%>
-
-				<!-- 								<td> -->
-				<!-- 									<FORM METHOD="post" -->
-				<%-- 										ACTION="<%=request.getContextPath() %>/front/ord/ord.do"> --%>
-				<!-- 										<input type="submit" value="編輯"> <input type="hidden" -->
-				<%-- 											name="ord_no" value="${ordVO.ord_no}"> <input --%>
-				<!-- 											type="hidden" name="action" value="getOne_For_Update"> -->
-				<!-- 									</FORM> -->
-				<!-- 								</td> -->
 				<td>
 					<button id="re_ord<%=count%>">續約</button>
-					<div id="dialog-form1<%=count%>" title="續約[${ordVO.ord_no}]">
+					<div id="dialog-formA<%=count%>" title="續約[${ordVO.ord_no}]">
 						<form method="post"
 							action="<%=request.getContextPath()%>/front/ord/ord.do">
 							<table border='1' bordercolor='#CCCCFF' align='center'>
@@ -232,8 +251,32 @@
 					</form>				
 				</td>
 				<td>
+					<button id="les_ases<%=count%>"
+						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+						role="button" aria-disabled="false">
+						<span>評價</span>
+					</button>
+					<div id="dialog-formB<%=count%>" title="給予出租會員評價">
+						
+						<form method="post" action="<%=request.getContextPath()%>/front/ord/ord.do">
+							<label>評價等級:</label>
+							&nbsp;<input type="radio" name="ases" value=2>&nbsp;特優
+							&nbsp;<input type="radio" name="ases" value=1>&nbsp;良好
+							&nbsp;<input type="radio" name="ases" value=0>&nbsp;普通
+							&nbsp;<input type="radio" name="ases" value=-1>&nbsp;極差<br>
+                            <h4>輸入此次交易的意見.</h4>
+							<textarea name="ases_ct" rows="4" cols="35" maxlength="100"></textarea>
+							<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
+							<input type="hidden" name="action" value="update_ases"> 
+							<input type="hidden" name="role" value="ten"> 
+							<input type="hidden" name="reqURL" value="/front/ord/tenOrdList.jsp">
+							<input id="ases<%=count%>" type="submit">
+						</form>
+					</div>
+				</td>
+				<td>
 					<button id="cc_ord<%=count%>">取消</button>
-					<div id="dialog-form2<%=count%>" title="取消訂單[${ordVO.ord_no}]">
+					<div id="dialog-formC<%=count%>" title="取消訂單[${ordVO.ord_no}]">
 						<p>請輸入取消訂單的原因.</p>
 						<form method="post"
 							action="<%=request.getContextPath()%>/front/ord/ord.do">
@@ -247,9 +290,9 @@
 				</td>
 				<script>			
 					//dialog for續約  - start
-	 				$("#dialog-form1<%=count%>").dialog({
+	 				$("#dialog-formA<%=count%>").dialog({
 						autoOpen : false,
-						height :350,
+						height :300,
 						width : 400,
 						modal : true,
 						closeOnEscpe : true,
@@ -258,17 +301,17 @@
 										$("#renew<%=count%>").click();
 										},
 									返回 : function() {
-										$("#dialog-form1<%=count%>").dialog("close");
+										$("#dialog-formA<%=count%>").dialog("close");
 										}
 									},
 						close : function() {
-							$("#dialog-form1<%=count%>").dialog("close");
+							$("#dialog-formA<%=count%>").dialog("close");
 							}
 					});
 
 					$("#re_ord<%=count%>").button().on("click", function() {
-     					$("#dialog-form1<%=count%>").dialog( "open" );
-  						$("#dialog-form1<%=count%>").find("[type=submit]").hide();});
+     					$("#dialog-formA<%=count%>").dialog( "open" );
+  						$("#dialog-formA<%=count%>").find("[type=submit]").hide();});
 					//dialog for續約  - end
 					
 					// 隱藏  收貨 按鈕
@@ -277,8 +320,33 @@
                     $("#rec_com<%=count%>").button().on("click", function() {
                         	$("#receive<%=count%>").click();});
 					
-					//dialog for取訂單  - start
-		 			$("#dialog-form2<%=count%>").dialog({
+					//dialog for評價  - start
+		 			$("#dialog-formB<%=count%>").dialog({
+						autoOpen : false,
+						height : 340,
+						width : 420,
+						modal : true,
+						closeOnEscpe : true,
+						buttons : {
+									送出 : function() {
+										$("#ases<%=count%>").click();
+										},
+									返回 : function() {
+										$("#dialog-formB<%=count%>").dialog("close");
+										}
+									},
+						close : function() {
+							$("#dialog-formB<%=count%>").dialog("close");
+							}
+						});
+
+						$("#les_ases<%=count%>").button().on("click", function() {
+	     					$("#dialog-formB<%=count%>").dialog("open");
+	  						$("#dialog-formB<%=count%>").find("[type=submit]").hide();});
+					//dialog for評價  - end                  
+                              
+					//dialog for取消訂單  - start
+		 			$("#dialog-formC<%=count%>").dialog({
 						autoOpen : false,
 						height : 300,
 						width : 400,
@@ -289,18 +357,18 @@
 										$("#cancel<%=count%>").click();
 										},
 									返回 : function() {
-										$("#dialog-form2<%=count%>").dialog("close");
+										$("#dialog-formC<%=count%>").dialog("close");
 										}
 									},
 						close : function() {
-							$("#dialog-form2<%=count%>").dialog("close");
+							$("#dialog-formC<%=count%>").dialog("close");
 							}
 						});
 
 						$("#cc_ord<%=count%>").button().on("click", function() {
-	     					$("#dialog-form2<%=count%>").dialog( "open" );
-	  						$("#dialog-form2<%=count%>").find("[type=submit]").hide();});
-						//dialog for刪除訂單  - end
+	     					$("#dialog-formC<%=count%>").dialog( "open" );
+	  						$("#dialog-formC<%=count%>").find("[type=submit]").hide();});
+					//dialog for取消訂單  - end
 											
 						
 						//依狀態讓按鈕失效
@@ -311,12 +379,14 @@
 							$("#re_ord<%=count%>").attr("disabled", true); 
 							$("#cc_ord<%=count%>").attr("disabled", false);
 							$("#rec_com<%=count%>").attr("disabled", true);
+							$("#les_ases<%=count%>").attr("disabled", true);
 							
 						} else if (ord_sta == "W_SHIP"){//2.訂單狀態為待出貨
 							
 							$("#re_ord<%=count%>").attr("disabled", false);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rec_com<%=count%>").attr("disabled", false);
+							$("#les_ases<%=count%>").attr("disabled", true);
 							
 // 						}else if (ord_sta == "DTBT"){//3.訂單狀態為配送中
 							
@@ -329,12 +399,14 @@
 							$("#re_ord<%=count%>").attr("disabled", false);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rec_com<%=count%>").attr("disabled", true);
+							$("#les_ases<%=count%>").attr("disabled", false);
 							
 						}else if (ord_sta == "RENT_EXP"){//5.訂單狀態為租約到期
 							
 							$("#re_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rec_com<%=count%>").attr("disabled", true);
+							$("#les_ases<%=count%>").attr("disabled", false);
 							
 // 						}else if (ord_sta == "RT"){//6.訂單狀態為回收中
 							
@@ -346,36 +418,42 @@
 							$("#re_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rec_com<%=count%>").attr("disabled", true);
+							$("#les_ases<%=count%>").attr("disabled", false);
 							
 						}else if (ord_sta == "CLS"){//8.訂單狀態為結案
 							
 							$("#re_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rec_com<%=count%>").attr("disabled", true);
+							$("#les_ases<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "CC_ORD"){//9.訂單狀態為取消訂單
 							
 							$("#re_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rec_com<%=count%>").attr("disabled", true);
+							$("#les_ases<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "AB_CLS"){//10.訂單狀態為異常結案
 							
 							$("#re_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rec_com<%=count%>").attr("disabled", true);
+							$("#les_ases<%=count%>").attr("disabled", true);
 							
 						}else if (ord_sta == "RE_ORD"){//11.訂單狀態為待續約
 							
 							$("#re_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", false);
 							$("#rec_com<%=count%>").attr("disabled", true);
+							$("#les_ases<%=count%>").attr("disabled", true);
 							
 						}else{
 							
 							$("#re_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rec_com<%=count%>").attr("disabled", true);
+							$("#les_ases<%=count%>").attr("disabled", true);
 						}
 					</script>
 			</tr>
@@ -397,5 +475,9 @@
 	</table>
 	<%@ include file="page2.file"%>
 
+</div>
+</div>
+</div>
+	<%@ include file="/front/footer.jsp"%>
 </body>
 </html>

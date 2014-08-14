@@ -79,11 +79,15 @@ public class OrdService {
 	public void updateOrd(OrdVO ordVO, String sta) {
 		dao.update(ordVO, sta);
 	}
+    //更改訂單狀態
+	public void updateAses(OrdVO ordVO, String role) {
+		dao.updateAses(ordVO, role);
+	}
 	//取消訂單
 	public void deleteOrd(OrdVO ordVO, String role) {
 		dao.delete(ordVO, role);
 	}
-    //取得單筆訂紀錄
+    //取得單筆訂單紀錄
 	public OrdVO getOneOrd(String ord_no) {
 		return dao.findByPrimaryKey(ord_no);
 	}
@@ -97,8 +101,6 @@ public class OrdService {
 		return dao.getAllOrdByMember(mno);
 	}
 	
-	
-
 	//小豬加,找尋訂單資料是否該筆ord_no是否有人正在租
 	public String hasLiveOrd(String rent_no) {
 		return dao.findLiveOrdByRentNo(rent_no);

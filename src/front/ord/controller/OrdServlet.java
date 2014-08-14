@@ -250,6 +250,17 @@ public class OrdServlet extends HttpServlet {
 					errorMsgs.put("sta", "更新的狀態請勿空白");
 				}
 				
+				// 如果sta = "CLS" 在訂單結案前  系統先檢查 雙方 評價分數是否已填寫
+				if (sta.equals("CLS")) {					
+					if(ordVO.getLes_ases_ct() == null && ordVO.getTen_ases_ct() == null){
+						errorMsgs.put("ases", "出租會員與承租會員皆未完成評價動作");
+					} else if(ordVO.getLes_ases_ct() == null){
+						errorMsgs.put("ases", "承租會員尚未完成評價動作");
+					} else if(ordVO.getTen_ases_ct() == null){
+						errorMsgs.put("ases", "出租會員尚未完成評價動作");
+					}					
+				} 
+				
 				// reqURL
 				reqURL = req.getParameter("reqURL").trim();
 				if (reqURL == null || reqURL.trim().length() == 0) {
@@ -299,6 +310,114 @@ public class OrdServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+
+		//更新訂單狀態
+		if ("update_ases".equals(action)) {
+
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			Map<String, String> alertMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("alertMsgs", alertMsgs);
+
+			OrdService ordSvc = new OrdService();
+			OrdVO ordVO = new OrdVO();
+			
+			String reqURL = null;
+
+//			try {
+				/*************************** 1.接收請求參數 ***************************************/
+				// ord_no
+				String ord_no = req.getParameter("ord_no");
+				String ord_noReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+				if (ord_no == null || ord_no.trim().length() == 0) {
+					errorMsgs.put("ord_no", "訂單編號請勿空白");
+				} else if (!ord_no.trim().matches(ord_no)) { // 以下練習正則(規)表示式(regular-expression)
+					errorMsgs.put("ord_no", "訂單編號只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+				} else {
+					 ordVO = ordSvc.getOneOrd(ord_no);
+				}
+				
+				//ord_sta
+//				String ord_sta = ordVO.getOrd_sta();
+				
+				// role 判斷是出租者還是承租者取消的
+				String role = req.getParameter("role").trim();
+				if (role == null || role.trim().length() == 0) {
+					errorMsgs.put("role", "角色請勿空白");
+				} 
+
+				// ases 評價等級
+				Integer ases = null;
+				try {
+					ases = Integer.parseInt(req.getParameter("ases").trim());
+				} catch (Exception e) {
+					errorMsgs.put("ases", "評價等級為必須點選");
+				}
+				
+				// ases_ct 評價內容
+				String ases_ct = req.getParameter("ases_ct").trim();
+				if (ases_ct == null || ases_ct.trim().length() == 0) {
+					ases_ct="沒有任何意見";
+//					errorMsgs.put("ases_ct", "評價內容請勿空白");
+				} 
+				
+				// 避免重複發送評價
+				if(role.equals("ten")){
+					if(ordVO.getLes_ases_ct() != null){
+						errorMsgs.put("ases", "先前已完成評價動作");
+					} else{
+						ordVO.setLes_ases(ases);
+						ordVO.setLes_ases_ct(ases_ct);
+					}
+
+				} else if(role.equals("les")) {				
+					if(ordVO.getTen_ases_ct() != null){
+						errorMsgs.put("ases", "先前已完成評價動作");
+					} else{
+						ordVO.setTen_ases(ases);
+						ordVO.setTen_ases_ct(ases_ct);
+					}
+				}
+				
+				// reqURL
+				reqURL = req.getParameter("reqURL").trim();
+				if (reqURL == null || reqURL.trim().length() == 0) {
+					errorMsgs.put("reqURL", "來源網址請勿空白");
+				}
+				
+				//檢查訂單狀態是否仍是待核准
+//				String ord_sta = ordVO.getOrd_sta();
+//				if(!ord_sta.equals("W_APR")){
+//					//errorMsgs.put("ord_sta","訂單狀態非[待核准],無法取消訂單");
+//					errorMsgs.put("alert","訂單狀態非[待核准],無法取消訂單");
+//				}
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher(reqURL);
+					failureView.forward(req, res);
+					return;
+				}
+
+				/*************************** 2.開始更新資料 ***************************************/
+				ordSvc.updateAses(ordVO, role);
+				
+				alertMsgs.put("alert", "送出評價成功");
+								
+				/*************************** 3./更新完成,準備轉交(Send the Success view) ***********/
+				RequestDispatcher successView = req.getRequestDispatcher(reqURL);// 更新成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+//			} catch (Exception e) {
+//				errorMsgs.put("Exception", "更新資料失敗:" + e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher(reqURL);
+//				failureView.forward(req, res);
+//			}
+		}		
 		
 		// for listOneOrd.jsp using
 		if ("getOne_For_Display".equals(action)) {
