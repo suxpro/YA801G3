@@ -106,7 +106,7 @@ public class ScheduleServlet extends HttpServlet {
 						System.out.println("Mcell = " + Mcell);
 						System.out.println(Mname + "您好!\nJustRent提醒:\n"
 								+ remindVO.getRdes() + "\n時間:"
-								+ remindVO.getRtime() + ".\n");
+								+ new java.util.Date() + ".\n");
 						// String[] tel ={Mcell};
 						// String message = Mname+" 您好!\nJustRent提醒:\n " +
 						// remindVO.getRdes()+"\n時間:"+remindVO.getRtime()+".\n";
