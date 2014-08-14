@@ -27,11 +27,15 @@ $(document).ready(function() {
 			dataType : "json",
 			success : function(jsonData) {
 //				var jsonArray = [];
+				var remindCountNum = 0;
 				for (var key in jsonData) {
 //					console.log(key + ' is ' + jsonData[key]);
 //					jsonArray.push(jsonData[key]);
 					$("#remindMain .remindList a:contains("+key+")").find("font").text(jsonData[key]);
+					remindCountNum += jsonData[key];
 				}
+				console.log(remindCountNum);
+				$("#remindCountNum").text(remindCountNum);
 //				$("#remindMain .remindList").each(function( index ){
 //					$(this).find("font").text(jsonArray[index]);
 //				});
