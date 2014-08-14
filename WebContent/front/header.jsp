@@ -87,6 +87,11 @@ color:white;
 padding-top: 14px;
 }
 
+/* #title{ */
+/*  	font-family: Microsoft JhengHei, 標楷體, Comic Sans MS, 新細明體;  */
+/*  	font-weight: bold;  */
+/* }  */
+
 </style>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -270,41 +275,41 @@ padding-top: 14px;
 				<div class="carousel-inner">
 					<div class="item active">
 						<img src="<%=request.getContextPath()%>/front/member/member.do?mno=<%=randomAd1%>&pic=MEM_VPIC" />
-						<div class="carousel-caption">
-                        <h1 class="carousel-caption-header"><%=randomName1 %></h1>
+						<div class="flex-caption col-md-offset-10">
+                        <h3 ><%=randomName1 %></h3>
 
                     </div>
 					</div>
 
 					<div class="item"> 
 						<img src="<%=request.getContextPath()%>/front/member/member.do?mno=<%=randomAd2%>&pic=MEM_VPIC" />
-						<div class="carousel-caption">
-                        <h1 class="carousel-caption-header"><%=randomName2 %></h1>
+						<div class="flex-caption col-md-offset-10">
+                        <h3 ><%=randomName2 %></h3>
 
                     </div>
 					</div>
 
 					<div class="item">
 						<img src="<%=request.getContextPath()%>/front/member/member.do?mno=<%=randomAd3%>&pic=MEM_VPIC" />
-						<div class="carousel-caption">
-                        <h2 class="carousel-caption-header"><%=randomName3 %></h2>
+						<div class="flex-caption col-md-offset-10">
+                        <h3 ><%=randomName3 %></h3>
 
                     </div>
 					</div>
 
 					<div class="item">
 						<img src="<%=request.getContextPath()%>/front/member/member.do?mno=<%=randomAd4%>&pic=MEM_VPIC" />
-						<div class="carousel-caption">
-                        <h3 class="carousel-caption-header"><%=randomName4 %></h3>
+						<div class="flex-caption col-md-offset-10">
+                        <h3 ><%=randomName4 %></h3>
 
                     </div>
 					</div>
 
 					<div class="item">
 						<img src="<%=request.getContextPath()%>/front/member/member.do?mno=<%=randomAd5%>&pic=MEM_VPIC" />
-						<div class="carousel-caption">
+						<div class="flex-caption col-md-offset-10">
 						
-                        <h4 class="carousel-caption-header"><%=randomName5 %></h4>
+                        <h3 ><%=randomName5 %></h3>
 
                     </div>
 					</div>
