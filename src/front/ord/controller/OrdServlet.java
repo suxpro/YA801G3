@@ -178,7 +178,15 @@ public class OrdServlet extends HttpServlet {
 				} catch (NumberFormatException e) {
 					errorMsgs.put("dif_price", "需補差額請勿空白,或輸入非數字");
 				}				
-								
+				
+				//比較會員餘額是否可以負擔這筆訂單的差額	
+				MemberService memberSVC = new MemberService();
+				MemberVO memberVO = memberSVC.getOneMember(ordVO.getTen_no());
+				double mbalance = memberVO.getMbalance();
+				if (dif_price > mbalance){
+					errorMsgs.put("tra_total", "帳戶餘額不足,無法完成扣款");
+				}
+				
 				// tra_total
 				Integer tra_total = null;
 				try {
