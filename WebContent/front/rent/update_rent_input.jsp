@@ -107,7 +107,7 @@
     <div id="collapseFour" class="panel-collapse collapse">
       <div class="panel-body">
         <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">訂單核准</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">出租清單</a></li>
         </ul>
       </div>
     </div>

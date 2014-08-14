@@ -107,7 +107,6 @@
         <li class="active"><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租資料</a></li>
         <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物清單</a></li>
         <li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
-        <li><a href="#">續租查詢</a></li>
         </ul>
       </div>
     </div>
@@ -126,7 +125,7 @@
     <div id="collapseFour" class="panel-collapse collapse">
       <div class="panel-body">
         <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">訂單核准</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">出租清單</a></li>
         </ul>
       </div>
     </div>
