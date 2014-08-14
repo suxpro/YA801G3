@@ -3,35 +3,28 @@
 <%@ page import="back.ship.model.*"%>
 <%@ page import="back.tag.model.*"%>
 <%@ page import="back.loc.model.*"%>
-
-<html>
-<head><title>IBM Emp: Home</title>
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>$.getScript("js/ship/ship.js");</script>
 <script>
-	//----日期處理-----------------------------------------------------------------------
-	$(function() {
-		$("#start_time").datepicker({
-			dateFormat : 'yy-mm-dd',
-			showOn : "button",
-			buttonImage : "<%=request.getContextPath()%>/back/ship/images/calendar.gif",
-			buttonImageOnly : true,
-			numberOfMonths : 1,
-			changeYear : true,
-			changeMonth : true,})
-		});
+    //----日期處理-----------------------------------------------------------------------
+    $(function() {
+        $("#start_time").datepicker({
+            dateFormat : 'yy-mm-dd',
+            showOn : "button",
+            buttonImage : "<%=request.getContextPath()%>/back/ship/images/calendar.gif",
+            buttonImageOnly : true,
+            numberOfMonths : 1,
+            changeYear : true,
+            changeMonth : true,})
+        });
 </script>
-</head>
-<div id="popupcalendar" class="text"></div>
-<body bgcolor='white'>
-
-<table border='1' cellpadding='5' cellspacing='0' width='400'>
-  <tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-    <td><h3>IBM Emp: Home</h3><font color=red>( MVC )</font></td>
-  </tr>
-</table>
+<!-- <html> -->
+<!-- <head><title>IBM Emp: Home</title> -->
+<!-- <link rel="stylesheet" -->
+<!-- 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
+<!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script> -->
+<!-- <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
+<!-- </head> -->
+<!-- <body bgcolor='white'> -->
 
 
 <h3>資料查詢:</h3>
@@ -82,13 +75,12 @@
         <b>需求產生日:</b>
 		<td><input type="TEXT" name="start_time" id="start_time" class="text" value="${shipVO.start_time}" readonly="readonly" /></td>
         <br>		        
-        <input type="submit" value="查詢">
+        <input class="btnCallAjaxShip btn btn-primary" type="button" value="查詢">
         <input type="hidden" name="action" value="getShipList">
      </form>
   </li>
 </ul>
 
 
-</body>
-
-</html>
+<!-- </body> -->
+<!-- </html> -->

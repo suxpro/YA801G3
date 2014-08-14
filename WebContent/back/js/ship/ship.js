@@ -1,15 +1,13 @@
 /**
  * 
  */
-//後端物流管理AJAX | class="btnCallAjaxLogistic" type="button"
-$(".btnCallAjaxLogistic").off();
-$(".btnCallAjaxLogistic").on("click", function(event) {
+//後端物流管理AJAX | class="btnCallAjaxShip" type="button"
+$(".btnCallAjaxShip").off();
+$(".btnCallAjaxShip").on("click", function(event) {
 	
 	var form = $(this).closest("form");
-	
-	form.parent("div").dialog("close");
-	
-	console.log(form.attr("action"));
+	console.log(form.attr("action"));	
+	console.log(form.serialize());
 	
 	$.ajax({
 		url : form.attr("action"),
@@ -18,7 +16,7 @@ $(".btnCallAjaxLogistic").on("click", function(event) {
 		data : form.serialize(),
 		dataType : "html",
 		success : function(returnData) {
-				$("#listAllTrade").html(returnData);
+				$("#listAllShipResult").html(returnData);
 		},
 		error : function() {
 			alert("系統異常!");

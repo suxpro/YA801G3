@@ -4,23 +4,13 @@
 <%-- 萬用複合查詢-可由客戶端select_page.jsp隨意增減任何想查詢的欄位 --%>
 <%-- 此頁只作為複合查詢時之結果練習，可視需要再增加分頁、送出修改、刪除之功能--%>
 
-<html>
-<head>
-<title>配送資料查詢結果 - showShipList.jsp</title>
-</head>
-<body bgcolor='white'>
+<!-- <html> -->
+<!-- <head> -->
+<!-- <title>配送資料查詢結果 - showShipList.jsp</title> -->
+<!-- </head> -->
+<!-- <body bgcolor='white'> -->
 
-<table border='1' cellpadding='5' cellspacing='0' width='800'>
-	<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-		<td>
-		<h3><font color=red>複合查詢</font>配送資料查詢結果 - showShipList.jsp</h3>
-		<a href="<%=request.getContextPath()%>/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a>
-		</td>
-	</tr>
-</table>
-
-
-<table border='1' bordercolor='#CCCCFF' width='800'>
+<table class="table table-hover">
 	<tr>
 		<th>訂單編號</th>
 		<th>租物編號</th>
@@ -51,5 +41,6 @@
 		</tr>
 	</c:forEach>
 </table>
-</body>
-</html>
+
+<!-- </body> -->
+<!-- </html> -->

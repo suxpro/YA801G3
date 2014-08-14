@@ -48,7 +48,7 @@ setInterval(function(){
 					<li><a href="#" class="manage" rel="employee">員工管理</a></li>
 					<li><a href="#" class="manage" rel="member">會員管理</a></li>
 					<li><a href="#" class="manage" rel="rent">租物管理</a></li>
-					<li><a href="#" class="manage" rel="trade">物流管理</a></li>
+					<li><a href="#" class="manage" rel="ship">物流管理</a></li>
 				</ul>
 			</div>
 		</div>

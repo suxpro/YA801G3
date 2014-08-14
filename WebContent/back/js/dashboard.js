@@ -22,13 +22,13 @@ $(document).ready(
 						$.getScript("js/dashboard.js");
 					});
 					break;
-				case "trade":
-					$("#indexMain").load("trade/indexTrade.jsp", function() {
+				case "ship":
+					$("#indexMain").load("ship/indexShip.jsp", function() {
 						$.getScript("js/dashboard.js");
 					});
 					break;
 				default:
-					alert("選擇管理error!");
+					console.log("選擇管理error!");
 					break;
 				}
 			});
@@ -49,7 +49,7 @@ $(document).ready(
 					});
 					break;
 				default:
-					alert("選擇員工管理error!");
+					console.log("選擇員工管理error!");
 					break;
 				}
 			});
@@ -84,7 +84,7 @@ $(document).ready(
 					});
 					break;
 				default:
-					alert("選擇員工管理error!");
+					console.log("選擇員工管理error!");
 					break;
 				}
 			});
@@ -113,30 +113,30 @@ $(document).ready(
 					});
 					break;
 				default:
-					alert("選擇員工管理error!");
+					console.log("選擇員工管理error!");
 					break;
 				}
 			});
 			
 			//物流管理按鈕切換div
-			$(".aIndexTrade").off();
-			$(".aIndexTrade").on("click", function(event) {
+			$(".aIndexShip").off();
+			$(".aIndexShip").on("click", function(event) {
 				$(this).parent("li").addClass( "active" ).siblings("li").removeClass( "active" );
 				switch ($(this).attr("rel")) {
-				case "trade":
-					$("#listAllTrade").load("trade/listAllTrade.jsp",function() {
+				case "ship":
+					$("#listAllShip").load("trade/queryShipList.jsp",function() {
 //						此區看是否有後續動作要做
-						$.getScript("js/logistic/logistic.js");
+						$.getScript("js/ship/ship.js");
 					});
 					break;
-				case "temp1":
-					$("#listAllTrade").load("trade/temp1.jsp", function() {
-//						此區看是否有後續動作要做
-						$.getScript("js/logistic/logistic.js");
-					});
-					break;
+//				case "temp1":
+//					$("#listAllShip").load("trade/queryShipList.jsp", function() {
+////						此區看是否有後續動作要做
+//						$.getScript("js/ship/ship.js");
+//					});
+//					break;
 				default:
-					alert("選擇員工管理error!");
+					console.log("選擇員工管理error!");
 					break;
 				}
 			});
@@ -177,7 +177,7 @@ function initDashboard() {
 			});
             break;
         default:
-            alert("登入帳號職位error!");
+            console.log("登入帳號職位error!");
             break;
     }
 }
