@@ -682,7 +682,7 @@ public class OrdServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("ordVO", ordVO); // 含有輸入格式錯誤的ordVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher(requestURL);
+							.getRequestDispatcher("/front/ord/addOrd.jsp");
 					failureView.forward(req, res);
 					return; // 程式中斷
 				}

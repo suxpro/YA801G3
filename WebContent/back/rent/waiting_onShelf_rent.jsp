@@ -112,7 +112,6 @@
                             <input type="hidden" name="rent_no" value="${rentVO.rent_no}"> 
                             <input type="hidden" name="action" value="fail">
                             <textarea name="cause" rows="4" cols="35" maxlength="100"></textarea>
-<%--                             <input type="submit" id="fail<%=count%>" value="不通過"> --%>
                             <input class="btnCallAjaxRent" type="button" id="fail<%=count%>" value="不通過">
                         </form>
                     </div> 
@@ -137,7 +136,7 @@
                             $("#dialog-form<%=count%>").dialog("close");
                             }
                         });
-                        
+                        $("#fail<%=count%>").hide();
                         // fail_rent button click() 啟用 dialog
                         $("#fail_rent<%=count%>").button().on("click", function() {
                             $("#dialog-form<%=count%>").dialog("open");
