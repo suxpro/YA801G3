@@ -28,8 +28,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Refresh"
-	content="30;URL=<%=request.getContextPath()%>/front/rent/listAllRent.jsp">
+<!-- <meta http-equiv="Refresh" -->
+<%-- 	content="30;URL=<%=request.getContextPath()%>/front/rent/listAllRent.jsp"> --%>
 
 <link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css"
 	rel="stylesheet" media="screen">
@@ -174,7 +174,6 @@
 						<tr align='center' valign='middle'>
 							<th>圖片</th>
 							<th>租物名稱</th>
-							<th>租物狀態</th>
 							<!-- 			<th width='100px'>租物狀態</th> -->
 							<th>租物分類</th>
 							<th>租物押金</th>
@@ -182,6 +181,7 @@
 							<th>出貨/回收緩衝</th>
 							<!-- 			<th>地區編號</th> -->
 							<!-- 			<th>租物地址</th> -->
+							<th>租物狀態</th>
 							<th>最後狀態時間</th>
 							<th>最後上架時間</th>
 							<th>最後修改時間</th>
@@ -189,12 +189,36 @@
 						<%@ include file="page1.file"%>
 						<c:forEach var="rentVO" items="${list}" begin="<%=pageIndex%>"
 							end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
+							<%
+							  String last_sta_time = getTimestampString(((RentVO) pageContext.getAttribute("rentVO")).getLast_sta_time());
+							  String last_sta_time_D = "";
+							  String last_sta_time_T = "";
+							  if(last_sta_time != ""){
+								  last_sta_time_D = last_sta_time.substring(0, 10);
+								  last_sta_time_T = last_sta_time.substring(11, 19);
+							  }
+							  
+							  String last_onshelf_time = getTimestampString(((RentVO) pageContext.getAttribute("rentVO")).getLast_onshelf_time());
+							  String last_onshelf_time_D = "";
+							  String last_onshelf_time_T = "";
+							  if(last_onshelf_time != ""){
+								  last_onshelf_time_D = last_onshelf_time.substring(0, 10);
+								  last_onshelf_time_T = last_onshelf_time.substring(11, 19);
+							  }
+							  
+							  String last_mod_time = getTimestampString(((RentVO) pageContext.getAttribute("rentVO")).getLast_mod_time());
+							  String last_mod_time_D = "";
+							  String last_mod_time_T = "";
+							  if(last_mod_time != ""){
+								  last_mod_time_D = last_mod_time.substring(0, 10);
+								  last_mod_time_T = last_mod_time.substring(11, 19);
+							  }
+							%>
 							<tr align='center' valign='middle'>
 								<td><img width="100" height="100"
 									src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=pic1"></td>
 								<td><a href="javascript:pressesA${s.index}()">${rentVO.rent_name}</a></td>
 								<%-- 				<td width='100px'>${rentVO.rent_desc        }</td> --%>
-								<td>${rent_staMap[rentVO.rent_sta]}</td>
 								<td>${tag_staMap[rentVO.tag_no]}</td>
 								<td>${rentVO.rent_dps         }元</td>
 								<td>${rentVO.unit_price       }元</td>
@@ -204,12 +228,13 @@
 								<%--  				<td>${rentVO.last_sta_time}</td> --%>
 								<%-- 				<td>${rentVO.last_onshelf_time}</td> --%>
 								<%-- 				<td>${rentVO.last_mod_time    }</td> --%>
-								<td><%=getTimestampString(((RentVO) pageContext
-						.getAttribute("rentVO")).getLast_sta_time())%></td>
-								<td><%=getTimestampString(((RentVO) pageContext
-						.getAttribute("rentVO")).getLast_onshelf_time())%></td>
-								<td><%=getTimestampString(((RentVO) pageContext
-						.getAttribute("rentVO")).getLast_mod_time())%></td>
+								<td>${rent_staMap[rentVO.rent_sta]}</td>
+								<td><%=last_sta_time_D %><br>
+								    <%=last_sta_time_T %></td>
+								<td><%=last_onshelf_time_D %><br>
+								    <%=last_onshelf_time_T %></td>
+								<td><%=last_mod_time_D %><br>
+								    <%=last_mod_time_T %></td>
 
 								<td>
 									<FORM METHOD="post"

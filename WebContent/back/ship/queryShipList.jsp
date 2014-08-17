@@ -27,7 +27,7 @@
 <!-- <body bgcolor='white'> -->
 
 
-<h3>資料查詢:</h3>
+<h3><b>待配送資料查詢:</b></h3>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
   <font color='red'>請修正以下錯誤:
@@ -43,38 +43,39 @@
 <ul>  
   <li>   
     <form method="post" action="<%=request.getContextPath()%>/back/ship/ship.do" name="form1">
-        <b><font color=blue>待配送資料查詢:</font></b> <br>
+<!--         <b><font color=blue>待配送資料查詢:</font></b>  -->
+        <br>
  
    <jsp:useBean id="tagSVC" scope="page" class="back.tag.model.TagService" />
-  
-       <b>選擇租物分類:</b>
+        
+       <b>租物分類:</b>
        <select size="1" name="tag_no" >
           <option value="">
          <c:forEach var="tagVO" items="${tagSVC.all}" > 
           <option value="${tagVO.tag_no}">${tagVO.tag_desc}
          </c:forEach>   
-       </select><br>
-               
+       </select>
+       &nbsp&nbsp&nbsp        
    <jsp:useBean id="locSVC" scope="page" class="back.loc.model.LocService" />
-       <b>選擇取貨地區:</b>
+       <b>取貨地區:</b>
        <select size="1" name="rec_loc" >
           <option value="">
          <c:forEach var="locVO" items="${locSVC.all}" > 
           <option value="${locVO.loc_no}">${locVO.loc_desc}
          </c:forEach>   
-       </select><br>
-       
-       <b>選擇配送地區:</b>
+       </select>
+       &nbsp&nbsp&nbsp
+       <b>配送地區:</b>
        <select size="1" name="dest_loc"  value =" ">
           <option value="">
          <c:forEach var="locVO" items="${locSVC.all}" > 
           <option value="${locVO.loc_no}">${locVO.loc_desc}
          </c:forEach>   
-       </select><br>
-    
+       </select>
+       &nbsp&nbsp&nbsp
         <b>需求產生日:</b>
 		<td><input type="TEXT" name="start_time" id="start_time" class="text" value="${shipVO.start_time}" readonly="readonly" /></td>
-        <br>		        
+        <br><br>		        
         <input class="btnCallAjaxShip btn btn-primary" type="button" value="查詢">
         <input type="hidden" name="action" value="getShipList">
      </form>

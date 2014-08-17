@@ -209,6 +209,14 @@
 				MemberVO lesVO = memberSVC.getOneMember(rentVO.getLes_no());
 				pageContext.setAttribute("lesVO",lesVO);
 				count++;
+				
+				String prent_time = getTimestampString(((PrentVO) pageContext.getAttribute("prentVO")).getPrent_time());
+				String prent_time_D = "";
+				String prent_time_T = "";
+				if(prent_time != ""){
+					prent_time_D = prent_time.substring(0, 10);
+					prent_time_T = prent_time.substring(11, 19);
+				}
 			%>
 	
 			<tr align='center' valign='middle'>
@@ -220,9 +228,9 @@
 				<td>${rentVO.unit_price       }元</td>
 				<td>${rentVO.reset_days       }天</td>
 				<td>${loc_staMap[rentVO.loc_no]}</td>
-				<td><%=getTimestampString(((PrentVO) pageContext.getAttribute("prentVO")).getPrent_time())%></td> 
+				<td><%=prent_time_D %><br>
+				    <%=prent_time_T %></td> 
 				
-
 <%-- 				<td><%=getTimestampString(((RentVO) pageContext --%>
 <%-- 						.getAttribute("rentVO")).getLast_sta_time())%></td> --%>
 <%-- 				<td><%=getTimestampString(((RentVO) pageContext --%>

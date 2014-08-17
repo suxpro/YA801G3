@@ -233,7 +233,7 @@
 			</tr>			
 			<tr>
 				<td>租物地址:<font color=red><b>*</b></font></td>
-				<td><input type="text" name="rent_addr" size="55"
+				<td><input type="text" name="rent_addr" size="40"
 					value="<%=rentVO.getRent_addr()%>"/></td>
 				<td><font color="red">${errorMsgs.rent_addr}</font></td>
 			</tr>	

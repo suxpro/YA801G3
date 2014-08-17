@@ -201,17 +201,11 @@
 				//開始承租時間的毫秒數
 				java.util.Date tenTime = (java.util.Date)((OrdVO)pageContext.getAttribute("ordVO")).getTen_date();
 				long len1 = tenTime.getTime();
-				System.out.println(len1);
 				//現在時間的毫秒數
 				long len2 = System.currentTimeMillis();
-// 				System.out.println(len2);
-				//計算時間差(毫秒)
-				long len = (len1 - len2);
-// 				System.out.println(len);
 				//將時間差轉為天的單位
-				double dif_days = (double) (len1 - len2) / (24*60*60*1000L);				
- 				System.out.println(dif_days);
- 				System.out.println(" ");
+				double dif_days = (double) (len1 - len2) / (24*60*60*1000);				
+
 			%>
 
 			<tr align='center' valign='middle'>
@@ -298,7 +292,7 @@
 												&& $.trim($("#nexp_date<%=count%>").val()) != "") {
 											var date1 = $("#exp_date<%=count%>").datepicker("getDate");
 											var date2 = $("#nexp_date<%=count%>").datepicker("getDate");
-											var days = ((date2 - date1) / (24 * 60 * 60 * 1000L));
+											var days = ((date2 - date1) / (24 * 60 * 60 * 1000));
 											if (days < 0)
 												days = 0;
 											$("#ext_days<%=count%>").val(days);
@@ -454,27 +448,32 @@
 						if(ord_sta == "W_APR"){ //1.訂單狀態為待核准
 <%-- 							$("#cc_ord<%=count%>").show(); --%>
 <%-- 							$("#cc_ord<%=count%>").hide(); --%>
-							$("#re_ord<%=count%>").attr("disabled", true); 
-							$("#cc_ord<%=count%>").attr("disabled", false);
-							$("#rec_com<%=count%>").attr("disabled", true);
-							$("#les_ases<%=count%>").attr("disabled", true);
+<%-- 							$("#re_ord<%=count%>").attr("disabled", true);  --%>
+<%-- 							$("#cc_ord<%=count%>").attr("disabled", false); --%>
+<%-- 							$("#rec_com<%=count%>").attr("disabled", true); --%>
+<%-- 							$("#les_ases<%=count%>").attr("disabled", true); --%>
+
+							$("#re_ord<%=count%>").hide(); 
+							$("#cc_ord<%=count%>").show();
+							$("#rec_com<%=count%>").hide();
+							$("#les_ases<%=count%>").hide();
 							
 						} else if (ord_sta == "W_SHIP"){//2.訂單狀態為待出貨
 							
-							$("#re_ord<%=count%>").attr("disabled", false);
-							$("#cc_ord<%=count%>").attr("disabled", true);
+							$("#re_ord<%=count%>").show();
+							$("#cc_ord<%=count%>").hide();
 							
-							//如果離租約開始日 還沒達到 reset_days的天數差距 不可能可以提早收到貨
+							//如果離租約開始日 還沒達到 reset_days的天數差距 不能可以提早收到貨
 							var reset_days = parseFloat(${rentVO.reset_days});
 							var dif_days = Math.round(parseFloat(<%=dif_days %>) * 100) / 100;
 //  							alert("reset_days: " + reset_days + " dif_days: " + dif_days ); 							
  							if (reset_days >= dif_days ){
-								$("#rec_com<%=count%>").attr("disabled", false);
+								$("#rec_com<%=count%>").show();
  							} else {
-								$("#rec_com<%=count%>").attr("disabled", true);		
+								$("#rec_com<%=count%>").hide();		
  							}
  							
-							$("#les_ases<%=count%>").attr("disabled", true);
+							$("#les_ases<%=count%>").hide();
 							
 // 						}else if (ord_sta == "DTBT"){//3.訂單狀態為配送中
 							
@@ -484,17 +483,17 @@
 							
 						}else if (ord_sta == "REC_COM"){//4.訂單狀態為收貨完成
 							
-							$("#re_ord<%=count%>").attr("disabled", false);
-							$("#cc_ord<%=count%>").attr("disabled", true);
-							$("#rec_com<%=count%>").attr("disabled", true);
-							$("#les_ases<%=count%>").attr("disabled", false);
+							$("#re_ord<%=count%>").show();
+							$("#cc_ord<%=count%>").hide();
+							$("#rec_com<%=count%>").hide();
+							$("#les_ases<%=count%>").show();
 							
 						}else if (ord_sta == "RENT_EXP"){//5.訂單狀態為租約到期
 							
-							$("#re_ord<%=count%>").attr("disabled", true);
-							$("#cc_ord<%=count%>").attr("disabled", true);
-							$("#rec_com<%=count%>").attr("disabled", true);
-							$("#les_ases<%=count%>").attr("disabled", false);
+							$("#re_ord<%=count%>").hide();
+							$("#cc_ord<%=count%>").hide();
+							$("#rec_com<%=count%>").hide();
+							$("#les_ases<%=count%>").show();
 							
 // 						}else if (ord_sta == "RT"){//6.訂單狀態為回收中
 							
@@ -503,45 +502,45 @@
 							
 						}else if (ord_sta == "RT_COM"){//7.訂單狀態為回收完成
 							
-							$("#re_ord<%=count%>").attr("disabled", true);
-							$("#cc_ord<%=count%>").attr("disabled", true);
-							$("#rec_com<%=count%>").attr("disabled", true);
-							$("#les_ases<%=count%>").attr("disabled", false);
+							$("#re_ord<%=count%>").hide();
+							$("#cc_ord<%=count%>").hide();
+							$("#rec_com<%=count%>").hide();
+							$("#les_ases<%=count%>").show();
 							
 						}else if (ord_sta == "CLS"){//8.訂單狀態為結案
 							
-							$("#re_ord<%=count%>").attr("disabled", true);
-							$("#cc_ord<%=count%>").attr("disabled", true);
-							$("#rec_com<%=count%>").attr("disabled", true);
-							$("#les_ases<%=count%>").attr("disabled", true);
+							$("#re_ord<%=count%>").hide();
+							$("#cc_ord<%=count%>").hide();
+							$("#rec_com<%=count%>").hide();
+							$("#les_ases<%=count%>").hide();
 							
 						}else if (ord_sta == "CC_ORD"){//9.訂單狀態為取消訂單
 							
-							$("#re_ord<%=count%>").attr("disabled", true);
-							$("#cc_ord<%=count%>").attr("disabled", true);
-							$("#rec_com<%=count%>").attr("disabled", true);
-							$("#les_ases<%=count%>").attr("disabled", true);
+							$("#re_ord<%=count%>").hide();
+							$("#cc_ord<%=count%>").hide();
+							$("#rec_com<%=count%>").hide();
+							$("#les_ases<%=count%>").hide();
 							
 						}else if (ord_sta == "AB_CLS"){//10.訂單狀態為異常結案
 							
-							$("#re_ord<%=count%>").attr("disabled", true);
-							$("#cc_ord<%=count%>").attr("disabled", true);
-							$("#rec_com<%=count%>").attr("disabled", true);
-							$("#les_ases<%=count%>").attr("disabled", true);
+							$("#re_ord<%=count%>").hide();
+							$("#cc_ord<%=count%>").hide();
+							$("#rec_com<%=count%>").hide();
+							$("#les_ases<%=count%>").hide();
 							
 						}else if (ord_sta == "RE_ORD"){//11.訂單狀態為待續約
 							
-							$("#re_ord<%=count%>").attr("disabled", true);
-							$("#cc_ord<%=count%>").attr("disabled", false);
-							$("#rec_com<%=count%>").attr("disabled", true);
-							$("#les_ases<%=count%>").attr("disabled", true);
+							$("#re_ord<%=count%>").hide();
+							$("#cc_ord<%=count%>").show();
+							$("#rec_com<%=count%>").hide();
+							$("#les_ases<%=count%>").hide();
 							
 						}else{
 							
-							$("#re_ord<%=count%>").attr("disabled", true);
-							$("#cc_ord<%=count%>").attr("disabled", true);
-							$("#rec_com<%=count%>").attr("disabled", true);
-							$("#les_ases<%=count%>").attr("disabled", true);
+							$("#re_ord<%=count%>").hide();
+							$("#cc_ord<%=count%>").hide();
+							$("#rec_com<%=count%>").hide();
+							$("#les_ases<%=count%>").hide();
 						}
 					</script>
 			</tr>

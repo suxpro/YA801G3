@@ -60,7 +60,7 @@ public class ScheduleServlet extends HttpServlet {
 					} else if ("RENT_EXP".equals(ordVO.getOrd_sta())) {
 						java.util.Date nowDate = new java.util.Date(); // 當前時間
 						Date ordDate = ordVO.getExp_date(); // 租物期限
-						if ((nowDate.getTime() - ordDate.getTime()) >= (ordVO.getOt_days() + 1)*24*60*60*1000L) { // 如果當前時間超過租物期限1天,則為租約逾期1天
+						if ((nowDate.getTime() - ordDate.getTime()) >= (ordVO.getOt_days() + 1)*24*60*60*1000) { // 如果當前時間超過租物期限1天,則為租約逾期1天
 							//逾期天數+1
 							ordVO.setOt_days(ordVO.getOt_days() + 1);
 							ordSvc.updateOrd(ordVO, "OT_DAYS");
@@ -90,7 +90,7 @@ public class ScheduleServlet extends HttpServlet {
 		};
 		timer1 = new Timer();
 		Calendar cal = new GregorianCalendar(2014, Calendar.AUGUST, 12, 0, 0, 0);
-		timer1.scheduleAtFixedRate(task1, cal.getTime(), 1 * 24 * 60 * 60 * 1000L); // 每1天執行一次
+		timer1.scheduleAtFixedRate(task1, cal.getTime(), 1 * 24 * 60 * 60 * 1000); // 每1天執行一次
 		System.out.println("已建立租約到期排程timer1!");
 
 		// 搜尋提醒資料表的提醒flag是Y的發簡訊提醒後改flag為N

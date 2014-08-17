@@ -70,14 +70,40 @@
             <th>租物分類</th>
             <th>租物押金</th>
             <th>租物價格/天</th>
-            <th>出貨/回收緩衝</th>
+<!--             <th>出貨/回收緩衝</th> -->
             <th>最後狀態時間</th>
             <th>最後上架時間</th>
             <th>最後修改時間</th>
         </tr>
         <%@ include file="page1.file"%>
         <c:forEach var="rentVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
-            <% count++; %>
+
+        <%
+         	count++;
+			String last_sta_time = getTimestampString(((RentVO) pageContext.getAttribute("rentVO")).getLast_sta_time());
+			String last_sta_time_D = "";
+			String last_sta_time_T = "";
+			if(last_sta_time != ""){
+				last_sta_time_D = last_sta_time.substring(0, 10);
+				last_sta_time_T = last_sta_time.substring(11, 19);
+			}
+							  
+			String last_onshelf_time = getTimestampString(((RentVO) pageContext.getAttribute("rentVO")).getLast_onshelf_time());
+			String last_onshelf_time_D = "";
+			String last_onshelf_time_T = "";
+			if(last_onshelf_time != ""){
+				last_onshelf_time_D = last_onshelf_time.substring(0, 10);
+				last_onshelf_time_T = last_onshelf_time.substring(11, 19);
+			}
+							  
+			String last_mod_time = getTimestampString(((RentVO) pageContext.getAttribute("rentVO")).getLast_mod_time());
+			String last_mod_time_D = "";
+			String last_mod_time_T = "";
+			if(last_mod_time != ""){
+				last_mod_time_D = last_mod_time.substring(0, 10);
+				last_mod_time_T = last_mod_time.substring(11, 19);
+			}
+		%>
             <tr align='center' valign='middle'>
                 <td><img width="100" height="100" src="<%=request.getContextPath()%>/back/rent/rent.do?rent_no=${rentVO.rent_no}&pic=pic1&action=getImg"></td>
                 <td><a href="javascript:presses${s.index}()">${rentVO.rent_no}</a></td>
@@ -86,13 +112,19 @@
                 <td>${tag_staMap[rentVO.tag_no]}</td>
                 <td>${rentVO.rent_dps}元</td>
                 <td>${rentVO.unit_price}元</td>
-                <td>${rentVO.reset_days}天</td>
-                <td><%=getTimestampString(((RentVO) pageContext
-                        .getAttribute("rentVO")).getLast_sta_time())%></td>
-                <td><%=getTimestampString(((RentVO) pageContext
-                        .getAttribute("rentVO")).getLast_onshelf_time())%></td>
-                <td><%=getTimestampString(((RentVO) pageContext
-                        .getAttribute("rentVO")).getLast_mod_time())%></td>
+<%--                 <td>${rentVO.reset_days}天</td> --%>
+<%--                 <td><%=getTimestampString(((RentVO) pageContext --%>
+<%--                         .getAttribute("rentVO")).getLast_sta_time())%></td> --%>
+<%--                 <td><%=getTimestampString(((RentVO) pageContext --%>
+<%--                         .getAttribute("rentVO")).getLast_onshelf_time())%></td> --%>
+<%--                 <td><%=getTimestampString(((RentVO) pageContext --%>
+<%--                         .getAttribute("rentVO")).getLast_mod_time())%></td> --%>
+				<td><%=last_sta_time_D %><br>
+					<%=last_sta_time_T %></td>
+				<td><%=last_onshelf_time_D %><br>
+					<%=last_onshelf_time_T %></td>
+				<td><%=last_mod_time_D %><br>
+					<%=last_mod_time_T %></td>                        
                 <td>
                     <button id="pass_rent<%=count%>" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
                         role="button" aria-disabled="false">
@@ -153,7 +185,7 @@
             <script>
                 //超連結至該租物
                 function presses${s.index}(){
-                    document.open("<%=request.getContextPath()%>/back/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+                    document.open("<%=request.getContextPath()%>/back/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=500,width=500,left=65,top=60,resizable=yes,scrollbars=yes");
                 }
                 //超連結至該出租人
                 function presses2${s.index}(){
