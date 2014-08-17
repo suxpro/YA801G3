@@ -149,7 +149,8 @@ text-align:center;
 							    <img class="img-rounded" height="300px" width="300px" src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
 								<div class='text-right'>
 									<small class='bodyRentName text-muted' style='display:inline-block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:150px;'>${rentVO.rent_name}</small>
-									<h3><span id="rentStateSpan" class="rentStateSpanClass label" data-rentState="${rentVO.rent_sta}"  style="position:absolute;top:-5px;left:10px;z-index:1">${rent_staMap[rentVO.rent_sta]}</span></h3>
+                                    <h3><span id="rentStateSpan" class="rentStateSpanClass label" data-rentState="${rentVO.rent_sta}" style="position:absolute;top:-5px;left:10px;z-index:1">${rent_staMap[rentVO.rent_sta]}</span></h3>
+                                    <h3><span class="rentPriceClass label label-success" style="position:absolute;top:83%;left:70%;z-index:1"><span class="glyphicon glyphicon-usd"></span>${rentVO.unit_price}</span></h3>
 								</div><!-- text-right / end -->
 							</a>
 						</div>
