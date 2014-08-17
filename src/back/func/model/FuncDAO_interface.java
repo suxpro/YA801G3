@@ -12,4 +12,5 @@ public interface FuncDAO_interface {
 	      public List<FuncVO> getAll();
 	      //查詢某權限的員工(一對多)(回傳 Set)
 	      public Set<CompetenceVO> getCompetencesByFuncno(String func_no);
+
 }

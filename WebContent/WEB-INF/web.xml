@@ -39,6 +39,15 @@
         <url-pattern>/competence/competence.do</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>FuncServlet</servlet-name>
+        <servlet-class>back.func.controller.FuncServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FuncServlet</servlet-name>
+        <url-pattern>/func/func.do</url-pattern>
+    </servlet-mapping>
+    
 	<servlet>
 		<servlet-name>LoginHandler</servlet-name>
 		<servlet-class>back.employee.controller.LoginHandler</servlet-class>

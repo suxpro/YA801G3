@@ -300,5 +300,5 @@ public class CompetenceDAO implements CompetenceDAO_interface {
 		}
 		return list;
 	}
-	
+
 }

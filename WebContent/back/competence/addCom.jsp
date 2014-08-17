@@ -25,7 +25,7 @@
 			<div class="form-group">
 				<label for="addComEmpNo" class="col-md-2 control-label">員工編號:</label>
                 <div class="col-md-4">
-                    <select class="form-control" id="addComEmpNo" name="addComEmpNo">
+                    <select class="form-control" id="addComEmpNo" name="addComEmpNo" data-url-func="<%=request.getContextPath()%>/func/func.do">
                         <c:forEach var="comEmp" items="${comEmpSvc.getAll()}" varStatus="status">
                             <option>${comEmp.getEmp_no()}</option>
                         </c:forEach>
@@ -36,9 +36,9 @@
                 <label for="addComFuncNo" class="col-md-2 control-label">權限編號:</label>
                 <div class="col-md-4">
                     <select class="form-control" id="addComFuncNo" name="addComFuncNo">
-                        <c:forEach var="comFunc" items="${comFuncSvc.getAll()}" varStatus="status">
-                            <option>${comFunc.getFunc_no()}</option>
-                        </c:forEach>
+<%--                         <c:forEach var="comFunc" items="${comFuncSvc.getAll()}" varStatus="status"> --%>
+<%--                             <option>${comFunc.getFunc_no()}</option> --%>
+<%--                         </c:forEach> --%>
                     </select>
                 </div>
             </div>

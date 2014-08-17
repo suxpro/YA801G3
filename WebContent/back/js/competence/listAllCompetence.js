@@ -134,6 +134,42 @@ $("#addComForm").on("submit", function(event) {
 //	});
 //});
 
+//新增員工權限下拉式按鈕點完
+$("#addComEmpNo").off();
+$("#addComEmpNo").on("change", function(event) {
+//	console.log($(this).parent().siblings("td:eq(0)").text());
+//	console.log($(this).attr("value"));
+//	console.log($(this).data("urlFunc"));
+//	console.log($(this).val());
+	$("#addComFuncNo").empty();
+	$.ajax({
+		type : "POST",
+		url : $(this).data("urlFunc"),
+		contentType : "application/x-www-form-urlencoded",
+		data : {
+			action : "getFunc",
+			emp_no : $(this).val()
+		},
+		dataType : "json",
+		success : function(data) {
+//			console.log(data["resJson"][0]);
+			if(data["resJson"][0] != "none"){
+				for(var func in data["resJson"]){
+//					console.log(data["resJson"][func]);
+					$(new Option(data["resJson"][func] , data["resJson"][func])).appendTo('#addComFuncNo');
+				}
+			} else {
+				console.log(data["resJson"][0]+"沒有Func");
+			}
+				
+//			$("#listAllEmp").html(data);
+		},
+		error : function() {
+			alert("系統異常!");
+		}
+	});
+});
+
 // 移除員工權限按鈕
 $("#btnDelCom").off();
 $("#btnDelCom").on("click", function(event) {
