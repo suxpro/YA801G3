@@ -148,7 +148,7 @@ text-align:center;
 						    <a class="thumbnail" rel="ligthbox" style='text-decoration:none' data-toggle="modal" data-target="#infoRentModel">
 							    <img class="img-rounded" height="300px" width="300px" src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
 								<div class='text-right'>
-									<small class='bodyRentName text-muted' style='display:inline-block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:200px;'>${rentVO.rent_name}</small>
+									<small class='bodyRentName text-muted' style='display:inline-block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:150px;'>${rentVO.rent_name}</small>
 									<h3><span id="rentStateSpan" class="rentStateSpanClass label" data-rentState="${rentVO.rent_sta}"  style="position:absolute;top:-5px;left:10px;z-index:1">${rent_staMap[rentVO.rent_sta]}</span></h3>
 								</div><!-- text-right / end -->
 							</a>
@@ -168,6 +168,7 @@ text-align:center;
 			aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div id="infoRentShow" class="modal-content">
+				    
 				</div>
 			</div>
 		</div>

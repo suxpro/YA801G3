@@ -14,15 +14,15 @@
 %>
 
 <%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font color='red'>請修正以下錯誤:
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li>${message.value}</li>
-			</c:forEach>
-		</ul>
-	</font>
-</c:if>
+<%-- <c:if test="${not empty errorMsgs}"> --%>
+<!-- 	<font color='red'>請修正以下錯誤: -->
+<!-- 		<ul> -->
+<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 				<li>${message.value}</li> --%>
+<%-- 			</c:forEach> --%>
+<!-- 		</ul> -->
+<!-- 	</font> -->
+<%-- </c:if> --%>
 
 <div class="modal-header">
 	<label class="modal-title">${rentVO.rent_name}</label>
