@@ -138,7 +138,7 @@ $(document).ready(
 				if($.trim($(this).find("#rentStateSpan").data("liveOrd")).length != 0 ){
 					var ordTenDate = new Date($(this).find("#rentStateSpan").data("ordTenDate")).getTime(); //承租日
 					var ordExpDate = new Date($(this).find("#rentStateSpan").data("ordExpDate")).getTime(); //到期日
-					var bufferDate = $("#datepicker").data("resetDays")*24*60*60*1000; //緩衝的天數
+					var bufferDate = $("#datepicker").data("resetDays")*24*60*60*1000L; //緩衝的天數
 					console.log("bodyRent.liveOrd:"+$(this).find("#rentStateSpan").data("liveOrd"));
 					console.log("bodyRent.ordTenDate:"+$(this).find("#rentStateSpan").data("ordTenDate"));
 					console.log("bodyRent.ordExpDate:"+$(this).find("#rentStateSpan").data("ordExpDate"));

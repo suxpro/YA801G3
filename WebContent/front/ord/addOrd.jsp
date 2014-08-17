@@ -296,7 +296,7 @@
 												"getDate");
 										var date2 = $("#exp_date").datepicker(
 												"getDate");
-										var days = ((date2 - date1) / (24 * 60 * 60 * 1000)) + 1;
+										var days = ((date2 - date1) / (24 * 60 * 60 * 1000L)) + 1;
 										if (days < 0)
 											days = 0;
 										$("#ten_days").val(days);

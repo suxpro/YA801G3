@@ -23,9 +23,6 @@
 <!-- <meta http-equiv="Refresh" -->
 <%-- 	content="30;URL=<%=request.getContextPath()%>/front/ord/tenOrdList.jsp"> --%>
 
-<meta http-equiv="Refresh"
-	content="30;URL=<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">
-
 <title>JustRent! - 承租管理 </title>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
@@ -171,7 +168,7 @@
 		<script>alert("${alertMsgs.alert}");</script>
 	</c:if>
 
-	<table border='1' bordercolor='#CCCCFF' >
+	<table border='1' bordercolor='#CCCCFF' style="white-space: nowrap;">
 		<tr>
 			<th>租物圖片</th>
 			<th>訂單編號</th>
@@ -192,13 +189,29 @@
 			end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
 			<%
 				count++;
-							    RentService rentSVC = new RentService();
-						    			RentVO rentVO = rentSVC.getOneRent(((OrdVO)pageContext.getAttribute("ordVO")).getRent_no());
-								pageContext.setAttribute("rentVO",rentVO);
-								//查出出租者聯絡資料
-								MemberService memberSVC = new MemberService();
-								MemberVO lesVO = memberSVC.getOneMember(rentVO.getLes_no());
-								//pageContext.setAttribute("lesVO",lesVO);
+				RentService rentSVC = new RentService();
+				RentVO rentVO = rentSVC.getOneRent(((OrdVO)pageContext.getAttribute("ordVO")).getRent_no());
+				pageContext.setAttribute("rentVO",rentVO);
+				//查出出租者聯絡資料
+				MemberService memberSVC = new MemberService();
+				MemberVO lesVO = memberSVC.getOneMember(rentVO.getLes_no());
+				//pageContext.setAttribute("lesVO",lesVO);
+				
+				//計算現在時間與租約開始時間的差距
+				//開始承租時間的毫秒數
+				java.util.Date tenTime = (java.util.Date)((OrdVO)pageContext.getAttribute("ordVO")).getTen_date();
+				long len1 = tenTime.getTime();
+				System.out.println(len1);
+				//現在時間的毫秒數
+				long len2 = System.currentTimeMillis();
+// 				System.out.println(len2);
+				//計算時間差(毫秒)
+				long len = (len1 - len2);
+// 				System.out.println(len);
+				//將時間差轉為天的單位
+				double dif_days = (double) (len1 - len2) / (24*60*60*1000L);				
+ 				System.out.println(dif_days);
+ 				System.out.println(" ");
 			%>
 
 			<tr align='center' valign='middle'>
@@ -285,7 +298,7 @@
 												&& $.trim($("#nexp_date<%=count%>").val()) != "") {
 											var date1 = $("#exp_date<%=count%>").datepicker("getDate");
 											var date2 = $("#nexp_date<%=count%>").datepicker("getDate");
-											var days = ((date2 - date1) / (24 * 60 * 60 * 1000));
+											var days = ((date2 - date1) / (24 * 60 * 60 * 1000L));
 											if (days < 0)
 												days = 0;
 											$("#ext_days<%=count%>").val(days);
@@ -418,7 +431,7 @@
 						modal : true,
 						closeOnEscpe : true,
 						buttons : {
-									取消 : function() {
+									刪除 : function() {
 										$("#cancel<%=count%>").click();
 										},
 									返回 : function() {
@@ -450,7 +463,17 @@
 							
 							$("#re_ord<%=count%>").attr("disabled", false);
 							$("#cc_ord<%=count%>").attr("disabled", true);
-							$("#rec_com<%=count%>").attr("disabled", false);
+							
+							//如果離租約開始日 還沒達到 reset_days的天數差距 不可能可以提早收到貨
+							var reset_days = parseFloat(${rentVO.reset_days});
+							var dif_days = Math.round(parseFloat(<%=dif_days %>) * 100) / 100;
+//  							alert("reset_days: " + reset_days + " dif_days: " + dif_days ); 							
+ 							if (reset_days >= dif_days ){
+								$("#rec_com<%=count%>").attr("disabled", false);
+ 							} else {
+								$("#rec_com<%=count%>").attr("disabled", true);		
+ 							}
+ 							
 							$("#les_ases<%=count%>").attr("disabled", true);
 							
 // 						}else if (ord_sta == "DTBT"){//3.訂單狀態為配送中
@@ -525,11 +548,11 @@
 			<script>
 				//超連結至該訂單明細
      			function pressesA${s.index}(){
-    	 			document.open("<%=request.getContextPath()%>/front/ord/ord.do?ord_no=${ordVO.ord_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+    	 			document.open("<%=request.getContextPath()%>/front/ord/ord.do?ord_no=${ordVO.ord_no}&action=getOne_For_Display", "" ,"height=450,width=500,left=65,top=100,resizable=yes,scrollbars=yes");
      			}
 				//超連結至該租物
          		function pressesB${s.index}(){
-        	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+        	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=500,width=500,left=65,top=60,resizable=yes,scrollbars=yes");
          		}
 				//超連結至該出租人
          		function pressesC${s.index}(){
