@@ -43,18 +43,32 @@ text-align:center;
 
 
 	<div class="row">
+	       
+
+        
 		<!-- 分頁 -->
-		<div class="col-md-5">
-            <ul class="nav navbar-nav navbar-left">
+		<div class="col-md-6">
+            <ul class="nav nav-tabs " role="tablist">
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle bg-primary" data-toggle="dropdown" href="#">
+                        租物狀態<span class="caret"></span>
+<!--                       <span class="label label-primary">租物狀態</span> <span class="caret"></span> -->
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a class="aShowByState" data-state="all">全部</a></li>
+                        <li><a class="aShowByState" data-state="W_RENT">未出租</a></li>
+                        <li><a class="aShowByState" data-state="A_RENT">已出租</a></li>
+                    </ul>
+                </li>
                 <li class="liBodyRentPage disabled"><a class="navbar-link">1</a></li>
                 <c:forEach var="i" begin="2" end="${rentBodyList.size()/12+1}" step="1">
                     <li class="liBodyRentPage"><a class="navbar-link">${i}</a></li>
                 </c:forEach>
             </ul>
 		</div>
-
+        
 		<!-- 搜尋 -->
-		<div class="col-md-4 col-md-offset-1">
+		<div class="col-md-4">
             <form id="formBodyRentSearch" role="search" class="navbar-form navbar-right" value="<%=request.getContextPath()%>/employee/employee.do" enctype="multipart/form-data">
                 <div class="form-group">
                     <input type="text" id="inputBodyRentSearch" class="form-control" placeholder="Search By 關鍵字">
@@ -64,6 +78,7 @@ text-align:center;
             </form>
 		</div>
 		<!-- search -->
+
 	</div>
 	<!-- /.row -->
 
@@ -125,17 +140,17 @@ text-align:center;
 
 		<!-- 商品 -->
 		<div class="col-md-10">
-			<div class="row">
+			<div id="masonry" class="row">
 				<div class='list-group gallery'>
 
 					<c:forEach var="rentVO" items="${rentBodyList}" varStatus="status">
 						<div id="${rentVO.rent_no}" class='divRentItem col-md-3' value="<%=request.getContextPath()%>/front/rent/rent.do" data-rent-list-no="${status.count}" data-rent-tag-no="${rentVO.tag_no}">
-						    <a class="thumbnail" rel="ligthbox" data-toggle="modal" data-target="#infoRentModel">
-							    <img class="img-responsive" src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
+						    <a class="thumbnail" rel="ligthbox" style='text-decoration:none' data-toggle="modal" data-target="#infoRentModel">
+							    <img class="img-rounded" height="300px" width="300px" src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
 								<div class='text-right'>
-									<small class='bodyRentName text-muted'>${rentVO.rent_name}
-									<span id="rentStateSpan" class="label label-primary" data-rentState="${rentVO.rent_sta}">${rent_staMap[rentVO.rent_sta]}</span></small>
-								</div> <!-- text-right / end -->
+									<small class='bodyRentName text-muted' style='display:inline-block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:200px;'>${rentVO.rent_name}</small>
+									<h3><span id="rentStateSpan" class="rentStateSpanClass label" data-rentState="${rentVO.rent_sta}"  style="position:absolute;top:-5px;left:10px;z-index:1">${rent_staMap[rentVO.rent_sta]}</span></h3>
+								</div><!-- text-right / end -->
 							</a>
 						</div>
 						<!-- col-6 / end -->

@@ -3,7 +3,10 @@
  */
 $(document).ready(
 		function() {
-
+			//租物區已出租跟待出租按鈕顏色
+			$(".divRentItem .rentStateSpanClass[data-rentState='W_RENT']").addClass("label-primary");
+			$(".divRentItem .rentStateSpanClass[data-rentState='A_RENT']").addClass("label-warning");
+			
 			// 選擇租物
 			$(".divRentItem").off();
 			$(".divRentItem").on("click", function(event) {
@@ -33,6 +36,7 @@ $(document).ready(
 				//按鈕顯示承租/預租
 //				$.trim($(this).find("#rentStateSpan").data("liveOrd")).length != 0? $("#btnAddRentToCart").text("預租").addClass("btn-warning") : $("#btnAddRentToCart").text("承租").addClass("btn-primary");
 				$.trim($(this).find("#rentStateSpan").data("liveOrd")).length != 0? $("#btnAddRentToCart").hide("fast") : $("#btnAddRentToCart").show("fast");
+				$.trim($(this).find("#rentStateSpan").data("liveOrd")).length != 0? $(this).find("#rentStateSpan").addClass("label-warning") : $(this).find("#rentStateSpan").addClass("label-primary");
 
 				//點擊承租按鈕
 				$("#btnAddRentToCart").off();
@@ -138,7 +142,7 @@ $(document).ready(
 				if($.trim($(this).find("#rentStateSpan").data("liveOrd")).length != 0 ){
 					var ordTenDate = new Date($(this).find("#rentStateSpan").data("ordTenDate")).getTime(); //承租日
 					var ordExpDate = new Date($(this).find("#rentStateSpan").data("ordExpDate")).getTime(); //到期日
-					var bufferDate = $("#datepicker").data("resetDays")*24*60*60*1000; //緩衝的天數
+					var bufferDate = $("#datepicker").data("resetDays")*24*60*60*1000L; //緩衝的天數
 					console.log("bodyRent.liveOrd:"+$(this).find("#rentStateSpan").data("liveOrd"));
 					console.log("bodyRent.ordTenDate:"+$(this).find("#rentStateSpan").data("ordTenDate"));
 					console.log("bodyRent.ordExpDate:"+$(this).find("#rentStateSpan").data("ordExpDate"));
@@ -152,10 +156,16 @@ $(document).ready(
 							"option",
 							"maxDate",
 							new Date(ordExpDate + bufferDate));
-					$("#hasRent").text("已出租,日期請參考上面");
+					$("#hasRent").addClass("text-danger").text("已出租，日期請參考上面。");
 				} else {
-					$("#hasRent").text("尚未出租。");
+					$("#hasRent").addClass("text-success").text("尚未出租，顯示當前日期。");
 				}
+				
+				//圖片放大
+//				$("#spanZoom").off();
+//				$("#spanZoom").on("click", function(e) {
+//					$('.imgMainShow').magnify();
+//				});
 			});
 			
 			//分頁按鈕
@@ -204,18 +214,37 @@ $(document).ready(
 				});
 			});
 			
-			//滑鼠移到租物上特效
+			//搜尋租物狀態按鈕
+			$(".aShowByState").off();
+			$(".aShowByState").on("click", function(event) {
+				console.log($(this).data("state"));
+				var showState = $(this).data("state");
+				$(".divRentItem").hide(0,function() {
+					if(showState == "W_RENT"){
+						$(".rentStateSpanClass[data-rentState='W_RENT']").closest(".divRentItem").fadeIn();
+					}
+					else if(showState == "A_RENT"){
+						$(".rentStateSpanClass[data-rentState='A_RENT']").closest(".divRentItem").fadeIn();
+					}
+					else
+						$(this).fadeIn();
+				});
+			});
 			
+			//滑鼠移到租物上特效
+
+//	        var current_h = $('.divRentItem').height()+29;
+//	        var current_w = $('.divRentItem').width()+29;
 //			$('.divRentItem').hover(
 //				    function(){
-//				        current_h = $(this, 'img').height();
-//				        current_w = $(this, 'img').width();
-//				        $(this).closest("div").css({'z-index':2});
-//				        $(this).closest("div").stop(true, false).animate({width: (current_w * 1.3), height: (current_h * 1.3)}, 300);
+//				        $(this).css({'z-index':"inherit"+1,position:"relative"});
+//				        console.log("a",current_w,",",current_h);
+//				        $(this).stop(true, false).animate({width: (current_w * 1.3), height: (current_h * 1.3)}, 300);
 //				    },
 //				    function(){
-//				        $(this).closest("div").css({'z-index':1});
-//				        $(this).closest("div").stop(true, false).animate({width: current_w + 'px', height: current_h + 'px'}, 300);
+//				        $(this).css({'z-index':"inherit",position:"static"});
+//				        console.log("b",current_w,",",current_h);
+//				        $(this).stop(true, false).animate({width: current_w + 'px', height: current_h + 'px'}, 300);
 //				    }
 //				);
 			
@@ -233,6 +262,11 @@ $(document).ready(
 //				});
 //			});
 
-
+			//租物區排版
+//			var masonryNode = $('#masonry');
+//            masonryNode.masonry({ 
+//                itemSelector: '.divRentItem', 
+//                isFitWidth: true 
+//            }); 
 
 		});

@@ -14,6 +14,7 @@
 <link href="css/justrent.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="jquery-ui-1.11.0.custom/jquery-ui.css" rel="stylesheet">
+<link href="css/bootstrap-magnify.min.css" rel="stylesheet">
 <!-- <link href="css/jquery-ui-datepicker-custom.css" rel="stylesheet"> -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
@@ -23,6 +24,7 @@
 <script src="js/jquery.color.js"></script>
 <script src="js/justrent.js"></script>
 <script src="js/jquery.tinyMap-2.8.4.js"></script>
+<script src="js/bootstrap-magnify.min.js"></script>
 
 <title>JustRent! - ¸Uª«¬Ò¥i¯²</title>
 

@@ -26,7 +26,7 @@
 
 <div class="modal-header">
 	<label class="modal-title">${rentVO.rent_name}</label>
-	<span id="rentStateSpan" class="label label-primary inline"
+	<span id="rentStateSpan" class="label inline"
 	 data-rent-state="${rentVO.rent_sta}"
 	 data-live-ord="${ordSvcInfoRent.hasLiveOrd(rentVO.rent_no)}"
 	 data-ord-ten-date="${ordSvcInfoRent.getOneOrd(ordSvcInfoRent.hasLiveOrd(rentVO.rent_no)).ten_date}"
@@ -42,56 +42,56 @@
 	<div class="row">
 		<!-- 租物資訊 -->
 		<div class="col-md-3">
-          <!-- 租物描述 -->
 		  <div class="row">
+            <!-- 租物描述 -->
 			<dl>
-                <dt>出租人:</dt>
-                <dd>${memSvcInfoRent.getOneMember(rentVO.les_no).getMname()}</dd>	
-				<dt>描述:</dt>
-				<dd>${rentVO.rent_desc}</dd>
+                <dt class="bg-info"><span class="glyphicon glyphicon-user"></span> 出租人:</dt>
+                <dd>${memSvcInfoRent.getOneMember(rentVO.les_no).getMname()}</dd><br>
+				<dt class="bg-info"><span class="glyphicon glyphicon-comment"></span> 描述:</dt>
+				<dd>${rentVO.rent_desc}</dd><br>
+                <dt class="bg-info"><span class="glyphicon glyphicon-map-marker"></span> 地址:</dt>
+                <dd>${rentVO.rent_addr}</dd><br>
 			</dl>
+            <!-- 租物地圖 -->
+            <div id="map" class="panel panel-primary" style="width:200px;height:200px;" data-map-rent-addr="${rentVO.rent_addr}">!map</div>
 		  </div>
           <!-- /row -->
-          <!-- 租物地圖 -->
-          <div class="row">
-            <dl>
-                <dt>地址:</dt>
-                <dd>${rentVO.rent_addr}</dd>
-            </dl>
-            <div id="map" class="panel panel-primary" style="width:200px;height:200px;" data-map-rent-addr="${rentVO.rent_addr}">!map</div>
-          </div>
-          <!-- /row -->
 		</div>
-		<!-- 租物圖片 -->
-		<div class="col-md-6">
-			<img class="imgMainShow img-responsive" height="100%" width="100%"
-	             src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
-         </div>
-		<!-- 租物日期 -->
-		<div class="col-md-3">
-		    <div id="datepicker" style="font-size: 40%;" data-reset-days="${rentVO.reset_days}"></div>
-		    <div id="hasRent"></div>
-		</div>
-	</div>
-	<!-- /row -->
-	<div class="row">
-		<!-- 租物小圖片 -->
-		<div class="col-md-5 col-md-offset-3">
-            <img class="imgPreview" height="50px" width="50px"
-                 src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
-            <img class="imgPreview" height="50px" width="50px"
-                 src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC2" />
-            <img class="imgPreview" height="50px" width="50px"
-                 src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC3" />
+        <div class="col-md-6">
+            <!-- 租物圖片 -->
+            <div class="row">
+				<img class="imgMainShow img-responsive" height="100%" width="100%"
+		             src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
+	        </div>
+            <!-- /row -->
         </div>
-		<!-- 租物按鈕 -->
-		<div class="col-md-offset-1 col-md-3">
-            <div class="text-right" style="position:relative;top:-10px">$ ${rentVO.unit_price}/day</div>
-            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-warning pull-right" id="btnAddRentToPrerent" data-servlet="<%=request.getContextPath()%>/front/rent/rent.do" data-rent-no="${rentVO.rent_no}" data-rent-state="${rentVO.rent_sta}">追蹤</button>
-            <button type="button" class="btn btn-primary pull-right" id="btnAddRentToCart" data-servlet="<%=request.getContextPath()%>/front/rent/rent.do" data-rent-no="${rentVO.rent_no}" data-rent-state="${rentVO.rent_sta}">承租</button>
-		</div>
+        <div class="col-md-3">
+            <!-- 租物日期 -->
+            <div class="row">
+                <div id="datepicker" style="font-size: 40%;" data-reset-days="${rentVO.reset_days}"></div>
+                <div id="hasRent" class="text-right"></div>
+            </div>
+            <!-- /row -->
+            <!-- 租物小圖片 -->
+            <div class="row">
+                <img class="imgPreview img-thumbnail" height="50px" width="50px"
+                     src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
+                <img class="imgPreview img-thumbnail" height="50px" width="50px"
+                     src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC2" />
+                <img class="imgPreview img-thumbnail" height="50px" width="50px"
+                     src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC3" />
+<!--                 <span id="spanZoom" class="glyphicon glyphicon-search"></span> -->
+            </div>
+            <!-- /row -->
+	        <!-- 租物按鈕 -->
+	        <div class="row">
+	            <div class="text-right lead" style="position:relative;top:-10px"><strong>$ ${rentVO.unit_price}/day</strong></div>
+	            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">取消</button>
+	            <button type="button" class="btn btn-warning pull-right" id="btnAddRentToPrerent" data-servlet="<%=request.getContextPath()%>/front/rent/rent.do" data-rent-no="${rentVO.rent_no}" data-rent-state="${rentVO.rent_sta}">追蹤</button>
+	            <button type="button" class="btn btn-primary pull-right" id="btnAddRentToCart" data-servlet="<%=request.getContextPath()%>/front/rent/rent.do" data-rent-no="${rentVO.rent_no}" data-rent-state="${rentVO.rent_sta}">承租</button>
+	        </div>
+            <!-- /row -->
+        </div>
 	</div>
-	<!-- /row -->
 
 </div>
