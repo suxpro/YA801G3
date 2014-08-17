@@ -325,7 +325,7 @@
 						modal : true,
 						closeOnEscpe : true,
 						buttons : {
-									取消 : function() {
+									刪除 : function() {
 										$("#cancel<%=count%>").click();
 										},
 									返回 : function() {
