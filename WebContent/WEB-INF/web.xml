@@ -108,6 +108,14 @@
 		<url-pattern>/front/ord/ord.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>OrdServlet2</servlet-name>
+		<servlet-class>back.ord.controller.OrdServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrdServlet2</servlet-name>
+		<url-pattern>/back/ord/ord.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>CartServlet</servlet-name>
 		<servlet-class>front.cart.controller.CartServlet</servlet-class>
 	</servlet>

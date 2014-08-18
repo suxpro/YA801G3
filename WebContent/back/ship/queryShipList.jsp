@@ -74,7 +74,7 @@
        </select>
        &nbsp&nbsp&nbsp
         <b>需求產生日:</b>
-		<td><input type="TEXT" name="start_time" id="start_time" class="text" value="${shipVO.start_time}" readonly="readonly" /></td>
+		<input type="TEXT" name="start_time" id="start_time" class="text" value="${shipVO.start_time}" readonly="readonly" />
         <br><br>		        
         <input class="btnCallAjaxShip btn btn-primary" type="button" value="查詢">
         <input type="hidden" name="action" value="getShipList">

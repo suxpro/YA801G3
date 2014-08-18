@@ -85,10 +85,10 @@ public class StatusMappingList extends HttpServlet {
 		// 訂單狀態
 		ord_staMap.put("W_APR", "待核准");
 		ord_staMap.put("W_SHIP", "待出貨");
-		ord_staMap.put("DTBT", "配送中");
+//		ord_staMap.put("DTBT", "配送中");
 		ord_staMap.put("REC_COM", "收貨完成");
 		ord_staMap.put("RENT_EXP", "租約到期");
-		ord_staMap.put("RT", "回收中");
+//		ord_staMap.put("RT", "回收中");
 		ord_staMap.put("RT_COM", "回收完成");
 		ord_staMap.put("CLS", "結案");
 		ord_staMap.put("CC_ORD", "取消訂單");
