@@ -4,7 +4,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="front.member.model.*"%>
 <%
-	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+	MemberVO memberVOadd = (MemberVO) request.getAttribute("memberVOadd");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,7 +26,7 @@
 
 function submitForm(){ 
 	form1.mid.value = "Tider";
-	form1.mpwd.value = "Tider1";
+	form1.mpwd.value = "111111";
 	form1.mname.value = "饅頭人";
 	form1.msex.value = "M";
 	form1.mcell.value = "0912345678";
@@ -75,7 +75,7 @@ function submitForm(){
 									<!-- 會員帳號 -->
 									<div class="control-group  ">
 										<label class="control-label" for="mid">會員帳號 </label> 
-										<input type="text" id="mid" name="mid" value="<%=(memberVO == null) ? "" : memberVO.getMid()%>" class="col-xs-offset-1 " maxlength="10"  required />
+										<input type="text" id="mid" name="mid" value="<%=(memberVOadd == null) ? "" : memberVOadd.getMid()%>" class="col-xs-offset-1 " maxlength="10"  required />
 										
 									</div>
 
@@ -83,7 +83,7 @@ function submitForm(){
 									<div class="control-group  ">
 										<label class="control-label" for="mpwd">會員密碼</label> <input
 											type="password" id="mpwd" name="mpwd"
-											value="<%=(memberVO == null) ? "" : memberVO.getMpwd()%>" class="col-xs-offset-1" required />
+											value="<%=(memberVOadd == null) ? "" : memberVOadd.getMpwd()%>" class="col-xs-offset-1" required />
 									</div>
 
 
@@ -91,14 +91,14 @@ function submitForm(){
 									<div class="control-group  ">
 										<label class="control-label" for="mname">會員姓名</label> <input
 											type="text" id="mname" name="mname"
-											value="<%=(memberVO == null) ? "" : memberVO.getMname()%>" class="col-xs-offset-1" required />
+											value="<%=(memberVOadd == null) ? "" : memberVOadd.getMname()%>" class="col-xs-offset-1" required />
 									</div>
 
 									<!-- 會員性別 -->
 									<div class="control-group  ">
 										<label class="control-label" for="msex">會員性別</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										
-            									&nbsp;<input type="radio" id="msex" name="msex" value=M	class="col-xs-offset-1">&nbsp;男&nbsp;&nbsp;
+            									&nbsp;<input type="radio" id="msex" name="msex" value=M class="col-xs-offset-1">&nbsp;男&nbsp;&nbsp;
             									&nbsp;<input type="radio" id="msex" name="msex" value=F	class="col-xs-offset-1">&nbsp;女
 										
 									
@@ -108,14 +108,14 @@ function submitForm(){
 									<div class="control-group  ">
 										<label class="control-label" for="mcell">會員手機</label> <input
 											type="text" id="mcell" name="mcell"
-											value="<%=(memberVO == null) ? "" : memberVO.getMcell()%>" class="col-xs-offset-1" required />
+											value="<%=(memberVOadd == null) ? "" : memberVOadd.getMcell()%>" class="col-xs-offset-1" required />
 
 									</div>
 
 									<!-- 會員郵件 -->
 									<div class="control-group ">
 										<label class="control-label" for="mmail">會員郵件</label> 
-										<input type="email" id="mmail" name="mmail"	value="<%=(memberVO == null) ? "" : memberVO.getMmail()%>" class="col-xs-offset-1" required />
+										<input type="email" id="mmail" name="mmail"	value="<%=(memberVOadd == null) ? "" : memberVOadd.getMmail()%>" class="col-xs-offset-1" required />
 
 									</div>
 
@@ -128,7 +128,7 @@ function submitForm(){
 										<select size="1" name="locno" class="col-xs-offset-2">
 											<c:forEach var="locVO" items="${locSvc.all}">
 												<option value="${locVO.loc_no}"
-													${(memberVO.locno==locVO.loc_no)? 'selected':'' }>${locVO.loc_desc}
+													${(memberVOadd.locno==locVO.loc_no)? 'selected':'' }>${locVO.loc_desc}
 											</c:forEach>
 										</select>
 
@@ -137,7 +137,7 @@ function submitForm(){
 									<!-- 會員地址 -->
 									<div class="control-group ">
 										<label class="control-label" for="madrs">會員地址</label> 
-										<input type="text" id="madrs" name="madrs" value="<%=(memberVO == null) ? "" : memberVO.getMadrs()%>" class="col-xs-offset-1" required />
+										<input type="text" id="madrs" name="madrs" value="<%=(memberVOadd == null) ? "" : memberVOadd.getMadrs()%>" class="col-xs-offset-1" required />
 
 									</div>
 
@@ -187,12 +187,12 @@ function submitForm(){
 							<div class="control-group col-md-10 col-md-offset-10">
 								<div class="controls">
 									<input type="hidden" name="action" value="insert">
-									<input type="hidden" name="mverification" value="<%=(memberVO == null) ? "N" : memberVO.getMverification()%>" />
-									<input type="hidden" name="mbalance" value="<%=(memberVO == null) ? "0" : memberVO.getMbalance()%>" />
-									<input type="hidden" name="mlev" value="<%=(memberVO == null) ? "G" : memberVO.getMlev()%>" />
-									<input type="hidden" name="millegal" value="<%=(memberVO == null) ? "0" : memberVO.getMillegal()%>" />
-									<input type="hidden" name="massess" value="<%=(memberVO == null) ? "0" : memberVO.getMassess()%>" />
-									<input type="hidden" name="mverification" value="<%=(memberVO == null) ? "N" : memberVO.getMverification()%>" />
+									<input type="hidden" name="mverification" value="<%=(memberVOadd == null) ? "N" : memberVOadd.getMverification()%>" />
+									<input type="hidden" name="mbalance" value="<%=(memberVOadd == null) ? "0" : memberVOadd.getMbalance()%>" />
+									<input type="hidden" name="mlev" value="<%=(memberVOadd == null) ? "G" : memberVOadd.getMlev()%>" />
+									<input type="hidden" name="millegal" value="<%=(memberVOadd == null) ? "0" : memberVOadd.getMillegal()%>" />
+									<input type="hidden" name="massess" value="<%=(memberVOadd == null) ? "0" : memberVOadd.getMassess()%>" />
+									<input type="hidden" name="mverification" value="<%=(memberVOadd == null) ? "N" : memberVOadd.getMverification()%>" />
 													
 									<button class="btn btn-danger">註冊</button>
 								</div>

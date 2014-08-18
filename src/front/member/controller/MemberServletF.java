@@ -537,10 +537,11 @@ public class MemberServletF extends HttpServlet {
 				String mpwdReg = "^(?=^.{6,10}$)((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.*$";
 				if (mpwd == null || (mpwd.trim()).length() == 0) {
 					errorMsgs.put("mpwd", "請輸入密碼");
-				} else if (!mpwd.trim().matches(mpwdReg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.put("mpwd",
-							"密碼必須包含至少一個小寫字母與一個大寫字母和一個數字,長度在6到10之間");
-				}
+				} 
+//					else if (!mpwd.trim().matches(mpwdReg)) { // 以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.put("mpwd",
+//							"密碼必須包含至少一個小寫字母與一個大寫字母和一個數字,長度在6到10之間");
+//				}
 
 //				圖片處理
 				Map pics = new LinkedHashMap<String, byte[]>();
@@ -593,7 +594,10 @@ public class MemberServletF extends HttpServlet {
 				}
 
 				String msex = multi.getParameter("msex").trim();
-
+				if (msex == null ) {
+					errorMsgs.put("msex", "請選擇性別");
+				}
+				
 				String mcell = multi.getParameter("mcell").trim();
 				if (mcell == null || (mcell.trim()).length() == 0) {
 					errorMsgs.put("mcell", "請輸入手機電話");
@@ -651,29 +655,29 @@ public class MemberServletF extends HttpServlet {
 //				}
 
 
-				MemberVO memberVO = new MemberVO();
-				memberVO.setMid(mid);
-				memberVO.setMpwd(mpwd);
-				memberVO.setMpic(mpic);
-				memberVO.setMname(mname);
-				memberVO.setMsex(msex);
-				memberVO.setMcell(mcell);
-				memberVO.setMmail(mmail);
-				memberVO.setLocno(locno);
-				memberVO.setMadrs(madrs);
-				memberVO.setMlev(mlev);
-				memberVO.setMbalance(mbalance);
-				memberVO.setMillegal(milligal);
-				memberVO.setMassess(massess);
-				memberVO.setMverification(mverification);
+				MemberVO memberVOadd = new MemberVO();
+				memberVOadd.setMid(mid);
+				memberVOadd.setMpwd(mpwd);
+				memberVOadd.setMpic(mpic);
+				memberVOadd.setMname(mname);
+				memberVOadd.setMsex(msex);
+				memberVOadd.setMcell(mcell);
+				memberVOadd.setMmail(mmail);
+				memberVOadd.setLocno(locno);
+				memberVOadd.setMadrs(madrs);
+				memberVOadd.setMlev(mlev);
+				memberVOadd.setMbalance(mbalance);
+				memberVOadd.setMillegal(milligal);
+				memberVOadd.setMassess(massess);
+				memberVOadd.setMverification(mverification);
 //				memberVO.setMdate(mdate);
-				memberVO.setMpic_info(mpic_info);
-				memberVO.setMvpic(mvpic);
-				memberVO.setMvpic_info(mvpic_info);
+				memberVOadd.setMpic_info(mpic_info);
+				memberVOadd.setMvpic(mvpic);
+				memberVOadd.setMvpic_info(mvpic_info);
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					req.setAttribute("memberVOadd", memberVOadd); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/front/member/addMember.jsp");
 					failureView.forward(req, res);
@@ -682,13 +686,13 @@ public class MemberServletF extends HttpServlet {
 
 				/*************************** 2.開始新增資料 ***************************************/
 				MemberService memberSvc = new MemberService();
-				memberVO = memberSvc.addMember(mid, mpwd, mpic, mname, msex,
+				memberVOadd = memberSvc.addMember(mid, mpwd, mpic, mname, msex,
 						mcell, mmail, locno, madrs, mlev, mbalance, milligal,
 						massess, mverification, mpic_info, mvpic,
 						mvpic_info);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				req.setAttribute("memberVO", memberVO);
+				req.setAttribute("memberVOadd", memberVOadd);
 				
 				String urlMail = "/front/member/JavaMailProccess.jsp";
 				RequestDispatcher successViewMail = req.getRequestDispatcher(urlMail); // 新增成功後轉交listAllEmp.jsp
@@ -701,6 +705,7 @@ public class MemberServletF extends HttpServlet {
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.put("Exception", "新增資料失敗" + e.getMessage());
+				
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/front/member/addMember.jsp");
 				failureView.forward(req, res);
@@ -761,10 +766,11 @@ public class MemberServletF extends HttpServlet {
 				String mpwdReg = "^(?=^.{6,10}$)((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.*$";
 				if (mpwd == null || (mpwd.trim()).length() == 0) {
 					errorMsgs.put("mpwd", "請輸入密碼");
-				} else if (!mpwd.trim().matches(mpwdReg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.put("mpwd",
-							"密碼必須包含至少一個小寫字母與一個大寫字母和一個數字,長度在6到10之間");
-				}
+				} 
+//				else if (!mpwd.trim().matches(mpwdReg)) { // 以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.put("mpwd",
+//							"密碼必須包含至少一個小寫字母與一個大寫字母和一個數字,長度在6到10之間");
+//				}
 				
 //				圖片處理
 				Map pics = new LinkedHashMap<String, byte[]>();

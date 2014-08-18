@@ -284,45 +284,39 @@ font-weight: bold;
 												src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_PIC">
 										</div>
 									</div>
-									<c:if test="${memberVO.mlev == 'V' }">
-										<!-- 會員輪播圖片 -->
-										<div id="vipPic" class="control-group  ">
-											<label id="vipPicLabel" class="control-label" for="password_confirm">會員輪播圖片</label>
-											<div class="controls">
-												<img id="mvpic" width="80" height="80"
-													src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_VPIC">
-											</div>
-										</div>
-									</c:if>
+
 									 								
 
 								</div>
 								<!-- 圖片排版 -->
 								<br>
-								<div class="col-xs-offset-0 sidebar-offcanvas">
-									<%-- 錯誤表列 --%>
-									<c:if test="${not empty errorMsgs}">
-										<font color='red'>請修正以下錯誤:
-											<ul>
-												<c:forEach var="message" items="${errorMsgs}">
-													<li>${message.value}</li>
-												</c:forEach>
-											</ul>
-										</font>
-									</c:if>
+								<div class="col-md-6 col-md-offset-2">
+									<c:if test="${memberVO.mlev == 'V' }">
+										<!-- 會員輪播圖片 -->
+										<div id="vipPic" class="control-group  ">
+											<label id="vipPicLabel" class="control-label" for="password_confirm">會員輪播圖片</label>
+											<div class="controls">
+												<img id="mvpic" width="600" height="200"
+													src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_VPIC">
+											</div>
+										</div>
+										<br/><br/><br/><br/><br/><br/>
+									</c:if>									
 								</div>
 																					
 							<br>
 							<br>
+
 							
 							<div class="control-group col-md-8 col-md-offset-8">
-								
+								<c:if test="${memberVO.mlev != 'V' }">
 								<FORM METHOD="post"	ACTION="<%=request.getContextPath()%>/front/member/memberVIP.do">
 									<input type="hidden" name="mno" value="<%=memberVO.getMno()%>">
 									<input type="hidden" name="action" value="getOne_For_Update">
 									<button class="btn btn-warning">升級會員</button>
 									
 								</FORM>
+								</c:if>
 								
 								<br/>
 															

@@ -143,7 +143,7 @@
 				<div id="legend">
 					<legend class="">
 						<h2>
-							<b>訂單核准</b>
+							<b>出租清單</b>
 						</h2>
 					</legend>
 				</div>

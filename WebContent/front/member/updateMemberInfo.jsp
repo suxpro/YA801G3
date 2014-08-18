@@ -271,19 +271,21 @@
 											<input type="file" id="mpic" name="mpic" />
 										</div>
 									</div>
+	 								
+								</div>
+								
+								<div class="col-md-6 col-md-offset-2">
 									<c:if test="${memberVO.mlev == 'V' }">
 										<!-- 會員輪播圖片 -->
 										<div class="control-group  ">
-											<label class="control-label" for="password_confirm">會員輪播圖片</label>
+											<label class="control-label" for="mvpic">會員輪播圖片</label>
 											<div class="controls">
-												<img id="mvpic" width="80" height="80"
+												<img id="mvpic" width="600" height="200"
 													src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_VPIC">
 												<input type="file" id="mvpic" name="mvpic"  />
 											</div>
 										</div>
-									</c:if>
-									 								
-
+									</c:if>									
 								</div>
 								<!-- 圖片排版 -->
 								<br>
@@ -309,7 +311,7 @@
 									<input type="hidden" name="requestURL" value="<%=request.getAttribute("requestURL")%>">	<!--原送出修改的來源網頁路徑,從request取出後,再送給Controller準備轉交之用-->
 									<input type="hidden" name="whichPage" value="<%=request.getAttribute("whichPage")%>"> <!--只用於:istAllEmp.jsp-->
 									
-									<!--  modal VIPBtn-->
+									<!--  modal updateBtn-->
 									<button type="button"  class="btn btn-success" data-toggle="modal" data-target="#UpdateBtn">修改</button>
 									
 <!-- 									<button class="btn btn-success">修改</button> -->
@@ -317,7 +319,7 @@
 							</div>
 
 						</fieldset>
-							<!-- modal VIP-->
+	<!-- modal updateMemberInfo-->
 	<div class="modal fade bs-example-modal-sm" id="UpdateBtn" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true" data-toggle="false">
 		<div class="modal-dialog modal-sm">
@@ -330,12 +332,13 @@
 				</div>
 				<div class="modal-body">
 
-		會員資料修改成功！
+		是否確定修改會員資料
 		<br/>
 		<br/>
 
-				
-		<button class="btn btn-primary col-md-offset-9" >確定</button>
+		<button class="btn btn-danger btn-sm col-md-offset-7"  data-dismiss="modal">取消</button>		
+		<button class="btn btn-success btn-sm col-md-offset-0" >確定</button>
+<!-- 		<button class="btn btn-primary col-md-offset-9" >確定</button> -->
 
 				</div>
 			</div>

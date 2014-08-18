@@ -181,18 +181,18 @@
 										</h4>
 										
 										<div class="col-xs-offset-2">		
-            									<input type="radio" id="mbalance" name="cash" value="500" checked >
-            									&nbsp;&nbsp;$&nbsp;500 NT<br/>
-            									<input type="radio" id="mbalance" name="cash" value="1000"	>
+            									<input type="radio" id="mbalance" name="cash" value="1000" checked >
             									&nbsp;&nbsp;$&nbsp;1000 NT<br/>
-            									<input type="radio" id="mbalance" name="cash" value="2000"	>
-            									&nbsp;&nbsp;$&nbsp;2000 NT<br/>
             									<input type="radio" id="mbalance" name="cash" value="3000"	>
             									&nbsp;&nbsp;$&nbsp;3000 NT<br/>
             									<input type="radio" id="mbalance" name="cash" value="5000"	>
             									&nbsp;&nbsp;$&nbsp;5000 NT<br/>
             									<input type="radio" id="mbalance" name="cash" value="10000"	>
             									&nbsp;&nbsp;$&nbsp;10000 NT<br/>
+            									<input type="radio" id="mbalance" name="cash" value="30000"	>
+            									&nbsp;&nbsp;$&nbsp;30000 NT<br/>
+            									<input type="radio" id="mbalance" name="cash" value="50000"	>
+            									&nbsp;&nbsp;$&nbsp;50000 NT<br/>
             							</div>		
 										<br/>																		
 										<br/>
@@ -245,13 +245,43 @@
 										<div class="controls">
 											<input type="hidden" name="action" value="storedMoney">
 											<input type="hidden" name="mno" value="<%=memberVO.getMno()%>">
-											<button class="btn btn-success">確定</button>
+											
+									<!--  modal storedBtn-->
+									<button type="button"  class="btn btn-success" data-toggle="modal" data-target="#StoredBtn">儲值</button>
+<!-- 								<button class="btn btn-success">確定</button> -->
 										</div>
 									</div>
 
 
 
 						</fieldset>
+	<!-- modal storedMoney-->
+	<div class="modal fade bs-example-modal-sm" id="StoredBtn" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true" data-toggle="false">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">會員儲值 </h4>
+				</div>
+				<div class="modal-body">
+
+		是否確定儲值金額
+		<br/>
+		<br/>
+
+		<button class="btn btn-danger btn-sm col-md-offset-7"  data-dismiss="modal">取消</button>		
+		<button class="btn btn-success btn-sm col-md-offset-0" >確定</button>
+<!-- 		<button class="btn btn-primary col-md-offset-9" >確定</button> -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+						
+						
 					</form>
 
 				

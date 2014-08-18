@@ -118,8 +118,10 @@ padding-top: 14px;
 			<c:if test="${memberVO != null}">
 			   <div class="navbar-collapse collapse navbar-right" >	
 <!-- ¾lÃB -->
-			   <label class="nav navbar-nav " id="money"><strong><i class="fa fa-usd"></i>&nbsp;&nbsp;${memberSvcMoney.getOneMember(memberVO.mno).getMbalance() }</strong></label>
+			   <label class="nav navbar-nav " id="money"><strong><i class="fa fa-usd"></i>&nbsp;${memberSvcMoney.getOneMember(memberVO.mno).getMbalance() }</strong></label>
 			   
+<!-- µû»ù -->
+			   <label class="nav navbar-nav " id="money">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><i class="fa fa-thumbs-up"></i>&nbsp;${memberSvcMoney.getOneMember(memberVO.mno).getMassess() }&nbsp;</strong></label>		   
 			   
 				 <ul class="nav navbar-nav ">
                         <li class="dropdown">
@@ -151,7 +153,8 @@ padding-top: 14px;
                  </ul>			
 				 <ul class="nav navbar-nav ">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> ${memberVO.mname} <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img width="20" height="20"
+					src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_PIC">&nbsp; ${memberVO.mname} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                  <li class="dropdown-plus-title">
                                     <i class="fa fa-user fa-spin"></i>		${memberVO.mname}
