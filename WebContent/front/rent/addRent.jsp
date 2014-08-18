@@ -342,7 +342,7 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 <!-- 			</tr>			 -->
 		</table>
 		<br> <input type="hidden" name="action" value="insert" > 
-		<input type="submit" value="送出新增">
+		<button type="submit" class="col-xs-offset-9 btn btn-primary">送出新增</button>
 	</FORM>
 </div>
 

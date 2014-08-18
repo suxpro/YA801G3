@@ -16,6 +16,12 @@
 	pageContext.setAttribute("list", list);
 	int count = 0;
 %>
+<style>
+.tableScroll{ 
+overflow:auto; 
+} 
+</style>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -150,7 +156,7 @@
 					</legend>
 				</div>
 
-				<div class="col-md-12 col-md-offset-0">
+				<div class="col-md-12 col-md-offset-0 tableScroll">
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -323,7 +329,7 @@
 					</form>				
 				</td>
 				<td>
-					<button id="les_ases<%=count%>"
+					<button class="btn btn-primary" id="les_ases<%=count%>"
 						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
 						role="button" aria-disabled="false">
 						<span>評價</span>
@@ -347,7 +353,7 @@
 					</div>
 				</td>
 				<td>
-					<button id="cc_ord<%=count%>">取消</button>
+					<button id="cc_ord<%=count%>" class="btn btn-primary">取消</button>
 					<div id="dialog-formC<%=count%>" title="取消訂單[${ordVO.ord_no}]">
 						<p>請輸入取消訂單的原因.</p>
 						<form method="post"
@@ -558,8 +564,9 @@
         	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${rentVO.les_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
          		}
 			</script>
-		</c:forEach>
+		</c:forEach>		
 	</table>
+	
 	<%@ include file="page2.file"%>
 
 </div>

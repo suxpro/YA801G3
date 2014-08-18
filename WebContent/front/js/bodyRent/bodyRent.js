@@ -58,7 +58,7 @@ $(document).ready(
 						success : function(rspJson) {
 							console.log(thisBtn.parents("#infoRentModel"));
 							$("#infoRentModel").on("hidden.bs.modal", function(e) {
-								console.log(rspJson);
+//								console.log(rspJson);
 							}).modal("hide");
 							alert("已增加至租物車!");
 						},
@@ -87,7 +87,7 @@ $(document).ready(
 						dataType : "text",
 						success : function(rspJson) {
 							$("#infoRentModel").on("hidden.bs.modal", function(e) {
-								console.log(rspJson);
+//								console.log(rspJson);
 							}).modal("hide");
 							alert("已增加至追蹤清單!");
 						},

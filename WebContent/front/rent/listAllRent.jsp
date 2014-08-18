@@ -25,6 +25,13 @@
 	pageContext.setAttribute("list", list);
 %>
 
+<style>
+
+.tableScroll{ 
+overflow:auto; 
+} 
+
+</style>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -167,7 +174,7 @@
 					</legend>
 				</div>
 
-				<div class="col-md-12 col-md-offset-0">
+				<div class="col-md-12 col-md-offset-0 tableScroll">
 
 
 					<table border='1' bordercolor='#CCCCFF' style="white-space: nowrap">
@@ -239,15 +246,16 @@
 								<td>
 									<FORM METHOD="post"
 										ACTION="<%=request.getContextPath()%>/front/rent/rent.do">
-										<input type="submit" value="編輯"> <input type="hidden"
-											name="rent_no" value="${rentVO.rent_no}"> <input
-											type="hidden" name="action" value="getOne_For_Update">
+										<button type="submit" class="btn btn-primary">編輯</button> 
+										<input type="hidden" name="rent_no" value="${rentVO.rent_no}"> 
+										<input type="hidden" name="action" value="getOne_For_Update">
 									</FORM>
 								</td>
 								<td>
 									<FORM METHOD="post"
 										ACTION="<%=request.getContextPath()%>/front/rent/rent.do">
-										<input type="submit" value="下架"> <input type="hidden"
+										<button type="submit" class="btn btn-primary">下架</button>
+										<input type="hidden"
 											name="rent_no" value="${rentVO.rent_no}"> <input
 											type="hidden" name="action" value="delete">
 									</FORM>
@@ -256,7 +264,7 @@
 							<script>
 							//超連結至該租物
 			         		function pressesA${s.index}(){
-			        	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+			        	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=700,width=600,left=65,top=15,resizable=yes,scrollbars=yes");
 			         		}
 							</script>
 						</c:forEach>
