@@ -590,12 +590,14 @@ public class MemberServletF extends HttpServlet {
 					errorMsgs.put("mname", "會員姓名: 請勿空白");
 				} else if (!mname.trim().matches(mnameReg)) { // 以下練習正則(規)表示式(regular-expression)
 					errorMsgs.put("mname",
-							"員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+							"會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 				}
 
-				String msex = multi.getParameter("msex").trim();
+				String msex = multi.getParameter("msex");
 				if (msex == null ) {
 					errorMsgs.put("msex", "請選擇性別");
+				}else{
+					msex = msex.trim();
 				}
 				
 				String mcell = multi.getParameter("mcell").trim();

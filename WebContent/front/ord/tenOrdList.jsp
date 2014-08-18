@@ -16,15 +16,17 @@
 	pageContext.setAttribute("list", list);
 	int count = 0;
 %>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
 <style>
 .tableScroll{ 
 overflow:auto; 
 } 
 </style>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
 
 <!-- <meta http-equiv="Refresh" -->
 <%-- 	content="30;URL=<%=request.getContextPath()%>/front/ord/tenOrdList.jsp"> --%>
@@ -351,8 +353,8 @@ overflow:auto;
 							<input id="ases<%=count%>" type="submit">
 						</form>
 					</div>
-				</td>
-				<td>
+
+
 					<button id="cc_ord<%=count%>" class="btn btn-primary">取消</button>
 					<div id="dialog-formC<%=count%>" title="取消訂單[${ordVO.ord_no}]">
 						<p>請輸入取消訂單的原因.</p>

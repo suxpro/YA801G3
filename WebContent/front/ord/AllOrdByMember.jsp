@@ -20,14 +20,17 @@ pageContext.setAttribute("list", list);
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css"
-	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/front/css/justrent.css"
-	rel="stylesheet">
+<style>
+.tableScroll{ 
+overflow:auto; 
+} 
+</style>
+
+<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="<%=request.getContextPath()%>/front/css/justrent.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/bootstrap.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
+<script	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/jquery.color.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/justrent.js"></script>
 <head>
@@ -135,7 +138,7 @@ pageContext.setAttribute("list", list);
 			</div>
 
 			<!-- Form -->
-			<div class="col-md-10 col-md-offset-0">
+			<div class="col-md-10 col-md-offset-0 tableScroll">
 
 				<div id="legend">
 					<legend class="">
@@ -204,19 +207,19 @@ pageContext.setAttribute("list", list);
 						<script>
 				//超連結至該訂單明細
      			function pressesA${s.index}(){
-    	 			document.open("<%=request.getContextPath()%>/front/ord/ord.do?ord_no=${ordVO.ord_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+    	 			document.open("<%=request.getContextPath()%>/front/ord/ord.do?ord_no=${ordVO.ord_no}&action=getOne_For_Display", "" ,"height=600,width=600,left=65,top=15,resizable=yes,scrollbars=yes");
      			}
 				//超連結至該租物
          		function pressesB${s.index}(){
-        	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+        	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=600,width=600,left=65,top=15,resizable=yes,scrollbars=yes");
          		}
 				//超連結至該承租人
          		function pressesC${s.index}(){
-        	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${ordVO.ten_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+        	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${ordVO.ten_no}&action=getOne_For_Display", "" ,"height=300,width=800,left=65,top=15,resizable=yes,scrollbars=yes");
          		}
          		//超連結至該出租人
          		function pressesD${s.index}(){
-        	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${ordVO.les_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+        	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${ordVO.les_no}&action=getOne_For_Display", "" ,"height=300,width=800,left=65,top=15,resizable=yes,scrollbars=yes");
          		}
 			</script>
 					</c:forEach>

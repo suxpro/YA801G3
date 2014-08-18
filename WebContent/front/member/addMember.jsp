@@ -97,11 +97,18 @@ function submitForm(){
 									<!-- 會員性別 -->
 									<div class="control-group  ">
 										<label class="control-label" for="msex">會員性別</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										
-            									&nbsp;<input type="radio" id="msex" name="msex" value=M class="col-xs-offset-1">&nbsp;男&nbsp;&nbsp;
-            									&nbsp;<input type="radio" id="msex" name="msex" value=F	class="col-xs-offset-1">&nbsp;女
-										
-									
+												<c:if test="${memberVOadd.msex == null }">				
+            											&nbsp;<input type="radio" id="msex" name="msex" value=M class="col-xs-offset-1">&nbsp;男&nbsp;&nbsp;
+            											&nbsp;<input type="radio" id="msex" name="msex" value=F	class="col-xs-offset-1">&nbsp;女
+												</c:if>												
+												<c:if test="${memberVOadd.msex == 'M' }">
+            											&nbsp;<input type="radio" id="msex" name="msex" value=M	checked class="col-xs-offset-1">&nbsp;男&nbsp;&nbsp;
+            											&nbsp;<input type="radio" id="msex" name="msex" value=F	class="col-xs-offset-1">&nbsp;女
+												</c:if>
+												<c:if test="${memberVOadd.msex == 'F' }">
+            											&nbsp;<input type="radio" id="msex" name="msex" value=M class="col-xs-offset-1">&nbsp;男&nbsp;&nbsp;
+            											&nbsp;<input type="radio" id="msex" name="msex" value=F	checked class="col-xs-offset-1">&nbsp;女
+												</c:if>									
 									</div>
 
 									<!-- 會員手機 -->

@@ -177,7 +177,7 @@ overflow:auto;
 				<div class="col-md-12 col-md-offset-0 tableScroll">
 
 
-					<table border='1' bordercolor='#CCCCFF' style="white-space: nowrap">
+					<table border='1' bordercolor='#CCCCFF' style="white-space: nowrap;">
 						<tr align='center' valign='middle'>
 							<th>圖片</th>
 							<th>租物名稱</th>

@@ -42,19 +42,15 @@
 <head>
 <meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/prent/preRentList.jsp">
 <title>JustRent! - 追蹤清單 </title>
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
-<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css"
-	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/front/css/justrent.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="<%=request.getContextPath()%>/front/css/justrent.css" rel="stylesheet">
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
 <script src="<%=request.getContextPath()%>/front/js/bootstrap.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
+<script	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/jquery.color.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/justrent.js"></script>
 
@@ -240,7 +236,8 @@
 
 				<td>
 					<form method="post" action="<%=request.getContextPath()%>/front/ord/addOrd.jsp">
-						<input type="submit" id="add_ord<%=count%>" value="前往結帳"> 
+						<button class="btn btn-primary" type="submit" id="add_ord<%=count%>">前往結帳</button>
+<%-- 						<input type="submit" id="add_ord<%=count%>" value="前往結帳">  --%>
 						<input type="hidden" name="rent_no" value="${rentVO.rent_no}"> 
 						<input type="hidden" name="action" value="getOne_For_Update">
 						<input type="hidden" name="requestURL" value="/front/prent/preRentList.jsp">
@@ -256,7 +253,7 @@
 				</td>
 				<td>
 					<FORM method="post" action="<%=request.getContextPath()%>/front/prent/prent.do">
-						<input type="submit" value="移除"> 
+						<button class="btn btn-primary" type="submit">移除</button> 
 						<input type="hidden" name="prent_no" value="${prentVO.prent_no}">
 						<input type="hidden" name="action" value="delete">
 					</FORM>
@@ -281,6 +278,8 @@
 </div>
 </div>
 </div>
+</div>
 	<%@ include file="/front/footer.jsp"%>
+	
 </body>
 </html>

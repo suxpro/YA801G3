@@ -381,6 +381,13 @@ nav > ul > li > a:hover {
 }
 
 /*dropdowns*/
+
+#headerNames{
+	color:white;
+	font-weight: bold;
+	font-family: Microsoft JhengHei, 標楷體, Comic Sans MS, 新細明體;
+}
+
 .btn.dropdown-toggle ~ .dropdown-menu, 
 ul.nav li.dropdown ul.dropdown-menu {
     background-color: rgb(244, 244, 244);
@@ -425,19 +432,6 @@ ul.nav li.dropdown ul.dropdown-menu .dropdown-plus-title {
 }
 .btn.dropdown-toggle.btn-danger ~ .dropdown-menu .dropdown-plus-title {
     border-color: rgb(212, 63, 58);
-}
-
-/*會員頁面裡的SideBar*/
-.dropdown-a {
-    position: relative;
-    display: block;
-}
-
-.dropdown-b {
-     list-style-type :none;
-     padding-left: 1em; 
-     text-indent: -.7em;
-     color:#ff0000;    
 }
 
 

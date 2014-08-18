@@ -125,7 +125,7 @@ padding-top: 14px;
 			   
 				 <ul class="nav navbar-nav ">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">租務 <font id="remindCountNum" class="badge">0</font><b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><font id="headerNames">租務</font> <font id="remindCountNum" class="badge">0</font>&nbsp;<b class="caret"></b></a>
                             <ul id="remindMain" class="dropdown-menu dropdown-menu-right" data-urlRemind="<%=request.getContextPath()%>/ScheduleServlet">
                                  <li class="dropdown-plus-title">
                                     <i class="fa fa-bell-o fa-spin"></i>		租務秘書提醒
@@ -154,7 +154,7 @@ padding-top: 14px;
 				 <ul class="nav navbar-nav ">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img width="20" height="20"
-					src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_PIC">&nbsp; ${memberVO.mname} <b class="caret"></b></a>
+					src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_PIC">&nbsp; <font id="headerNames">${memberVO.mname}</font> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                  <li class="dropdown-plus-title">
                                     <i class="fa fa-user fa-spin"></i>		${memberVO.mname}
