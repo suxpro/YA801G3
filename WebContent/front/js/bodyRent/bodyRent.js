@@ -44,6 +44,7 @@ $(document).ready(
 					console.log($(this).data("servlet"));
 					console.log($(this).data("rentNo"));
 					console.log($(this).data("rentState"));
+					var thisBtn = $(this);
 					$.ajax({
 						type : "POST",
 						url : $(this).data("servlet"),
@@ -55,9 +56,11 @@ $(document).ready(
 						},
 						dataType : "json",
 						success : function(rspJson) {
+							console.log(thisBtn.parents("#infoRentModel"));
 							$("#infoRentModel").on("hidden.bs.modal", function(e) {
 								console.log(rspJson);
 							}).modal("hide");
+							alert("已增加至租物車!");
 						},
 						error : function() {
 							alert("系統異常!");
@@ -71,6 +74,7 @@ $(document).ready(
 					console.log($(this).data("servlet"));
 					console.log($(this).data("rentNo"));
 					console.log($(this).data("rentState"));
+					var thisBtn = $(this);
 					$.ajax({
 						type : "POST",
 						url : $(this).data("servlet"),
@@ -85,6 +89,7 @@ $(document).ready(
 							$("#infoRentModel").on("hidden.bs.modal", function(e) {
 								console.log(rspJson);
 							}).modal("hide");
+							alert("已增加至追蹤清單!");
 						},
 						error : function() {
 							alert("系統異常!");

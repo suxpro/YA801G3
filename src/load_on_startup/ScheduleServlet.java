@@ -234,6 +234,17 @@ public class ScheduleServlet extends HttpServlet {
 			out.flush();
 			out.close();
 				
+			} else {
+				String resJson = "{\"resJson\" : [";
+				resJson += "\"尚未有提醒\",";
+				resJson = resJson.substring(0,resJson.length() - 1) + "]}";
+//			    System.out.println("RentServlet.642."+resJson);
+				res.setContentType("text/html;charset=utf-8");
+				res.setHeader("Cache-Control", "no-cache");
+			    PrintWriter out = res.getWriter();
+			    out.write(resJson);
+			    out.flush();
+			    out.close();
 			}
 		} // end remindHeaderNum
 

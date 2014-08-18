@@ -296,6 +296,8 @@
 		<url-pattern>/front/prent/preRentList.jsp</url-pattern>
 		<url-pattern>/front/ord/lesOrdList.jsp</url-pattern>
 		<url-pattern>/front/ord/AllOrdByMember.jsp</url-pattern>
+<!-- 		<servlet-name>RentServlet</servlet-name> -->
+<!-- 		<url-pattern>/front/rent/rent.do</url-pattern> -->
 		
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>

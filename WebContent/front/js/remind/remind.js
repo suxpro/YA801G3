@@ -7,7 +7,7 @@ $(document).ready(function() {
 	setRemindListNum();
 	
 	function run() {
-	    intervalID = window.setInterval(setRemindListNum, 60*1000); //60秒跑一次
+	    intervalID = window.setInterval(setRemindListNum, 20*1000); //20秒跑一次
 	}
 	
 	function stop() {
@@ -26,19 +26,25 @@ $(document).ready(function() {
 			},
 			dataType : "json",
 			success : function(jsonData) {
-//				var jsonArray = [];
-				var remindCountNum = 0;
-				for (var key in jsonData) {
-//					console.log(key + ' is ' + jsonData[key]);
-//					jsonArray.push(jsonData[key]);
-					$("#remindMain .remindList a:contains("+key+")").find("font").text(jsonData[key]);
-					remindCountNum += jsonData[key];
+//				console.log(Object.keys(jsonData).length);
+				if(Object.keys(jsonData).length > 1){
+//					var jsonArray = [];
+					var remindCountNum = 0;
+					for (var key in jsonData) {
+//						console.log(key + ' is ' + jsonData[key]);
+//						jsonArray.push(jsonData[key]);
+						$("#remindMain .remindList a:contains("+key+")").find("font").text(jsonData[key]);
+						remindCountNum += jsonData[key];
+					}
+					console.log("目前共有"+remindCountNum+"筆提醒!");
+					$("#remindCountNum").text(remindCountNum);
+//					$("#remindMain .remindList").each(function( index ){
+//						$(this).find("font").text(jsonArray[index]);
+//					});
+				} else {
+					console.log(jsonData["resJson"][0]);
 				}
-				console.log(remindCountNum);
-				$("#remindCountNum").text(remindCountNum);
-//				$("#remindMain .remindList").each(function( index ){
-//					$(this).find("font").text(jsonArray[index]);
-//				});
+
 			},
 			error : function() {
 				console.log("尚未登入!");

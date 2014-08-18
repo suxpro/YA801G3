@@ -109,8 +109,8 @@ padding-top: 14px;
 				<!-- Brand -->
 				<a class="navbar-brand"
 					href="<%=request.getContextPath()%>/front/index.jsp"><img
-					width="75" height="70"
-					src="<%=request.getContextPath()%>/front/img/JustRent_Logo7.png"
+					width="100" height="100"
+					src="<%=request.getContextPath()%>/front/img/JustRent_Logoxx.png"
 					width="130px"> </a>
 			</div>
 			

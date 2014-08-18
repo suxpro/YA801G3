@@ -211,8 +211,10 @@
 				<td><a href="javascript:pressesC${s.index}()"><%=tenVO.getMname()%></a></td>
 				<td align='left'>Mail : <a href="mailto:<%=tenVO.getMmail()%>"><%=tenVO.getMmail()%></a><br>
 					Phone#: <font color='blue'><%=tenVO.getMcell()%></font></td>
-				<td>
-					<button id="app_ord<%=count%>"
+				
+<!-- 第二行 控制選項	 -->				
+				<td align='left' valign='middle'>
+					<button class="btn btn-primary col-md-offset-0" id="app_ord<%=count%>"
 						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
 						role="button" aria-disabled="false">
 						<span>核准</span>
@@ -226,9 +228,8 @@
 							value="/front/ord/lesOrdList.jsp"> <input
 							id="apply<%=count%>" type="submit" value="核准">
 					</form>
-				</td>
-				<td>
-					<button id="rt_com<%=count%>"
+
+					<button class="btn btn-primary col-md-offset-0" id="rt_com<%=count%>"
 						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
 						role="button" aria-disabled="false">
 						<span>回收完成</span>
@@ -242,13 +243,13 @@
 							value="/front/ord/lesOrdList.jsp"> <input
 							id="rt<%=count%>" type="submit" value="回收">
 					</form>
-				</td>			
-				<td>
-					<button id="ten_ases<%=count%>"
+
+					<button class="btn btn-primary col-md-offset-0" id="ten_ases<%=count%>"
 						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
 						role="button" aria-disabled="false">
 						<span>評價</span>
 					</button>
+					<br>
 					<div id="dialog-formA<%=count%>" title="給予承租會員評價">
 						
 						<form method="post" action="<%=request.getContextPath()%>/front/ord/ord.do">
@@ -266,9 +267,8 @@
 							<input id="ases<%=count%>" type="submit">
 						</form>
 					</div>
-				</td>
-				<td>
-					<button id="close<%=count%>"
+
+					<button class="btn btn-primary col-md-offset-0" id="close<%=count%>"
 						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
 						role="button" aria-disabled="false">
 						<span>結案</span>
@@ -282,9 +282,8 @@
 							value="/front/ord/lesOrdList.jsp"> <input
 							id="cls<%=count%>" type="submit" value="結案">
 					</form>
-				</td>	
-				<td>
-					<button id="cc_ord<%=count%>">取消</button>
+
+					<button class="btn btn-primary col-md-offset-0" id="cc_ord<%=count%>">取消</button>
 					<div id="dialog-formB<%=count%>" title="取消訂單[${ordVO.ord_no}]">
 						<p>請輸入取消訂單的原因.</p>
 						<form method="post"
@@ -464,8 +463,14 @@
 						
 					</script>
 								</td>
+				
 							</tr>
-							<script>
+
+
+
+
+
+			<script>
 				//超連結至該訂單明細
      			function pressesA${s.index}(){
     	 			document.open("<%=request.getContextPath()%>/front/ord/ord.do?ord_no=${ordVO.ord_no}&action=getOne_For_Display", "" ,"height=600,width=600,left=65,top=50,resizable=yes,scrollbars=yes");

@@ -720,7 +720,7 @@ public class RentServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 ****************************************/
 				String rent_no = req.getParameter("rent_no");
 				String rent_state = req.getParameter("rent_state");
-				
+
 				/*************************** 2.開始判斷與塞資料 ****************************************/
 
 				//以下新增資料至預租Table Prerent
