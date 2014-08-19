@@ -17,4 +17,6 @@ public interface TradeDAO_interface {
     public void insertWithMoney(TradeVO tradeVO , Connection con);
     //訂單新增的扣款紀錄 by思賢
     public void insertForOrd(TradeVO tradeVO, Connection con);
+    //GetOneMemberTrade
+    public List<TradeVO> getOneMemberTrade(String mno);
 }

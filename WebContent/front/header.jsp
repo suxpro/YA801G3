@@ -184,7 +184,7 @@ padding-top: 14px;
                                 <li><a href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物管理</a></li>
                                 <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租管理</a></li>
                                 <li><a href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">出租管理</a></li>                                
-                                <li><a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借查詢</a></li>
+                                <li><a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史紀錄</a></li>
 
 
               					<li class="divider"></li>

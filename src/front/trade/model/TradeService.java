@@ -51,4 +51,8 @@ public class TradeService {
 		return dao.getAll();
 	}
 
+	//getOneMemberTrade
+	public List<TradeVO> getOneMemberTrade(String mno){
+		return dao.getOneMemberTrade(mno);
+	}
 }

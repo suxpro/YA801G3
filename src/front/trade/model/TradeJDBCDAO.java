@@ -23,6 +23,14 @@ public class TradeJDBCDAO implements TradeDAO_interface{
 	
 
 	@Override
+	public List<TradeVO> getOneMemberTrade(String mno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
 	public void insertWithMoney(TradeVO tradeVO, Connection con) {
 		// TODO Auto-generated method stub
 		

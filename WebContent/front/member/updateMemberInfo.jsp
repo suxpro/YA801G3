@@ -139,14 +139,22 @@
     </div>
   </div>
 
-<!-- ¾ú¥v¯²­É¬d¸ß -->
+  <!-- ¾ú¥v¬ö¿ý  -->
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">
-          ¾ú¥v¯²­É¬d¸ß
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+          ¾ú¥v¬ö¿ý
         </a>
       </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul class="nav nav-sidebar">
+        <li><a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">¾ú¥v¯²­É¬ö¿ý</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/trade/OneMemberTrade.jsp">¾ú¥v¥æ©ö¬ö¿ý</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 

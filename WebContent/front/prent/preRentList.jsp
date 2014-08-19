@@ -142,14 +142,22 @@
     </div>
   </div>
 
-<!-- 歷史租借查詢 -->
+  <!-- 歷史紀錄  -->
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">
-          歷史租借查詢
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+          歷史紀錄
         </a>
       </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul class="nav nav-sidebar">
+        <li><a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借紀錄</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/trade/OneMemberTrade.jsp">歷史交易紀錄</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 
