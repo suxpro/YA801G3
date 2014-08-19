@@ -48,6 +48,15 @@
         <url-pattern>/func/func.do</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>SosorderServlet</servlet-name>
+        <servlet-class>front.sosorder.controller.SosorderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SosorderServlet</servlet-name>
+        <url-pattern>/front/sosorder/sosorder.do</url-pattern>
+    </servlet-mapping>
+    
 	<servlet>
 		<servlet-name>LoginHandler</servlet-name>
 		<servlet-class>back.employee.controller.LoginHandler</servlet-class>

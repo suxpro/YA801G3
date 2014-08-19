@@ -3,11 +3,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="front.rent.model.*"%>
+<%@ page import="front.sosorder.model.*"%>
+<%@ page import="front.member.model.*"%>
 
 <%
 	RentService rentSvc = new RentService();
     List<RentVO> list = rentSvc.getBodyRent();
     pageContext.setAttribute("rentBodyList", list);
+    
+    SosorderService sosSvc = new SosorderService();
+    List<SosorderVO> listSos = sosSvc.getAll();
+    pageContext.setAttribute("rentBodyListSos", listSos);
+    
+    MemberService memSvc = new MemberService();
+    pageContext.setAttribute("memSvcListSos", memSvc);
 %>
 <script>
 	$.getScript("js/bodyRent/bodyRent.js");
@@ -101,27 +110,25 @@ text-align:center;
 			<br/><br/>
 			
 			<div class="list-group">
-				<a href="#" class="list-group-item active">即時SOS訊息</a> <a
-					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
-					class="list-group-item">Link</a> <a
-					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
-					class="list-group-item">Link</a> <a
-					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
-					class="list-group-item">Link</a> <a
-					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
-					class="list-group-item">Link</a> <a
-					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
-					class="list-group-item">Link</a> <a
-					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
-					class="list-group-item">Link</a> <a
-					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
-					class="list-group-item">Link</a> <a
-					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
-					class="list-group-item">Link</a> <a
-					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
-					class="list-group-item">Link</a> <a
-					href="<%=request.getContextPath()%>/front/member/select_page.jsp"
-					class="list-group-item">Link</a>
+				<a class="list-group-item active">即時SOS訊息 <button class="btn btn-primary glyphicon glyphicon-plus-sign"></button></a>
+				<c:forEach var="sosorderVO" items="${rentBodyListSos}" varStatus="status">
+                    <div class="hidden" style="width:0px;height:0px;border:1px solid;">
+                        <img class="img-rounded" style="position:absolute" height="75px" width="75px" src="<%=request.getContextPath()%>/front/sosorder/sosorder.do?sos_no=${sosorderVO.sos_no}&pic=SOS_PIC" />
+                        <dl class="dl-horizontal">
+                            <dt class="bg-info"><span class="glyphicon glyphicon-user"></span> 求租人:</dt>
+                            <dd>${memSvcListSos.getOneMember(sosorderVO.sos_mno).getMname()}</dd>
+                            <dt class="bg-info"><span class="glyphicon glyphicon-usd"></span> 租金總額:</dt>
+                            <dd>${sosorderVO.sos_pay}</dd>
+                            <dt class="bg-info"><span class="glyphicon glyphicon-time"></span> 欲租天數:</dt>
+                            <dd>${sosorderVO.sos_days}</dd>
+                            <dt class="bg-info"><span class="glyphicon glyphicon-phone"></span> 手機:</dt>
+                            <dd>${memSvcListSos.getOneMember(sosorderVO.sos_mno).getMcell()}</dd>
+                            <div class="bg-success"><span class="glyphicon glyphicon-comment text-left"></span> 描述:</div>
+                            <div>${sosorderVO.sos_desc}</div>
+                        </dl>
+                    </div>
+                    <a class="listSosorder list-group-item"><img class="img-rounded" height="30px" width="30px" src="<%=request.getContextPath()%>/front/sosorder/sosorder.do?sos_no=${sosorderVO.sos_no}&pic=SOS_PIC" /> ${sosorderVO.sos_name}</a>
+                </c:forEach>
 			</div>
 
 			<div class="list-group">
@@ -150,7 +157,7 @@ text-align:center;
 								<div class='text-right'>
 									<small class='bodyRentName text-muted' style='display:inline-block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:150px;'>${rentVO.rent_name}</small>
                                     <h3><span id="rentStateSpan" class="rentStateSpanClass label" data-rentState="${rentVO.rent_sta}" style="position:absolute;top:-5px;left:10px;z-index:1">${rent_staMap[rentVO.rent_sta]}</span></h3>
-                                    <h3><span class="rentPriceClass label label-success" style="position:absolute;top:83%;left:70%;z-index:1"><span class="glyphicon glyphicon-usd"></span>${rentVO.unit_price}</span></h3>
+                                    <h3><span class="rentPriceClass label label-success" style="position:absolute;bottom:10px;right:5px;z-index:1"><span class="glyphicon glyphicon-usd"></span>${rentVO.unit_price}</span></h3>
 								</div><!-- text-right / end -->
 							</a>
 						</div>

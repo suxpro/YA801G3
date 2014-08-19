@@ -1,4 +1,4 @@
-package back.sosorder.model;
+package front.sosorder.model;
 
 import java.util.*;
 import java.sql.*;
@@ -10,17 +10,23 @@ import javax.sql.DataSource;
 
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Employee;
 
-public class SosorderJDBCDAO implements SosorderDAO_interface {
+public class SosorderDAO implements SosorderDAO_interface {
 
-	String driver="oracle.jdbc.driver.OracleDriver";
-	String url="jdbc:oracle:thin:@localhost:1521:orcl";
-	String userid="renter";
-	String password="renter";
+	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/renterDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_STMT = 
 		"INSERT INTO sosorder (sos_no, sos_mno, sos_name, sos_desc, sos_pay, sos_days, sos_onsd, sos_ofsd, sos_pic, sos_format) VALUES (sosorder_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT sos_no, sos_mno, sos_name, sos_desc, sos_pay, sos_days, sos_onsd, sos_ofsd, sos_pic, sos_format FROM sosorder order by sos_no";
+		"SELECT sos_no, sos_mno, sos_name, sos_desc, sos_pay, sos_days, sos_onsd, sos_ofsd, sos_pic, sos_format FROM sosorder order by sos_onsd desc";
 	private static final String GET_ONE_STMT = 
 		"SELECT sos_no, sos_mno, sos_name, sos_desc, sos_pay, sos_days, sos_onsd, sos_ofsd, sos_pic, sos_format FROM sosorder where sos_no = ?";
 	private static final String DELETE = 
@@ -36,9 +42,7 @@ public class SosorderJDBCDAO implements SosorderDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con=DriverManager.getConnection(url,userid,password);
-			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, sosorderVO.getSos_mno());
@@ -54,9 +58,6 @@ public class SosorderJDBCDAO implements SosorderDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any SQL errors
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -88,9 +89,7 @@ public class SosorderJDBCDAO implements SosorderDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con=DriverManager.getConnection(url,userid,password);
-			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, sosorderVO.getSos_mno());
@@ -107,9 +106,6 @@ public class SosorderJDBCDAO implements SosorderDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -141,9 +137,7 @@ public class SosorderJDBCDAO implements SosorderDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con=DriverManager.getConnection(url,userid,password);
-			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, sos_no);
@@ -151,9 +145,6 @@ public class SosorderJDBCDAO implements SosorderDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -187,9 +178,7 @@ public class SosorderJDBCDAO implements SosorderDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con=DriverManager.getConnection(url,userid,password);
-			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, sos_no);
@@ -213,9 +202,6 @@ public class SosorderJDBCDAO implements SosorderDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -257,9 +243,7 @@ public class SosorderJDBCDAO implements SosorderDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con=DriverManager.getConnection(url,userid,password);
-			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -280,9 +264,6 @@ public class SosorderJDBCDAO implements SosorderDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -324,9 +305,7 @@ public class SosorderJDBCDAO implements SosorderDAO_interface {
 	
 		try {
 			
-			Class.forName(driver);
-			con=DriverManager.getConnection(url,userid,password);
-			
+			con = ds.getConnection();
 			String finalSQL = "select * from Employee "
 		          + jdbcUtil_CompositeQuery_Employee.get_WhereCondition(map)
 		          + "order by sos_no";
@@ -350,9 +329,6 @@ public class SosorderJDBCDAO implements SosorderDAO_interface {
 			}
 	
 			// Handle any SQL errors
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -384,7 +360,7 @@ public class SosorderJDBCDAO implements SosorderDAO_interface {
 	
 	public static void main(String[] args){
 		
-		SosorderJDBCDAO dao=new SosorderJDBCDAO();
+		SosorderDAO dao=new SosorderDAO();
 
 		//insert
 //		EmployeeVO employeeVO=new EmployeeVO();
