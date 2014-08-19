@@ -59,7 +59,7 @@ public class TradeDAO implements TradeDAO_interface {
 				tradeVO.setTno(rs.getString("tra_no"));
 				tradeVO.setMno(rs.getString("mem_no"));
 				tradeVO.setTmid(rs.getString("tra_mem_id"));
-				tradeVO.setTdate(rs.getDate("tra_time"));
+				tradeVO.setTdate(rs.getTimestamp("tra_time"));
 				tradeVO.setTstas(rs.getString("tra_stas"));
 				tradeVO.setTfunds(rs.getDouble("tra_funds"));
 				tradeVO.setTin(rs.getString("tra_in"));
@@ -162,7 +162,7 @@ public class TradeDAO implements TradeDAO_interface {
 			
 			pstmt.setString(1, tradeVO.getMno());
 			pstmt.setString(2, tradeVO.getTmid());
-			pstmt.setDate(3, tradeVO.getTdate());
+			pstmt.setTimestamp(3, tradeVO.getTdate());
 			pstmt.setString(4, tradeVO.getTstas());
 			pstmt.setDouble(5, tradeVO.getTfunds());
 			pstmt.setString(6, tradeVO.getTin());
@@ -264,7 +264,7 @@ public class TradeDAO implements TradeDAO_interface {
 				tradeVO.setTno(rs.getString("tra_no"));
 				tradeVO.setMno(rs.getString("mem_no"));
 				tradeVO.setTmid(rs.getString("tra_mem_id"));
-				tradeVO.setTdate(rs.getDate("tra_time"));
+				tradeVO.setTdate(rs.getTimestamp("tra_time"));
 				tradeVO.setTstas(rs.getString("tra_stas"));
 				tradeVO.setTfunds(rs.getDouble("tra_funds"));
 				tradeVO.setTin(rs.getString("tra_in"));
@@ -325,7 +325,7 @@ public class TradeDAO implements TradeDAO_interface {
 				tradeVO.setTno(rs.getString("tra_no"));
 				tradeVO.setMno(rs.getString("mem_no"));
 				tradeVO.setTmid(rs.getString("tra_mem_id"));
-				tradeVO.setTdate(rs.getDate("tra_time"));
+				tradeVO.setTdate(rs.getTimestamp("tra_time"));
 				tradeVO.setTstas(rs.getString("tra_stas"));
 				tradeVO.setTfunds(rs.getDouble("tra_funds"));
 				tradeVO.setTin(rs.getString("tra_in"));

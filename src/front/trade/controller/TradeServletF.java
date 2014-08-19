@@ -176,12 +176,12 @@ public class TradeServletF extends HttpServlet {
 					errorMsgs.put("tmid", "請輸入金融會員帳號16個數字");
 				}
 
-				java.sql.Date tdate = null;
+				java.sql.Timestamp tdate = null;
 				try {
-					tdate = java.sql.Date.valueOf(multi.getParameter("tdate")
+					tdate = java.sql.Timestamp.valueOf(multi.getParameter("tdate")
 							.trim());
 				} catch (IllegalArgumentException e) {
-					tdate = new java.sql.Date(System.currentTimeMillis());
+					tdate = new java.sql.Timestamp(System.currentTimeMillis());
 					errorMsgs.put("tdate", "請輸入日期!");
 				}
 				String tstas = multi.getParameter("tstas").trim();

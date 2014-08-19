@@ -11,7 +11,7 @@ public class TradeService {
 		dao = new TradeDAO();
 	}
 
-	public TradeVO addTrade(String mno, String tmid, java.sql.Date tdate, String tstas, Double tfunds, String tin) {
+	public TradeVO addTrade(String mno, String tmid, java.sql.Timestamp tdate, String tstas, Double tfunds, String tin) {
 		// 新增
 		TradeVO tradeVO = new TradeVO();
 		tradeVO.setMno(mno);
@@ -25,7 +25,7 @@ public class TradeService {
 		return tradeVO;
 	}
 	
-	public TradeVO updateTrade(String tno, String mno, String tmid, java.sql.Date tdate, String tstas, Double tfunds, String tin) {
+	public TradeVO updateTrade(String tno, String mno, String tmid, java.sql.Timestamp tdate, String tstas, Double tfunds, String tin) {
 		
 		TradeVO tradeVO = new TradeVO();
 		

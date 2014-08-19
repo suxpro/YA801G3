@@ -25,7 +25,7 @@ public class TradeService {
 		return tradeVO;
 	}
 	
-	public TradeVO updateTrade(String tno, String mno, String tmid, java.sql.Date tdate, String tstas, Double tfunds, String tin) {
+	public TradeVO updateTrade(String tno, String mno, String tmid, java.sql.Timestamp tdate, String tstas, Double tfunds, String tin) {
 		
 		TradeVO tradeVO = new TradeVO();
 		

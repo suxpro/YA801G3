@@ -5,7 +5,7 @@ public class TradeVO implements java.io.Serializable{
 	private String tno;
 	private String mno;
 	private String tmid;
-	private Date tdate;
+	private Timestamp tdate;
 	private String tstas;
 	private Double tfunds;
 	private String tin;
@@ -35,10 +35,10 @@ public class TradeVO implements java.io.Serializable{
 	public void setTmid(String tmid) {
 		this.tmid = tmid;
 	}
-	public Date getTdate() {
+	public Timestamp getTdate() {
 		return tdate;
 	}
-	public void setTdate(Date tdate) {
+	public void setTdate(Timestamp tdate) {
 		this.tdate = tdate;
 	}
 	public Double getTfunds() {
