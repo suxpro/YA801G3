@@ -30,7 +30,8 @@
 	 data-rent-state="${rentVO.rent_sta}"
 	 data-live-ord="${ordSvcInfoRent.hasLiveOrd(rentVO.rent_no)}"
 	 data-ord-ten-date="${ordSvcInfoRent.getOneOrd(ordSvcInfoRent.hasLiveOrd(rentVO.rent_no)).ten_date}"
-	 data-ord-exp-date="${ordSvcInfoRent.getOneOrd(ordSvcInfoRent.hasLiveOrd(rentVO.rent_no)).exp_date}">
+	 data-ord-exp-date="${ordSvcInfoRent.getOneOrd(ordSvcInfoRent.hasLiveOrd(rentVO.rent_no)).exp_date}"
+	 data-has-member=<%=session.getAttribute("mid") %>>
 	   ${rent_staMap[rentVO.rent_sta]}
 	</span>
 	<button type="button" class="close" data-dismiss="modal">

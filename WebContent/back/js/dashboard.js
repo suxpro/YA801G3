@@ -112,7 +112,7 @@ $(document).ready(
 				$(this).parent("li").addClass( "active" ).siblings("li").removeClass( "active" );
 				switch ($(this).attr("rel")) {
 				case "ship":
-					$("#listAllShip").load("trade/queryShipList.jsp",function() {
+					$("#listAllShip").load("ship/queryShipList.jsp",function() {
 //						此區看是否有後續動作要做
 						$.getScript("js/ship/ship.js");
 					});

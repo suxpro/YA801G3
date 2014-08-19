@@ -54,7 +54,7 @@ public class RentDAO implements RentDAO_interface {
     //修改租物狀態
 	private static final String UPDATE_STA_STMT = "UPDATE rent SET rent_sta = ?, last_sta_time=SYSDATE, last_mod_time=SYSDATE WHERE rent_no = ?";
 	//小豬加
-	private static final String GET_BODY_RENT_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' AND rent_sta IN ('W_RENT','A_RENT') order by rent_no";
+	private static final String GET_BODY_RENT_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' AND rent_sta IN ('W_RENT','A_RENT') order by rent_no desc";
 	
 	@Override
 	public void insert(RentVO rentVO) {

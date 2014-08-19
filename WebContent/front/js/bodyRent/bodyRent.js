@@ -32,6 +32,7 @@ $(document).ready(
 			// 租物詳細資料modal
 			$('#infoRentModel').off();
 			$('#infoRentModel').on('shown.bs.modal',function(e) {
+				console.log($(this).find("#rentStateSpan").data("hasMember"));
 //				console.log("bodyRent.rentState:"+$(this).find("#rentStateSpan").data("rentState"));
 				//按鈕顯示承租/預租
 //				$.trim($(this).find("#rentStateSpan").data("liveOrd")).length != 0? $("#btnAddRentToCart").text("預租").addClass("btn-warning") : $("#btnAddRentToCart").text("承租").addClass("btn-primary");
@@ -69,32 +70,40 @@ $(document).ready(
 				});
 				
 				//點擊追蹤按鈕
+				var hasMember = $(this).find("#rentStateSpan").data("hasMember");
 				$("#btnAddRentToPrerent").off();
 				$("#btnAddRentToPrerent").on("click", function(e) {
-					console.log($(this).data("servlet"));
-					console.log($(this).data("rentNo"));
-					console.log($(this).data("rentState"));
-					var thisBtn = $(this);
-					$.ajax({
-						type : "POST",
-						url : $(this).data("servlet"),
-						contentType : "application/x-www-form-urlencoded",
-						data : {
-							action : "addRentToPrerent",
-							rent_no : $(this).data("rentNo"),
-							rent_state : $(this).data("rentState")
-						},
-						dataType : "text",
-						success : function(rspJson) {
-							$("#infoRentModel").on("hidden.bs.modal", function(e) {
-//								console.log(rspJson);
-							}).modal("hide");
-							alert("已增加至追蹤清單!");
-						},
-						error : function() {
-							alert("系統異常!");
-						}
-					});
+					if(hasMember != null){
+						console.log($(this).data("servlet"));
+						console.log($(this).data("rentNo"));
+						console.log($(this).data("rentState"));
+						var thisBtn = $(this);
+						$.ajax({
+							type : "POST",
+							url : $(this).data("servlet"),
+							contentType : "application/x-www-form-urlencoded",
+							data : {
+								action : "addRentToPrerent",
+								rent_no : $(this).data("rentNo"),
+								rent_state : $(this).data("rentState")
+							},
+							dataType : "text",
+							success : function(rspJson) {
+								$("#infoRentModel").on("hidden.bs.modal", function(e) {
+//									console.log(rspJson);
+								}).modal("hide");
+								alert("已增加至追蹤清單!");
+							},
+							error : function() {
+								alert("系統異常!");
+							}
+						});
+					} else {
+						$("#infoRentModel").on("hidden.bs.modal", function(e) {
+						}).modal("hide");
+						alert("要加追蹤,請先登入會員!");
+					}
+
 				});
 				
 				//點擊租物預覽圖片切換
@@ -235,6 +244,29 @@ $(document).ready(
 						$(this).fadeIn();
 				});
 			});
+			
+			//滑鼠移到Sos租物顯示div
+			var sosDivWidth = 300;
+			var sosDivHeight = 175;
+//			$('.listSosorder').prev("div").hide();
+			$('.listSosorder').each(function( index ) {
+				$(this).prev("div").css({position: "absolute",'top':$(this).position().top,'right':$(this).position().right,'left':$(this).position().left,'z-index':2,'background-color':'#FFF'});	
+//		        $(this).prev("div").find("img").css({left:"100px"});
+			});
+			$('.listSosorder').hover(
+				    function(){
+//				        current_h = $(this, 'img').height;
+//				        current_w = $(this, 'img').width;
+//				    	console.log($(this).prev("div"));
+				        $(this).prev("div").stop(true, false).removeClass("hidden").animate({width:sosDivWidth, height:sosDivHeight, marginLeft:-sosDivWidth}, 300);
+//				    	$(this).prev("div").stop(true, false).show();
+				    },
+				    function(){
+				        $(this).prev("div").stop(true, false).animate({width:0, height:0, marginLeft:0}, 300).addClass("hidden");
+//				    	$(this).prev("div").stop(true, false).hide();
+				    });
+			
+			
 			
 			//滑鼠移到租物上特效
 

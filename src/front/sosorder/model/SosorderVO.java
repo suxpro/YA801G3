@@ -1,4 +1,4 @@
-package back.sosorder.model;
+package front.sosorder.model;
 
 import java.sql.Timestamp;
 
