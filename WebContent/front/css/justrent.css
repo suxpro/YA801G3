@@ -155,6 +155,7 @@ img.img-polaroid {
 .flex-caption { 
 background: rgba(0,0,0,.5); 
 margin-right:0px;
+border-radius:20px;
 bottom:25px;
 position:absolute;
 padding:15px;

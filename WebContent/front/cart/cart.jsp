@@ -239,7 +239,7 @@
 
 				<td>
 					<FORM method="post" action="<%=request.getContextPath()%>/front/ord/addOrd.jsp">
-						<input type="submit" id="add_ord<%=count%>" value="前往結帳"> 
+						<button type="submit" class="btn btn-primary" id="add_ord<%=count%>" >前往結帳</button> 						
 						<input type="hidden" name="rent_no" value="${rentVO.rent_no}"> 
 						<input type="hidden" name="action" value="getOne_For_Update">
 						<input type="hidden" name="requestURL" value="/front/cart/cart.jsp">
@@ -255,7 +255,7 @@
 				</td>
 				<td>
 					<FORM method="post" action="<%=request.getContextPath()%>/front/cart/cart.do">
-						<input type="submit" value="移除"> 
+						<button type="submit" class="btn btn-primary">移除</button>
 						<input type="hidden" name="del" value="${s.index}">
 						<input type="hidden" name="action" value="delete">
 					</FORM>

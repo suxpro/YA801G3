@@ -176,7 +176,6 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
         <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物車</a></li>
         <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租清單</a></li>       
         <li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
-        <li><a href="#">續租查詢</a></li>
         </ul>
       </div>
     </div>
