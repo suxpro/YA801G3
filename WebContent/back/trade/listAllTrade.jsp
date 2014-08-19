@@ -3,7 +3,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="back.trade.model.*"%>
+<%@ page import="java.sql.Timestamp"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 
+<%!//定義返回的日期格式
+	static SimpleDateFormat dateformatAll = new SimpleDateFormat(
+			"yyyy-MM-dd HH:mm:ss");//定義返回的日期格式
+
+	//去掉時間的毫秒數方法
+	public static String getTimestampString(Timestamp ts) {
+		if (ts != null)
+			return dateformatAll.format(ts);//格式化傳過來的時間就可以去掉毫秒數
+		else
+			return "";
+	}%>
 <%
 	TradeDAO dao = new TradeDAO();
 	List<TradeVO> list = dao.getAll();
@@ -64,7 +77,17 @@
                     </c:if>
 					</c:forEach></td>
 				<td>${tradeVO.tmid}</td>
-				<td>${tradeVO.tdate}</td>
+							<%
+							  String tdate = getTimestampString(((TradeVO) pageContext.getAttribute("tradeVO")).getTdate());
+							  String tdate_D = "";
+							  String tdate_T = "";
+							  if(tdate != ""){
+								  tdate_D = tdate.substring(0, 10);
+								  tdate_T = tdate.substring(11, 19);
+							  }							  
+							%>
+
+				<td><%=tdate_D %><br><%=tdate_T %></td>	
 				<td>${tradeVO.tstas}</td>
 				<td>${tradeVO.tfunds}</td>
 				<td>${tradeVO.tin}</td>

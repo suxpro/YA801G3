@@ -26,8 +26,8 @@ public class TradeDAO implements TradeDAO_interface {
 	}
 	
 	private static final String INSERT_STMT = "INSERT INTO trade (tra_no, mem_no, tra_mem_id, tra_time, tra_stas, tra_funds, tra_in) VALUES ('T'||TO_CHAR(trade_seq.NEXTVAL), ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT tra_no, mem_no, tra_mem_id, to_char(tra_time,'yyyy-mm-dd') tra_time, tra_stas, tra_funds, tra_in FROM trade order by tra_no";
-	private static final String GET_ONE_STMT = "SELECT tra_no, mem_no, tra_mem_id, to_char(tra_time,'yyyy-mm-dd') tra_time, tra_stas, tra_funds, tra_in FROM trade where tra_no = ?";
+	private static final String GET_ALL_STMT = "SELECT tra_no, mem_no, tra_mem_id, tra_time, tra_stas, tra_funds, tra_in FROM trade order by tra_no";
+	private static final String GET_ONE_STMT = "SELECT tra_no, mem_no, tra_mem_id, tra_time, tra_stas, tra_funds, tra_in FROM trade where tra_no = ?";
 	private static final String DELETE = "DELETE FROM trade where tra_no = ?";
 	private static final String UPDATE = "UPDATE trade set mem_no=?, tra_mem_id=?, tra_time=?, tra_stas=?, tra_funds=?, tra_in=? where tra_no=?";
 

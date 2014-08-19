@@ -16,11 +16,11 @@
 
 <%
 
-    MemberVO memberVO = (MemberVO)request.getAttribute("memberVO");
+    MemberVO memberVOadd = (MemberVO)request.getAttribute("memberVOadd");
 	String justrent = request.getContextPath();
-	String mid = memberVO.getMid();
-	String mname = memberVO.getMname();
-	String mpwd = memberVO.getMpwd();
+	String mid = memberVOadd.getMid();
+	String mname = memberVOadd.getMname();
+	String mpwd = memberVOadd.getMpwd();
 	String strKey = null;
 		
 	String mailserver   = "140.115.236.9";

@@ -6,6 +6,20 @@
 <%@ page import="front.rent.model.*"%>
 <%@ page import="front.member.model.*"%>
 <%@ page import="front.trade.model.*"%>
+<%@ page import="java.sql.Timestamp"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+
+<%!//定義返回的日期格式
+	static SimpleDateFormat dateformatAll = new SimpleDateFormat(
+			"yyyy-MM-dd HH:mm:ss");//定義返回的日期格式
+
+	//去掉時間的毫秒數方法
+	public static String getTimestampString(Timestamp ts) {
+		if (ts != null)
+			return dateformatAll.format(ts);//格式化傳過來的時間就可以去掉毫秒數
+		else
+			return "";
+	}%>
 
 <%
 MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
@@ -13,9 +27,6 @@ String mno  = memberVO.getMno();
 
 TradeService tradeSvc = new TradeService();
 List<TradeVO> list = tradeSvc.getOneMemberTrade(mno);
-
-// OrdService ordSvc = new OrdService();
-// List<OrdVO> list = ordSvc.getAllOrdByMember(mno);
 
 pageContext.setAttribute("list", list);
 %>
@@ -187,7 +198,18 @@ overflow:auto;
 <%-- 					</c:forEach> --%>
 <!-- 				</td> -->
 <%-- 				<td>${tradeVO.tmid}</td> --%>
-				<td>${tradeVO.tdate}</td>
+
+							<%
+							  String tdate = getTimestampString(((TradeVO) pageContext.getAttribute("tradeVO")).getTdate());
+							  String tdate_D = "";
+							  String tdate_T = "";
+							  if(tdate != ""){
+								  tdate_D = tdate.substring(0, 10);
+								  tdate_T = tdate.substring(11, 19);
+							  }							  
+							%>
+
+				<td><%=tdate_D %><br><%=tdate_T %></td>				
 				<td>${tradeVO.tstas}</td>
 				<td>${tradeVO.tfunds}</td>
 <%-- 				<td>${tradeVO.tin}</td> --%>

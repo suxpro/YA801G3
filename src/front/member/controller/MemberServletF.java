@@ -780,35 +780,40 @@ public class MemberServletF extends HttpServlet {
 				// ArrayList<byte[]> pics = new ArrayList<byte[]>();
 				// ArrayList<String> pics_format = new ArrayList<String>();
 				Enumeration files = multi.getFileNames();
-				int count = 0;
-				// try {
-				while (files.hasMoreElements()) {
-					byte[] pic_byte = null;
-					String name = (String) files.nextElement();
-					String fileName = multi.getFilesystemName(name);
-					// 避免未上傳五張圖時 會異常發生
-					if (fileName != null) {
-						int dotPos = fileName.indexOf('.');
-						String pic_format = fileName.substring(dotPos + 1);
-						// String type = multi.getContentType(name);
-						File file = multi.getFile(name);
-						FileInputStream fis = new FileInputStream(file);
-						int fin = fis.available();
-						pic_byte = new byte[fin];
-						fis.read(pic_byte);
-						fis.close();
-						file.delete(); // 寫入記憶體後 檔案刪除
-						count++;
-						pics.put(name, pic_byte); // hasMoreElements 會將後進先出 所以使用map格式 且key值等於name
-						pics_format.put(name, pic_format); // hasMoreElements會將後進先出所以使用map格式且key值等於 name
+				try {
+					while (files.hasMoreElements()) {
+						byte[] pic_byte = null;
+						String name = (String) files.nextElement();
+						String fileName = multi.getFilesystemName(name);
+						// 避免未上傳五張圖時 會異常發生
+						if (fileName != null) {
+							int dotPos = fileName.indexOf('.');
+							String pic_format = fileName.substring(dotPos + 1);
+							// String type = multi.getContentType(name);
+							File file = multi.getFile(name);
+							FileInputStream fis = new FileInputStream(file);
+							int fin = fis.available();
+							pic_byte = new byte[fin];
+							fis.read(pic_byte);
+							fis.close();
+							file.delete(); // 寫入記憶體後 檔案刪除
+							pics.put(name, pic_byte); // hasMoreElements 會將後進先出 所以使用map格式 且key值等於name
+							pics_format.put(name, pic_format); // hasMoreElements會將後進先出所以使用map格式且key值等於 name
+						}
 					}
-
+				} catch (Exception e) {
+					errorMsgs.put("pics", "請上傳圖片");
 				}
-
+			
 				byte[] mpic = (byte[]) pics.get("mpic");
+				if (mpic == null) {
+					errorMsgs.put("mpic", "請上傳圖片");
+				}
+				
 				String mpic_info = (String) pics_format.get("mpic");
 				byte[] mvpic = (byte[]) pics.get("mvpic");
 				String mvpic_info = (String) pics_format.get("mvpic");
+				
 
 				if (mpic == null || mvpic == null) {
 					MemberService memberSvc = new MemberService();
