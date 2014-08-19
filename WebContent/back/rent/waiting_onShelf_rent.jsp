@@ -62,7 +62,7 @@
         <div class="table-responsive">
             <table id="listAllEmpTable" class="table table-hover"
                 style="white-space: nowrap;">
-        <tr align='center' valign='middle'>
+        <tr align='center' valign='middle' class="info">
             <th>圖片</th>
             <th>租物編號</th>
             <th>出租人編號</th>

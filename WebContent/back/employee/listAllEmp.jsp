@@ -61,13 +61,13 @@
 			<table id="listAllEmpTable" class="table table-hover"
 				style="white-space: nowrap;">
 				<thead>
-					<tr>
+					<tr class="info">
 						<th class="delEmpTd" style="display: none;" title="empDel">刪除</th>
 						<th title="empNo">編號</th>
 						<th title="empId">帳號</th>
 						<th title="empName">姓名</th>
 						<th title="empSex">性別</th>
-						<th title="empTel">電話</th>
+<!-- 						<th title="empTel">電話</th> -->
 						<th title="empCell">手機</th>
 						<th title="empMail">Email</th>
 						<th title="empAddr">地址</th>
@@ -93,7 +93,7 @@
 							<td>${empVO.emp_id}</td>
 							<td>${empVO.emp_name}</td>
 							<td>${empVO.emp_sex}</td>
-							<td>${empVO.emp_tel}</td>
+<%-- 							<td>${empVO.emp_tel}</td> --%>
 							<td>${empVO.emp_cell}</td>
 							<td>${empVO.emp_mail}</td>
 							<td>${empVO.emp_addr}</td>
@@ -114,13 +114,13 @@
 							<button type="button" class="btn btn-primary btn-sm"
 								id="updateEmpYes"
 								value="<%=request.getContextPath()%>/employee/employee.do">
-								<span class="glyphicon glyphicon-ok-sign"></span>確定
+								<span class="glyphicon glyphicon-ok-sign"></span> 確定
 							</button>
 						</td>
 						<td class="updateEmpTd" style="display: none;">
 							<button type="button" class="btn btn-default btn-sm"
 								id="updateEmpNo">
-								<span class="glyphicon glyphicon-remove-sign"></span>取消
+								<span class="glyphicon glyphicon-remove-sign"></span> 取消
 							</button>
 						</td>
 					</tr>
