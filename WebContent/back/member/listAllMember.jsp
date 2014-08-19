@@ -39,7 +39,7 @@
 <div class="container-fluid">
     <div class="table-responsive">
     <table class="table table-hover" style="white-space: nowrap;">
-        <tr>
+        <tr class="info">
             <th>會員編號</th>
             <th>會員帳號</th>
             <th>會員密碼</th>

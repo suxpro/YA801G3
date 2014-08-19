@@ -8,9 +8,7 @@
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
 				<li class="active"><a class="aIndexMem" rel="member" href="#">會員帳號管理</a></li>
-                <li><a class="aIndexMem" rel="temp1" href="#">儲值收款確認</a></li>
-                <li><a class="aIndexMem" rel="temp2" href="#">交易記錄查詢</a></li>
-                <li><a class="aIndexMem" rel="temp3" href="#">會員帳號驗證</a></li>
+                <li><a class="aIndexMem" rel="temp1" href="#">交易記錄查詢</a></li>
 			</ul>
 		</div>
 

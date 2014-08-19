@@ -63,7 +63,7 @@
 			<table id="listAllComTable" class="table table-hover"
 				style="white-space: nowrap;">
 				<thead>
-					<tr>
+					<tr class="info">
 						<th class="delComTd" style="display: none;" title="comDel">刪除</th>
 						<th title="empNo">員工編號</th>
                         <th title="empName">員工編號</th>

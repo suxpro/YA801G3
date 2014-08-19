@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="back.ord.model.*"%>
-<!-- <script>$.getScript("js/ord/ord.js");</script> -->
+<script>$.getScript("js/ord/ord.js");</script>
 <script>
     //----日期處理-----------------------------------------------------------------------
     $(function() {
@@ -30,15 +30,15 @@
 			}});
     });
 </script>
-<html>
-<head>
+<!-- <html> -->
+<!-- <head> -->
 <!-- <title>IBM Emp: Home</title> -->
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-</head>
-<body bgcolor='white'>
+<!-- <link rel="stylesheet" -->
+<!-- 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
+<!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script> -->
+<!-- <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
+<!-- </head> -->
+<!-- <body bgcolor='white'> -->
 
 
 <h3><b>訂單資料查詢:</b></h3>
@@ -93,13 +93,17 @@
        </tr> 
        </table>
         <br>
-        <input class="btnCallAjaxShip btn btn-primary" type="button" value="查詢">
+        <input class="btnCallAjaxOrd btn btn-primary" type="button" value="查詢">
 <!--         <input class="btnCallAjaxShip btn btn-primary" type="submit" value="查詢"> -->
         <input type="hidden" name="action" value="getOrdList">
      </form>
   </li>
 </ul>
 
+<!-- 小豬加顯示result -->
+<div id="ordListResult">
+    <%@ include file="/back/ord/showOrdList.jsp"%>
+</div>
 
 <!-- </body> -->
 <!-- </html> -->

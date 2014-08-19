@@ -66,21 +66,9 @@ $(document).ready(
 					});
 					break;
 				case "temp1":
-					$("#listAllMem").load("member/listAllMember.jsp", function() {
+					$("#listAllMem").load("trade/listAllTrade.jsp", function() {
 //						此區看是否有後續動作要做
-						$.getScript("js/member/member.js");
-					});
-					break;
-				case "temp2":
-					$("#listAllMem").load("member/listAllMember.jsp", function() {
-//						此區看是否有後續動作要做
-						$.getScript("js/member/member.js");
-					});
-					break;
-				case "temp3":
-					$("#listAllMem").load("member/listAllMember.jsp", function() {
-//						此區看是否有後續動作要做
-						$.getScript("js/member/member.js");
+						$.getScript("js/trade/trade.js");
 					});
 					break;
 				default:
@@ -101,9 +89,9 @@ $(document).ready(
 					});
 					break;
 				case "temp1":
-					$("#listAllRent").load("rent/waiting_onShelf_rent.jsp", function() {
+					$("#listAllRent").load("ord/queryOrdList.jsp", function() {
 //						此區看是否有後續動作要做
-						$.getScript("js/rent/rent.js");
+						$.getScript("js/ord/ord.js");
 					});
 					break;
 				case "temp2":

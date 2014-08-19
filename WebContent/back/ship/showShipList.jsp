@@ -11,7 +11,7 @@
 <!-- <body bgcolor='white'> -->
 
 <table class="table table-hover">
-	<tr>
+	<tr class="info">
 		<th>訂單編號</th>
 		<th>租物編號</th>
 		<th>租物名稱</th>

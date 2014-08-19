@@ -279,6 +279,16 @@
         <url-pattern>/back/employee/addEmp.jsp</url-pattern>
         <url-pattern>/back/employee/indexEmp.jsp</url-pattern>
         <url-pattern>/back/employee/listAllEmp.jsp</url-pattern>
+        <url-pattern>/back/member/indexMem.jsp</url-pattern>
+        <url-pattern>/back/member/listAllMember.jsp</url-pattern>
+        <url-pattern>/back/member/listAllTrade.jsp</url-pattern>
+        <url-pattern>/back/rent/indexRent.jsp</url-pattern>
+        <url-pattern>/back/rent/waiting_onShelf_rent.jsp</url-pattern>
+        <url-pattern>/back/ord/queryOrdList.jsp</url-pattern>
+        <url-pattern>/back/ord/showOrdList.jsp</url-pattern>
+        <url-pattern>/back/ship/indexShip.jsp</url-pattern>
+        <url-pattern>/back/ship/queryShipList.jsp</url-pattern>
+        <url-pattern>/back/ship/showShipList.jsp</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>INCLUDE</dispatcher>
