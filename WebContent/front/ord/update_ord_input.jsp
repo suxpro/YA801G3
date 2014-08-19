@@ -92,7 +92,7 @@
 	</c:if>
 
 	<FORM METHOD="post" ACTION="<%=request.getContextPath() %>/front/ord/ord.do" name="form1">
-		<table border="0">
+		<table class="table table-hover " border="0">
 
 			<tr>
 				<td>訂單編號:<font color=red><b>*</b></font></td>

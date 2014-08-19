@@ -576,7 +576,7 @@ public class MemberServletF extends HttpServlet {
 			
 				byte[] mpic = (byte[]) pics.get("mpic");
 				if (mpic == null) {
-					errorMsgs.put("mpic", "請上傳圖片");
+					errorMsgs.put("mpic", "請上傳會員圖片");
 				}
 				
 				String mpic_info = (String) pics_format.get("mpic");
@@ -805,11 +805,7 @@ public class MemberServletF extends HttpServlet {
 					errorMsgs.put("pics", "請上傳圖片");
 				}
 			
-				byte[] mpic = (byte[]) pics.get("mpic");
-				if (mpic == null) {
-					errorMsgs.put("mpic", "請上傳圖片");
-				}
-				
+				byte[] mpic = (byte[]) pics.get("mpic");								
 				String mpic_info = (String) pics_format.get("mpic");
 				byte[] mvpic = (byte[]) pics.get("mvpic");
 				String mvpic_info = (String) pics_format.get("mvpic");

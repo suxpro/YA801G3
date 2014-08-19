@@ -22,13 +22,13 @@
 	}%>
 
 <%
-MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
-String mno  = memberVO.getMno();
+	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+	String mno = memberVO.getMno();
 
-TradeService tradeSvc = new TradeService();
-List<TradeVO> list = tradeSvc.getOneMemberTrade(mno);
+	TradeService tradeSvc = new TradeService();
+	List<TradeVO> list = tradeSvc.getOneMemberTrade(mno);
 
-pageContext.setAttribute("list", list);
+	pageContext.setAttribute("list", list);
 %>
 
 
@@ -36,16 +36,19 @@ pageContext.setAttribute("list", list);
 <html>
 
 <style>
-.tableScroll{ 
-overflow:auto; 
-} 
+.tableScroll {
+	overflow: auto;
+}
 </style>
 
-<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/front/css/justrent.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css"
+	rel="stylesheet" media="screen">
+<link href="<%=request.getContextPath()%>/front/css/justrent.css"
+	rel="stylesheet">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/bootstrap.min.js"></script>
-<script	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
+<script
+	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/jquery.color.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/justrent.js"></script>
 <head>
@@ -59,105 +62,108 @@ overflow:auto;
 
 			<!-- SideBar -->
 			<div class="col-md-2 sidebar">
-			<div class="panel-group" id="accordion">
-<!-- 會員資料 -->
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          會員管理
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse">
-      <div class="panel-body">
-        <ul class="nav nav-sidebar">
-        <li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
-        <li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
-        <li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+				<div class="panel-group" id="accordion">
+					<!-- 會員資料 -->
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapseOne"> 會員管理 </a>
+							</h4>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse">
+							<div class="panel-body">
+								<ul class="nav nav-sidebar">
+									<li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
+									<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
+									<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
 
-<!-- 租物管理  -->
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-          租物管理
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse">
-      <div class="panel-body">
-        <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物資料</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/rent/addRent.jsp">新增租物</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+					<!-- 租物管理  -->
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapseTwo"> 租物管理 </a>
+							</h4>
+						</div>
+						<div id="collapseTwo" class="panel-collapse collapse">
+							<div class="panel-body">
+								<ul class="nav nav-sidebar">
+									<li><a
+										href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物資料</a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/front/rent/addRent.jsp">新增租物</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
 
-<!-- 承租管理 -->
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-         承租管理
-        </a>
-      </h4>
-    </div>
-    <div id="collapseThree" class="panel-collapse collapse">
-      <div class="panel-body">
-        <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租資料</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物清單</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  
-  
-  <!-- 出租管理  -->
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-          出租管理
-        </a>
-      </h4>
-    </div>
-    <div id="collapseFour" class="panel-collapse collapse">
-      <div class="panel-body">
-        <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">出租清單</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+					<!-- 承租管理 -->
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapseThree"> 承租管理 </a>
+							</h4>
+						</div>
+						<div id="collapseThree" class="panel-collapse collapse">
+							<div class="panel-body">
+								<ul class="nav nav-sidebar">
+									<li><a
+										href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物車</a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租資料</a></li>									
+									<li><a
+										href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
 
-  <!-- 歷史紀錄  -->
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
-          歷史紀錄
-        </a>
-      </h4>
-    </div>
-    <div id="collapseFive" class="panel-collapse collapse in">
-      <div class="panel-body">
-        <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借紀錄</a></li>
-        <li class="active"><a href="<%=request.getContextPath()%>/front/trade/OneMemberTrade.jsp">歷史交易紀錄</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
 
-</div>
+					<!-- 出租管理  -->
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapseFour"> 出租管理 </a>
+							</h4>
+						</div>
+						<div id="collapseFour" class="panel-collapse collapse">
+							<div class="panel-body">
+								<ul class="nav nav-sidebar">
+									<li><a
+										href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">出租清單</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<!-- 歷史紀錄  -->
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapseFive"> 歷史紀錄 </a>
+							</h4>
+						</div>
+						<div id="collapseFive" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<ul class="nav nav-sidebar">
+									<li><a
+										href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借紀錄</a></li>
+									<li class="active"><a
+										href="<%=request.getContextPath()%>/front/trade/OneMemberTrade.jsp">歷史交易紀錄</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
 			</div>
 
 			<!-- Form -->
@@ -171,15 +177,15 @@ overflow:auto;
 					</legend>
 				</div>
 
-				<table border='1' bordercolor='#CCCCFF'>
-					<tr>
-			<th>交易紀錄編號</th>
-<!-- 			<th>會員編號</th> -->
-<!-- 			<th>會員金融帳號</th> -->
-			<th>交易時間</th>
-			<th>會員金融紀錄狀態</th>
-			<th>交易金額</th>
-<!-- 			<th>匯款確認</th> -->
+				<table class="table table-hover " >
+					<tr class="info" >
+						<th>交易紀錄編號</th>
+						<!-- 			<th>會員編號</th> -->
+						<!-- 			<th>會員金融帳號</th> -->
+						<th>交易時間</th>
+						<th>會員金融紀錄狀態</th>
+						<th>交易金額</th>
+						<!-- 			<th>匯款確認</th> -->
 
 
 					</tr>
@@ -187,32 +193,33 @@ overflow:auto;
 					<c:forEach var="tradeVO" items="${list}" begin="<%=pageIndex%>"
 						end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
 
-						<tr align='center' valign='middle'>
+						<tr>
 
-				<td>${tradeVO.tno}</td>
-<%-- 				<td>${tradeVO.mno} --%>
-<%-- 					<c:forEach var="memberVO" items="${memberSvc.all}"> --%>
-<%-- 						<c:if test="${tradeVO.mno==memberVO.mno}"> --%>
-<%-- 	                    	${memberVO.mno}【${memberVO.mname}】 --%>
-<%--                     	</c:if> --%>
-<%-- 					</c:forEach> --%>
-<!-- 				</td> -->
-<%-- 				<td>${tradeVO.tmid}</td> --%>
+							<td>${tradeVO.tno}</td>
+							<%-- 				<td>${tradeVO.mno} --%>
+							<%-- 					<c:forEach var="memberVO" items="${memberSvc.all}"> --%>
+							<%-- 						<c:if test="${tradeVO.mno==memberVO.mno}"> --%>
+							<%-- 	                    	${memberVO.mno}【${memberVO.mname}】 --%>
+							<%--                     	</c:if> --%>
+							<%-- 					</c:forEach> --%>
+							<!-- 				</td> -->
+							<%-- 				<td>${tradeVO.tmid}</td> --%>
 
 							<%
-							  String tdate = getTimestampString(((TradeVO) pageContext.getAttribute("tradeVO")).getTdate());
-							  String tdate_D = "";
-							  String tdate_T = "";
-							  if(tdate != ""){
-								  tdate_D = tdate.substring(0, 10);
-								  tdate_T = tdate.substring(11, 19);
-							  }							  
+								String tdate = getTimestampString(((TradeVO) pageContext
+											.getAttribute("tradeVO")).getTdate());
+									String tdate_D = "";
+									String tdate_T = "";
+									if (tdate != "") {
+										tdate_D = tdate.substring(0, 10);
+										tdate_T = tdate.substring(11, 19);
+									}
 							%>
 
-				<td><%=tdate_D %><br><%=tdate_T %></td>				
-				<td>${tradeVO.tstas}</td>
-				<td>${tradeVO.tfunds}</td>
-<%-- 				<td>${tradeVO.tin}</td> --%>
+							<td><%=tdate_D%><br><%=tdate_T%></td>
+							<td>${tradeVO.tstas}</td>
+							<td>${tradeVO.tfunds}</td>
+							<%-- 				<td>${tradeVO.tin}</td> --%>
 
 
 
@@ -224,10 +231,13 @@ overflow:auto;
 
 		</div>
 	</div>
-	
-	<br/><br/><br/><br/>
-	
+
+	<br />
+	<br />
+	<br />
+	<br />
+
 	<%@ include file="/front/footer.jsp"%>
-		
+
 </body>
 </html>

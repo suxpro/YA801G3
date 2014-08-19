@@ -65,7 +65,7 @@
 			<div class="col-md-2 sidebar">
 			<div class="panel-group" id="accordion">
 <!-- 會員資料 -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -85,7 +85,7 @@
   </div>
 
 <!-- 租物管理  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
@@ -104,7 +104,7 @@
   </div>
 
 <!-- 承租管理 -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
@@ -115,8 +115,8 @@
     <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
         <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租資料</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物清單</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物車</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租清單</a></li>        
         <li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
         </ul>
       </div>
@@ -125,7 +125,7 @@
   
   
   <!-- 出租管理  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
@@ -143,7 +143,7 @@
   </div>
 
   <!-- 歷史紀錄  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">

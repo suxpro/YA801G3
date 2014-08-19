@@ -123,7 +123,7 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 			<div class="col-md-2 sidebar">
 			<div class="panel-group" id="accordion">
 <!-- 會員資料 -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -143,7 +143,7 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
   </div>
 
 <!-- 租物管理  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
@@ -162,7 +162,7 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
   </div>
 
 <!-- 承租管理 -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
@@ -173,8 +173,8 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
     <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
         <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租資料</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物清單</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物車</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租清單</a></li>       
         <li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
         <li><a href="#">續租查詢</a></li>
         </ul>
@@ -184,7 +184,7 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
   
   
   <!-- 出租管理  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
@@ -195,14 +195,14 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
     <div id="collapseFour" class="panel-collapse collapse">
       <div class="panel-body">
         <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">訂單核准</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">出租清單</a></li>
         </ul>
       </div>
     </div>
   </div>
 
   <!-- 歷史紀錄  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
@@ -234,10 +234,9 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 					</legend>
 				</div>
 <div class="col-md-12 col-md-offset-0">
-
 	
 	<form method="post" action="<%=request.getContextPath() %>/front/rent/rent.do" name="form1" enctype="multipart/form-data">
-		<table cellpadding='5' cellspacing='5' border="0" >
+		<table class="table table-bordered " cellpadding='5' cellspacing='5' border="0" >
 			<tr>
 				<td align="right">租物名稱:<font color=red><b>*</b></font></td>
 				<td><input type="TEXT" name="rent_name" size="30"

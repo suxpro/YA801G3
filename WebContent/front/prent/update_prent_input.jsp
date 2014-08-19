@@ -39,7 +39,7 @@
 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front/prent/prent.do" name="form1"
 		enctype="multipart/form-data">
 		<table border="0">
-			<table border="0">
+			<table class="table table-hover " border="0">
 
 				<tr>
 					<td>¹w¯²½s¸¹:<font color=red><b>*</b></font></td>

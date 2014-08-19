@@ -40,6 +40,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style>
+
+.tableScroll{ 
+overflow:auto;
+} 
+
+</style>
+
 <meta http-equiv="Refresh" content="30;URL=<%=request.getContextPath()%>/front/prent/preRentList.jsp">
 <title>JustRent! - 追蹤清單 </title>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
@@ -65,7 +73,7 @@
 			<div class="col-md-2 sidebar">
 			<div class="panel-group" id="accordion">
 <!-- 會員資料 -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -85,7 +93,7 @@
   </div>
 
 <!-- 租物管理  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
@@ -104,7 +112,7 @@
   </div>
 
 <!-- 承租管理 -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
@@ -115,8 +123,8 @@
     <div id="collapseThree" class="panel-collapse collapse in">
       <div class="panel-body">
         <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租資料</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物清單</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物車</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租清單</a></li>        
         <li class="active"><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
         </ul>
       </div>
@@ -125,7 +133,7 @@
   
   
   <!-- 出租管理  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
@@ -143,7 +151,7 @@
   </div>
 
   <!-- 歷史紀錄  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
@@ -172,7 +180,7 @@
 					</legend>
 				</div>
 
-				<div class="col-md-12 col-md-offset-0">
+				<div class="col-md-12 col-md-offset-0 tableScroll">
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -190,8 +198,8 @@
  		<script>alert("${alertMsgs.alert}");</script>
  	</c:if>
 
-	<table border='1' bordercolor='#CCCCFF'>
-		<tr align='center' valign='middle'>
+	<table class="table table-hover " style="white-space: nowrap;">
+		<tr class="info">
 			<th>租物圖片</th>
 			<th>租物名稱</th>
 			<th>出租者</th>
@@ -223,7 +231,7 @@
 				}
 			%>
 	
-			<tr align='center' valign='middle'>
+			<tr>
 				<td><img width="100" height="100" src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=pic1"></td>		
                 <td><a href="javascript:pressesA${s.index}()">${rentVO.rent_name}</a></td>
 				<td><a href="javascript:pressesB${s.index}()">${lesVO.mname}</a></td>	
@@ -283,6 +291,7 @@
 		</c:forEach>
 	</table>
 <%-- 	<%@ include file="page2.file"%> --%>
+
 </div>
 </div>
 </div>

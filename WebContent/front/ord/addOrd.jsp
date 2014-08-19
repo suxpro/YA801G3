@@ -111,7 +111,7 @@
 			<div class="col-md-2 sidebar">
 			<div class="panel-group" id="accordion">
 <!-- 會員資料 -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -131,7 +131,7 @@
   </div>
 
 <!-- 租物管理  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
@@ -150,7 +150,7 @@
   </div>
 
 <!-- 承租管理 -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
@@ -161,8 +161,8 @@
     <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
         <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租資料</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物清單</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物車</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租清單</a></li>
         <li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
         </ul>
       </div>
@@ -171,7 +171,7 @@
   
   
   <!-- 出租管理  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
@@ -189,7 +189,7 @@
   </div>
 
   <!-- 歷史紀錄  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
@@ -233,12 +233,12 @@
 	</c:if>
 
 	<form method="post" action="<%=request.getContextPath()%>/front/ord/ord.do" name="form1">
-		<table border="0" cellspacing="10">
+		<table class="table table-hover " cellspacing="10">
 
 
 			<input type="hidden" name="rent_no" size="10" value="<%=rentVO.getRent_no()%>" readonly="readonly" />
 			<input type="hidden" name="les_no" size="6" value="<%=rentVO.getLes_no()%>" readonly="readonly" />
-			<tr>
+			<tr class="info">
 				<td>租物名稱:<font color=red></font></td>
 				<td><input type="TEXT" name="rent_name" value="<%=rentVO.getRent_name()%>" readonly="readonly" /></td>
 			</tr>

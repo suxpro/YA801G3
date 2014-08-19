@@ -43,7 +43,7 @@
 		</font>
 	</c:if>
 	<h3>訂單明細資料:</h3>
-	<table border="1" bordercolor='#CCCCFF' align='center' cellspacing="10">
+	<table border="1" class="table table-bordered" align='center' cellspacing="10">
 
 		<tr>
 			<td>租物名稱:<font color=red></font></td>

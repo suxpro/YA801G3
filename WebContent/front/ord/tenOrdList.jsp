@@ -59,7 +59,7 @@ overflow:auto;
 			<div class="col-md-2 sidebar">
 			<div class="panel-group" id="accordion">
 <!-- 會員資料 -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -79,7 +79,7 @@ overflow:auto;
   </div>
 
 <!-- 租物管理  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
@@ -98,7 +98,7 @@ overflow:auto;
   </div>
 
 <!-- 承租管理 -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
@@ -109,8 +109,8 @@ overflow:auto;
     <div id="collapseThree" class="panel-collapse collapse in">
       <div class="panel-body">
         <ul class="nav nav-sidebar">
-        <li class="active"><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租資料</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物清單</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物車</a></li>
+        <li class="active"><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租清單</a></li>
         <li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
         </ul>
       </div>
@@ -119,7 +119,7 @@ overflow:auto;
   
   
   <!-- 出租管理  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
@@ -137,7 +137,7 @@ overflow:auto;
   </div>
 
   <!-- 歷史紀錄  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
@@ -161,7 +161,7 @@ overflow:auto;
 				<div id="legend">
 					<legend class="">
 						<h2>
-							<b>租物清單</b>
+							<b>承租清單</b>
 						</h2>
 					</legend>
 				</div>
@@ -184,8 +184,8 @@ overflow:auto;
 		<script>alert("${alertMsgs.alert}");</script>
 	</c:if>
 
-	<table border='1' bordercolor='#CCCCFF' style="white-space: nowrap;">
-		<tr>
+	<table class="table table-hover " style="white-space: nowrap;">
+		<tr class="info">
 			<th>租物圖片</th>
 			<th>訂單編號</th>
 			<th>租物名稱</th>

@@ -29,7 +29,7 @@
 		</tr>
 	</table>
 
-	<table border='1' bordercolor='#CCCCFF' width='100%'>
+	<table class="table table-hover " border='1' bordercolor='#CCCCFF' width='100%'>
 		<tr>
 			<th>預租編號</th>
 			<th>租物編號</th>

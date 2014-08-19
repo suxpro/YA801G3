@@ -38,7 +38,7 @@
 
 		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front/prent/prent.do" name="form1"
 			enctype="multipart/form-data">
-			<table border="0">
+			<table class="table table-hover " border="0">
 
 				<jsp:useBean id="RentSvc" scope="page"
 					class="front.rent.model.RentService" />

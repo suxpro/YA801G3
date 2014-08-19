@@ -25,6 +25,9 @@
 	pageContext.setAttribute("list", list);
 %>
 
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <style>
 
 .tableScroll{ 
@@ -32,8 +35,6 @@ overflow:auto;
 } 
 
 </style>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
 <head>
 <!-- <meta http-equiv="Refresh" -->
 <%-- 	content="30;URL=<%=request.getContextPath()%>/front/rent/listAllRent.jsp"> --%>
@@ -74,7 +75,7 @@ overflow:auto;
 			<div class="col-md-2 sidebar">
 			<div class="panel-group" id="accordion">
 <!-- 會員資料 -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -94,7 +95,7 @@ overflow:auto;
   </div>
 
 <!-- 租物管理  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
@@ -113,7 +114,7 @@ overflow:auto;
   </div>
 
 <!-- 承租管理 -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
@@ -124,8 +125,8 @@ overflow:auto;
     <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
         <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租資料</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物清單</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物車</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租清單</a></li>        
         <li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
         </ul>
       </div>
@@ -134,7 +135,7 @@ overflow:auto;
   
   
   <!-- 出租管理  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
@@ -152,7 +153,7 @@ overflow:auto;
   </div>
 
   <!-- 歷史紀錄  -->
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
@@ -185,8 +186,8 @@ overflow:auto;
 				<div class="col-md-12 col-md-offset-0 tableScroll">
 
 
-					<table border='1' bordercolor='#CCCCFF' style="white-space: nowrap;">
-						<tr align='center' valign='middle'>
+					<table class="table table-hover " style="white-space: nowrap;">
+						<tr class="info">
 							<th>圖片</th>
 							<th>租物名稱</th>
 							<!-- 			<th width='100px'>租物狀態</th> -->
@@ -229,7 +230,7 @@ overflow:auto;
 								  last_mod_time_T = last_mod_time.substring(11, 19);
 							  }
 							%>
-							<tr align='center' valign='middle'>
+							<tr>
 								<td><img width="100" height="100"
 									src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=pic1"></td>
 								<td><a href="javascript:pressesA${s.index}()">${rentVO.rent_name}</a></td>
