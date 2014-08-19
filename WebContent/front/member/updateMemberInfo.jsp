@@ -227,8 +227,7 @@
 									<div class="control-group  ">
 										<label class="control-label" for="mcell">會員手機</label> <input
 											type="text" id="mcell" name="mcell"
-											value="<%=memberVO.getMcell()%>" class="col-xs-offset-1"
-											ruquired>
+											value="<%=memberVO.getMcell()%>" class="col-xs-offset-1" ruquired />
 
 									</div>
 
@@ -236,7 +235,7 @@
 									<div class="control-group ">
 										<label class="control-label" for="mmail">會員郵件</label> <input
 											type="email" id="mmail" name="mmail"
-											value="<%=memberVO.getMmail()%>" class="col-xs-offset-1">
+											value="<%=memberVO.getMmail()%>" class="col-xs-offset-1" ruquired />
 
 									</div>
 
@@ -259,19 +258,18 @@
 									<div class="control-group ">
 										<label class="control-label" for="madrs">會員地址</label> <input
 											type="text" id="madrs" name="madrs"
-											value="<%=memberVO.getMadrs()%>" class="col-xs-offset-1"
-											ruquired="ruquired">
+											value="<%=memberVO.getMadrs()%>" class="col-xs-offset-1" ruquired />
 
 									</div>
 
 
 								</div>
 								<!-- 排版 -->
-								<div class="col-md-offset-7 sidebar-offcanvas ">
+								<div class="col-md-offset-6 sidebar-offcanvas ">
 									<!-- 圖片排版 -->
 
 									<!-- 會員圖片 -->
-									<div class="control-group ">
+									<div class="control-group">
 										<label class="control-label" for="mpic">會員圖片</label>
 										<div class="controls">
 											<img id="mpic" width="80" height="80"
@@ -279,9 +277,26 @@
 											<input type="file" id="mpic" name="mpic" />
 										</div>
 									</div>
-	 								
-								</div>
-								
+								<br/>
+							<div class="control-group " style="width: 300px">
+								<%-- 錯誤表列 --%>
+								<c:if test="${not empty errorMsgs}">
+									<div id="errorBox" class="alert alert-error">
+										<a class="close" data-dismiss="alert" href="#">×</a>
+										<ul class="errorBoxUl">
+											<font class="bg-danger" color='red'>請修正以下錯誤 <c:forEach
+													var="message" items="${errorMsgs}">
+													<li class="bg-danger">${message.value}</li>
+												</c:forEach>
+											</font>
+										</ul>
+
+									</div>
+								</c:if>
+							</div>
+
+						</div>
+							<br/>	
 								<div class="col-md-6 col-md-offset-2">
 									<c:if test="${memberVO.mlev == 'V' }">
 										<!-- 會員輪播圖片 -->
@@ -296,21 +311,10 @@
 									</c:if>									
 								</div>
 								<!-- 圖片排版 -->
-								<br>
-								<div class="col-xs-offset-0 sidebar-offcanvas">
-									<%-- 錯誤表列 --%>
-									<c:if test="${not empty errorMsgs}">
-										<font color='red'>請修正以下錯誤:
-											<ul>
-												<c:forEach var="message" items="${errorMsgs}">
-													<li>${message.value}</li>
-												</c:forEach>
-											</ul>
-										</font>
-									</c:if>
-								</div>
+								<br/>
+
 																					
-							<br>
+							<br/>
 							<!-- Submit -->
 							<div class="control-group col-xs-9 col-xs-offset-9">
 								<div class="controls">

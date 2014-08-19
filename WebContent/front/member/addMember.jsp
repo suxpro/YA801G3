@@ -25,7 +25,7 @@
 <script type="text/javascript">
 
 function submitForm(){ 
-	form1.mid.value = "Tider";
+	form1.mid.value = "TIDER";
 	form1.mpwd.value = "111111";
 	form1.mname.value = "饅頭人";
 	form1.msex.value = "M";
@@ -168,13 +168,13 @@ function submitForm(){
 								</div>
 								<!-- 圖片排版 -->
 								
-								<div class=" col-xs-offset-6 sidebar-offcanvas ">
+								<div class=" col-xs-offset-6 sidebar-offcanvas " style="width:300px">
 									<%-- 錯誤表列 --%>
 									<c:if test="${not empty errorMsgs}">
 									<div id="errorBox" class="alert alert-error">
 									<a class="close" data-dismiss="alert" href="#">×</a>										
 										<ul class="errorBoxUl">
-											<font  class="bg-danger" color='red'>請修正以下錯誤
+											<font class="bg-danger" color='red'>請修正以下錯誤
 												<c:forEach var="message" items="${errorMsgs}">
 													<li class="bg-danger">${message.value}</li>												
 												</c:forEach>

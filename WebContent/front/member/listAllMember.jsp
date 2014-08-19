@@ -42,7 +42,7 @@
 		<tr>
 			<th>會員編號</th>
 			<th>會員帳號</th>
-			<th>會員密碼</th>
+<!-- 			<th>會員密碼</th> -->
 			<th>會員圖片</th>
 			<th>會員圖片格式</th>
 			<th>會員姓名</th>
@@ -68,7 +68,7 @@
 			<tr align='center' valign='middle' ${(memberVO.mno==param.mno) ? 'bgcolor=#CCCCFF':''}><!--將修改的那一筆加入對比色而已-->
 				<td>${memberVO.mno}</td>
 				<td>${memberVO.mid}</td>
-				<td>${memberVO.mpwd}</td>
+<%-- 				<td>${memberVO.mpwd}</td> --%>
 				<td><img width="80" height="80"
 					src="<%=request.getContextPath()%>/front/member/member.do?mno=${memberVO.mno}&pic=MEM_PIC"></td>
 				<!--  <td>${memberVO.mpic}</td>-->

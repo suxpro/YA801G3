@@ -242,7 +242,7 @@ overflow:auto;
 					Phone#: <font color='blue'><%=lesVO.getMcell()%></font></td>
 
 				<td>
-					<button id="re_ord<%=count%>">續約</button>
+					<button class="btn btn-primary" id="re_ord<%=count%>">續約</button>
 					<div id="dialog-formA<%=count%>" title="續約[${ordVO.ord_no}]">
 						<form method="post"
 							action="<%=request.getContextPath()%>/front/ord/ord.do">
@@ -326,7 +326,7 @@ overflow:auto;
 					</div>
 				</td>
 				<td>
-					<button id="rec_com<%=count%>" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+					<button class="btn btn-primary" id="rec_com<%=count%>" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
 						role="button" aria-disabled="false">
 						<span>收貨完成</span>
 					</button>
