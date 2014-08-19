@@ -71,7 +71,7 @@
             <th>租物押金</th>
             <th>租物價格/天</th>
 <!--             <th>出貨/回收緩衝</th> -->
-            <th>最後狀態時間</th>
+<!--             <th>最後狀態時間</th> -->
             <th>最後上架時間</th>
             <th>最後修改時間</th>
         </tr>
@@ -119,8 +119,8 @@
 <%--                         .getAttribute("rentVO")).getLast_onshelf_time())%></td> --%>
 <%--                 <td><%=getTimestampString(((RentVO) pageContext --%>
 <%--                         .getAttribute("rentVO")).getLast_mod_time())%></td> --%>
-				<td><%=last_sta_time_D %><br>
-					<%=last_sta_time_T %></td>
+<%-- 				<td><%=last_sta_time_D %><br> --%>
+<%-- 					<%=last_sta_time_T %></td> --%>
 				<td><%=last_onshelf_time_D %><br>
 					<%=last_onshelf_time_T %></td>
 				<td><%=last_mod_time_D %><br>
@@ -185,11 +185,11 @@
             <script>
                 //超連結至該租物
                 function presses${s.index}(){
-                    document.open("<%=request.getContextPath()%>/back/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=500,width=500,left=65,top=60,resizable=yes,scrollbars=yes");
+                    document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=500,width=500,left=65,top=60,resizable=yes,scrollbars=yes");
                 }
                 //超連結至該出租人
                 function presses2${s.index}(){
-                    document.open("<%=request.getContextPath()%>/back/member/member.do?mno=${rentVO.les_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+                    document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${rentVO.les_no}&action=getOne_For_Display", "" ,"height=200,width=800,left=65,top=157,resizable=yes,scrollbars=yes");
                 }
                 
             </script>

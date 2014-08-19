@@ -197,7 +197,7 @@ overflow:auto;
 							<!-- 			<th>地區編號</th> -->
 							<!-- 			<th>租物地址</th> -->
 							<th>租物狀態</th>
-							<th>最後狀態時間</th>
+<!-- 							<th>最後狀態時間</th> -->
 							<th>最後上架時間</th>
 							<th>最後修改時間</th>
 						</tr>
@@ -244,8 +244,8 @@ overflow:auto;
 								<%-- 				<td>${rentVO.last_onshelf_time}</td> --%>
 								<%-- 				<td>${rentVO.last_mod_time    }</td> --%>
 								<td>${rent_staMap[rentVO.rent_sta]}</td>
-								<td><%=last_sta_time_D %><br>
-								    <%=last_sta_time_T %></td>
+<%-- 								<td><%=last_sta_time_D %><br> --%>
+<%-- 								    <%=last_sta_time_T %></td> --%>
 								<td><%=last_onshelf_time_D %><br>
 								    <%=last_onshelf_time_T %></td>
 								<td><%=last_mod_time_D %><br>
