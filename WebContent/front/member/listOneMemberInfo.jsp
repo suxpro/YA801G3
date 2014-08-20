@@ -83,7 +83,7 @@ font-weight: bold;
 			<div class="col-md-2 sidebar">
 			<div class="panel-group" id="accordion">
 <!-- 會員資料 -->
-  <div class="panel panel-warning">
+  <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -103,7 +103,7 @@ font-weight: bold;
   </div>
 
 <!-- 租物管理  -->
-  <div class="panel panel-warning">
+  <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
@@ -122,7 +122,7 @@ font-weight: bold;
   </div>
 
 <!-- 承租管理 -->
-  <div class="panel panel-warning">
+  <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
@@ -143,7 +143,7 @@ font-weight: bold;
   
   
   <!-- 出租管理  -->
-  <div class="panel panel-warning">
+  <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
@@ -161,7 +161,7 @@ font-weight: bold;
   </div>
 
   <!-- 歷史紀錄  -->
-  <div class="panel panel-warning">
+  <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">

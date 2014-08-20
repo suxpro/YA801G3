@@ -67,7 +67,7 @@
 			<div class="col-md-2 sidebar">
 				<div class="panel-group" id="accordion">
 					<!-- 會員資料 -->
-					<div class="panel panel-warning">
+					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -86,7 +86,7 @@
 					</div>
 
 					<!-- 租物管理  -->
-					<div class="panel panel-warning">
+					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -106,7 +106,7 @@
 					</div>
 
 					<!-- 承租管理 -->
-					<div class="panel panel-warning">
+					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -129,7 +129,7 @@
 
 
 					<!-- 出租管理  -->
-					<div class="panel panel-warning">
+					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -147,7 +147,7 @@
 					</div>
 
 					<!-- 歷史紀錄  -->
-					<div class="panel panel-warning">
+					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -195,7 +195,7 @@
 						<script>alert("${alertMsgs.alert}");</script>
 					</c:if>
 
-					<table class="table table-hover ">
+					<table class="table table-condensed ">
 						<tr class="success">
 							<th style="text-align: center">租物圖片</th>
 							<th style="text-align: center">租物名稱</th>
@@ -295,6 +295,7 @@
 					<%@ include file="page2.file"%>
 				</div>
 			</div>
+		</div>
 		</div>
 		<%@ include file="/front/footer.jsp"%>
 </body>

@@ -62,7 +62,7 @@
 			<div class="col-md-2 sidebar">
 			<div class="panel-group" id="accordion">
 <!-- 會員資料 -->
-  <div class="panel panel-warning">
+  <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -82,7 +82,7 @@
   </div>
 
 <!-- 租物管理  -->
-  <div class="panel panel-warning">
+  <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
@@ -101,7 +101,7 @@
   </div>
 
 <!-- 承租管理 -->
-  <div class="panel panel-warning">
+  <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
@@ -122,7 +122,7 @@
   
   
   <!-- 出租管理  -->
-  <div class="panel panel-warning">
+  <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
@@ -140,7 +140,7 @@
   </div>
 
   <!-- 歷史紀錄  -->
-  <div class="panel panel-warning">
+  <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
