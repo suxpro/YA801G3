@@ -149,38 +149,40 @@
 				</div>
 				<c:forEach var="sosorderVO" items="${rentBodyListSos}" end="6"
 					varStatus="status">
-					<div class="hidden"
-						style="width: 0px; height: 0px; border: 1px solid;">
-						<img class="img-rounded" style="position: absolute" height="75px"
-							width="75px"
-							src="<%=request.getContextPath()%>/front/sosorder/sosorder.do?sos_no=${sosorderVO.sos_no}&pic=SOS_PIC" />
-						<dl class="dl-horizontal">
-							<dt class="bg-info">
-								<span class="glyphicon glyphicon-user"></span> 求租人:
-							</dt>
-							<dd>${memSvcListSos.getOneMember(sosorderVO.sos_mno).getMname()}</dd>
-							<dt class="bg-info">
-								<span class="glyphicon glyphicon-usd"></span> 租金總額:
-							</dt>
-							<dd>${sosorderVO.sos_pay}</dd>
-							<dt class="bg-info">
-								<span class="glyphicon glyphicon-time"></span> 欲租天數:
-							</dt>
-							<dd>${sosorderVO.sos_days}</dd>
-							<dt class="bg-info">
-								<span class="glyphicon glyphicon-phone"></span> 手機:
-							</dt>
-							<dd>${memSvcListSos.getOneMember(sosorderVO.sos_mno).getMcell()}</dd>
-							<div class="bg-success">
-								<span class="glyphicon glyphicon-comment text-left"></span> 描述:
-							</div>
-							<div>${sosorderVO.sos_desc}</div>
-						</dl>
-					</div>
-					<a class="listSosorder list-group-item"><img
-						class="img-rounded" height="30px" width="30px"
-						src="<%=request.getContextPath()%>/front/sosorder/sosorder.do?sos_no=${sosorderVO.sos_no}&pic=SOS_PIC" />
-						${sosorderVO.sos_name}</a>
+					<c:if test="${sosorderVO.sos_ofsd == null}">
+	                    <div class="hidden"
+	                        style="width: 0px; height: 0px; border: 1px solid;">
+	                        <img class="img-rounded" style="position: absolute" height="75px"
+	                            width="75px"
+	                            src="<%=request.getContextPath()%>/front/sosorder/sosorder.do?sos_no=${sosorderVO.sos_no}&pic=SOS_PIC" />
+	                        <dl class="dl-horizontal">
+	                            <dt class="bg-info">
+	                                <span class="glyphicon glyphicon-user"></span> 求租人:
+	                            </dt>
+	                            <dd>${memSvcListSos.getOneMember(sosorderVO.sos_mno).getMname()}</dd>
+	                            <dt class="bg-info">
+	                                <span class="glyphicon glyphicon-usd"></span> 租金總額:
+	                            </dt>
+	                            <dd>${sosorderVO.sos_pay}</dd>
+	                            <dt class="bg-info">
+	                                <span class="glyphicon glyphicon-time"></span> 欲租天數:
+	                            </dt>
+	                            <dd>${sosorderVO.sos_days}</dd>
+	                            <dt class="bg-info">
+	                                <span class="glyphicon glyphicon-phone"></span> 手機:
+	                            </dt>
+	                            <dd>${memSvcListSos.getOneMember(sosorderVO.sos_mno).getMcell()}</dd>
+	                            <div class="bg-success">
+	                                <span class="glyphicon glyphicon-comment text-left"></span> 描述:
+	                            </div>
+	                            <div>${sosorderVO.sos_desc}</div>
+	                        </dl>
+	                    </div>
+	                    <a class="listSosorder list-group-item"><img
+	                        class="img-rounded" height="30px" width="30px"
+	                        src="<%=request.getContextPath()%>/front/sosorder/sosorder.do?sos_no=${sosorderVO.sos_no}&pic=SOS_PIC" />
+	                        ${sosorderVO.sos_name}</a>
+					</c:if>
 				</c:forEach>
 			</div>
 

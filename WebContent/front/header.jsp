@@ -375,7 +375,7 @@ String randomName5 = listVIP.get((randomNum+4)%listVIP.size()).getMname();
 <!-- 第五張輪播圖 -->
 					<div class="item">
 					<c:if test="<%=randomMVPIC5 == null%>">										
-						<img src="<%=request.getContextPath()%>/front/member/member.do?mno=<%=randomAd1%>&pic=MEM_VPIC" />
+						<img src="<%=request.getContextPath()%>/front/member/member.do?mno=<%=randomAd2%>&pic=MEM_VPIC" />
 						<div class="flex-caption col-md-offset-10">
 							<h3><%=randomName1%></h3>
 						</div>

@@ -4,22 +4,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-<script>
-
-</script>
-<style>
-
-
 
 <head>
 
 </head>
 <body>
-
-
-
-	<form class="form-horizontal" role="form" METHOD=POST
-		ACTION="<%=request.getContextPath()%>/front/member/addMember.jsp">
 
 		<TEXTAREA id="UserNote">		
 Q：使用JustRent!的好處
@@ -47,7 +36,6 @@ Q：刊登和交易需要付費嗎？
 				<button type="SUBMIT" class="btn btn-primary" data-dismiss="modal">確定</button>
 			</div>
 		</div>
-	</form>
 
 </BODY>
 </html>

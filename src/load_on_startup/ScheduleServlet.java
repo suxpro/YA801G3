@@ -9,6 +9,8 @@ import javax.sql.*;
 import front.remind.model.RemindService;
 import front.remind.model.RemindVO;
 import front.rent.model.RentService;
+import front.sosorder.model.SosorderService;
+import front.sosorder.model.SosorderVO;
 import front.member.model.MemberVO;
 import front.member.model.MemberService;
 import front.ord.model.OrdService;
@@ -133,7 +135,32 @@ public class ScheduleServlet extends HttpServlet {
 		TimerTask task3 = new TimerTask() {
 			public void run() {
 				// SOS一天過後刪除
-
+				SosorderService sosSvc = new SosorderService();
+				List<SosorderVO> listSosVO = sosSvc.getAll();
+				Timestamp nowDate = new Timestamp(Calendar.getInstance().getTime().getTime());//取得現在時間Timestamp
+				for (SosorderVO sosVO : listSosVO) {
+					if (nowDate.getTime() - sosVO.getSos_onsd().getTime() >= 24*60*60*1000 && sosVO.getSos_ofsd() == null){
+						sosVO.setSos_ofsd(nowDate);
+						sosSvc.updateSosorder(sosVO);
+						
+						MemberService memSvc = new MemberService();
+						MemberVO memVO = memSvc.getOneMember(sosVO.getSos_mno());
+						String Mcell = memVO.getMcell();
+						String Mname = memVO.getMname();
+						// 發送簡訊
+						String messageSend =
+								Mname + "您好!\nJustRent提醒:\n"
+								+ "SOS租物請求:"+sosVO.getSos_no()+"已被下架\n"
+								+ "時間:" + new java.util.Date() + ".\n";
+						System.out.println("Mcell = " + Mcell);
+						System.out.println("messageSend = " + messageSend);
+						
+						String[] tel ={Mcell};
+						String message = messageSend;
+						sendMessage.sendMessage(tel , message);
+					}
+				}
+				
 				// 會員評價到300自動升級VIP
 				// 會員積分達到-10 停權 還是被檢舉超過10次成立就停權 停權是終身停權
 				MemberService memSvc = new MemberService();
@@ -154,7 +181,8 @@ public class ScheduleServlet extends HttpServlet {
 			}
 		};
 		timer3 = new Timer();
-		timer3.scheduleAtFixedRate(task3, new java.util.Date(), 60 * 1000); // 每60秒執行一次
+		Calendar cal3 = new GregorianCalendar(2014, Calendar.AUGUST, 12, 0, 0, 0);
+		timer3.scheduleAtFixedRate(task3, cal3.getTime(), 24 * 60 * 60 * 1000); // 每1天執行一次
 		System.out.println("已建立其他排程timer3!");
 
 	}

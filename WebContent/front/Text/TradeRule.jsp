@@ -4,32 +4,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-<script>
-
-</script>
-<style>
-textarea {
-	margin: 15px;
-	width: 97%;
-	height: 350px;
-	overflow: auto;
-	border: 0;
-	font-size: 15px;
-	line-height: 170%;
-	font-family: Verdana, Arial, sans-serif;
-}
-</style>
-
-
 <head>
 
 </head>
 <body>
-
-
-
-	<form class="form-horizontal" role="form" METHOD=POST
-		ACTION="<%=request.getContextPath()%>/front/member/addMember.jsp">
 
 		<TEXTAREA id="UserNote">		
 Q：如何下標，租借物品？
@@ -54,7 +32,7 @@ JustRent!的訊息通知皆是發送到您會員專區的用戶信箱以及手機簡訊通知。
 				<button type="SUBMIT" class="btn btn-primary" data-dismiss="modal">確定</button>
 			</div>
 		</div>
-	</form>
+
 
 </BODY>
 </html>
