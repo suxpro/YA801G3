@@ -308,7 +308,7 @@
 					<!-- 圖片排版 -->
 					<br>
 					<div class="col-md-6 col-md-offset-2">
-						<c:if test="${memberVO.mlev == 'V' }">
+						<c:if test="${memberVO.mlev == 'V'&& memberVO.mvpic != null }">
 							<!-- 會員輪播圖片 -->
 							<div id="vipPic" class="control-group  ">
 								<label id="vipPicLabel" class="control-label"

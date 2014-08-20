@@ -377,7 +377,7 @@ String randomName5 = listVIP.get((randomNum+4)%listVIP.size()).getMname();
 					<c:if test="<%=randomMVPIC5 == null%>">										
 						<img src="<%=request.getContextPath()%>/front/member/member.do?mno=<%=randomAd2%>&pic=MEM_VPIC" />
 						<div class="flex-caption col-md-offset-10">
-							<h3><%=randomName1%></h3>
+							<h3><%=randomName2%></h3>
 						</div>
 					</c:if>
 					<c:if test="<%=randomMVPIC5 != null%>">
