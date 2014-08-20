@@ -320,7 +320,7 @@
 							<c:if test="${memberVO.mlev == 'V' }">
 								<!-- 會員輪播圖片 -->
 								<div class="control-group  ">
-									<label class="control-label" for="mvpic">會員輪播圖片</label>									
+									<label class="control-label" for="mvpic">會員輪播圖片(<font color="red">請上傳一張1680*418廣告圖片</font>)</label>									
 									<div class="controls">
 									<c:if test="${memberVO.mvpic != null }">
 										<img id="mvpic" width="600" height="200"
