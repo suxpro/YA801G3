@@ -141,7 +141,11 @@ public class RentService {
 	public RentVO getOneRent(String rent_no) {
 		return dao.findByPrimaryKey(rent_no);
 	}
-
+	//用來取任何狀態的單筆租物資料包含已下架
+	public RentVO getOneRent2(String rent_no) {
+		return dao.findByPrimaryKey2(rent_no);
+	}
+	
 	public List<RentVO> getAll() {
 		return dao.getAll();
 	}
