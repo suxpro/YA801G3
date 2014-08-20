@@ -286,7 +286,7 @@
 							<script>
 							//超連結至該租物
 			         		function pressesA${s.index}(){
-			        	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=700,width=600,left=65,top=15,resizable=yes,scrollbars=yes");
+			        	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=550,width=560,left=65,top=60,resizable=yes,scrollbars=yes");
 			         		}
 							</script>
 						</c:forEach>
