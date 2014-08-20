@@ -152,50 +152,27 @@
 		alert("${errorMsgs.alert}");
 	</c:if>
 	</script>
-<%-- 	<c:if test="${not empty errorMsgs}"> --%>
-<!-- 		<font color='red'>請修正以下錯誤: -->
-<!-- 			<ul> -->
-<%-- 				<c:forEach var="message" items="${errorMsgs}"> --%>
-<%-- 					<li>${message.value}</li> --%>
-<%-- 				</c:forEach> --%>
-<!-- 			</ul> -->
-<!-- 		</font> -->
-<%-- 	</c:if> --%>
 
 	<FORM METHOD="post" ACTION="<%=request.getContextPath() %>/front/rent/rent.do" name="form1" enctype="multipart/form-data">
 		<table class="table table-bordered " border="0" >
 
-<!-- 			<tr> -->
-<!-- 				<td>租物編號:<font color=red><b>*</b></font></td> -->
-<!-- 				<td> -->
-<%-- 					<input type="text" name="rent_no" size="6" value="<%=rentVO.getRent_no()%>" /> --%>
-<!-- 				</td> -->
-<!-- 			</tr> -->
 
 			<tr>
 				<td align="right">租物名稱:<font color=red><b>*</b></font></td>
 				<td><input type="text" name="rent_name" size="30"
-					value="<%=rentVO.getRent_name()%>"/></td>
-				<td><font color="red">${errorMsgs.rent_name}</font></td>
+					value="<%=rentVO.getRent_name()%>"/>
+				<span><font color="red">${errorMsgs.rent_name}</font></span></td>
 			</tr>
 			<tr>
 				<td align="right" valign="top">租物描述:<font color=red><b>*</b></font></td>
 				<td><textarea name="rent_desc" maxlength="300" cols="40"
-					rows="4" style="resize: none"><%=rentVO.getRent_desc()%></textarea></td>
-				<td><font color="red">${errorMsgs.rent_desc}</font></td>
+					rows="4" style="resize: none"><%=rentVO.getRent_desc()%></textarea>
+				<span><font color="red">${errorMsgs.rent_desc}</font></span></td>
 			</tr>			
-<!-- 			<tr> -->
-<!-- 				<td>出租會員(編號):<font color=red><b>*</b></font></td> -->
-<!-- 				<td> -->
+
 					<input type="hidden" name="les_no" size="6" value="<%=rentVO.getLes_no()%>" />
-<!-- 				</td> -->
-<!-- 			</tr> -->
-<!-- 			<tr> -->
-<!-- 				<td>租物狀態:<font color=red><b>*</b></font></td> -->
-<!-- 				<td> -->
 					<input type="hidden" name="rent_sta" size="8" value="<%=rentVO.getRent_sta()%>" />
-<!-- 				</td> -->
-<!-- 			</tr> -->
+
 			<jsp:useBean id="tagSvc" scope="page"
 				class="back.tag.model.TagService" />
 			<tr>
@@ -206,26 +183,25 @@
 								${(rentVO.tag_no==tagVO.tag_no)?'selected':'' }>${tagVO.tag_desc}
 						</c:forEach>
 				   </select>
-			    </td>
-			    <td><font color="red">${errorMsgs.tag_no}</font></td>
+			    <span><font color="red">${errorMsgs.tag_no}</font></span></td>
 			</tr>
 			<tr>
 				<td align="right">租物押金:<font color=red><b>*</b></font></td>
 				<td><input type="number" name="rent_dps" size="8"
-					value="<%=rentVO.getRent_dps()%>"/></td>
-				<td><font color="red">${errorMsgs.rent_dps}</font></td>
+					value="<%=rentVO.getRent_dps()%>"/>
+				<span><font color="red">${errorMsgs.rent_dps}</font></span></td>
 			</tr>
 			<tr>
 				<td align="right">租物價格/天:<font color=red><b>*</b></font></td>
 				<td><input type="number" name="unit_price" size="8"
-					value="<%=rentVO.getUnit_price()%>"/></td>
-				<td><font color="red">${errorMsgs.unit_price}</font></td>
+					value="<%=rentVO.getUnit_price()%>"/>
+				<span><font color="red">${errorMsgs.unit_price}</font></span></td>
 			</tr>
 			<tr>
 				<td align="right">出貨/回收緩衝:<font color=red><b>*</b></font></td>
 				<td><input type="number" name="reset_days" size="8"
-					value="<%=rentVO.getReset_days()%>"/></td>
-				<td><font color="red">${errorMsgs.reset_days}</font></td>
+					value="<%=rentVO.getReset_days()%>"/>
+				<span><font color="red">${errorMsgs.reset_days}</font></span></td>
 			</tr>			
 			<jsp:useBean id="locSvc" scope="page"
 				class="back.loc.model.LocService" />			
@@ -236,20 +212,20 @@
 							<option value="${locVO.loc_no}"
 								${(rentVO.loc_no==locVO.loc_no)?'selected':'' }>${locVO.loc_desc}
 						</c:forEach>
-				</select></td>
-				<td><font color="red">${errorMsgs.loc_no}</font></td>
+				</select>
+				<span><font color="red">${errorMsgs.loc_no}</font></span></td>
 			</tr>			
 			<tr>
 				<td align="right">租物地址:<font color=red><b>*</b></font></td>
 				<td><input type="text" name="rent_addr" size="40"
-					value="<%=rentVO.getRent_addr()%>"/></td>
-				<td><font color="red">${errorMsgs.rent_addr}</font></td>
+					value="<%=rentVO.getRent_addr()%>"/>
+				<span><font color="red">${errorMsgs.rent_addr}</font></span></td>
 			</tr>	
 			<tr>	
 			    <td align="right" valign="top">租物圖片(1):<font color=red><b>*</b></font></td>	
 				<td><img width="100" height="100" src="rent.do?rent_no=${rentVO.rent_no}&pic=pic1">
-				    <input type="file" name="pic1" /></td>
-				<td><font color="red">${errorMsgs.pics}</font></td>
+				    <input type="file" name="pic1" />
+				<span><font color="red">${errorMsgs.pics}</font></span></td>
 			</tr>
 			<tr>
 				<td align="right" valign="top">租物圖片(2):<font color=red><b>*</b></font></td>			
@@ -261,20 +237,10 @@
 				<td><img width="100" height="100" src="rent.do?rent_no=${rentVO.rent_no}&pic=pic3">
 				    <input type="file" name="pic3" /></td>
 			</tr>
-<!-- 			<tr>	 -->
-<!-- 				<td>租物圖片(4):<font color=red><b>*</b></font></td>			 -->
-<%-- 				<td><img width="80" height="80" src="rent.do?rent_no=${rentVO.rent_no}&pic=pic4"></td> --%>
-<!-- 				<td><input type="file" name="pic4" /></td> -->
-<!-- 			</tr> -->
-<!-- 			<tr>		 -->
-<!-- 				<td>租物圖片(5):<font color=red><b>*</b></font></td>		 -->
-<%-- 				<td><img width="80" height="80" src="rent.do?rent_no=${rentVO.rent_no}&pic=pic5"></td> --%>
-<!-- 				<td><input type="file" name="pic5" /></td> -->
-<!-- 			</tr>						 -->
+
 		</table>
 		<br> <input type="hidden" name="action" value="update"> <input
 			type="hidden" name="rent_no" value="<%=rentVO.getRent_no()%>"> 
-<!-- 			<input	type="submit" value="送出修改"> -->
 			<button type="submit" class="col-xs-offset-9 btn btn-primary">送出修改</button>
 	</FORM>
 
