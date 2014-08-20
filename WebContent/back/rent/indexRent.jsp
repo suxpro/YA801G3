@@ -9,7 +9,6 @@
 			<ul class="nav nav-sidebar">
 				<li class="active"><a class="aIndexRent" rel="rent" href="#">租物上架審核</a></li>
                 <li><a class="aIndexRent" rel="temp1" href="#">租物記錄查詢</a></li>
-                <li><a class="aIndexRent" rel="temp2" href="#">檢舉審核</a></li>
 			</ul>
 		</div>
 

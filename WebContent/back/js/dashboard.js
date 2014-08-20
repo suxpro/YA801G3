@@ -94,12 +94,6 @@ $(document).ready(
 						$.getScript("js/ord/ord.js");
 					});
 					break;
-				case "temp2":
-					$("#listAllRent").load("rent/waiting_onShelf_rent.jsp", function() {
-//						此區看是否有後續動作要做
-						$.getScript("js/rent/rent.js");
-					});
-					break;
 				default:
 					console.log("選擇員工管理error!");
 					break;
