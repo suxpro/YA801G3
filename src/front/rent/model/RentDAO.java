@@ -51,6 +51,7 @@ public class RentDAO implements RentDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' order by rent_no";
 	private static final String GET_ALL_MNO_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' AND les_no=? order by rent_no";
 	private static final String GET_ONE_STMT = "SELECT * FROM rent WHERE offshelf_flag <> 'Y' and rent_no = ?";
+	private static final String GET_ONE_STMT2 = "SELECT * FROM rent WHERE rent_no = ?";
     //修改租物狀態
 	private static final String UPDATE_STA_STMT = "UPDATE rent SET rent_sta = ?, last_sta_time=SYSDATE, last_mod_time=SYSDATE WHERE rent_no = ?";
 	//小豬加
@@ -321,6 +322,95 @@ public class RentDAO implements RentDAO_interface {
 		return rentVO;
 	}	
 
+	//可用來取任何狀態的租物資料
+	@Override
+	public RentVO findByPrimaryKey2(String rent_no) {
+
+		RentVO rentVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_STMT2);
+
+			pstmt.setString(1, rent_no);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				rentVO = new RentVO();
+
+				rentVO.setRent_no(rs.getString("rent_no"));
+				rentVO.setRent_name(rs.getString("rent_name"));
+				rentVO.setRent_desc(rs.getString("rent_desc"));
+				rentVO.setLes_no(rs.getString("les_no"));
+				rentVO.setRent_sta(rs.getString("rent_sta"));
+
+				rentVO.setTag_no(rs.getString("tag_no"));
+				rentVO.setRent_dps(rs.getInt("rent_dps"));
+				rentVO.setUnit_price(rs.getInt("unit_price"));
+				rentVO.setReset_days(rs.getInt("reset_days"));
+				rentVO.setLoc_no(rs.getString("loc_no"));
+
+				rentVO.setRent_addr(rs.getString("rent_addr"));
+				rentVO.setPop_flag(rs.getString("pop_flag"));
+				rentVO.setPrent_flag(rs.getString("prent_flag"));
+				rentVO.setReport_flag(rs.getString("report_flag"));
+				rentVO.setOffshelf_flag(rs.getString("offshelf_flag"));
+
+				rentVO.setLast_sta_time(rs.getTimestamp("last_sta_time"));
+				rentVO.setLast_onshelf_time(rs
+						.getTimestamp("last_onshelf_time"));
+				rentVO.setLast_mod_time(rs.getTimestamp("last_mod_time"));
+				rentVO.setPic1(rs.getBytes("pic1"));
+				rentVO.setPic1_format(rs.getString("pic1_format"));
+
+				rentVO.setPic2(rs.getBytes("pic2"));
+				rentVO.setPic2_format(rs.getString("pic2_format"));
+				rentVO.setPic3(rs.getBytes("pic3"));
+				rentVO.setPic3_format(rs.getString("pic3_format"));
+				rentVO.setPic4(rs.getBytes("pic4"));
+
+				rentVO.setPic4_format(rs.getString("pic4_format"));
+				rentVO.setPic5(rs.getBytes("pic5"));
+				rentVO.setPic5_format(rs.getString("pic5_format"));
+
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return rentVO;
+	}		
+	
 	@Override
 	public List<RentVO> getAllByMno(String mno) {
 		List<RentVO> list = new ArrayList<RentVO>();

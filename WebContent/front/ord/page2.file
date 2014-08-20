@@ -17,9 +17,6 @@
 <%if ( pageNumber > 1) {%>
 <table border="0">   
  <tr> 
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
    <FORM METHOD="post" ACTION="<%=request.getRequestURI()%>">   
         <td>
            <select size="1" name="whichPage">

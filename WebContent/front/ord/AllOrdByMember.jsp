@@ -7,7 +7,7 @@
 <%@ page import="front.ord.model.*"%>
 
 <%
-	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 String mno  = memberVO.getMno();
 
 OrdService ordSvc = new OrdService();
