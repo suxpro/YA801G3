@@ -4,20 +4,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-<script>
-
-</script>
-
-
 <head>
 
 </head>
 <body>
-
-
-
-	<form class="form-horizontal" role="form" METHOD=POST
-		ACTION="<%=request.getContextPath()%>/front/member/addMember.jsp">
 
 		<TEXTAREA id="UserNote">				
 提供一個簡單易用的線上租賃平台，可以將家中暫時沒有使用的物品，藉由平台的功能，出租於有短暫使用需求的人； 
@@ -31,7 +21,6 @@
 				<button type="SUBMIT" class="btn btn-primary" data-dismiss="modal">確定</button>
 			</div>
 		</div>
-	</form>
 
 </BODY>
 </html>
