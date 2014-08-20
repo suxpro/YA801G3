@@ -266,7 +266,42 @@ $(document).ready(
 //				    	$(this).prev("div").stop(true, false).hide();
 				    });
 			
-			
+			// 選擇新增sos租物
+			$("#addSosForm").off();
+			$("#addSosForm").on("submit", function(event) {
+				event.preventDefault();
+
+				// grab all form data
+				var formData = new FormData($(this)[0]);
+
+//				console.log(formData);
+
+				$.ajax({
+					url : $(this).data("action"),
+					type : "POST",
+					data : formData,
+					async : false,
+					cache : false,
+					contentType : false,
+					processData : false,
+					dataType : "json",
+					success : function(data) {
+//						console.log(data);
+						$("#sosorderModel").on("hidden.bs.modal", function(e) {
+//							$("#listAllEmp").html(data);
+						}).modal("hide");
+						if(data["resJson"][0] != "尚未登入"){
+							alert("新增SOS租物成功!");
+						} else {
+							alert("請先登入會員!");
+						}
+
+					},
+					error : function() {
+						alert("系統異常!");
+					}
+				});
+			});
 			
 			//滑鼠移到租物上特效
 

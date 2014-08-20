@@ -60,32 +60,32 @@
 <!--         <b><font color=blue>待配送資料查詢:</font></b>  -->
        <table>
        <tr>
-       <td align="right"><b>訂單編號:</b></td>
+       <td align="right"><b>	訂單編號:</b></td>
 	   <td><input type="text" name="ord_no" value=" "></td>
-       <td align="right"><b>租物編號:</b></td>
+       <td align="right"><b>	租物編號:</b></td>
 	   <td><input type="text" name="rent_no" value=" "></td>
-	   </tr>
-	   <tr>         
-       <td align="right"><b>出租人編號:</b></td>
+<!-- 	   </tr> -->
+<!-- 	   <tr>          -->
+       <td align="right"><b>	出租人編號:</b></td>
 	   <td><input type="text" name="les_no" value=" "></td>
-       <td align="right"><b>承租人編號:</b></td>
+       <td align="right"><b>	承租人編號:</b></td>
 	   <td><input type="text" name="ten_no" value=" "></td>
 	   </tr>
 	   <tr>    
-       <td align="right"><b>開始日期:</b></td>
+       <td align="right"><b>	開始日期:</b></td>
 	   <td><input type="text" name="start_date" id="start_date" class="text" value=" " readonly="readonly" /></td>
-       <td align="right"><b>結束日期:</b></td>
+       <td align="right"><b>	結束日期:</b></td>
 	   <td><input type="text" name="end_date" id="end_date" class="text" value=" " readonly="readonly" /></td>
-	   </tr>
-	   <tr>      
-       <td align="right"><b>訂單狀態:</b></td>
+<!-- 	   </tr> -->
+<!-- 	   <tr>       -->
+       <td align="right"><b>	訂單狀態:</b></td>
        <td><select size="1" name="ord_sta" >
           <option value="">
          <c:forEach var="ord_sta" items="${ord_staMap.keySet()}" > 
           <option value="${ord_sta}">${ord_staMap[ord_sta]}
          </c:forEach>   
        </select></td>
-       <td align="right"><b>結果排序:</b></td>
+       <td align="right"><b>	結果排序:</b></td>
        <td><select size="1" name="orderBy" >
           <option value="normal">從先至後
           <option value="desc">從後至先

@@ -14,20 +14,20 @@
 
 <table class="table table-hover" style="white-space: nowrap;">
 	<tr class="info">
-		<th>租物圖片</th>
-		<th>訂單編號</th>
-		<th>租物名稱</th>
-		<th>訂單狀態</th>
-		<th>交易方式</th>
-		<th>租期</th>
-		<th>承租天數</th>
-		<th>逾期天數</th>
-		<th>承租會員</th>
-		<th>承租評價</th>
-		<th>承租評價內容</th>
-		<th>出租會員</th>
-		<th>出租評價</th>
-		<th>出租評價內容</th>
+		<th style ="text-align:center">租物圖片</th>
+		<th style ="text-align:center">訂單編號</th>
+		<th style ="text-align:center">租物名稱</th>
+		<th style ="text-align:center">訂單狀態</th>
+		<th style ="text-align:center">交易方式</th>
+		<th style ="text-align:center">租期</th>
+		<th style ="text-align:center">承租天數</th>
+		<th style ="text-align:center">逾期天數</th>
+		<th style ="text-align:center">承租會員</th>
+		<th style ="text-align:center">承租評價</th>
+		<th style ="text-align:center">承租評價內容</th>
+		<th style ="text-align:center">出租會員</th>
+		<th style ="text-align:center">出租評價</th>
+		<th style ="text-align:center">出租評價內容</th>
 
 
 	</tr>
@@ -48,23 +48,23 @@
 
 		<tr align='center' valign='middle'>
 
-			<td><img width="100" height="100"
+			<td style ="text-align:center"><img width="100" height="100"
 				src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${ordVO.rent_no}&pic=pic1"></td>
-			<td><a href="javascript:pressesA${s.index}()">${ordVO.ord_no    }</a></td>
-			<td><a href="javascript:pressesB${s.index}()">${rentVO.rent_name}</a></td>
-			<td>${ord_staMap[ordVO.ord_sta]}</td>
-			<td>${tra_staMap[ordVO.tra_mode]}</td>
-			<td>${ordVO.ten_date       }<br> ~ <br>
+			<td style ="text-align:center"><a href="javascript:pressesA${s.index}()">${ordVO.ord_no    }</a></td>
+			<td style ="text-align:center"><a href="javascript:pressesB${s.index}()">${rentVO.rent_name}</a></td>
+			<td style ="text-align:center">${ord_staMap[ordVO.ord_sta]}</td>
+			<td style ="text-align:center">${tra_staMap[ordVO.tra_mode]}</td>
+			<td style ="text-align:center">${ordVO.ten_date       }<br> ~ <br>
 				${ordVO.exp_date       }
 			</td>
-			<td>${ordVO.ten_days       }天</td>
-			<td>${ordVO.ot_days        }天</td>
-			<td><a href="javascript:pressesC${s.index}()"><%=tenVO.getMname()%></a></td>
-			<td>${ordVO.les_ases       }</td>
-			<td>${ordVO.les_ases_ct    }</td>
-			<td><a href="javascript:pressesD${s.index}()"><%=tenVOxx.getMname()%></a></td>
-			<td>${ordVO.ten_ases       }</td>
-			<td>${ordVO.ten_ases_ct    }</td>
+			<td style ="text-align:center">${ordVO.ten_days       }天</td>
+			<td style ="text-align:center">${ordVO.ot_days        }天</td>
+			<td style ="text-align:center"><a href="javascript:pressesC${s.index}()"><%=tenVO.getMname()%></a></td>
+			<td style ="text-align:center">${ordVO.les_ases       }</td>
+			<td style ="text-align:center">${ordVO.les_ases_ct    }</td>
+			<td style ="text-align:center"><a href="javascript:pressesD${s.index}()"><%=tenVOxx.getMname()%></a></td>
+			<td style ="text-align:center">${ordVO.ten_ases       }</td>
+			<td style ="text-align:center">${ordVO.ten_ases_ct    }</td>
 
 
 		</tr>

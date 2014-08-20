@@ -46,105 +46,108 @@
 		<div class="row">
 			<!-- SideBar -->
 			<div class="col-md-2 sidebar">
-			<div class="panel-group" id="accordion">
-<!-- 會員資料 -->
-  <div class="panel panel-success">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          會員管理
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse">
-      <div class="panel-body">
-        <ul class="nav nav-sidebar">
-        <li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
-        <li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
-        <li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+				<div class="panel-group" id="accordion">
+					<!-- 會員資料 -->
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapseOne"> 會員管理 </a>
+							</h4>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse">
+							<div class="panel-body">
+								<ul class="nav nav-sidebar">
+									<li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
+									<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
+									<li><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
 
-<!-- 租物管理  -->
-  <div class="panel panel-success">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-          租物管理
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse">
-      <div class="panel-body">
-        <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物資料</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/rent/addRent.jsp">新增租物</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+					<!-- 租物管理  -->
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapseTwo"> 租物管理 </a>
+							</h4>
+						</div>
+						<div id="collapseTwo" class="panel-collapse collapse">
+							<div class="panel-body">
+								<ul class="nav nav-sidebar">
+									<li><a
+										href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物資料</a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/front/rent/addRent.jsp">新增租物</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
 
-<!-- 承租管理 -->
-  <div class="panel panel-success">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-         承租管理
-        </a>
-      </h4>
-    </div>
-    <div id="collapseThree" class="panel-collapse collapse">
-      <div class="panel-body">
-        <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物車</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租清單</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  
-  
-  <!-- 出租管理  -->
-  <div class="panel panel-success">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-          出租管理
-        </a>
-      </h4>
-    </div>
-    <div id="collapseFour" class="panel-collapse collapse in">
-      <div class="panel-body">
-        <ul class="nav nav-sidebar">
-        <li class="active"><a href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">出租清單</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+					<!-- 承租管理 -->
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapseThree"> 承租管理 </a>
+							</h4>
+						</div>
+						<div id="collapseThree" class="panel-collapse collapse">
+							<div class="panel-body">
+								<ul class="nav nav-sidebar">
+									<li><a
+										href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物車</a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租清單</a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
 
-  <!-- 歷史紀錄  -->
-  <div class="panel panel-success">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
-          歷史紀錄
-        </a>
-      </h4>
-    </div>
-    <div id="collapseFive" class="panel-collapse collapse">
-      <div class="panel-body">
-        <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借紀錄</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/trade/OneMemberTrade.jsp">歷史交易紀錄</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
 
-</div>
+					<!-- 出租管理  -->
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapseFour"> 出租管理 </a>
+							</h4>
+						</div>
+						<div id="collapseFour" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<ul class="nav nav-sidebar">
+									<li class="active"><a
+										href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">出租清單</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<!-- 歷史紀錄  -->
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapseFive"> 歷史紀錄 </a>
+							</h4>
+						</div>
+						<div id="collapseFive" class="panel-collapse collapse">
+							<div class="panel-body">
+								<ul class="nav nav-sidebar">
+									<li><a
+										href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借紀錄</a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/front/trade/OneMemberTrade.jsp">歷史交易紀錄</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
 			</div>
 
 			<div class="col-md-10 col-md-offset-0">
@@ -173,136 +176,161 @@
 						<script>alert("${alertMsgs.alert}");</script>
 					</c:if>
 
-					<table class="table table-hover " style="white-space: nowrap;" >
+					<table class="table table-hover " style="white-space: nowrap;">
 						<tr class="info">
-							<th>租物圖片</th>
-							<th>訂單編號</th>
-							<th>租物名稱</th>
-							<th>訂單狀態</th>
-							<th>交易方式</th>
-							<th>租期</th>
-							<th>承租天數</th>
-							<th>逾期天數</th>
-							<th>承租會員</th>
-							<th>聯絡方式</th>
+							<th style="text-align: center">租物圖片</th>
+							<th style="text-align: center">訂單編號</th>
+							<th style="text-align: center">租物名稱</th>
+							<th style="text-align: center">訂單狀態</th>
+							<th style="text-align: center">交易方式</th>
+							<th style="text-align: center">租期</th>
+							<th style="text-align: center">承租天數</th>
+							<th style="text-align: center">逾期天數</th>
+							<th style="text-align: center">承租會員</th>
+							<th style="text-align: center">聯絡方式</th>
 
-		</tr>
-		<%@ include file="page1.file"%>
-		<c:forEach var="ordVO" items="${list}" begin="<%=pageIndex%>"
-			end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
-			<%
-				count++;
-							    RentService rentSVC = new RentService();
-						    			RentVO rentVO = rentSVC.getOneRent(((OrdVO)pageContext.getAttribute("ordVO")).getRent_no());
-								pageContext.setAttribute("rentVO",rentVO);
-								//查出承租者聯絡資料
-								MemberService memberSVC = new MemberService();
-								MemberVO tenVO = memberSVC.getOneMember(((OrdVO)pageContext.getAttribute("ordVO")).getTen_no());
-								//pageContext.setAttribute("lesVO",lesVO);
-			%>
+						</tr>
+						<%@ include file="page1.file"%>
+						<c:forEach var="ordVO" items="${list}" begin="<%=pageIndex%>"
+							end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
+							<%
+								count++;
+																																    RentService rentSVC = new RentService();
+																															    			RentVO rentVO = rentSVC.getOneRent(((OrdVO)pageContext.getAttribute("ordVO")).getRent_no());
+																																	pageContext.setAttribute("rentVO",rentVO);
+																																	//查出承租者聯絡資料
+																																	MemberService memberSVC = new MemberService();
+																																	MemberVO tenVO = memberSVC.getOneMember(((OrdVO)pageContext.getAttribute("ordVO")).getTen_no());
+																																	//pageContext.setAttribute("lesVO",lesVO);
+							%>
 
 
 							<tr align='center' valign='middle'>
 
 
-				<td><img width="100" height="100"
-					src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${ordVO.rent_no}&pic=pic1"></td>
-				<td><a href="javascript:pressesA${s.index}()">${ordVO.ord_no    }</a></td>
-				<td><a href="javascript:pressesB${s.index}()">${rentVO.rent_name}</a></td>
-				<td>${ord_staMap[ordVO.ord_sta]}</td>
-				<td>${tra_staMap[ordVO.tra_mode]}</td>
-				<td>${ordVO.ten_date       }<br> ~ <br>
-					${ordVO.exp_date       }
-				</td>
-				<td>${ordVO.ten_days       }天</td>
-				<td>${ordVO.ot_days        }天</td>
-				<td><a href="javascript:pressesC${s.index}()"><%=tenVO.getMname()%></a></td>
-				<td align='left'>Mail : <a href="mailto:<%=tenVO.getMmail()%>"><%=tenVO.getMmail()%></a><br>
-					Phone#: <font color='blue'><%=tenVO.getMcell()%></font></td>
-				
-<!-- 第二行 控制選項	 -->				
-				<td align='left' valign='middle'>
-					<button class="btn btn-primary col-md-offset-0" id="app_ord<%=count%>"
-						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-						role="button" aria-disabled="false">
-						<span>核准</span>
-					</button>
-					<form method="post"
-						action="<%=request.getContextPath()%>/front/ord/ord.do">
-						<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
-						<input type="hidden" name="action" value="update"> <input
-							type="hidden" name="sta" id="sta<%=count%>" value="W_SHIP">
-						<input type="hidden" name="reqURL"
-							value="/front/ord/lesOrdList.jsp"> <input
-							id="apply<%=count%>" type="submit" value="核准">
-					</form>
+								<td rowspan="2"><img width="100" height="100"
+									src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${ordVO.rent_no}&pic=pic1"></td>
+								<td><a href="javascript:pressesA${s.index}()">${ordVO.ord_no    }</a></td>
+								<td><a href="javascript:pressesB${s.index}()">${rentVO.rent_name}</a></td>
+								<td>${ord_staMap[ordVO.ord_sta]}</td>
+								<td>${tra_staMap[ordVO.tra_mode]}</td>
+								<td rowspan="2">${ordVO.ten_date       }<br> ~ <br>
+									${ordVO.exp_date       }
+								</td>
+								<td>${ordVO.ten_days       }天</td>
+								<td>${ordVO.ot_days        }天</td>
+								<td><a href="javascript:pressesC${s.index}()"><%=tenVO.getMname()%></a></td>
+								<td align='left'>Mail : <a
+									href="mailto:<%=tenVO.getMmail()%>"><%=tenVO.getMmail()%></a><br>
+									Phone#: <font color='blue'><%=tenVO.getMcell()%></font></td>
+							</tr>
+							<!-- 第二行 控制選項	 -->
+							<tr>
+								<td colspan="10" style="border-top: none;">
+									<table>
+										<tr>
+											<td>
+												<button class="btn btn-primary col-md-offset-0"
+													id="app_ord<%=count%>"
+													class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+													role="button" aria-disabled="false">
+													<span>核准</span>
+												</button>
+												<form method="post"
+													action="<%=request.getContextPath()%>/front/ord/ord.do">
+													<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
+													<input type="hidden" name="action" value="update">
+													<input type="hidden" name="sta" id="sta<%=count%>"
+														value="W_SHIP"> <input type="hidden" name="reqURL"
+														value="/front/ord/lesOrdList.jsp"> <input
+														id="apply<%=count%>" type="submit" value="核准">
+												</form>
+											</td>
+											<td>
+												<button class="btn btn-primary col-md-offset-0"
+													id="rt_com<%=count%>"
+													class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+													role="button" aria-disabled="false">
+													<span>回收完成</span>
+												</button>
+												<form method="post"
+													action="<%=request.getContextPath()%>/front/ord/ord.do">
+													<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
+													<input type="hidden" name="action" value="update">
+													<input type="hidden" name="sta" id="sta<%=count%>"
+														value="RT_COM"> <input type="hidden" name="reqURL"
+														value="/front/ord/lesOrdList.jsp"> <input
+														id="rt<%=count%>" type="submit" value="回收">
+												</form>
+											</td>
+											<td>
+												<button class="btn btn-primary col-md-offset-0"
+													id="ten_ases<%=count%>"
+													class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+													role="button" aria-disabled="false">
+													<span>評價</span>
+												</button>
+												<div id="dialog-formA<%=count%>" title="給予承租會員評價">
 
-					<button class="btn btn-primary col-md-offset-0" id="rt_com<%=count%>"
-						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-						role="button" aria-disabled="false">
-						<span>回收完成</span>
-					</button>
-					<form method="post"
-						action="<%=request.getContextPath()%>/front/ord/ord.do">
-						<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
-						<input type="hidden" name="action" value="update"> <input
-							type="hidden" name="sta" id="sta<%=count%>" value="RT_COM">
-						<input type="hidden" name="reqURL"
-							value="/front/ord/lesOrdList.jsp"> <input
-							id="rt<%=count%>" type="submit" value="回收">
-					</form>
+													<form method="post"
+														action="<%=request.getContextPath()%>/front/ord/ord.do">
+														<label>評價等級:</label> &nbsp;<input type="radio" name="ases"
+															value=2>&nbsp;特優 &nbsp;<input type="radio"
+															name="ases" value=1>&nbsp;良好 &nbsp;<input
+															type="radio" name="ases" value=0>&nbsp;普通 &nbsp;<input
+															type="radio" name="ases" value=-1>&nbsp;極差<br>
+														<h4>輸入此次交易的意見.</h4>
+														<textarea name="ases_ct" rows="4" cols="35"
+															maxlength="100"></textarea>
+														<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
+														<input type="hidden" name="action" value="update_ases">
+														<input type="hidden" name="role" value="les"> <input
+															type="hidden" name="reqURL"
+															value="/front/ord/lesOrdList.jsp"> <input
+															id="ases<%=count%>" type="submit">
+													</form>
+												</div>
+											</td>
+											<td>
+												<button class="btn btn-primary col-md-offset-0"
+													id="close<%=count%>"
+													class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+													role="button" aria-disabled="false">
+													<span>結案</span>
+												</button>
+												<form method="post"
+													action="<%=request.getContextPath()%>/front/ord/ord.do">
+													<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
+													<input type="hidden" name="action" value="update">
+													<input type="hidden" name="sta" id="sta<%=count%>"
+														value="CLS"> <input type="hidden" name="reqURL"
+														value="/front/ord/lesOrdList.jsp"> <input
+														id="cls<%=count%>" type="submit" value="結案">
+												</form>
+											</td>
+											<td>
+												<button class="btn btn-primary col-md-offset-0"
+													id="cc_ord<%=count%>">取消</button>
+												<div id="dialog-formB<%=count%>"
+													title="取消訂單[${ordVO.ord_no}]">
+													<p>請輸入取消訂單的原因.</p>
+													<form method="post"
+														action="<%=request.getContextPath()%>/front/ord/ord.do">
+														<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
+														<input type="hidden" name="action" value="cancel">
+														<input type="hidden" name="role" value="les">
+														<textarea name="ord_cc_cause" rows="4" cols="35"
+															maxlength="100"></textarea>
+														<input id="cancel<%=count%>" type="submit" value="取消">
+													</form>
+												</div>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
 
-					<button class="btn btn-primary col-md-offset-0" id="ten_ases<%=count%>"
-						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-						role="button" aria-disabled="false">
-						<span>評價</span>
-					</button>
-					<br>
-					<div id="dialog-formA<%=count%>" title="給予承租會員評價">
-						
-						<form method="post" action="<%=request.getContextPath()%>/front/ord/ord.do">
-							<label>評價等級:</label>
-							&nbsp;<input type="radio" name="ases" value=2>&nbsp;特優
-							&nbsp;<input type="radio" name="ases" value=1>&nbsp;良好
-							&nbsp;<input type="radio" name="ases" value=0>&nbsp;普通
-							&nbsp;<input type="radio" name="ases" value=-1>&nbsp;極差<br>
-                            <h4>輸入此次交易的意見.</h4>
-							<textarea name="ases_ct" rows="4" cols="35" maxlength="100"></textarea>
-							<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
-							<input type="hidden" name="action" value="update_ases"> 
-							<input type="hidden" name="role" value="les"> 
-							<input type="hidden" name="reqURL" value="/front/ord/lesOrdList.jsp">
-							<input id="ases<%=count%>" type="submit">
-						</form>
-					</div>
-
-					<button class="btn btn-primary col-md-offset-0" id="close<%=count%>"
-						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-						role="button" aria-disabled="false">
-						<span>結案</span>
-					</button>
-					<form method="post"
-						action="<%=request.getContextPath()%>/front/ord/ord.do">
-						<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
-						<input type="hidden" name="action" value="update"> <input
-							type="hidden" name="sta" id="sta<%=count%>" value="CLS">
-						<input type="hidden" name="reqURL"
-							value="/front/ord/lesOrdList.jsp"> <input
-							id="cls<%=count%>" type="submit" value="結案">
-					</form>
-
-					<button class="btn btn-primary col-md-offset-0" id="cc_ord<%=count%>">取消</button>
-					<div id="dialog-formB<%=count%>" title="取消訂單[${ordVO.ord_no}]">
-						<p>請輸入取消訂單的原因.</p>
-						<form method="post"
-							action="<%=request.getContextPath()%>/front/ord/ord.do">
-							<input type="hidden" name="ord_no" value="${ordVO.ord_no}">
-							<input type="hidden" name="action" value="cancel"> <input
-								type="hidden" name="role" value="les">
-							<textarea name="ord_cc_cause" rows="4" cols="35" maxlength="100"></textarea>
-							<input id="cancel<%=count%>" type="submit" value="取消">
-						</form>
-					</div> <script>
+							<script>
 					
 						// 設定dialog-formA
 	 					$("#dialog-formA<%=count%>").dialog({
@@ -469,16 +497,7 @@
 							$("#ten_ases<%=count%>").attr("disabled", true);	
 						}
 						
-					</script>
-								</td>
-				
-							</tr>
 
-
-
-
-
-			<script>
 				//超連結至該訂單明細
      			function pressesA${s.index}(){
     	 			document.open("<%=request.getContextPath()%>/front/ord/ord.do?ord_no=${ordVO.ord_no}&action=getOne_For_Display", "" ,"height=600,width=600,left=65,top=50,resizable=yes,scrollbars=yes");
