@@ -139,7 +139,7 @@ public class ScheduleServlet extends HttpServlet {
 				List<SosorderVO> listSosVO = sosSvc.getAll();
 				Timestamp nowDate = new Timestamp(Calendar.getInstance().getTime().getTime());//取得現在時間Timestamp
 				for (SosorderVO sosVO : listSosVO) {
-					if (nowDate.getTime() - sosVO.getSos_onsd().getTime() >= 0 && sosVO.getSos_ofsd() == null){
+					if (nowDate.getTime() - sosVO.getSos_onsd().getTime() >= 24*60*60*1000 && sosVO.getSos_ofsd() == null){
 						sosVO.setSos_ofsd(nowDate);
 						sosSvc.updateSosorder(sosVO);
 						
