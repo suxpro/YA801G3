@@ -173,7 +173,7 @@ public class SosorderServlet extends HttpServlet {
 						fis.read(sos_pic);
 						fis.close();
 					} catch (NullPointerException e) {
-						errorMsgs.put("sos_pic", "圖片: 上傳錯誤");
+//						errorMsgs.put("sos_pic", "圖片: 上傳錯誤");
 					}
 					
 					String sos_format = null;
