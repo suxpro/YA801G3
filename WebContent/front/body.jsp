@@ -4,6 +4,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="front.rent.model.*"%>
 <%@ page import="front.sosorder.model.*"%>
+<%@ page import="front.ord.model.*"%>
 <%@ page import="front.member.model.*"%>
 
 <%
@@ -17,6 +18,29 @@
     
     MemberService memSvc = new MemberService();
     pageContext.setAttribute("memSvcListSos", memSvc);
+    
+    OrdService ordSvc = new OrdService();
+    List<OrdVO> listOrd = ordSvc.getAll();
+    
+    Map<RentVO, Integer> map = new LinkedHashMap<RentVO, Integer>();
+    for(RentVO rentVO : list){
+        map.put(rentVO, 0);
+    }
+    for(OrdVO ordVO : listOrd){
+        for(RentVO rentVO : list){
+        	if(rentVO.getRent_no().equals(ordVO.getRent_no())){
+        		map.put(rentVO, (Integer) map.get(rentVO) + 1);
+        	}
+        }
+    }
+    List<Map.Entry<RentVO,Integer>> list_Data = new ArrayList<Map.Entry<RentVO,Integer>>(map.entrySet());
+    Collections.sort(list_Data, new Comparator<Map.Entry<RentVO, Integer>>(){
+        public int compare(Map.Entry<RentVO, Integer> entry1,
+                           Map.Entry<RentVO, Integer> entry2){
+            return (entry2.getValue() - entry1.getValue());
+        }
+    });
+    pageContext.setAttribute("rentBodyListHotOrd", list_Data);
 %>
 <script>
 	$.getScript("js/bodyRent/bodyRent.js");
@@ -123,7 +147,7 @@
 						</div>
 					</div>
 				</div>
-				<c:forEach var="sosorderVO" items="${rentBodyListSos}" end="4"
+				<c:forEach var="sosorderVO" items="${rentBodyListSos}" end="6"
 					varStatus="status">
 					<div class="hidden"
 						style="width: 0px; height: 0px; border: 1px solid;">
@@ -161,17 +185,17 @@
 			</div>
 
 			<div class="list-group">
-				<a href="#" class="list-group-item active">熱門訊息</a>
-				<a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
+				<a class="list-group-item active">熱門訊息</a>
+                <c:forEach var="rentHotVO" items="${rentBodyListHotOrd}" end="4" varStatus="status">
+                    <a class="list-group-item">
+                    <h4>
+                        <span class="rentPriceClass label label-danger"
+                            style="position: absolute; top: 0px; left: -10px; z-index: 1">No.${status.count}</span>
+                    </h4>
+                    <img class="img-rounded" height="30px" width="30px" style="position: absolute; top: 0px; right: 0px; z-index: 1" src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentHotVO.getKey().rent_no}&pic=PIC1" />
+                    <span class='text-muted'
+                        style='display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100px;'> ${rentHotVO.getKey().getRent_name()}</span></a>
+                </c:forEach>
 			</div>
 		</div>
 

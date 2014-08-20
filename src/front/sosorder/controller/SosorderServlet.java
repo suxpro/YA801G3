@@ -172,7 +172,14 @@ public class SosorderServlet extends HttpServlet {
 						sos_pic = new byte[len];
 						fis.read(sos_pic);
 						fis.close();
-					} catch (NullPointerException e) {
+					} catch (NullPointerException e) { //若沒上傳圖片
+//						System.out.println(getServletContext().getRealPath("/front/img/default.png"));
+						file = new File(getServletContext().getRealPath("/front/img/default.png"));
+						FileInputStream fis = new FileInputStream(file);
+						int len = fis.available();
+						sos_pic = new byte[len];
+						fis.read(sos_pic);
+						fis.close();
 //						errorMsgs.put("sos_pic", "圖片: 上傳錯誤");
 					}
 					
