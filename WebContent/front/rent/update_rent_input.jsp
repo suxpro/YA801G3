@@ -35,7 +35,7 @@
 			<div class="col-md-2 sidebar">
 			<div class="panel-group" id="accordion">
 <!-- 會員資料 -->
-  <div class="panel panel-default">
+  <div class="panel panel-warning">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -55,7 +55,7 @@
   </div>
 
 <!-- 租物管理  -->
-  <div class="panel panel-default">
+  <div class="panel panel-warning">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
@@ -74,7 +74,7 @@
   </div>
 
 <!-- 承租管理 -->
-  <div class="panel panel-default">
+  <div class="panel panel-warning">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
@@ -85,10 +85,9 @@
     <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
         <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租資料</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物清單</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物車</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租清單</a></li>
         <li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
-        <li><a href="#">續租查詢</a></li>
         </ul>
       </div>
     </div>
@@ -96,7 +95,7 @@
   
   
   <!-- 出租管理  -->
-  <div class="panel panel-default">
+  <div class="panel panel-warning">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
@@ -113,14 +112,22 @@
     </div>
   </div>
 
-<!-- 歷史租借查詢 -->
-  <div class="panel panel-default">
+  <!-- 歷史紀錄  -->
+  <div class="panel panel-warning">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">
-          歷史租借查詢
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+          歷史記錄
         </a>
       </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul class="nav nav-sidebar">
+        <li><a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借記錄</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/trade/OneMemberTrade.jsp">歷史交易記錄</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 

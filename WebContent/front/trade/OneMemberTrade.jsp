@@ -54,7 +54,7 @@
 <head>
 <title>JustRent! - 歷史交易查詢</title>
 </head>
-<body bgcolor='white'>
+<body>
 	<%@ include file="/front/header.jsp"%>
 
 	<div class="container">
@@ -64,7 +64,7 @@
 			<div class="col-md-2 sidebar">
 				<div class="panel-group" id="accordion">
 					<!-- 會員資料 -->
-					<div class="panel panel-success">
+					<div class="panel panel-warning">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -83,7 +83,7 @@
 					</div>
 
 					<!-- 租物管理  -->
-					<div class="panel panel-success">
+					<div class="panel panel-warning">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -103,7 +103,7 @@
 					</div>
 
 					<!-- 承租管理 -->
-					<div class="panel panel-success">
+					<div class="panel panel-warning">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -126,7 +126,7 @@
 
 
 					<!-- 出租管理  -->
-					<div class="panel panel-success">
+					<div class="panel panel-warning">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -144,20 +144,20 @@
 					</div>
 
 					<!-- 歷史紀錄  -->
-					<div class="panel panel-success">
+					<div class="panel panel-warning">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapseFive"> 歷史紀錄 </a>
+									href="#collapseFive"> 歷史記錄 </a>
 							</h4>
 						</div>
 						<div id="collapseFive" class="panel-collapse collapse in">
 							<div class="panel-body">
 								<ul class="nav nav-sidebar">
 									<li><a
-										href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借紀錄</a></li>
+										href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借記錄</a></li>
 									<li class="active"><a
-										href="<%=request.getContextPath()%>/front/trade/OneMemberTrade.jsp">歷史交易紀錄</a></li>
+										href="<%=request.getContextPath()%>/front/trade/OneMemberTrade.jsp">歷史交易記錄</a></li>
 								</ul>
 							</div>
 						</div>
@@ -172,18 +172,18 @@
 				<div id="legend">
 					<legend class="">
 						<h2>
-							<b>歷史交易紀錄</b>
+							<b>歷史交易記錄</b>
 						</h2>
 					</legend>
 				</div>
 
 				<table class="table table-hover " >
-					<tr class="info" >
-						<th>交易紀錄編號</th>
+					<tr class="success" >
+						<th>交易記錄編號</th>
 						<!-- 			<th>會員編號</th> -->
 						<!-- 			<th>會員金融帳號</th> -->
 						<th>交易時間</th>
-						<th>會員金融紀錄狀態</th>
+						<th>會員金融記錄狀態</th>
 						<th>交易金額</th>
 						<!-- 			<th>匯款確認</th> -->
 
