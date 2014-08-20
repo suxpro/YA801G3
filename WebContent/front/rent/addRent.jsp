@@ -309,7 +309,7 @@ function addRent(){
 			<tr>
 				<td align="right">租物地址:<font color=red><b>*</b></font></td>
 				<td><input type="TEXT" name="rent_addr" size="40"
-					value="${rentVO.rent_addr}" />
+					value="${rentVO.rent_addr}" /> 
 				<span><font color="red">${errorMsgs.rent_addr}</font></span></td>
 			</tr>
 			<tr>
