@@ -297,11 +297,11 @@
 							<script>
 				//超連結至該租物
          		function pressesA${s.index}(){
-        	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+        	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=550,width=560,left=65,top=60,resizable=yes,scrollbars=yes");
          		}
 				//超連結至該出租人
          		function pressesB${s.index}(){
-        	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${rentVO.les_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+        	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${rentVO.les_no}&action=getOne_For_Display", "" ,"height=135,width=1015,left=65,top=160,resizable=yes,scrollbars=yes");
          		}
          		
         	</script>

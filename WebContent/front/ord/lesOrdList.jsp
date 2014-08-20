@@ -507,15 +507,15 @@
 
 				//超連結至該訂單明細
      			function pressesA${s.index}(){
-    	 			document.open("<%=request.getContextPath()%>/front/ord/ord.do?ord_no=${ordVO.ord_no}&action=getOne_For_Display", "" ,"height=600,width=600,left=65,top=50,resizable=yes,scrollbars=yes");
+    	 			document.open("<%=request.getContextPath()%>/front/ord/ord.do?ord_no=${ordVO.ord_no}&action=getOne_For_Display", "" ,"height=450,width=450,left=65,top=50,resizable=yes,scrollbars=yes");
      			}
 				//超連結至該租物
          		function pressesB${s.index}(){
-        	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=600,width=600,left=65,top=50,resizable=yes,scrollbars=yes");
+        	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=560,width=500,left=65,top=50,resizable=yes,scrollbars=yes");
          		}
 				//超連結至該承租人
          		function pressesC${s.index}(){
-        	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${ordVO.ten_no}&action=getOne_For_Display", "" ,"height=200,width=1000,left=65,top=50,resizable=yes,scrollbars=yes");
+        	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${ordVO.ten_no}&action=getOne_For_Display", "" ,"height=135,width=1015,left=65,top=150,resizable=yes,scrollbars=yes");
          		}
 			</script>
 						</c:forEach>
