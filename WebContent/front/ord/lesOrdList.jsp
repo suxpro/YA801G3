@@ -497,6 +497,11 @@
 							$("#ten_ases<%=count%>").attr("disabled", true);	
 						}
 						
+						//如果已經評價過就不能再評價
+						var ases = "${ordVO.ten_ases_ct}";
+						if (ases != ""){
+							$("#ten_ases<%=count%>").attr("disabled", true);
+						}
 
 				//超連結至該訂單明細
      			function pressesA${s.index}(){

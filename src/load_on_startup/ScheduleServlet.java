@@ -9,6 +9,8 @@ import javax.sql.*;
 import front.remind.model.RemindService;
 import front.remind.model.RemindVO;
 import front.rent.model.RentService;
+import front.sosorder.model.SosorderService;
+import front.sosorder.model.SosorderVO;
 import front.member.model.MemberVO;
 import front.member.model.MemberService;
 import front.ord.model.OrdService;
@@ -133,7 +135,32 @@ public class ScheduleServlet extends HttpServlet {
 		TimerTask task3 = new TimerTask() {
 			public void run() {
 				// SOS一天過後刪除
-
+				SosorderService sosSvc = new SosorderService();
+				List<SosorderVO> listSosVO = sosSvc.getAll();
+				Timestamp nowDate = new Timestamp(Calendar.getInstance().getTime().getTime());//取得現在時間Timestamp
+				for (SosorderVO sosVO : listSosVO) {
+					if (nowDate.getTime() - sosVO.getSos_onsd().getTime() >= 24*60*60*1000 && sosVO.getSos_ofsd() == null){
+						sosVO.setSos_ofsd(nowDate);
+						sosSvc.updateSosorder(sosVO);
+						
+						MemberService memSvc = new MemberService();
+						MemberVO memVO = memSvc.getOneMember(sosVO.getSos_mno());
+						String Mcell = memVO.getMcell();
+						String Mname = memVO.getMname();
+						// 發送簡訊
+						String messageSend =
+								Mname + "您好!\nJustRent提醒:\n"
+								+ "SOS租物請求:"+sosVO.getSos_no()+"已被下架\n"
+								+ "時間:" + new java.util.Date() + ".\n";
+						System.out.println("Mcell = " + Mcell);
+						System.out.println("messageSend = " + messageSend);
+						
+						String[] tel ={Mcell};
+						String message = messageSend;
+						sendMessage.sendMessage(tel , message);
+					}
+				}
+				
 				// 會員評價到300自動升級VIP
 				// 會員積分達到-10 停權 還是被檢舉超過10次成立就停權 停權是終身停權
 				MemberService memSvc = new MemberService();
@@ -154,7 +181,8 @@ public class ScheduleServlet extends HttpServlet {
 			}
 		};
 		timer3 = new Timer();
-		timer3.scheduleAtFixedRate(task3, new java.util.Date(), 60 * 1000); // 每60秒執行一次
+		Calendar cal3 = new GregorianCalendar(2014, Calendar.AUGUST, 12, 0, 0, 0);
+		timer3.scheduleAtFixedRate(task3, cal3.getTime(), 24 * 60 * 60 * 1000); // 每1天執行一次
 		System.out.println("已建立其他排程timer3!");
 
 	}
@@ -184,69 +212,85 @@ public class ScheduleServlet extends HttpServlet {
 			MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 //			System.out.println("ScheduleServlet.135.現在登入的memberVO.getMno():\n"+memberVO.getMno());
 
-			RemindService remindSvc = new RemindService();
-			List<RemindVO> listRemindVO = new ArrayList<RemindVO>();
-			listRemindVO = remindSvc.ajaxGetMemRemind(
-					memberVO.getMno(), "N");
-			if(listRemindVO.size() != 0){
-			ArrayList<String> arrayRemind = new ArrayList<String>();
-			arrayRemind.add("成功出租");
-			arrayRemind.add("成功承租");
-			arrayRemind.add("出租確認");
-			arrayRemind.add("預約");
-			arrayRemind.add("出貨通知");
-			arrayRemind.add("租期通知");
-			arrayRemind.add("歸還通知");
-			arrayRemind.add("求租公告");
-			arrayRemind.add("Q&A留言");
-			arrayRemind.add("評價");
-			arrayRemind.add("逾期通知");
-			arrayRemind.add("取消訂單");
-			arrayRemind.add("上架通過");
-			arrayRemind.add("上架不通過");
-			arrayRemind.add("訂單結案");
-			arrayRemind.add("追蹤提醒");
-			
-			// 用JSON存提醒數字,回傳呼叫的AJAX
-			Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-			for(String strRemind : arrayRemind){
-				map.put(strRemind, 0);
-			}
-			
-			JSONObject jsonObj = new JSONObject(map);
-			for (RemindVO remindVO : listRemindVO) {
-				try {
-					for(String strRemind : arrayRemind){
-						if (strRemind.equals(remindVO.getRstas())) {
-							jsonObj.put(strRemind, (Integer) jsonObj.get(strRemind) + 1);
-						}
-					}
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			res.setContentType("text/html;charset=utf-8");
-			res.setHeader("Cache-Control", "no-cache");
-			PrintWriter out = res.getWriter();
-//			System.out.println("ScheduleServlet.208.jsonObj:\n" + jsonObj);
-			out.write(jsonObj.toString());
-			out.flush();
-			out.close();
+			if(memID != null){
+				RemindService remindSvc = new RemindService();
+				List<RemindVO> listRemindVO = new ArrayList<RemindVO>();
+				listRemindVO = remindSvc.ajaxGetMemRemind(
+						memberVO.getMno(), "N");
+				if(listRemindVO.size() != 0){
+				ArrayList<String> arrayRemind = new ArrayList<String>();
+				arrayRemind.add("成功出租");
+				arrayRemind.add("成功承租");
+				arrayRemind.add("出租確認");
+				arrayRemind.add("預約");
+				arrayRemind.add("出貨通知");
+				arrayRemind.add("租期通知");
+				arrayRemind.add("歸還通知");
+				arrayRemind.add("求租公告");
+				arrayRemind.add("Q&A留言");
+				arrayRemind.add("評價");
+				arrayRemind.add("逾期通知");
+				arrayRemind.add("取消訂單");
+				arrayRemind.add("上架通過");
+				arrayRemind.add("上架不通過");
+				arrayRemind.add("訂單結案");
+				arrayRemind.add("追蹤提醒");
 				
-			} else {
-				String resJson = "{\"resJson\" : [";
-				resJson += "\"尚未有提醒\",";
-				resJson = resJson.substring(0,resJson.length() - 1) + "]}";
-//			    System.out.println("RentServlet.642."+resJson);
+				// 用JSON存提醒數字,回傳呼叫的AJAX
+				Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+				for(String strRemind : arrayRemind){
+					map.put(strRemind, 0);
+				}
+				
+				JSONObject jsonObj = new JSONObject(map);
+				for (RemindVO remindVO : listRemindVO) {
+					try {
+						for(String strRemind : arrayRemind){
+							if (strRemind.equals(remindVO.getRstas())) {
+								jsonObj.put(strRemind, (Integer) jsonObj.get(strRemind) + 1);
+							}
+						}
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 				res.setContentType("text/html;charset=utf-8");
 				res.setHeader("Cache-Control", "no-cache");
+				PrintWriter out = res.getWriter();
+	//			System.out.println("ScheduleServlet.208.jsonObj:\n" + jsonObj);
+				out.write(jsonObj.toString());
+				out.flush();
+				out.close();
+					
+				} else {
+					String resJson = "{\"resJson\" : [";
+					resJson += "\"尚未有提醒\",";
+					resJson = resJson.substring(0,resJson.length() - 1) + "]}";
+	//			    System.out.println("RentServlet.642."+resJson);
+					res.setContentType("text/html;charset=utf-8");
+					res.setHeader("Cache-Control", "no-cache");
+				    PrintWriter out = res.getWriter();
+				    out.write(resJson);
+				    out.flush();
+				    out.close();
+				}
+			} else {
+				res.setContentType("text/html;charset=utf-8");
+				res.setHeader("Cache-Control", "no-cache");
+				System.out.println("ScheduleServlet.254.尚未登入");
+				String resJson = "{\"resJson\" : [";
+	//			for (SosorderVO sosVO : sosList) {
+					resJson += "\"尚未登入\",";
+	//			}
+				resJson = resJson.substring(0,resJson.length() - 1) + "]}";
+	//		    System.out.println("RentServlet.642."+resJson);
 			    PrintWriter out = res.getWriter();
 			    out.write(resJson);
 			    out.flush();
 			    out.close();
 			}
-		} // end remindHeaderNum
+		}
 
 	}
 

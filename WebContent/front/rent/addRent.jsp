@@ -81,6 +81,18 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
     param.top = Math.round((maxHeight - param.height) / 2);
     return param;
 }
+
+//神奇小按鈕
+function addRent(){ 
+	form1.rent_name.value = "艾澤拉斯酷炫美式重機";
+	form1.rent_desc.value = "傳奇機車設計達人 Paul Jr. 與兩組精挑細選的機車專家合作，將源自於《魔獸世界》兩大陣營的設計靈感落實為真實的體驗，讓你可以親身體驗遊戲中拉風的奔馳感。";	
+	
+	form1.rent_dps.value = "999999";
+	form1.unit_price.value = "9999";
+	form1.reset_days.value = "1";
+
+	}
+
 </script>  
 </head>
 <link rel="stylesheet" type="text/css" href="js/calendar.css">
@@ -355,6 +367,7 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 </div>
 		</div>
 	</div>
+	<input type="image" src="images/17998_key.png" id="submit_Btn" onClick="addRent();" />
 <%@ include file="/front/footer.jsp"%>
 </body>
 

@@ -94,17 +94,22 @@ String randomName5 = listVIP.get((randomNum+4)%listVIP.size()).getMname();
 	padding-top: 14px;
 }
 </style>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
+<!-- <html> -->
+<!-- <head> -->
 
-<title></title>
-</head>
-<body>
+<!-- <title></title> -->
+<!-- </head> -->
+<!-- <body> -->
 
 
 	<!-- header -->
-	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+	<div class="navbar navbar-inverse navbar-static-top" role="navigation" id="divHeadTitle"
+	 data-isLogin=<c:choose>
+					   <c:when test="${memberVO != null}">yes</c:when>
+					   <c:otherwise>no</c:otherwise>
+			      </c:choose>>
+			      
 		<div class="container">
 			<div class="navbar-header">
 				<!-- Brand -->
@@ -130,8 +135,7 @@ String randomName5 = listVIP.get((randomNum+4)%listVIP.size()).getMname();
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown"><font id="headerNames">租務</font> <font
 								id="remindCountNum" class="badge">0</font>&nbsp;<b class="caret"></b></a>
-							<ul id="remindMain" class="dropdown-menu dropdown-menu-right"
-								data-urlRemind="<%=request.getContextPath()%>/ScheduleServlet">
+							<ul id="remindMain" class="dropdown-menu dropdown-menu-right" data-action="<%=request.getContextPath()%>/ScheduleServlet">
 								<li class="dropdown-plus-title"><i
 									class="fa fa-bell-o fa-spin"></i> 租務秘書提醒 <b
 									class="pull-right glyphicon glyphicon-chevron-up"></b></li>
@@ -402,5 +406,5 @@ String randomName5 = listVIP.get((randomNum+4)%listVIP.size()).getMname();
 	</div>
 
 
-</BODY>
-</html>
+<!-- </BODY> -->
+<!-- </html> -->

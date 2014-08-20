@@ -15,6 +15,8 @@
 	List<OrdVO> list = ordSvc.getAllByMno("ten", ten_no);
 	pageContext.setAttribute("list", list);
 	int count = 0;
+	
+	OrdDAO ordDAO = new OrdDAO();
 %>
 
 
@@ -583,6 +585,18 @@
 							$("#rec_com<%=count%>").attr("disabled", true);
 							$("#les_ases<%=count%>").attr("disabled", true);
 						}
+						
+						//如果已經評價過就不能再評價
+						var ases = "${ordVO.les_ases_ct}";
+						if (ases != ""){
+							$("#les_ases<%=count%>").attr("disabled", true);
+						}
+						
+						//如果訂單已有產生續約訂單不予許在續約
+                        var renew_count = <%=(ordDAO.findRenewOrdByRentNo(rentVO.getRent_no())).size() %>;
+                        if (renew_count > 0) {
+                        	$("#re_ord<%=count%>").attr("disabled", true);
+                        }
 
 				//超連結至該訂單明細
      			function pressesA${s.index}(){
