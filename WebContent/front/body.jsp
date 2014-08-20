@@ -91,28 +91,22 @@
 		</div>
 		<!-- search -->
 
+
+        <!-- CART -->
+        <div id="cart" class="col-md-2">
+            <a href="<%=request.getContextPath()%>/front/cart/cart.jsp"> <i
+                title="Cart" style="color: #0CEEBF"
+                class="fa fa-shopping-cart fa-5x"></i></a> <br />
+            <!--            <strong>前往結帳</strong> -->
+        </div>
 	</div>
 	<!-- /.row -->
 
 	<div class="row row-offcanvas row-offcanvas-light">
 
-
-
-
 		<!-- SOS/熱門 -->
 		<div class="col-md-2 sidebar-offcanvas navbar-right" id="sidebar"
 			role="navigation">
-
-			<!-- CART -->
-
-			<div id="cart">
-				<a href="<%=request.getContextPath()%>/front/cart/cart.jsp"> <i
-					title="Cart" style="color: #0CEEBF"
-					class="fa fa-shopping-cart fa-5x"></i></a> <br />
-				<!-- 			<strong>前往結帳</strong> -->
-			</div>
-			<br />
-			<br />
 
 			<div class="list-group">
 				<a class="list-group-item active">即時SOS訊息
@@ -129,7 +123,7 @@
 						</div>
 					</div>
 				</div>
-				<c:forEach var="sosorderVO" items="${rentBodyListSos}"
+				<c:forEach var="sosorderVO" items="${rentBodyListSos}" end="4"
 					varStatus="status">
 					<div class="hidden"
 						style="width: 0px; height: 0px; border: 1px solid;">
@@ -167,16 +161,17 @@
 			</div>
 
 			<div class="list-group">
-				<a href="#" class="list-group-item active">熱門訊息</a> <a href="#"
-					class="list-group-item">Link</a> <a href="#"
-					class="list-group-item">Link</a> <a href="#"
-					class="list-group-item">Link</a> <a href="#"
-					class="list-group-item">Link</a> <a href="#"
-					class="list-group-item">Link</a> <a href="#"
-					class="list-group-item">Link</a> <a href="#"
-					class="list-group-item">Link</a> <a href="#"
-					class="list-group-item">Link</a> <a href="#"
-					class="list-group-item">Link</a>
+				<a href="#" class="list-group-item active">熱門訊息</a>
+				<a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
 			</div>
 		</div>
 
