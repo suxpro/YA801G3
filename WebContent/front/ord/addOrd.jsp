@@ -366,8 +366,9 @@
 		<br><input type="hidden" name="action" value="insert"> 
 			<input type="hidden" name="ord_no" value="<%=ordVO.getOrd_no()%>">
 			<input type="hidden" name="requestURL" value="<%=requestURL %>">
-			<input type="submit" value="結帳">
+			<button type="submit" class="btn btn-primary">結帳</button>
 	</FORM>
+</div>
 </div>
 </div>
 </div>
