@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=BIG5">
-<title>JustRent! - 升級會員 </title>
+<title>JustRent! - 升級會員</title>
 
 <style type="text/css">
 #imghead2 {
@@ -28,10 +28,9 @@
 	text-align: center;
 }
 
-#errorVIP{
-
-width: 300px;
-text-align:center;
+#errorVIP {
+	width: 300px;
+	text-align: center;
 }
 </style>
 
@@ -94,107 +93,113 @@ text-align:center;
 
 			<!-- SideBar -->
 			<div class="col-md-2 sidebar">
-			
-			<div class="panel-group" id="accordion">
-<!-- 會員資料 -->
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          會員管理
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse in">
-      <div class="panel-body">
-        <ul class="nav nav-sidebar">
-        <li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
-        <li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
-        <li class="active"><a href="#" onclick="document.updateVIP.submit();">升級會員</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
 
-<!-- 租物管理  -->
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-          租物管理
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse">
-      <div class="panel-body">
-        <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物資料</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/rent/addRent.jsp">新增租物</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+				<div class="panel-group" id="accordion">
+					<!-- 會員資料 -->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapseOne"> 會員管理 </a>
+							</h4>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<ul class="nav nav-sidebar">
+									<li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
+									<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
+									<li class="active"><a href="#"
+										onclick="document.updateVIP.submit();">升級會員</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
 
-<!-- 承租管理 -->
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-         承租管理
-        </a>
-      </h4>
-    </div>
-    <div id="collapseThree" class="panel-collapse collapse">
-      <div class="panel-body">
-        <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物車</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租清單</a></li>        
-        <li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  
-  
-  <!-- 出租管理  -->
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-          出租管理
-        </a>
-      </h4>
-    </div>
-    <div id="collapseFour" class="panel-collapse collapse">
-      <div class="panel-body">
-        <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">出租清單</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+					<!-- 租物管理  -->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapseTwo"> 租物管理 </a>
+							</h4>
+						</div>
+						<div id="collapseTwo" class="panel-collapse collapse">
+							<div class="panel-body">
+								<ul class="nav nav-sidebar">
+									<li><a
+										href="<%=request.getContextPath()%>/front/rent/listAllRent.jsp">租物資料</a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/front/rent/addRent.jsp">新增租物</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
 
-  <!-- 歷史紀錄  -->
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
-          歷史記錄
-        </a>
-      </h4>
-    </div>
-    <div id="collapseFive" class="panel-collapse collapse">
-      <div class="panel-body">
-        <ul class="nav nav-sidebar">
-        <li><a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借記錄</a></li>
-        <li><a href="<%=request.getContextPath()%>/front/trade/OneMemberTrade.jsp">歷史交易記錄</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+					<!-- 承租管理 -->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapseThree"> 承租管理 </a>
+							</h4>
+						</div>
+						<div id="collapseThree" class="panel-collapse collapse">
+							<div class="panel-body">
+								<ul class="nav nav-sidebar">
+									<li><a
+										href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物車</a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租清單</a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
 
-</div>
-			
+
+					<!-- 出租管理  -->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapseFour"> 出租管理 </a>
+							</h4>
+						</div>
+						<div id="collapseFour" class="panel-collapse collapse">
+							<div class="panel-body">
+								<ul class="nav nav-sidebar">
+									<li><a
+										href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">出租清單</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<!-- 歷史紀錄  -->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapseFive"> 歷史記錄 </a>
+							</h4>
+						</div>
+						<div id="collapseFive" class="panel-collapse collapse">
+							<div class="panel-body">
+								<ul class="nav nav-sidebar">
+									<li><a
+										href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借記錄</a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/front/trade/OneMemberTrade.jsp">歷史交易記錄</a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/front/remind/listAllRemind.jsp">歷史提醒記錄</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
 			</div>
 
 			<!-- Form -->
@@ -228,7 +233,7 @@ text-align:center;
 										type="hidden" id="mbalance" name="vip" value="3000"
 										class="col-xs-offset-1" /> <br /> <br />
 								</div>
-																           								
+
 							</div>
 							<!-- 排版 -->
 
@@ -253,58 +258,64 @@ text-align:center;
 							</div>
 
 						</div>
-						
-						        <div id="errorVIP" class="col-xs-offset-3 ">
-									<%-- 錯誤表列 --%>
-									<c:if test="${not empty errorMsgs}">
-										<div class="alert alert-error">
-                							<a class="close" data-dismiss="alert" href="#">×</a><p class="bg-danger"><font color='red'>${errorMsgs.mbalance}</font></p>
-            							</div>
-									</c:if>
+
+						<div id="errorVIP" class="col-xs-offset-3 ">
+							<%-- 錯誤表列 --%>
+							<c:if test="${not empty errorMsgs}">
+								<div class="alert alert-error">
+									<a class="close" data-dismiss="alert" href="#">×</a>
+									<p class="bg-danger">
+										<font color='red'>${errorMsgs.mbalance}</font>
+									</p>
 								</div>
-						
+							</c:if>
+						</div>
+
 						<br />
 
 						<!-- Submit -->
 						<div class="control-group col-md-offset-9">
 							<div class="controls">
-								<input type="hidden" name="action" value="updateVIP"> 
-								<input type="hidden" name="mno" value="<%=memberVO.getMno()%>">
-								<input type="hidden" id="mlev" name="mlev" value=V >
-									
-						<!--  modal VIPBtn-->
-						<button type="button"  class="btn btn-success" data-toggle="modal" data-target="#VIPBtn">升級會員</button>
+								<input type="hidden" name="action" value="updateVIP"> <input
+									type="hidden" name="mno" value="<%=memberVO.getMno()%>">
+								<input type="hidden" id="mlev" name="mlev" value=V>
+
+								<!--  modal VIPBtn-->
+								<button type="button" class="btn btn-success"
+									data-toggle="modal" data-target="#VIPBtn">升級會員</button>
 
 							</div>
 						</div>
-						
-					
-								<!-- modal VIP-->
-	<div class="modal fade bs-example-modal-sm" id="VIPBtn" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">VIP 特級會員 </h4>
-				</div>
-				<div class="modal-body">
 
-		是否確定成為 VIP 特級會員。
-		<br/>
-		<br/>
 
-		<button id="checkVIP" class="btn btn-danger btn-sm col-md-offset-7"  data-dismiss="modal">取消</button>		
-		<button id="checkVIP" class="btn btn-success btn-sm col-md-offset-0" >確定</button>
+						<!-- modal VIP-->
+						<div class="modal fade bs-example-modal-sm" id="VIPBtn"
+							tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog modal-sm">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">
+											<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+										</button>
+										<h4 class="modal-title" id="myModalLabel">VIP 特級會員</h4>
+									</div>
+									<div class="modal-body">
 
-				</div>
-			</div>
-		</div>
-	</div>
-						
-						
+										是否確定成為 VIP 特級會員。 <br /> <br />
+
+										<button id="checkVIP"
+											class="btn btn-danger btn-sm col-md-offset-7"
+											data-dismiss="modal">取消</button>
+										<button id="checkVIP"
+											class="btn btn-success btn-sm col-md-offset-0">確定</button>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+
 
 
 

@@ -158,6 +158,7 @@
 										href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">¾ú¥v¯²­É°O¿ý</a></li>
 									<li class="active"><a
 										href="<%=request.getContextPath()%>/front/trade/OneMemberTrade.jsp">¾ú¥v¥æ©ö°O¿ý</a></li>
+									<li><a href="<%=request.getContextPath()%>/front/remind/listAllRemind.jsp">¾ú¥v´£¿ô°O¿ý</a></li>
 								</ul>
 							</div>
 						</div>

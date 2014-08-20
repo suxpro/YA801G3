@@ -138,6 +138,7 @@ overflow:auto;
         <ul class="nav nav-sidebar">
         <li class="active"><a href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借記錄</a></li>
         <li><a href="<%=request.getContextPath()%>/front/trade/OneMemberTrade.jsp">歷史交易記錄</a></li>
+        <li><a href="<%=request.getContextPath()%>/front/remind/listAllRemind.jsp">歷史提醒記錄</a></li>
         </ul>
       </div>
     </div>
@@ -159,7 +160,7 @@ overflow:auto;
 			
 			<div class="col-md-12 col-md-offset-0 tableScroll">
 			
-				<table class="table table-hover" style="white-space: nowrap;"  >
+				<table class="table table-condensed" style="white-space: nowrap;"  >
 					<tr class="info">
 						<th>租物圖片</th>
 						<th>訂單編號</th>
