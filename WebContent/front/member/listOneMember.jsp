@@ -57,8 +57,8 @@
 </head>
 <body>
 
-	<table border='1' bordercolor='#CCCCFF' width='100%'>
-		<tr>
+	<table class="table table-bordered" width='100%'>
+		<tr class="success">
 			<th>會員帳號</th>
 			<th>會員姓名</th>
 			<th>會員性別</th>
@@ -66,6 +66,7 @@
 			<th>會員評價</th>
 			<th>違規次數</th>
 			<th>會員郵件</th>
+			<th>會員電話</th>
 			<th>地區</th>
 			<th>加入日期</th>
 			<th>會員圖片</th>
@@ -81,6 +82,7 @@
 			<td>${memberVO.massess}</td>
 			<td>${memberVO.millegal}</td>
 			<td>${memberVO.mmail}</td>
+			<td>${memberVO.mcell}</td>
 			<td>${loc_staMap[memberVO.locno]}</td>
 			<td>${memberVO.mdate}</td>
 			<td><img id="mpic" width="80" height="80"

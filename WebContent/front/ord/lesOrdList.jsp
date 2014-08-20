@@ -508,7 +508,7 @@
          		}
 				//超連結至該承租人
          		function pressesC${s.index}(){
-        	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${ordVO.ten_no}&action=getOne_For_Display", "" ,"height=600,width=600,left=65,top=50,resizable=yes,scrollbars=yes");
+        	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${ordVO.ten_no}&action=getOne_For_Display", "" ,"height=200,width=1000,left=65,top=50,resizable=yes,scrollbars=yes");
          		}
 			</script>
 						</c:forEach>

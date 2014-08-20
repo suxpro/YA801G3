@@ -594,7 +594,7 @@
          		}
 				//超連結至該出租人
          		function pressesC${s.index}(){
-        	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${rentVO.les_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+        	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${rentVO.les_no}&action=getOne_For_Display", "" ,"height=200,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
          		}
 			</script>
 						</c:forEach>
