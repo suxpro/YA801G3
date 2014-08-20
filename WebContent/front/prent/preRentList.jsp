@@ -74,7 +74,7 @@
 			<div class="col-md-2 sidebar">
 				<div class="panel-group" id="accordion">
 					<!-- 會員資料 -->
-					<div class="panel panel-success">
+					<div class="panel panel-warning">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -93,7 +93,7 @@
 					</div>
 
 					<!-- 租物管理  -->
-					<div class="panel panel-success">
+					<div class="panel panel-warning">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -113,7 +113,7 @@
 					</div>
 
 					<!-- 承租管理 -->
-					<div class="panel panel-success">
+					<div class="panel panel-warning">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -136,7 +136,7 @@
 
 
 					<!-- 出租管理  -->
-					<div class="panel panel-success">
+					<div class="panel panel-warning">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -154,20 +154,20 @@
 					</div>
 
 					<!-- 歷史紀錄  -->
-					<div class="panel panel-success">
+					<div class="panel panel-warning">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapseFive"> 歷史紀錄 </a>
+									href="#collapseFive"> 歷史記錄 </a>
 							</h4>
 						</div>
 						<div id="collapseFive" class="panel-collapse collapse">
 							<div class="panel-body">
 								<ul class="nav nav-sidebar">
 									<li><a
-										href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借紀錄</a></li>
+										href="<%=request.getContextPath()%>/front/ord/AllOrdByMember.jsp">歷史租借記錄</a></li>
 									<li><a
-										href="<%=request.getContextPath()%>/front/trade/OneMemberTrade.jsp">歷史交易紀錄</a></li>
+										href="<%=request.getContextPath()%>/front/trade/OneMemberTrade.jsp">歷史交易記錄</a></li>
 								</ul>
 							</div>
 						</div>
@@ -203,7 +203,7 @@
 					</c:if>
 
 					<table class="table table-hover " style="white-space: nowrap;">
-						<tr class="info">
+						<tr class="success">
 							<th style="text-align: center">租物圖片</th>
 							<th style="text-align: center">租物名稱</th>
 							<th style="text-align: center">出租者</th>
