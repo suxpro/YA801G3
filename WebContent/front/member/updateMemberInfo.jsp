@@ -77,9 +77,9 @@
 						<div id="collapseOne" class="panel-collapse collapse in">
 							<div class="panel-body">
 								<ul class="nav nav-sidebar">
-									<li><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
+									<li class="active"><a href="#" onclick="document.MemInfo.submit();">會員資料</a></li>
 									<li><a href="#" onclick="document.storedMoney.submit();">會員儲值</a></li>
-									<li class="active"><a href="#"
+									<li><a href="#"
 										onclick="document.updateVIP.submit();">升級會員</a></li>
 								</ul>
 							</div>
@@ -262,7 +262,7 @@
 
 							<!-- 地區 -->
 							<div class="control-group  ">
-								<label class="control-label" for="locno">地區 </label> <select
+								<label class="control-label" for="locno">地區　　</label> <select
 									size="1" name="locno" class="col-xs-offset-1">
 									<c:forEach var="locVO" items="${locSvc.all}">
 										<option value="${locVO.loc_no}"

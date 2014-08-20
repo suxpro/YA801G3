@@ -265,7 +265,7 @@
 
 						<!-- 地區 -->
 						<div class="control-group  ">
-							<label class="control-label" for="locno">地區 </label> <label
+							<label class="control-label" for="locno">地區　　</label> <label
 								class="control-label col-xs-offset-1" id="locno">${loc_staMap[memberVO.locno]}</label>
 						</div>
 
