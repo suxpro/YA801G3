@@ -203,7 +203,7 @@
 					</c:if>
 
 					<table class="table table-condensed " style="white-space: nowrap;">
-						<tr class="success">
+						<tr class="danger">
 							<th style="text-align: center">租物圖片</th>
 							<th style="text-align: center">租物名稱</th>
 							<th style="text-align: center">出租者</th>

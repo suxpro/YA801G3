@@ -178,7 +178,7 @@
 				</div>
 
 				<table class="table table-condensed " >
-					<tr class="success" >
+					<tr class="info" >
 						<th>交易記錄編號</th>
 						<!-- 			<th>會員編號</th> -->
 						<!-- 			<th>會員金融帳號</th> -->

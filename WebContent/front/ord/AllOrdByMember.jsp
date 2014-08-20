@@ -7,7 +7,7 @@
 <%@ page import="front.ord.model.*"%>
 
 <%
-	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 String mno  = memberVO.getMno();
 
 OrdService ordSvc = new OrdService();
@@ -160,7 +160,7 @@ overflow:auto;
 			<div class="col-md-12 col-md-offset-0 tableScroll">
 			
 				<table class="table table-hover" style="white-space: nowrap;"  >
-					<tr class="success">
+					<tr class="info">
 						<th>租物圖片</th>
 						<th>訂單編號</th>
 						<th>租物名稱</th>

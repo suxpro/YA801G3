@@ -422,5 +422,11 @@ public class RemindJDBCDAO implements RemindDAO_interface{
 		
 	}
 
+	@Override
+	public List<RemindVO> getAllByMno(String mno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

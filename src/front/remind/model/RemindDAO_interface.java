@@ -9,8 +9,9 @@ public interface RemindDAO_interface {
     public void delete(String rno);
     public RemindVO findByPrimaryKey(String rno);
     public List<RemindVO> getAll();
-    //萬用複合查詢(傳入參數型態Map)(回傳 List)
-//  public List<EmpVO> getAll(Map<String, String[]> map); 
+    //利用會員編號去取得所有提醒紀錄
+    public List<RemindVO> getAllByMno(String mno);
+
     //新增一筆提醒記錄 for Ord using by思賢
     public void insertForOrd(RemindVO remindVO, Connection con);
     

@@ -615,6 +615,12 @@ public class RentJDBCDAO implements RentDAO_interface {
 		return null;
 	}
 
+	@Override
+	public RentVO findByPrimaryKey2(String rent_no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 }
