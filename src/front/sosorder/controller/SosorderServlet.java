@@ -113,7 +113,7 @@ public class SosorderServlet extends HttpServlet {
 			action = req.getParameter("action");
 		}
 		
-//		小豬加,租物區show租物資料
+//		小豬加,SOS租物區新增SOS租物資料
 		if ("addSos".equals(action)) { // 來自addEmp.jsp的請求
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
