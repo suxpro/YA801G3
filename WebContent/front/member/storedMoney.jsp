@@ -19,6 +19,15 @@
 </style>
 
 <script type="text/javascript">
+
+function submitForm(){ 
+	form1.cNum.value = "1345667899806784";
+	form1.mon.value = "2017-08-22";
+	}
+
+</script>
+
+<script type="text/javascript">
 	function show() {
 		document.getElementById("atm").style.display = "none";
 		document.getElementById("card").style.display = "none";
@@ -238,7 +247,7 @@
 											type="text" name="sA">
 									</div>
 									<div style='display: none' id="card">
-										信用卡號碼：<input type="text" name="cNum"><br /> 到期年月： <input
+										信用卡號碼：<input type="text" name="cNum"><br /> 到期年月：&nbsp;&nbsp;  <input
 											type="text" name="mon">
 									</div>
 
@@ -302,7 +311,7 @@
 
 		</div>
 	</div>
-
+<input type="image" src="images/7065_key.png" id="submit_Btn" onClick="submitForm();" />
 
 	<%@ include file="/front/footer.jsp"%>
 </body>
