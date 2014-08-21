@@ -462,7 +462,7 @@
 							$("#app_ord<%=count%>").attr("disabled", true);
 							$("#cc_ord<%=count%>").attr("disabled", true);
 							$("#rt_com<%=count%>").attr("disabled", true);
-							$("#close<%=count%>").attr("disabled", true);
+							$("#close<%=count%>").attr("disabled", false);
 							$("#ten_ases<%=count%>").attr("disabled", true);	
 							
 						}else if (ord_sta == "CC_ORD"){//9.訂單狀態為取消訂單
