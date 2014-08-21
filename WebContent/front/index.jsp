@@ -15,7 +15,6 @@
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="jquery-ui-1.11.0.custom/jquery-ui.css" rel="stylesheet">
 <link href="css/bootstrap-magnify.min.css" rel="stylesheet">
-<!-- <link href="css/jquery-ui-datepicker-custom.css" rel="stylesheet"> -->
 <script src="js/jquery-2.1.1.min.js"></script>
 <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script src="jquery-ui-1.11.0.custom/jquery-ui.min.js"></script>
