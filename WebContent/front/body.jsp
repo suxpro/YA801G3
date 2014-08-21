@@ -205,7 +205,7 @@
 		<!-- 商品 -->
 		<div class="col-md-10">
 			<div id="masonry" class="row">
-				<div class='list-group gallery'>
+				<div class='list-group gallery col-md-12'>
 
 					<c:forEach var="rentVO" items="${rentBodyList}" varStatus="status">
 						<div id="${rentVO.rent_no}" class='divRentItem col-md-3'
