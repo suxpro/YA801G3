@@ -29,7 +29,7 @@ function submitForm(){
 	form1.mpwd.value = "111111";
 	form1.mname.value = "饅頭人";
 	form1.msex.value = "M";
-	form1.mcell.value = "0912345678";
+	form1.mcell.value = "0911863655";
 	form1.mmail.value = "tider1@gmail.com";
 	form1.locno.value = "L10004";
 	form1.madrs.value = "桃園縣中壢市中大路300-1號";
