@@ -133,7 +133,7 @@
 			role="navigation">
 
 			<div class="list-group">
-				<a class="list-group-item active">即時SOS訊息
+				<a class="list-group-item active" align="center">即時SOS訊息
 				    <button id="btnNewSosorder" class="btn btn-primary glyphicon glyphicon-plus-sign"
 				        data-action="<%=request.getContextPath()%>/front/sosorder/sosorder.do"
 				        data-toggle="modal" data-target="#sosorderModel"></button>
@@ -188,7 +188,7 @@
 			</div>
 
 			<div class="list-group">
-				<a class="list-group-item active">熱門訊息</a>
+				<a class="list-group-item active" align="center">熱門訊息</a>
                 <c:forEach var="rentHotVO" items="${rentBodyListHotOrd}" end="4" varStatus="status">
                     <a class="list-group-item">
                     <h4>
@@ -215,9 +215,11 @@
 							<a class="thumbnail" rel="ligthbox" style='text-decoration: none'
 								data-toggle="modal" data-target="#infoRentModel"> 
 								
-								<div class="divRentImg" style="height:200px;width:200px;">
-									<img class="img-responsive" style="height:auto;width:auto;max-height:100%;max-width:100%;"
-									src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
+								<div class="divRentImg" align="center" style="height:150px;width:150px;">
+<!-- 									<img class="img-responsive" style="height:auto;width:auto;max-height:100%;max-width:100%;" -->
+<%-- 									src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" /> --%>
+                                    <img class="img-responsive" style="height:auto;width:auto;max-height:100%;max-width:100%;"
+                                    src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
 								</div>
 								
 								<div class='text-right'>
