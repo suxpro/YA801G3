@@ -213,9 +213,13 @@
 							data-rent-list-no="${status.count}"
 							data-rent-tag-no="${rentVO.tag_no}">
 							<a class="thumbnail" rel="ligthbox" style='text-decoration: none'
-								data-toggle="modal" data-target="#infoRentModel"> <img
-								class="img-rounded" height="300px" width="300px"
-								src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
+								data-toggle="modal" data-target="#infoRentModel"> 
+								
+								<div class="divRentImg" style="height:200px;width:200px;">
+									<img class="img-responsive" style="height:auto;width:auto;max-height:100%;max-width:100%;"
+									src="<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&pic=PIC1" />
+								</div>
+								
 								<div class='text-right'>
 									<small class='bodyRentName text-muted'
 										style='display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 150px;'>${rentVO.rent_name}</small>

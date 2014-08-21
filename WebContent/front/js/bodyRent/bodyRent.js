@@ -304,7 +304,27 @@ $(document).ready(
 			});
 			
 			//滑鼠移到租物上特效
-
+//			var sosDivWidth = 200;
+//			var sosDivHeight = 200;
+////			$('.listSosorder').prev("div").hide();
+////			$('.divRentImg').each(function( index ) {
+////				$(this).css({position: "absolute",'top':$(this).position().top,'right':$(this).position().right,'z-index':2,'background-color':'#FFF'});	
+////		        $(this).prev("div").find("img").css({left:"100px"});
+////			});
+//			$('.divRentImg').hover(
+//				    function(){
+////				        current_h = $(this, 'img').height;
+////				        current_w = $(this, 'img').width;
+////				    	console.log($(this).prev("div"));
+//				        $(this).stop(true, false).css({position: "relative",'top':$(this).position().top,'right':$(this).position().right,'z-index':2,'background-color':'#FFF'}).animate({width:sosDivWidth+50, height:sosDivHeight+50}, 300);
+////				    	$(this).prev("div").stop(true, false).show();
+//				    },
+//				    function(){
+//				        $(this).stop(true, false).animate({width:sosDivWidth, height:sosDivHeight}, 300).css({position: "relative",'top':$(this).position().top,'right':$(this).position().right,'z-index':0,'background-color':'#FFF'});
+////				    	$(this).prev("div").stop(true, false).hide();
+//				    });
+			
+			
 //	        var current_h = $('.divRentItem').height()+29;
 //	        var current_w = $('.divRentItem').width()+29;
 //			$('.divRentItem').hover(
