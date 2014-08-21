@@ -372,6 +372,7 @@
 </div>
 </div>
 </div>
+
 	<%@ include file="/front/footer.jsp"%>
 </body>
 </html>

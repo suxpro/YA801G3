@@ -42,7 +42,7 @@ function submitForm(){
 
 <link href="<%=request.getContextPath()%>/front/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="<%=request.getContextPath()%>/front/css/justrent.css" rel="stylesheet">
-<script src="<%=request.getContextPath()%>/front/js/jquery-1.7.2.min.js"></script>
+<script src="<%=request.getContextPath()%>/front/js/jquery-2.1.1.min.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/bootstrap.min.js"></script>
 <script	src="<%=request.getContextPath()%>/front/js/jquery.easing.1.3.js"></script>
 <script src="<%=request.getContextPath()%>/front/js/jquery.color.js"></script>
