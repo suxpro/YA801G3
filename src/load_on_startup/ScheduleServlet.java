@@ -91,8 +91,8 @@ public class ScheduleServlet extends HttpServlet {
 			}
 		};
 		timer1 = new Timer();
-		Calendar cal = new GregorianCalendar(2014, Calendar.AUGUST, 12, 0, 0, 0);
-		timer1.scheduleAtFixedRate(task1, cal.getTime(), 1 * 24 * 60 * 60 * 1000); // 每1天執行一次
+//		Calendar cal = new GregorianCalendar(2014, Calendar.AUGUST, 12, 0, 0, 0);
+		timer1.scheduleAtFixedRate(task1, new java.util.Date(), 1 * 24 * 60 * 60 * 1000); // 每1天執行一次
 		System.out.println("已建立租約到期排程timer1!");
 
 		// 搜尋提醒資料表的提醒flag是Y的發簡訊提醒後改flag為N
@@ -184,12 +184,13 @@ public class ScheduleServlet extends HttpServlet {
 			HttpSession session = req.getSession();
 			String memID = (String) session.getAttribute("mid");
 			MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-			// System.out.println("ScheduleServlet.135.現在登入的memID:\n"+memID);
+			System.out.println("ScheduleServlet.135.現在登入的memberVO.getMno():\n"+memberVO.getMno());
 
 			RemindService remindSvc = new RemindService();
-			List<RemindVO> listRemindVO = remindSvc.ajaxGetMemRemind(
+			List<RemindVO> listRemindVO = new ArrayList<RemindVO>();
+			listRemindVO = remindSvc.ajaxGetMemRemind(
 					memberVO.getMno(), "N");
-			
+			if(listRemindVO.size() != 0){
 			ArrayList<String> arrayRemind = new ArrayList<String>();
 			arrayRemind.add("成功出租");
 			arrayRemind.add("成功承租");
@@ -234,6 +235,8 @@ public class ScheduleServlet extends HttpServlet {
 			out.write(jsonObj.toString());
 			out.flush();
 			out.close();
+				
+			}
 		} // end remindHeaderNum
 
 	}

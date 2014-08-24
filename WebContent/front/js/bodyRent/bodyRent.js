@@ -204,4 +204,35 @@ $(document).ready(
 				});
 			});
 			
+			//滑鼠移到租物上特效
+			
+//			$('.divRentItem').hover(
+//				    function(){
+//				        current_h = $(this, 'img').height();
+//				        current_w = $(this, 'img').width();
+//				        $(this).closest("div").css({'z-index':2});
+//				        $(this).closest("div").stop(true, false).animate({width: (current_w * 1.3), height: (current_h * 1.3)}, 300);
+//				    },
+//				    function(){
+//				        $(this).closest("div").css({'z-index':1});
+//				        $(this).closest("div").stop(true, false).animate({width: current_w + 'px', height: current_h + 'px'}, 300);
+//				    }
+//				);
+			
+//			$(".divRentItem").mouseenter(function() {
+//
+//				var divWidth = $(this).width()+30;
+//				var divHeight = $(this).height();
+//				$(this).css({position: "absolute",'top':$(this).position().top,'left':$(this).position().left,'z-index':2});
+//				$(this).animate({width:divWidth+50,height:divHeight},100);
+//				
+//				$(".divRentItem").mouseleave(function() {
+//					$(this).css({position: "absolute",'top':$(this).position().top,'left':$(this).position().left,'z-index':0});
+//					$(this).animate({width:divWidth-1,height:divHeight-1},100);
+//					
+//				});
+//			});
+
+
+
 		});
