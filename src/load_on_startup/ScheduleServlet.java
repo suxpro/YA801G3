@@ -128,7 +128,7 @@ public class ScheduleServlet extends HttpServlet {
 			}
 		};
 		timer2 = new Timer();
-		timer2.scheduleAtFixedRate(task2, new java.util.Date(), 60 * 1000); // 每60秒執行一次
+		timer2.scheduleAtFixedRate(task2, new java.util.Date(), 10 * 1000); // 每10秒執行一次
 		System.out.println("已建立簡訊發送排程timer2!");
 
 		// 其他排程器要做的事
@@ -184,7 +184,7 @@ public class ScheduleServlet extends HttpServlet {
 			HttpSession session = req.getSession();
 			String memID = (String) session.getAttribute("mid");
 			MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-			System.out.println("ScheduleServlet.135.現在登入的memberVO.getMno():\n"+memberVO.getMno());
+//			System.out.println("ScheduleServlet.135.現在登入的memberVO.getMno():\n"+memberVO.getMno());
 
 			RemindService remindSvc = new RemindService();
 			List<RemindVO> listRemindVO = new ArrayList<RemindVO>();
