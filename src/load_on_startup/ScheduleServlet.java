@@ -47,7 +47,7 @@ public class ScheduleServlet extends HttpServlet {
 				OrdService ordSvc = new OrdService();
 				List<OrdVO> listOrdVO = ordSvc.getAll();
 				for (OrdVO ordVO : listOrdVO) {
-					if ("W_APR".equals(ordVO.getOrd_sta()) || "W_SHIP".equals(ordVO.getOrd_sta()) || "REC_COM".equals(ordVO.getOrd_sta())) {
+					if ("W_APR".equals(ordVO.getOrd_sta()) || "W_SHIP".equals(ordVO.getOrd_sta()) || "REC_COM".equals(ordVO.getOrd_sta())) { //待核准,待出貨,收貨完成
 						java.util.Date nowDate = new java.util.Date(); // 當前時間
 						Date ordDate = ordVO.getExp_date(); // 租物期限
 						if ((nowDate.getTime() - ordDate.getTime()) >= 0) { // 如果當前時間超過租物期限,則為租約到期
@@ -278,10 +278,10 @@ public class ScheduleServlet extends HttpServlet {
 			} else {
 				res.setContentType("text/html;charset=utf-8");
 				res.setHeader("Cache-Control", "no-cache");
-				System.out.println("ScheduleServlet.254.尚未登入");
+				System.out.println("ScheduleServlet.281.提醒功能:尚未登入或session時間已到");
 				String resJson = "{\"resJson\" : [";
 	//			for (SosorderVO sosVO : sosList) {
-					resJson += "\"尚未登入\",";
+					resJson += "\"提醒功能:尚未登入或session時間已到\",";
 	//			}
 				resJson = resJson.substring(0,resJson.length() - 1) + "]}";
 	//		    System.out.println("RentServlet.642."+resJson);
