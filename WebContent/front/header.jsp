@@ -154,10 +154,10 @@ String randomName5 = listVIP.get((randomNum+4)%listVIP.size()).getMname();
 										class="badge pull-right">0</font></a></li>
 								<li class="remindList"><a id="NTC_RETR" href="<%=request.getContextPath()%>/front/remind/listAllRemind.jsp"> 歸還通知<font
 										class="badge pull-right">0</font></a></li>
-								<li class="remindList"><a id="ANN_BRENT" href="<%=request.getContextPath()%>/front/remind/listAllRemind.jsp"> 求租公告<font
-										class="badge pull-right">0</font></a></li>
-								<li class="remindList"><a id="LM_QA" href="<%=request.getContextPath()%>/front/remind/listAllRemind.jsp"> Q&A留言<font
-										class="badge pull-right">0</font></a></li>
+<%-- 								<li class="remindList"><a id="ANN_BRENT" href="<%=request.getContextPath()%>/front/remind/listAllRemind.jsp"> 求租公告<font --%>
+<!-- 										class="badge pull-right">0</font></a></li> -->
+<%-- 								<li class="remindList"><a id="LM_QA" href="<%=request.getContextPath()%>/front/remind/listAllRemind.jsp"> Q&A留言<font --%>
+<!-- 										class="badge pull-right">0</font></a></li> -->
 								<li class="remindList"><a id="ASES" href="<%=request.getContextPath()%>/front/remind/listAllRemind.jsp"> 評價通知<font
 										class="badge pull-right">0</font></a></li>
 								<li class="remindList"><a id="OT" href="<%=request.getContextPath()%>/front/remind/listAllRemind.jsp"> 逾期通知<font
