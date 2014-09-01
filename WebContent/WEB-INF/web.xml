@@ -280,6 +280,14 @@
 		<url-pattern>/front/remind/select_page.jsp</url-pattern>
 		<url-pattern>/front/report/select_page.jsp</url-pattern>
 		<url-pattern>/front/trade/select_page.jsp</url-pattern>
+		<url-pattern>/front/rent/listAllRent.jsp</url-pattern>
+		<url-pattern>/front/rent/addRent.jsp</url-pattern>
+		<url-pattern>/front/ord/tenOrdList.jsp</url-pattern>
+		<url-pattern>/front/cart/cart.jsp</url-pattern>
+		<url-pattern>/front/prent/preRentList.jsp</url-pattern>
+		<url-pattern>/front/ord/lesOrdList.jsp</url-pattern>
+		<url-pattern>/front/ord/AllOrdByMember.jsp</url-pattern>
+		
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

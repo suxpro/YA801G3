@@ -29,15 +29,6 @@
 
 <body bgcolor='white' align='center'>
 
-	<table border='1' cellpadding='5' cellspacing='0' width='600' align='center'>
-		<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-			<td>
-				<h3>租物資料 - listOneRent.jsp</h3> 
-				<img src="<%=request.getContextPath() %>/back/rent/images/back1.gif" width="100" height="32" border="0">回租物管理清單
-			</td>
-		</tr>
-	</table>
-
 	<h3>租物資料:</h3>
 	<%-- 錯誤表列 --%>
 	<script>

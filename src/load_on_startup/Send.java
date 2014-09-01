@@ -12,7 +12,9 @@ public class Send {
 
       String user    = "85559671"; //帳號
       String passwd  = "2irioiai"; //密碼
-      String messageBig5 = new String(message.getBytes(),"UTF-8"); //簡訊內容
+      
+      //eclipse set utf8 or big5 must be change big5 and utf8
+      String messageBig5 = new String(message.getBytes(),"BIG5"); //簡訊內容
 
       //----建立連線 and 檢查帳號密碼是否錯誤
       sock2air mysms = new sock2air();

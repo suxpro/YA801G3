@@ -101,7 +101,6 @@
         <li><a href="<%=request.getContextPath()%>/front/ord/tenOrdList.jsp">承租資料</a></li>
         <li><a href="<%=request.getContextPath()%>/front/cart/cart.jsp">租物清單</a></li>
         <li><a href="<%=request.getContextPath()%>/front/prent/preRentList.jsp">追蹤清單</a></li>
-        <li><a href="#">續租查詢</a></li>
         </ul>
       </div>
     </div>
@@ -120,7 +119,7 @@
     <div id="collapseFour" class="panel-collapse collapse in">
       <div class="panel-body">
         <ul class="nav nav-sidebar">
-        <li class="active"><a href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">訂單核准</a></li>
+        <li class="active"><a href="<%=request.getContextPath()%>/front/ord/lesOrdList.jsp">出租清單</a></li>
         </ul>
       </div>
     </div>
@@ -469,15 +468,15 @@
 							<script>
 				//超連結至該訂單明細
      			function pressesA${s.index}(){
-    	 			document.open("<%=request.getContextPath()%>/front/ord/ord.do?ord_no=${ordVO.ord_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+    	 			document.open("<%=request.getContextPath()%>/front/ord/ord.do?ord_no=${ordVO.ord_no}&action=getOne_For_Display", "" ,"height=600,width=600,left=65,top=50,resizable=yes,scrollbars=yes");
      			}
 				//超連結至該租物
          		function pressesB${s.index}(){
-        	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+        	 		document.open("<%=request.getContextPath()%>/front/rent/rent.do?rent_no=${rentVO.rent_no}&action=getOne_For_Display", "" ,"height=600,width=600,left=65,top=50,resizable=yes,scrollbars=yes");
          		}
 				//超連結至該承租人
          		function pressesC${s.index}(){
-        	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${ordVO.ten_no}&action=getOne_For_Display", "" ,"height=400,width=1000,left=65,top=157,resizable=yes,scrollbars=yes");
+        	 		document.open("<%=request.getContextPath()%>/front/member/member.do?mno=${ordVO.ten_no}&action=getOne_For_Display", "" ,"height=600,width=600,left=65,top=50,resizable=yes,scrollbars=yes");
          		}
 			</script>
 						</c:forEach>

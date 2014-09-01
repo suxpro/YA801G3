@@ -80,6 +80,8 @@ text-align:center;
 <div id="cart" >
 			<a href="<%=request.getContextPath()%>/front/cart/cart.jsp">
 			<i  title="Cart" style="color:#0CEEBF" class="fa fa-shopping-cart fa-5x"></i></a>
+			<br/>
+<!-- 			<strong>前往結帳</strong> -->
 </div>		
 			<br/><br/>
 			
