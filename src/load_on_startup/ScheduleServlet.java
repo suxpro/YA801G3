@@ -45,7 +45,7 @@ public class ScheduleServlet extends HttpServlet {
 				OrdService ordSvc = new OrdService();
 				List<OrdVO> listOrdVO = ordSvc.getAll();
 				for (OrdVO ordVO : listOrdVO) {
-					if ("REC_COM".equals(ordVO.getOrd_sta())) {
+					if ("W_APR".equals(ordVO.getOrd_sta()) || "W_SHIP".equals(ordVO.getOrd_sta()) || "REC_COM".equals(ordVO.getOrd_sta())) {
 						java.util.Date nowDate = new java.util.Date(); // 當前時間
 						Date ordDate = ordVO.getExp_date(); // 租物期限
 						if ((nowDate.getTime() - ordDate.getTime()) >= 0) { // 如果當前時間超過租物期限,則為租約到期
@@ -56,10 +56,12 @@ public class ScheduleServlet extends HttpServlet {
 							// System.out.println("nowDate = " + nowDate);
 							// System.out.println("ordDate = "+ordDate);
 						}
-					} else if ("RENT_EXP".equals(ordVO.getOrd_sta())) {
+					}
+					
+					if ("RENT_EXP".equals(ordVO.getOrd_sta())) {
 						java.util.Date nowDate = new java.util.Date(); // 當前時間
 						Date ordDate = ordVO.getExp_date(); // 租物期限
-						if ((nowDate.getTime() - ordDate.getTime()) >= (ordVO.getOt_days()+1) * 24 * 60 * 60 * 1000) { // 如果當前時間超過租物期限1天,則為租約逾期1天
+						if ((nowDate.getTime() - ordDate.getTime()) >= 0) { // 如果當前時間超過租物期限1天,則為租約逾期1天
 							//逾期天數+1
 							ordVO.setOt_days(ordVO.getOt_days() + 1);
 							ordSvc.updateOrd(ordVO, "OT_DAYS");
